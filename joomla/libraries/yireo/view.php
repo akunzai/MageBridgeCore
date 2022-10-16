@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -156,26 +157,26 @@ class YireoView extends YireoCommonView
 
             // Add some things to the task-bar
             if ($this->_single && $this->loadToolbar == true) {
+                $bar = JToolbar::getInstance('toolbar');
+
                 if ($this->params->get('toolbar_show_savenew', 1)) {
-                    JToolbarHelper::custom('savenew', 'save.png', 'save.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
+                    $bar->appendButton('Standard', 'save', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', 'savenew', false);
                 }
 
                 if ($this->params->get('toolbar_show_saveandcopy', 1)) {
-                    JToolbarHelper::custom('saveandcopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
+                    $bar->appendButton('Standard', 'copy', 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', 'saveandcopy', false);
                 }
 
                 if ($this->params->get('toolbar_show_saveascopy', 1)) {
-                    JToolbarHelper::custom('saveascopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
+                    $bar->appendButton('Standard', 'copy', 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', 'saveascopy', false);
                 }
 
-                JToolbarHelper::save();
-                JToolbarHelper::apply();
-
-                if ($this->isEdit() == false) {
-                    JToolbarHelper::cancel();
-                } else {
-                    JToolbarHelper::cancel('cancel', 'LIB_YIREO_VIEW_TOOLBAR_CLOSE');
-                }
+                // Add a save button.
+                $bar->appendButton('Standard', 'save', 'JTOOLBAR_SAVE', 'save', false);
+                // Add an apply button
+                $bar->appendButton('Standard', 'apply', 'JTOOLBAR_APPLY', 'apply', false);
+                // Add a cancel button.
+                $bar->appendButton('Standard', 'cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE', 'cancel', false);
 
                 JHtml::_('behavior.tooltip');
             }
@@ -491,28 +492,6 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper method to determine whether this is a new entry or not
-     *
-     * @return bool
-     */
-    public function isEdit()
-    {
-        $cid = $this->input->get('cid', [0], '', 'array');
-
-        if (!empty($cid) && $cid > 0) {
-            return true;
-        }
-
-        $id = $this->input->getInt('id');
-
-        if (!empty($id) && $id > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Overload the original method
      *
      * @param string $name
@@ -631,6 +610,7 @@ class YireoView extends YireoCommonView
                 return '<img src="' . $path . '" alt="' . $name . '" />';
             }
         }
+        return '';
     }
 
     /**
@@ -662,7 +642,7 @@ class YireoView extends YireoCommonView
      * @param string $name
      * @param array $variables
      *
-     * @return string
+     * @return void
      */
     public function loadLayout($name = null, $variables = [])
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -30,8 +31,9 @@ class MageBridgeViewUsers extends MageBridgeView
     public function display($tpl = null)
     {
         // Set toolbar items for the page
-        JToolbarHelper::custom('export', 'export.png', null, 'Export', false);
-        JToolbarHelper::custom('import', 'import.png', null, 'Import', false);
+        $bar = JToolbar::getInstance('toolbar');
+        $bar->appendButton('Standard', 'export', 'Export', 'export', false);
+        $bar->appendButton('Standard', 'import', 'Import', 'import', false);
 
         $this->setMenu();
 
@@ -78,7 +80,7 @@ class MageBridgeViewUsers extends MageBridgeView
                     $censored_values = ['name', 'username', 'email', 'magento_name'];
 
                     foreach ($censored_values as $censored_value) {
-                        $item->$censored_value = str_repeat('*', YireoHelper::strlen($item->$censored_value));
+                        $item->$censored_value = str_repeat('*', strlen($item->$censored_value));
                     }
                 }
 

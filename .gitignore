@@ -1,7 +1,23 @@
-magento/var
-.php-cs-fixer.cache
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/vendor/
+
+# IDE - VSCode
 .vscode/*
-!.vscode/launch.json
 !.vscode/extensions.json
-dist/
-vendor/
+!.vscode/launch.json
+!.vscode/settings.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# PHP-CS-Fixer
+.php-cs-fixer.cache
+
+# PHPStan
+tmp/
+
+# misc
+magento/var

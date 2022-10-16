@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -40,19 +41,25 @@ class MageBridgeViewConfig extends YireoCommonView
             return parent::display($layout);
         }
 
+        $bar = JToolbar::getInstance('toolbar');
         // Toolbar options
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('export', 'export.png', null, 'Export', false);
+            $bar->appendButton('Standard', 'export', 'Export', 'export', false);
         }
 
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('import', 'import.png', null, 'Import', false);
+            $bar->appendButton('Standard', 'import', 'Import', 'import', false);
         }
-
-        JToolbarHelper::preferences('com_magebridge');
-        JToolbarHelper::save();
-        JToolbarHelper::apply();
-        JToolbarHelper::cancel();
+        // Add a button linking to config for component.
+        $bar->appendButton(
+            'Link',
+            'options',
+            'JToolbar_Options',
+            'index.php?option=com_config&amp;view=component&amp;component=' . urlencode('com_magebridge') . '&amp;return=' . urlencode(base64_encode((string) JUri::getInstance()))
+        );
+        $bar->appendButton('Standard', 'save', 'JTOOLBAR_SAVE', 'save', false);
+        $bar->appendButton('Standard', 'apply', 'JTOOLBAR_APPLY', 'apply', false);
+        $bar->appendButton('Standard', 'cancel', 'JTOOLBAR_CANCEL', 'cancel', false);
 
         // Extra scripts
         MageBridgeTemplateHelper::load('jquery');
@@ -62,7 +69,7 @@ class MageBridgeViewConfig extends YireoCommonView
         $this->preBuildBridge();
 
         // Load the configuration and check it
-        $config = MagebridgeModelConfig::load();
+        $config = MageBridgeModelConfig::load();
         $this->checkConfig();
 
         // Make sure demo-users are not seeing any sensitive data
@@ -70,7 +77,7 @@ class MageBridgeViewConfig extends YireoCommonView
             $censored_values = ['supportkey', 'api_user', 'api_key'];
 
             foreach ($censored_values as $censored_value) {
-                $config[$censored_value]['value'] = str_repeat('*', YireoHelper::strlen($config[$censored_value]['value']));
+                $config[$censored_value]['value'] = str_repeat('*', strlen($config[$censored_value]['value']));
             }
         }
 
@@ -101,17 +108,18 @@ class MageBridgeViewConfig extends YireoCommonView
     public function checkConfig()
     {
         // Check if the settings are all empty
-        if (MagebridgeModelConfig::allEmpty() == true) {
+        if (MageBridgeModelConfig::allEmpty() == true) {
             JError::raiseWarning(500, JText::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')));
 
             return;
         }
 
         // Otherwise check all values
-        $config = MagebridgeModelConfig::load();
+        $config = MageBridgeModelConfig::load();
         foreach ($config as $c) {
-            if (isset($c['name']) && isset($c['value']) && $message = MageBridge::getConfig()
-                    ->check($c['name'], $c['value'])
+            if (
+                isset($c['name']) && isset($c['value']) && $message = MageBridge::getConfig()
+                ->check($c['name'], $c['value'])
             ) {
                 JError::raiseWarning(500, $message);
             }
@@ -135,7 +143,7 @@ class MageBridgeViewConfig extends YireoCommonView
 
         $field = JFormHelper::loadFieldType($type);
         $field->setName($name);
-        $field->setValue(MagebridgeModelConfig::load($name));
+        $field->setValue(MageBridgeModelConfig::load($name));
 
         return $field->getHtmlInput();
     }

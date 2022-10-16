@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -134,6 +135,28 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
+     * Helper method to determine whether this is a new entry or not
+     *
+     * @return bool
+     */
+    public function isEdit()
+    {
+        $cid = $this->input->get('cid', [0], '', 'array');
+
+        if (!empty($cid) && $cid > 0) {
+            return true;
+        }
+
+        $id = $this->input->getInt('id');
+
+        if (!empty($id) && $id > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Helper-method to set the page title
      *
      * @subpackage Yireo
@@ -165,11 +188,14 @@ class YireoCommonView extends YireoAbstractView
             $title   = $pretext . ' ' . $title;
         }
 
-        if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png')) {
-            JToolbarHelper::title($component_title . ': ' . $title, $class);
-        } else {
-            JToolbarHelper::title($component_title . ': ' . $title, 'generic.png');
-        }
+        $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
+        $title = $component_title . ': ' . $title;
+        $layout = new JLayoutFile('joomla.toolbar.title');
+        $html   = $layout->render(['title' => $title, 'icon' => $icon]);
+
+        $app = JFactory::getApplication();
+        $app->JComponentTitle = $html;
+        JFactory::getDocument()->setTitle(strip_tags($title) . ' - ' . $app->get('sitename') . ' - ' . JText::_('JADMINISTRATION'));
 
         return;
     }
@@ -418,12 +444,12 @@ class YireoCommonView extends YireoAbstractView
         }
 
         jimport('joomla.filesystem.path');
-        $template = JPath::find($templatePaths, $file);
+        $template = Joomla\Filesystem\Path::find($templatePaths, $file);
 
         // If this template is empty, try to use alternatives
         if (empty($template) && $file == 'default.php') {
             $file     = 'form.php';
-            $template = JPath::find($templatePaths, $file);
+            $template = Joomla\Filesystem\Path::find($templatePaths, $file);
         }
 
         $output = null;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -78,8 +79,8 @@ class MageBridgeViewCheck extends YireoCommonView
 
         // Load libraries
         JHtml::_('behavior.tooltip');
-
-        JToolbarHelper::custom('refresh', 'preview.png', 'preview_f2.png', 'Refresh', false);
+        $bar = JToolbar::getInstance('toolbar');
+        $bar->appendButton('Standard', 'preview', 'Refresh', 'refresh', false);
 
         $this->checks = $this->get('checks');
 
@@ -102,9 +103,8 @@ class MageBridgeViewCheck extends YireoCommonView
 
         // Initialize common elements
         MageBridgeViewHelper::initialize('PRODUCT_RELATION_TEST');
-
-        JToolbarHelper::custom('check_product', 'preview.png', 'preview_f2.png', 'Run', false);
-
+        $bar = JToolbar::getInstance('toolbar');
+        $bar->appendButton('Standard', 'preview', 'Run', 'check_product', false);
         parent::display('product');
     }
 
@@ -117,11 +117,11 @@ class MageBridgeViewCheck extends YireoCommonView
     {
         // Initialize common elements
         MageBridgeViewHelper::initialize('Internal Browse Test');
+        $bar = JToolbar::getInstance('toolbar');
+        $bar->appendButton('Standard', 'preview', 'Browse', 'refresh', false);
 
-        JToolbarHelper::custom('refresh', 'preview.png', 'preview_f2.png', 'Browse', false);
-
-        $this->url  = MagebridgeModelConfig::load('url') . 'magebridge.php';
-        $this->host = MagebridgeModelConfig::load('host');
+        $this->url  = MageBridgeModelConfig::load('url') . 'magebridge.php';
+        $this->host = MageBridgeModelConfig::load('host');
 
         parent::display('browser');
     }
@@ -134,8 +134,8 @@ class MageBridgeViewCheck extends YireoCommonView
     public function displayResult($tpl)
     {
         // Fetch configuration data
-        $url  = MagebridgeModelConfig::load('url') . 'magebridge.php';
-        $host = MagebridgeModelConfig::load('host');
+        $url  = MageBridgeModelConfig::load('url') . 'magebridge.php';
+        $host = MageBridgeModelConfig::load('host');
 
         // Do basic resolving on the host if it is not an IP-address
         if (preg_match('/^([0-9\.]+)$/', $host) == false) {
