@@ -271,7 +271,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
             return true;
         }
 
-        // Comma-seperated listing of rules
+        // Comma-separated listing of rules
         if (strstr($rule, ',')) {
             $subrules = explode(',', $rule);
 

@@ -98,7 +98,7 @@ class YireoCommonModel extends YireoAbstractModel
         $option_id = $option . '_' . $view . '_';
         $component = $this->getComponentNameFromOption($option);
 
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $option_id .= $this->input->getInt('Itemid') . '_';
         }
 

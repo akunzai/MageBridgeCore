@@ -182,7 +182,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
      * Helper-method to return a CSS-class string
      *
      * @access public
-     * @param JParameter $params
+     * @param JRegistry $params
      * @param array $item
      * @param int $level
      * @param int $counter

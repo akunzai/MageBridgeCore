@@ -102,7 +102,7 @@ class MageBridgeBridgeHelper
     {
         $application = JFactory::getApplication();
 
-        if ($application->isSite() == 1) {
+        if ($application->isClient('site') == 1) {
             return ['frontend', 'frontend_cid', 'user_allowed_save_cookie', 'persistent_shopping_cart'];
         }
 

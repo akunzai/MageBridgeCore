@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - ZOO System plugin
  *
@@ -16,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
-include_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * MageBridge ZOO System Plugin
@@ -36,9 +37,9 @@ class plgSystemMageBridgeZoo extends JPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
-
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_zoo') {
-            $body = JResponse::getBody();
+        $app = JFactory::getApplication();
+        if ($app->input->getCmd('option') == 'com_zoo') {
+            $body = $app->getBody();
 
             // Check for Magento CMS-tags
             if (preg_match('/\{\{([^}]+)\}\}/', $body) || preg_match('/\{mb([^}]+)\}/', $body)) {
@@ -64,7 +65,7 @@ class plgSystemMageBridgeZoo extends JPlugin
                 }
 
                 // Include the MageBridge register
-                $key = md5(var_export($body, true)).':'.JFactory::getApplication()->input->getCmd('option');
+                $key = md5(var_export($body, true)) . ':' . JFactory::getApplication()->input->getCmd('option');
                 $text = MageBridgeEncryptionHelper::base64_encode($body);
 
                 // Conditionally load CSS
@@ -106,7 +107,7 @@ class plgSystemMageBridgeZoo extends JPlugin
             }
 
             if (!empty($body)) {
-                JResponse::setBody($body);
+                $app->setBody($body);
             }
         }
     }
@@ -120,10 +121,10 @@ class plgSystemMageBridgeZoo extends JPlugin
      */
     private function isEnabled()
     {
-        if (JFactory::getApplication()->isSite() == false) {
+        if (JFactory::getApplication()->isClient('site') == false) {
             return false;
         }
-        if (is_file(JPATH_SITE.'/components/com_magebridge/models/config.php')) {
+        if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {
             return true;
         }
         return false;

@@ -175,20 +175,9 @@ class YireoHelper
     {
         $option = JFactory::getApplication()->input->getCmd('option');
         $name = preg_replace('/^com_/', '', $option);
-
         $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/' . $name . '.xml';
-
-        if (class_exists('JInstaller') && method_exists('JInstaller', 'parseXMLInstallFile')) {
-            $data = JInstaller::parseXMLInstallFile($file);
-
-            return $data['version'];
-        } elseif (method_exists('JApplicationHelper', 'parseXMLInstallFile')) {
-            $data = JApplicationHelper::parseXMLInstallFile($file);
-
-            return $data['version'];
-        }
-
-        return null;
+        $data = JInstaller::parseXMLInstallFile($file);
+        return $data['version'];
     }
 
     /**
@@ -223,7 +212,7 @@ class YireoHelper
     }
 
     /*
-     * Convert an object or string to JParameter or JRegistry
+     * Convert an object or string to JRegistry
      *
      * @param mixed $params
      * @param string $file
@@ -231,10 +220,6 @@ class YireoHelper
      */
     public static function toRegistry($params = null, $file = null)
     {
-        if (class_exists('JParameter') && $params instanceof JParameter) {
-            return $params;
-        }
-
         if (class_exists('JRegistry') && $params instanceof JRegistry) {
             return $params;
         }
@@ -275,7 +260,7 @@ class YireoHelper
      *
      * @param mixed $params
      * @param string $file
-     * @return JParameter|JRegistry
+     * @return JRegistry
      * @deprecated
      */
     public static function toParameter($params = null, $file = null)
@@ -327,6 +312,7 @@ class YireoHelper
     public static function jquery()
     {
         // Do not load when having no HTML-document
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = JFactory::getDocument();
 
         if (stristr(get_class($document), 'html') == false) {
@@ -376,7 +362,7 @@ class YireoHelper
         $language = JFactory::getLanguage();
         $extension = 'lib_yireo';
 
-        $folder = ($application->isSite()) ? JPATH_SITE : JPATH_ADMINISTRATOR;
+        $folder = ($application->isClient('site')) ? JPATH_SITE : JPATH_ADMINISTRATOR;
         $tag = $language->getTag();
         $reload = true;
         $language->load($extension, $folder, $tag, $reload);

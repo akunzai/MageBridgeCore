@@ -55,7 +55,7 @@ class YireoHelperView
         }
 
         // Return the select-box
-        return JHTML::_('select.genericlist', $options, $name, implode(' ', $attributes), 'value', 'title', $value);
+        return JHtml::_('select.genericlist', $options, $name, implode(' ', $attributes), 'value', 'title', $value);
     }
 
     /*
@@ -115,6 +115,7 @@ class YireoHelperView
      */
     public static function ajax($url = null, $div = null)
     {
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = JFactory::getDocument();
         if (stristr(get_class($document), 'html') == false) {
             return false;

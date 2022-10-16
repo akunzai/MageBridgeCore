@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - System plugin
  *
@@ -27,12 +28,12 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgSystemMageBridge extends MageBridgePlugin
 {
     /**
-     * @var JApplicationCms
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JDocument
+     * @var Joomla\CMS\Document\Document
      */
     protected $doc;
 
@@ -80,7 +81,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         $this->loadNewRelic();
 
         // Perform actions on the frontend
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             // Deny iframes
             if ($this->params->get('deny_iframe')) {
                 header('X-Frame-Options: DENY');
@@ -131,20 +132,22 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return;
         }
 
-        if ($this->app->isSite()) {
+        /** @var Joomla\CMS\Application\SiteApplication $app */
+        $app = $this->app;
+        if ($app->isClient('site')) {
             // Check for a different template
             $template = $this->loadConfig('template');
 
-            if (!empty($template) && $this->app->input->getCmd('option') == 'com_magebridge') {
+            if (!empty($template) && $app->input->getCmd('option') == 'com_magebridge') {
                 // @todo: Include the second argument "styleParams" as well, and make sure it works under RocketTheme
-                $this->app->setTemplate($template);
+                $app->setTemplate($template);
             }
 
             // Check for a different mobile-template
             $mobile_template = $this->loadConfig('mobile_joomla_theme');
 
-            if (!empty($mobile_template) && MageBridgeTemplateHelper::isMobile() && $this->app->input->getCmd('option') == 'com_magebridge') {
-                $this->app->setTemplate($mobile_template);
+            if (!empty($mobile_template) && MageBridgeTemplateHelper::isMobile() && $app->input->getCmd('option') == 'com_magebridge') {
+                $app->setTemplate($mobile_template);
             }
 
             // Redirect to SSL or non-SSL if needed
@@ -171,7 +174,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
         // Backend actions
         } else {
-            if ($this->app->isAdmin()) {
+            if ($this->app->isClient('administrator')) {
                 // Handle SSO checks
                 $this->handleSsoChecks();
             }
@@ -207,7 +210,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         */
 
         // Perform actions on the frontend
-        if ($this->app->isSite() && $this->doc->getType() == 'html') {
+        if ($this->app->isClient('site') && $this->doc->getType() == 'html') {
             // Handle JavaScript conflicts
             $disableJsMootools = $this->loadConfig('disable_js_mootools');
 
@@ -272,11 +275,11 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
     private function allowHandleJavaScript()
     {
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             return true;
         }
 
-        if ($this->app->isAdmin() && $this->doc->getType() == 'html' && $this->input->getCmd('option') == 'com_magebridge' && $this->input->getCmd('view') == 'root') {
+        if ($this->app->isClient('administrator') && $this->doc->getType() == 'html' && $this->input->getCmd('option') == 'com_magebridge' && $this->input->getCmd('view') == 'root') {
             return true;
         }
 
@@ -294,7 +297,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     private function loadJform()
     {
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             return;
         }
 
@@ -335,8 +338,9 @@ class PlgSystemMageBridge extends MageBridgePlugin
         $enabled = $this->getParam('enable_nonsef_redirect', 1);
 
         // Redirect non-SEF URLs to their SEF-equivalent
-        if ($enabled == 1 && empty($post) && JFactory::getConfig()
-                ->get('sef') == 1 && $this->input->getCmd('option') == 'com_magebridge'
+        if (
+            $enabled == 1 && empty($post) && JFactory::getConfig()
+            ->get('sef') == 1 && $this->input->getCmd('option') == 'com_magebridge'
         ) {
             $request = str_replace($uri->base(), '', $uri->toString());
 
@@ -504,6 +508,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     private function handleJavaScript()
     {
+        $app = JFactory::getApplication();
         // Get MageBridge variables
         $disableJsMootools = $this->loadConfig('disable_js_mootools');
         $disableJsFootools = $this->loadConfig('disable_js_footools');
@@ -534,7 +539,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Fetch the body
-        $body = JResponse::getBody();
+        $body = $app->getBody();
 
         // Determine whether ProtoType is loaded
         $has_prototype = MageBridgeTemplateHelper::hasPrototypeJs();
@@ -701,11 +706,8 @@ class PlgSystemMageBridge extends MageBridgePlugin
                             'media/system/js/validate.js',
                             'beez_20/javascript/hide.js',
                             'md_stylechanger.js',
-                            'media/com_finder/js/autocompleter.js',];
-
-                        if (MageBridgeHelper::isJoomla25()) {
-                            $mootools_scripts[] = 'media/system/js/caption.js';
-                        }
+                            'media/com_finder/js/autocompleter.js',
+                        ];
 
                         if (preg_match('/mootools/', $script)) {
                             $remove = true;
@@ -756,16 +758,16 @@ class PlgSystemMageBridge extends MageBridgePlugin
             }
 
             // Set the body
-            JResponse::setBody($body);
+            $app->setBody($body);
         } else {
             // Add FrotoType to the page
             if ($disableJsFrototype == 0) {
-                $body = JResponse::getBody();
+                $body = $app->getBody();
 
                 $frototype_tag = '<script type="text/javascript" src="' . $frototype_script . '"></script>';
                 $body = preg_replace('/\<script/', $frototype_tag . "\n" . '<script ', $body, 1);
 
-                JResponse::setBody($body);
+                $app->setBody($body);
             }
         }
     }
@@ -1021,7 +1023,8 @@ class PlgSystemMageBridge extends MageBridgePlugin
             // Convert the Magento POST into Joomla! POST-credentials
             $credentials = [
                 'username' => $login['username'],
-                'password' => $login['password'],];
+                'password' => $login['password'],
+            ];
 
             // Try to login into the Joomla! application
             $rt = $this->app->login($credentials);
@@ -1087,7 +1090,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      *
      * @param string $name
      *
-     * @return null
+     * @return string|null
      */
     private function loadConfig($name)
     {
@@ -1127,14 +1130,16 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return false;
         }
 
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             return false;
         }
 
         $overrides = [
             'JHtmlBehavior' => [
                 'original' => JPATH_LIBRARIES . '/cms/html/behavior.php',
-                'override' => __DIR__ . '/overrides/html/behavior.php',],];
+                'override' => __DIR__ . '/overrides/html/behavior.php',
+            ],
+        ];
 
         foreach ($overrides as $originalClass => $override) {
             if (file_exists($override['original']) == false) {

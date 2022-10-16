@@ -82,7 +82,7 @@ class MageBridgeUrlHelper
         // If the request is not set by Magento, and if it is not set earlier in MageBridge, set it
         if (empty(self::$request)) {
             // If this is not the frontend, default to the root
-            if ($app->isSite() == false) {
+            if ($app->isClient('site') == false) {
                 $request = null;
             }
             // If the MageBridge component is not called, default to the root

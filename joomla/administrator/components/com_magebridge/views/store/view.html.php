@@ -133,10 +133,8 @@ class MageBridgeViewStore extends YireoViewForm
         // Check for a previous connector-value
         if (!empty($this->item->connector)) {
             $plugin = JPluginHelper::getPlugin('magebridgestore', $this->item->connector);
-
             if (empty($plugin)) {
-                $plugin_warning = JText::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector);
-                JError::raiseWarning(500, $plugin_warning);
+                JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

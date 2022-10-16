@@ -160,9 +160,9 @@ class MageBridgeUpdateHelper
             return false;
         }
 
-        // @todo: Addd a check whether this extension is actually installed (#__extensions)
+        // @todo: Add a check whether this extension is actually installed (#__extensions)
 
-        $data = JApplicationHelper::parseXMLInstallFile($file);
+        $data = JInstaller::parseXMLInstallFile($file);
         return $data['version'];
     }
 
@@ -181,7 +181,7 @@ class MageBridgeUpdateHelper
         $proxy = MageBridgeModelProxy::getInstance();
         $data = $proxy->getRemote($url, null, 'get', false);
         if (empty($data)) {
-            JError::raiseWarning(42, JText::_('REMOTE_DOWNLOAD_FAILED'));
+            $app->enqueueMessage(JText::_('REMOTE_DOWNLOAD_FAILED'), 'warning');
             return false;
         }
 

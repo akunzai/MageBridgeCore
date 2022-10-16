@@ -93,7 +93,7 @@ class MageBridgeView extends YireoAbstractView
 
             // Add things for the frontend specifically
             $application = JFactory::getApplication();
-            if ($application->isSite()) {
+            if ($application->isClient('site')) {
                 if (MageBridgeModelConfig::load('enable_breadcrumbs') == 1) {
                     $bridge->setBreadcrumbs();
                 }

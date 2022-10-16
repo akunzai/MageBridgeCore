@@ -153,7 +153,7 @@ class YireoModelDataQuerytext
         $selectFields = [];
 
         foreach ($availableFields as $availableField) {
-            if ($this->app->isSite() && in_array($availableField, $this->skipFrontendFields)) {
+            if ($this->app->isClient('site') && in_array($availableField, $this->skipFrontendFields)) {
                 continue;
             }
 
@@ -177,7 +177,7 @@ class YireoModelDataQuerytext
      */
     protected function getSelectQuery($fieldsString)
     {
-        if ($this->getConfig('checkout') == true && $this->app->isAdmin()) {
+        if ($this->getConfig('checkout') == true && $this->app->isClient('administrator')) {
             $query = "SELECT " . $fieldsString . ", `editor`.`name` AS `editor` FROM `{table}` AS `{tableAlias}`\n";
             $query .= " LEFT JOIN `#__users` AS `editor` ON `{tableAlias}`.`checked_out` = `editor`.`id`\n";
         } else {
@@ -257,7 +257,7 @@ class YireoModelDataQuerytext
         }
 
         // Automatically add a WHERE-statement if only published items should appear on the frontend
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $stateField = $this->table->getStateField();
 
             if (!empty($stateField)) {

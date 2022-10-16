@@ -98,7 +98,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     public function onAfterBuildMageBridge()
     {
         // Perform actions on the frontend
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $this->doDelayedRedirect();
             $this->doDelayedLogin();
         }

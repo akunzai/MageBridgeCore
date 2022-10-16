@@ -204,7 +204,7 @@ class MageBridgeUserHelper
                 }
             }
 
-            $user = JArrayHelper::toObject($user);
+            $user = Joomla\Utilities\ArrayHelper::toObject($user);
         }
 
         $name = (isset($user->name)) ? $user->name : null;
@@ -246,7 +246,7 @@ class MageBridgeUserHelper
 
         // Return either an array or an object
         if ($rt == 'array') {
-            return JArrayHelper::fromObject($user);
+            return Joomla\Utilities\ArrayHelper::fromObject($user);
         }
 
         return $user;

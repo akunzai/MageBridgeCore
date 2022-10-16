@@ -153,7 +153,7 @@ class YireoModelDataQuery
         $selectFields    = [];
 
         foreach ($availableFields as $availableField) {
-            if ($this->app->isSite() && in_array($availableField, $this->skipFrontendFields)) {
+            if ($this->app->isClient('site') && in_array($availableField, $this->skipFrontendFields)) {
                 continue;
             }
 
@@ -182,7 +182,7 @@ class YireoModelDataQuery
         $this->query->from($db->quoteName($this->table->getTableName(), $this->tableAlias));
         $this->query->select($this->getSelectFields());
 
-        if ($this->getConfig('checkout') == true && $this->table->hasField('checked_out') && $this->app->isAdmin()) {
+        if ($this->getConfig('checkout') == true && $this->table->hasField('checked_out') && $this->app->isClient('administrator')) {
             $this->query->select($db->quoteName('editor.name', 'editor'));
 
             $editorTable      = $db->quoteName('#__users', 'editor');
@@ -239,7 +239,7 @@ class YireoModelDataQuery
         }
 
         // Automatically add a WHERE-statement if only published items should appear on the frontend
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $stateField = $this->table->getStateField();
 
             if (!empty($stateField)) {

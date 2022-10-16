@@ -68,6 +68,7 @@ class ModMageBridgeWidgetHelper
 
         // Load the Ajax script
         $script = MageBridgeAjaxHelper::getScript($widgetName, 'magebridge-' . $widgetName);
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = JFactory::getDocument();
         $document->addCustomTag('<script type="text/javascript">' . $script . '</script>');
     }

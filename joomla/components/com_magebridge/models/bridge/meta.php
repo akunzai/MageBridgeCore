@@ -76,7 +76,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'joomla_url' => $bridge->getJoomlaBridgeUrl(),
                 'joomla_sef_url' => $bridge->getJoomlaBridgeSefUrl(),
                 'joomla_sef_suffix' => (int) MageBridgeUrlHelper::hasUrlSuffix(),
-                'joomla_user_email' => ($application->isSite() && !empty($user->email)) ? $user->email : null,
+                'joomla_user_email' => ($application->isClient('site') && !empty($user->email)) ? $user->email : null,
                 'joomla_current_url' => $uri->current(),
                 'modify_url' => MageBridgeModelConfig::load('modify_url'),
                 'enforce_ssl' => MageBridgeModelConfig::load('enforce_ssl'),

@@ -116,7 +116,7 @@ class PlgMagentoMageBridge extends JPlugin
         $customer = $arguments['customer'];
         $user = $this->getUser()->loadByEmail($customer['email']);
 
-        // We had a succesfull login in Magento, but the user does not exist in Joomla! yet
+        // We had a successful login in Magento, but the user does not exist in Joomla! yet
         if (empty($user)) {
             $customer['username'] = $customer['email'];
             $user = $this->getUser()->create($customer, true);
@@ -144,7 +144,7 @@ class PlgMagentoMageBridge extends JPlugin
         $customer = $arguments['customer'];
         $user = $this->getUser()->loadByEmail($customer['email']);
 
-        // We had a succesfull login in Magento, but the user does not exist in Joomla! yet
+        // We had a successful login in Magento, but the user does not exist in Joomla! yet
         if (empty($user)) {
             $customer['username'] = $customer['email'];
             $customer['fullname'] = $customer['name'];

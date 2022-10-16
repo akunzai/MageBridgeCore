@@ -151,11 +151,11 @@ class MageBridge_Autoloader
     {
         $application = JFactory::getApplication();
 
-        if ($application->isAdmin()) {
+        if ($application->isClient('administrator')) {
             return JPATH_ADMINISTRATOR . '/components/com_magebridge/';
         }
 
-        if ($application->isSite()) {
+        if ($application->isClient('site')) {
             return JPATH_SITE . '/components/com_magebridge/';
         }
 

@@ -182,9 +182,8 @@ class MageBridgeModelDebug
     {
         $application = JFactory::getApplication();
 
-        if ($application->isAdmin() && $type == MAGEBRIDGE_DEBUG_FEEDBACK) {
-            JError::raiseWarning('API', $message);
-
+        if ($application->isClient('administrator') && $type == MAGEBRIDGE_DEBUG_FEEDBACK) {
+            $application->enqueueMessage($message, 'warning');
             return true;
         }
 

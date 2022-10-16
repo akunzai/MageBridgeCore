@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge Preloader - System plugin
  *
@@ -39,7 +40,7 @@ class plgSystemMageBridgePositions extends JPlugin
         // Perform actions on the frontend
         $application = JFactory::getApplication();
 
-        if ($application->isSite()) {
+        if ($application->isClient('site')) {
             $this->overrideModuleHelper();
         }
     }
@@ -61,21 +62,6 @@ class plgSystemMageBridgePositions extends JPlugin
         }
 
         $rewrite_path = __DIR__ . '/rewrite/';
-
-        if (MageBridgeHelper::isJoomlaVersion('2.5')) {
-            @include_once($rewrite_path . '25/joomla/application/module/helper.php');
-            return true;
-        }
-
-        if (MageBridgeHelper::isJoomlaVersion('3.0')) {
-            @include_once($rewrite_path . '30/joomla/application/module/helper.php');
-            return true;
-        }
-
-        if (MageBridgeHelper::isJoomlaVersion('3.1')) {
-            @include_once($rewrite_path . '31/cms/application/module/helper.php');
-            return true;
-        }
 
         if (MageBridgeHelper::isJoomlaVersion(['3.2', '3.3', '3.4', '3.5'])) {
             include_once($rewrite_path . '32/cms/application/module/helper.php');
@@ -187,9 +173,7 @@ class plgSystemMageBridgePositions extends JPlugin
      */
     private function isEnabled()
     {
-        if (!JFactory::getApplication()
-            ->isSite()
-        ) {
+        if (!JFactory::getApplication()->isClient('site')) {
             return false;
         }
 

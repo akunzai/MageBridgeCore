@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -66,11 +67,12 @@ class MageBridgeModelBridge
         $uri = JUri::getInstance();
 
         // Catch the backend URLs
-        if ($application->isAdmin()) {
+        if ($application->isClient('administrator')) {
             $baseUri = $uri->toString([
                 'scheme',
                 'host',
-                'port', ]);
+                'port',
+            ]);
 
             return $baseUri . '/administrator/index.php?option=com_magebridge&view=root&format=raw&request=' . $request;
         } else {
@@ -430,10 +432,10 @@ class MageBridgeModelBridge
             }
 
             // Initialize proxy-settings
-            if ($application->isSite() && JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+            if ($application->isClient('site') && JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
                 $proxy->setAllowRedirects(false);
             } else {
-                if ($application->isAdmin() && (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge' || JFactory::getApplication()->input->getCmd('view') != 'root')) {
+                if ($application->isClient('administrator') && (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge' || JFactory::getApplication()->input->getCmd('view') != 'root')) {
                     $proxy->setAllowRedirects(false);
                 }
             }
@@ -814,7 +816,7 @@ class MageBridgeModelBridge
     {
         if (!headers_sent()) {
             setcookie('frontend', $mage_session, 0, '/', '.' . JUri::getInstance()
-                    ->toString(['host']));
+                ->toString(['host']));
         }
         JFactory::getSession()
             ->set('magebridge.cookie.frontend', $mage_session);
@@ -893,7 +895,7 @@ class MageBridgeModelBridge
         $app = JFactory::getApplication();
         $config = JFactory::getConfig();
 
-        if ($app->isAdmin()) {
+        if ($app->isClient('administrator')) {
             return false;
         }
 
@@ -1021,8 +1023,8 @@ class MageBridgeModelBridge
         // Things to consider: Backend Lightbox-effect, frontend AJAX-lazyloading
         $check_xrequestedwith = true;
 
-        if (JFactory::getApplication()
-                ->isSite() == false
+        if (
+            JFactory::getApplication()->isClient('site') == false
         ) {
             $check_xrequestedwith = false;
         } else {

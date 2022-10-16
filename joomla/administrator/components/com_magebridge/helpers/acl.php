@@ -18,11 +18,11 @@ defined('_JEXEC') or die();
 class MageBridgeAclHelper
 {
     /**
-     * Check whether a certain person is authorised
+     * Check whether a certain person is authorized
      *
      * @param mixed $view
      * @param bool $redirect
-     * @return string
+     * @return bool
      */
     public static function isAuthorized($view = null, $redirect = true)
     {
@@ -89,10 +89,7 @@ class MageBridgeAclHelper
 
     /**
      * Determine whether the current user is only allowed demo-access or not
-     *
-     * @param mixed $view
-     * @param bool $redirect
-     * @return string
+     * @return bool
      */
     public static function isDemo()
     {

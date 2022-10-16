@@ -11,7 +11,6 @@
 namespace Yireo\Test;
 
 use PHPUnit\Framework\TestCase as ParentTestCase;
-use JError;
 use JFactory;
 use JApplicationCms;
 use JDatabaseDriver;
@@ -54,7 +53,7 @@ class JoomlaCase extends ParentTestCase
         ini_set('magic_quotes_runtime', 0);
         error_reporting(E_ALL & ~E_STRICT);
 
-        // Neccessary definitions
+        // Necessary definitions
         if (!defined('DOCUMENT_ROOT')) {
             define('DOCUMENT_ROOT', dirname(exec('pwd')) . '/');
         }
@@ -119,10 +118,6 @@ class JoomlaCase extends ParentTestCase
 
         // Include the framework
         require_once JPATH_PLATFORM . '/import.legacy.php';
-
-        JError::setErrorHandling(E_NOTICE, 'message');
-        JError::setErrorHandling(E_WARNING, 'message');
-
         require_once JPATH_LIBRARIES . '/cms.php';
 
         $this->app = JFactory::getApplication('site');

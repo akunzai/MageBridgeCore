@@ -325,7 +325,7 @@ class MageBridgeModelUser
     public function login($email = null)
     {
         // Backend access
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             // Check if authentication is enabled for the backend
             if (MageBridgeModelConfig::load('enable_auth_backend') != 1) {
                 return false;
@@ -520,7 +520,7 @@ class MageBridgeModelUser
         }
 
         // Check if this is the frontend
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             return false;
         }
 

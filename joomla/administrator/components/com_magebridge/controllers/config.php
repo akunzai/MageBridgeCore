@@ -84,7 +84,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         }
 
         // Fetch the POST-data
-        $post = $this->_app->input->post->getArray();
+        $post = $this->app->input->post->getArray();
         $post = $this->fixPost($post);
 
         // Get the model
@@ -92,12 +92,12 @@ class MageBridgeControllerConfig extends YireoCommonController
 
         // Store these data with the model
         if ($model->store($post)) {
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->_app->input->getCmd('view'));
+            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->app->input->getCmd('view'));
 
             return true;
         }
 
-        $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->_app->input->getCmd('view'));
+        $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->app->input->getCmd('view'));
         $error = $model->getError();
 
         if (!empty($error)) {
@@ -116,8 +116,8 @@ class MageBridgeControllerConfig extends YireoCommonController
      */
     protected function fixPost($post)
     {
-        $post['api_key'] = $this->_app->input->post->get('api_key', '', 'raw');
-        $post['api_user'] = $this->_app->input->post->get('api_user', '', 'raw');
+        $post['api_key'] = $this->app->input->post->get('api_key', '', 'raw');
+        $post['api_user'] = $this->app->input->post->get('api_user', '', 'raw');
 
         // Override with new JForm-output (temp)
         if (isset($post['config'])) {
@@ -136,7 +136,7 @@ class MageBridgeControllerConfig extends YireoCommonController
      */
     public function import()
     {
-        $this->_app->input->set('layout', 'import');
+        $this->app->input->set('layout', 'import');
 
         parent::display();
     }
@@ -161,7 +161,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         print $output;
 
         // Close the application
-        $application = $this->_app;
+        $application = $this->app;
         $application->close();
     }
 
@@ -199,7 +199,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     public function upload()
     {
         // Construct the needed variables
-        $upload = $this->_app->input->get('xml', null, 'files');
+        $upload = $this->app->input->get('xml', null, 'files');
 
         // Check whether this is a valid download
         if ($this->isValidUpload($upload) == false) {

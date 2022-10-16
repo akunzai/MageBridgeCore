@@ -67,7 +67,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate called');
 
-        if (JFactory::getApplication()->isSite() == false) {
+        if (JFactory::getApplication()->isClient('site') == false) {
             // Check if authentication is enabled for the backend
             if ($this->getParam('enable_auth_backend') != 1) {
                 return false;
