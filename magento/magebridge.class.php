@@ -481,7 +481,7 @@ class MageBridge
             return true;
         }
 
-        if ($allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
+        if (isset($_SERVER['HTTP_VIA']) && $allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
             return true;
         }
 

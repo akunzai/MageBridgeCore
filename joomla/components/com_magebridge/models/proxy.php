@@ -704,7 +704,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         //$this->debug->trace( "HTTP body", $this->body );
 
         // Handle MageBridge HTTP-messaging
-        if (preg_match_all('/X-MageBridge-(Notice|Error|Warning): ([^\s]+)/i', $this->head['headers'], $matches)) {
+        if (isset($this->head['headers']) && preg_match_all('/X-MageBridge-(Notice|Error|Warning): ([^\s]+)/i', $this->head['headers'], $matches)) {
             foreach ($matches[0] as $index => $match) {
                 $type    = $matches[1][$index];
                 $message = $matches[2][$index];
