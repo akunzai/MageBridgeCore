@@ -20,4 +20,5 @@ Thumbs.db
 tmp/
 
 # misc
-magento/var
+/build/
+/magento/var
