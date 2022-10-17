@@ -71,6 +71,11 @@
             "! find ./joomla -type f -name '*.php' -exec php -d display_errors=1 -d error_reporting=-1 -l {} \\; 2>&1 | grep -v ^'No syntax errors'",
             "! find ./magento -type f -name '*.php' -exec php -d display_errors=1 -d error_reporting=-1 -l {} \\; 2>&1 | grep -v ^'No syntax errors'",
             "php-cs-fixer fix --diff --dry-run"
+        ],
+        "build": [
+            "mkdir -p ./build",
+            "php ./bundle.php ./joomla/com_magebridge.xml ./build/com_magebridge.zip",
+            "php ./bundle.php ./joomla/libraries/yireo/yireo.xml ./build/lib_yireo.zip"
         ]
     }
 }
