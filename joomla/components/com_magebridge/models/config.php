@@ -168,7 +168,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
         }
 
         // Overload a certain values when the Magento Admin Panel needs to be loaded
-        if ($this->app->isAdmin() && $this->input->getCmd('option') == 'com_magebridge' && $this->input->getCmd('view') == 'root') {
+        if ($this->app->isClient('administrator') && $this->input->getCmd('option') == 'com_magebridge' && $this->input->getCmd('view') == 'root') {
             //$this->config['debug'] = (new MagebridgeModelConfigValue(['value' => 0]))->toArray();
             $this->config['disable_js_all'] = (new MagebridgeModelConfigValue(['value' => 1]))->toArray();
             $this->config['disable_js_mootools'] = (new MagebridgeModelConfigValue(['value' => 1]))->toArray();

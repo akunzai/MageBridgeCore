@@ -277,7 +277,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      * @param string $rawResponse
      * @param string $decodedResponse
      *
-     * @return boolean
+     * @return bool
      */
     protected function handleNonBridgeOutput($rawResponse, $decodedResponse)
     {
@@ -369,7 +369,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         }
 
         // Detect non-bridge AJAX-calls
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             return false;
         }
 
@@ -386,7 +386,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      * @param string  $url
      * @param array   $arguments
      * @param string  $requestType
-     * @param boolean $runBridge
+     * @param bool $runBridge
      *
      * @return string
      */
@@ -446,7 +446,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     /**
      * Set CURL SSL details
      *
-     * @param resource $handle
+     * @param CurlHandle|resource $handle
      */
     protected function setCurlSslDetails(&$handle)
     {
@@ -471,7 +471,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     /**
      * Set CURL HTTP Authentication
      *
-     * @param resource $handle
+     * @param CurlHandle|resource $handle
      */
     protected function setCurlHttpAuthentication(&$handle)
     {
@@ -488,7 +488,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     /**
      * Set CURL cookies
      *
-     * @param resource $handle
+     * @param resource CurlHandle|$handle
      */
     protected function setCurlCookies(&$handle)
     {
@@ -596,7 +596,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
 
         // Spoof the browser
         if (MageBridgeModelConfig::load('spoof_browser') == 1) {
-            if ($runBridge == true && $this->app->isSite() == 1) {
+            if ($runBridge == true && $this->app->isClient('site')) {
                 curl_setopt($handle, CURLOPT_REFERER, MageBridgeUrlHelper::getRequest());
                 curl_setopt($handle, CURLOPT_USERAGENT, ((isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : ''));
             } else {
@@ -704,7 +704,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         //$this->debug->trace( "HTTP body", $this->body );
 
         // Handle MageBridge HTTP-messaging
-        if (preg_match_all('/X-MageBridge-(Notice|Error|Warning): ([^\s]+)/i', $this->head['headers'], $matches)) {
+        if (isset($this->head['headers']) && preg_match_all('/X-MageBridge-(Notice|Error|Warning): ([^\s]+)/i', $this->head['headers'], $matches)) {
             foreach ($matches[0] as $index => $match) {
                 $type    = $matches[1][$index];
                 $message = $matches[2][$index];
@@ -760,13 +760,11 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             $this->state = '404 NOT FOUND';
             curl_close($handle);
 
-            if ($this->app->isSite() == 1 && MageBridgeModelConfig::load('enable_notfound') == 1) {
-                JError::raiseError(404, JText::_('Page Not Found'));
-
+            if ($this->app->isClient('site') && MageBridgeModelConfig::load('enable_notfound') == 1) {
+                throw new Exception(JText::_('Page Not Found'), 404);
                 return null;
             } else {
                 header('HTTP/1.0 404 Not Found');
-
                 return $this->body;
             }
         }
@@ -858,7 +856,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                 $credentials = ['username' => $user->username, 'password' => $password];
 
                 // Create the encryption key, apply extra hardening using the user agent string.
-                $privateKey = JApplication::getHash(@$_SERVER['HTTP_USER_AGENT']);
+                $privateKey = JApplicationHelper::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
                 $key      = new JCryptKey('simple', $privateKey, $privateKey);
                 $crypt    = new JCrypt(new JCryptCipherSimple(), $key);
@@ -870,7 +868,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                     ->get('cookie_domain', '');
                 $cookie_path   = JFactory::getConfig()
                     ->get('cookie_path', '/');
-                setcookie(JApplication::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
+                setcookie(JApplicationHelper::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
             }
         }
 
@@ -952,7 +950,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     /**
      * Method to deliver direct output
      *
-     * @param resource $handle
+     * @param CurlHandle|resource $handle
      *
      * @return bool
      */
@@ -1304,13 +1302,13 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             $redirect  = preg_replace('/^' . $root_path . '/', '', $redirect);
         }
 
-        // When the URL doesnt start with HTTP or HTTPS, assume it is still the original Magento request
+        // When the URL doesn't start with HTTP or HTTPS, assume it is still the original Magento request
         if (!preg_match('/^(http|https):\/\//', $redirect)) {
             $redirect = JUri::base() . 'index.php?option=com_magebridge&view=root&request=' . $redirect;
         }
 
         // Replace the System URL for the site
-        if ($this->app->isSite() && preg_match('/index.php\?(.*)$/', $redirect, $match)) {
+        if ($this->app->isClient('site') && preg_match('/index.php\?(.*)$/', $redirect, $match)) {
             $redirect = str_replace($match[0], preg_replace('/^\//', '', MageBridgeHelper::filterUrl($match[0])), $redirect);
         }
 

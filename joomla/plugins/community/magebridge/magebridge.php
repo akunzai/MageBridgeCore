@@ -30,7 +30,7 @@ class plgCommunityMageBridge extends CApplications
      *
      * @access private
      * @param null
-     * @return JParameter
+     * @return JRegistry
      */
     private function getParams()
     {
@@ -42,7 +42,7 @@ class plgCommunityMageBridge extends CApplications
      *
      * @access private
      * @param null
-     * @return JParameter
+     * @return JRegistry
      */
     private function getUserParams()
     {
@@ -216,12 +216,12 @@ class plgCommunityMageBridge extends CApplications
     private function syncUser($user = null)
     {
         // Check if we can run this event or not
-        if (MageBridgePluginHelper::allowEvent('onUserDetailsUpdate') == false) {
+        if (MageBridgePluginHelper::getInstance()->isEventAllowed('onUserDetailsUpdate') == false) {
             return;
         }
 
         // Copy the username to the email address
-        if (JFactory::getApplication()->isSite() == true && $this->getUserParams()->get('username_from_email', 1) == 1 && $user->username != $user->email) {
+        if (JFactory::getApplication()->isClient('site') == true && $this->getUserParams()->get('username_from_email', 1) == 1 && $user->username != $user->email) {
             if ($this->getUser()->allowSynchronization($user, 'save') == true) {
                 MageBridgeModelDebug::getInstance()->notice("onUserDetailsUpdate::bind on user ".$user->username);
 
@@ -238,7 +238,7 @@ class plgCommunityMageBridge extends CApplications
             // Convert this object to an array
             if (!is_array($user)) {
                 jimport('joomla.utilities.arrayhelper');
-                $user = JArrayHelper::fromObject($user, false);
+                $user = Joomla\Utilities\ArrayHelper::fromObject($user, false);
             }
 
             // Sync this user-record with the bridge

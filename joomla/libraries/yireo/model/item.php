@@ -81,7 +81,7 @@ class YireoModelItem extends YireoDataModel
             return $this->params;
         }
 
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             $this->params = JComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
@@ -168,7 +168,7 @@ class YireoModelItem extends YireoDataModel
             // Check to see if the data is published
             $stateField = $this->table->getStateField();
 
-            if ($this->app->isSite() && isset($data->$stateField) && $data->$stateField == 0) {
+            if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
                 throw new \Yireo\Exception\Model\NotFound(JText::_('LIB_YIREO_MODEL_NOT_FOUND'));
             }
 

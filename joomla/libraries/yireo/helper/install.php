@@ -72,7 +72,7 @@ class YireoHelperInstall
         }
 
         // Check if the downloaded file exists
-        $tmp_path = $app->getCfg('tmp_path');
+        $tmp_path = $app->get('tmp_path');
         $package_path = $tmp_path . '/' . $package_file;
 
         if (!is_file($package_path)) {
@@ -106,7 +106,7 @@ class YireoHelperInstall
 
         // Clean up the installation
         @JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
-        JError::raiseNotice('SOME_ERROR_CODE', JText::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_SUCCESS', $label));
+        $app->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_SUCCESS', $label), 'notice');
 
         // Clean the Joomla! plugins cache
         $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
@@ -153,14 +153,14 @@ class YireoHelperInstall
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_FRESH_CONNECT => false,
             CURLOPT_FORBID_REUSE => false,
-            CURLOPT_BUFFERSIZE => 8192, ]);
+            CURLOPT_BUFFERSIZE => 8192,
+        ]);
 
         $data = curl_exec($ch);
         curl_close($ch);
 
         if (empty($data)) {
-            JError::raiseWarning(42, JText::_('LIB_YIREO_HELPER_INSTALL_REMOTE_DOWNLOAD_FAILED') . ', ' . curl_error($ch));
-
+            JFactory::getApplication()->enqueueMessage(JText::_('LIB_YIREO_HELPER_INSTALL_REMOTE_DOWNLOAD_FAILED') . ', ' . curl_error($ch), 'warning');
             return false;
         }
 
@@ -220,9 +220,9 @@ class YireoHelperInstall
 
         try {
             $db->execute();
-            JError::raiseNotice('SOME_ERROR_CODE', JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_SUCCESS', $label));
+            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_SUCCESS', $label), 'notice');
         } catch (Exception $e) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_FAIL', $label));
+            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_FAIL', $label), 'warning');
         }
 
         // Clean the Joomla! plugins cache
@@ -242,7 +242,7 @@ class YireoHelperInstall
 
         // Otherwise first, try to install the library
         if (self::installExtension($url, $label) == false) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label));
+            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
         }
     }
 
@@ -257,7 +257,7 @@ class YireoHelperInstall
             if (self::installExtension($url, $label)) {
                 self::enablePlugin($plugin, $group, $label);
             } else {
-                JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label));
+                JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
             }
         }
     }

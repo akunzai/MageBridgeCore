@@ -28,27 +28,11 @@ trait YireoModelTraitPaginable
     protected $total = null;
 
     /**
-     * Items total
-     *
-     * @var integer
-     * @deprecated Use $this->total instead
-     */
-    protected $_total = null;
-
-    /**
      * Pagination object
      *
      * @var JPagination
      */
     protected $pagination = null;
-
-    /**
-     * Pagination object
-     *
-     * @var JPagination
-     * @deprecated Use $this->pagination instead
-     */
-    protected $_pagination = null;
 
     /**
      * Method to get the total number of records

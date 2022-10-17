@@ -92,7 +92,7 @@ class plgSystemMageBridgeT3 extends JPlugin
      *
      * @access private
      * @param null
-     * @return JParameter
+     * @return JRegistry
      */
     private function getParams()
     {
@@ -108,7 +108,7 @@ class plgSystemMageBridgeT3 extends JPlugin
      */
     private function isEnabled()
     {
-        if (JFactory::getApplication()->isSite() == false) {
+        if (JFactory::getApplication()->isClient('site') == false) {
             return false;
         }
 

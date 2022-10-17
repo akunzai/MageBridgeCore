@@ -109,7 +109,7 @@ class YireoView extends YireoCommonView
 
         // Set the parameters
         if (empty($this->params)) {
-            if ($this->app->isSite() == false) {
+            if ($this->app->isClient('site') == false) {
                 $this->params = JComponentHelper::getParams($this->getConfig('option'));
             } else {
                 $this->params = $this->app->getParams($this->getConfig('option'));
@@ -149,7 +149,7 @@ class YireoView extends YireoCommonView
         }
 
         // Add some backend-elements
-        if ($this->app->isAdmin()) {
+        if ($this->app->isClient('administrator')) {
             // Automatically set the title
             $this->setTitle();
             $this->setMenu();
@@ -362,7 +362,7 @@ class YireoView extends YireoCommonView
         // If there is a key, fetch the data
         if ($isNew === false) {
             // Extra checks in the backend
-            if ($this->app->isAdmin()) {
+            if ($this->app->isClient('administrator')) {
                 // Fail if checked-out not by current user
                 if (method_exists($this->model, 'isCheckedOut') && $this->model->isCheckedOut($this->user->get('id'))) {
                     $msg = JText::sprintf('LIB_YIREO_MODEL_CHECKED_OUT', $this->item->title);
@@ -376,13 +376,13 @@ class YireoView extends YireoCommonView
             }
 
             // Clean data
-            if ($this->app->isAdmin() === false || ($this->input->getCmd('task') !== 'edit' && $this->_viewParent !== 'form')) {
+            if ($this->app->isClient('administrator') === false || ($this->input->getCmd('task') !== 'edit' && $this->_viewParent !== 'form')) {
                 $this->autocleanItem();
             }
         }
 
         // Automatically hit this item
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $this->model->hit();
         }
 
@@ -451,7 +451,7 @@ class YireoView extends YireoCommonView
     {
         $ordering = (method_exists($this->model, 'getOrderByDefault')) ? $this->model->getOrderByDefault() : null;
 
-        if ($this->app->isAdmin() && !empty($ordering) && $ordering == 'ordering') {
+        if ($this->app->isClient('administrator') && !empty($ordering) && $ordering == 'ordering') {
             $this->lists['ordering'] = JHtml::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
         } else {
             $this->lists['ordering'] = null;
@@ -616,7 +616,7 @@ class YireoView extends YireoCommonView
     /**
      * Override original method
      *
-     * @return  string|boolean  The name of the model
+     * @return  string|bool  The name of the model
      * @throws Exception
      */
     public function getName()

@@ -146,15 +146,17 @@ class MageBridgeViewUpdate extends YireoView
             }
         }
 
+        $app = JFactory::getApplication();
+
         if ($update == MAGEBRIDGE_UPDATE_NOTAVAILABLE) {
-            JError::raiseWarning('MB', JText::_('COM_MAGEBRIDGE_VIEW_UPDATE_EMPTY_VERSION'));
+            $app->enqueueMessage(JText::_('COM_MAGEBRIDGE_VIEW_UPDATE_EMPTY_VERSION'), 'warning');
         } else {
             $bar = JToolbar::getInstance('toolbar');
             $bar->appendButton('Standard', 'download', 'Update', 'update', false);
         }
 
         if ($update == MAGEBRIDGE_UPDATE_AVAILABLE) {
-            JError::raiseNotice('UPDATE', JText::_('COM_MAGEBRIDGE_VIEW_UPDATE_NEW_VERSIONS'));
+            $app->enqueueMessage(JText::_('COM_MAGEBRIDGE_VIEW_UPDATE_NEW_VERSIONS'), 'notice');
         }
 
         $this->data = $data;

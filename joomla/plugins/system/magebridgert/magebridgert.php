@@ -41,7 +41,7 @@ class plgSystemMageBridgeRt extends JPlugin
         $application = JFactory::getApplication();
 
         // Don't do anything in other applications than the frontend
-        if ($application->isSite() == false) {
+        if ($application->isClient('site') == false) {
             return false;
         }
 
@@ -69,8 +69,7 @@ class plgSystemMageBridgeRt extends JPlugin
         // WARP-usage of "config" file
         if (!empty($ini_content)) {
             // Create the parameters object
-            jimport('joomla.html.parameter');
-            $params = new JParameter($ini_content, $xml);
+            $params = new JRegistry($ini_content, $xml);
 
             // Load a specific stylesheet per color
             $color = $params->get('colorStyle');
@@ -97,7 +96,7 @@ class plgSystemMageBridgeRt extends JPlugin
      *
      * @access private
      * @param null
-     * @return JParameter
+     * @return JRegistry
      */
     private function getParams()
     {

@@ -1138,7 +1138,7 @@ class Yireo_MageBridge_Model_Core
      *
      * @access public
      *
-     * @param boolean $norender
+     * @param bool $norender
      *
      * @return object
      */

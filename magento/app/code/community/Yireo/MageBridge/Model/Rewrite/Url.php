@@ -15,7 +15,7 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      * Rewrite of original method
      *
      * @param   null
-     * @return  boolean
+     * @return  bool
      */
     public function getSecure()
     {
@@ -92,36 +92,33 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      * Helper method
      *
      * @param   string $routePath
-     * @return  boolean
+     * @return  bool
      */
     protected function isSecurePage($routePath = null)
     {
         $routePath = preg_replace('/\*\//', Mage::app()->getRequest()->getRequestedRouteName().'/', $routePath);
         $routePath = preg_replace('/\/\*\//', Mage::app()->getRequest()->getRequestedControllerName().'/', $routePath);
-
         $redirect_ssl = Mage::getSingleton('magebridge/core')->getMetaData('enforce_ssl');
-        $payment_urls = Mage::getSingleton('magebridge/core')->getMetaData('payment_urls');
-        $payment_urls = explode(',', $payment_urls);
-
-        $pages = [
-            'checkout/',
-            'firecheckout/',
-            'customer/',
-            'wishlist/',
-        ];
-
-        if (!empty($payment_urls)) {
-            foreach ($payment_urls as $payment_url) {
-                $payment_url = trim($payment_url);
-                if (!empty($payment_url)) {
-                    $pages[] = $payment_url;
-                }
-            }
-        }
 
         if ($redirect_ssl == 1 || $redirect_ssl == 2) {
             return true;
         } elseif ($redirect_ssl == 3) {
+            $payment_urls = Mage::getSingleton('magebridge/core')->getMetaData('payment_urls');
+            $pages = [
+                'checkout/',
+                'firecheckout/',
+                'customer/',
+                'wishlist/',
+            ];
+            if (!empty($payment_urls)) {
+                $payment_urls = explode(',', $payment_urls);
+                foreach ($payment_urls as $payment_url) {
+                    $payment_url = trim($payment_url);
+                    if (!empty($payment_url)) {
+                        $pages[] = $payment_url;
+                    }
+                }
+            }
             foreach ($pages as $page) {
                 if (preg_match('/^'.str_replace('/', '\/', $page).'/', $routePath) == true) {
                     return true;

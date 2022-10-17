@@ -185,7 +185,7 @@ class YireoController extends YireoCommonController
         $this->registerTask('change', 'edit');
 
         // Allow or disallow frontend editing
-        if ($this->app->isSite() && in_array($this->input->getCmd('task', 'display'), $this->allow_tasks) == false) {
+        if ($this->app->isClient('site') && in_array($this->input->getCmd('task', 'display'), $this->allow_tasks) == false) {
             throw new Yireo\Exception\Controller\IllegalRequest(JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST') . ' = ' . $this->input->getCmd('task'));
         }
 
@@ -350,11 +350,11 @@ class YireoController extends YireoCommonController
                 $this->id = $id;
             }
 
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->_jinput->getCmd('view'));
+            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->input->getCmd('view'));
 
         // If this fails, set the error
         } else {
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->_jinput->getCmd('view'));
+            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->input->getCmd('view'));
             $error     = $model->getError();
 
             if (!empty($error)) {
@@ -636,7 +636,7 @@ class YireoController extends YireoCommonController
 
         // Fetch the ordering-list
         $order = $this->input->get('order', [], 'post', 'array');
-        JArrayHelper::toInteger($order);
+        Joomla\Utilities\ArrayHelper::toInteger($order);
 
         // Auto-correct ordering with only zeros
         if (!empty($order)) {
@@ -870,7 +870,7 @@ class YireoController extends YireoCommonController
         }
 
         // Set the redirect, including messages if they are set
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $link = JRoute::_($link);
         }
 
@@ -937,7 +937,7 @@ class YireoController extends YireoCommonController
 
         // Fetch the ID-list and make sure it renders as a list of numbers
         $cid = $this->input->get('cid', [0], 'post', 'array');
-        JArrayHelper::toInteger($cid);
+        Joomla\Utilities\ArrayHelper::toInteger($cid);
 
         return $cid;
     }

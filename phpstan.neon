@@ -30,5 +30,4 @@ parameters:
   ignoreErrors:
     # joomla stubs
     - '#Class j[a-zA-Z]+ referenced with incorrect case\: J[a-zA-Z]+#'
-    - '#Instantiated class J[a-zA-Z]+ not found#'
   tmpDir: tmp

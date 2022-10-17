@@ -17,16 +17,16 @@ defined('_JEXEC') or die('Restricted access');
  */
 class MageBridgeModelBridgeSegment
 {
-    /** @var  MageBridgeModelRegister */
+    /** @var MageBridgeModelRegister */
     protected $register;
 
     /** @var MageBridgeModelBridge */
     protected $bridge;
 
-    /** @var  JApplicationCms */
+    /** @var  Joomla\CMS\Application\CMSApplication */
     protected $app;
 
-    /** @var  JDocumentHtml */
+    /** @var  Joomla\CMS\Document\HtmlDocument */
     protected $doc;
 
     /**

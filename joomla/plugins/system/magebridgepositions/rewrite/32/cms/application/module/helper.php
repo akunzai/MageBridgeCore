@@ -118,7 +118,7 @@ abstract class JModuleHelper
      *
      * @param   string  $module  The module name
      *
-     * @return  boolean See description for conditions.
+     * @return  bool See description for conditions.
      *
      * @since   1.5
      */
@@ -336,7 +336,7 @@ abstract class JModuleHelper
             ->where('(mm.menuid = ' . (int) $Itemid . ' OR mm.menuid <= 0)');
 
         // Filter by language
-        if ($app->isSite() && $app->getLanguageFilter()) {
+        if ($app->isClient('site') && $app->getLanguageFilter()) {
             $query->where('m.language IN (' . $db->quote($lang) . ',' . $db->quote('*') . ')');
         }
 

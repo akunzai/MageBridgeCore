@@ -46,12 +46,12 @@ class YireoFormFieldComponents extends JFormField
         $options = [];
 
         foreach ($components as $component) {
-            $options[] = JHTML::_('select.option', $component->element, JText::_($component->name) . ' [' . $component->element . ']', 'value', 'text');
+            $options[] = JHtml::_('select.option', $component->element, JText::_($component->name) . ' [' . $component->element . ']', 'value', 'text');
         }
 
         $size = (count($options) > 12) ? 12 : count($options);
         $attribs = 'class="inputbox" multiple="multiple" size="' . $size . '"';
 
-        return JHTML::_('select.genericlist', $options, $name, $attribs, 'value', 'text', $value, $name);
+        return JHtml::_('select.genericlist', $options, $name, $attribs, 'value', 'text', $value, $name);
     }
 }

@@ -49,7 +49,7 @@ class MageBridgeFormHelper
      * Get an object-list of all Joomla! usergroups
      *
      * @param null
-     * @return string
+     * @return array
      */
     public static function getUsergroupOptions()
     {

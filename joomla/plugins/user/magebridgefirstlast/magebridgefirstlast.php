@@ -70,7 +70,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      * Event onContentPrepareData
      *
      * @param string $context
-     * @param array  $data
+     * @param object  $data
      *
      * @return bool
      */
@@ -133,7 +133,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     public function onUserAfterSave($data, $isNew, $result, $error)
     {
-        $userId = JArrayHelper::getValue($data, 'id', 0, 'int');
+        $userId = Joomla\Utilities\ArrayHelper::getValue($data, 'id', 0, 'int');
 
         if ($userId && $result && isset($data['magebridgefirstlast']) && (count($data['magebridgefirstlast']))) {
             try {
@@ -175,7 +175,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
             return false;
         }
 
-        $userId = JArrayHelper::getValue($user, 'id', 0, 'int');
+        $userId = Joomla\Utilities\ArrayHelper::getValue($user, 'id', 0, 'int');
 
         if ($userId) {
             try {

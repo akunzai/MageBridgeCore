@@ -24,7 +24,7 @@ $layout = $params->get('layout', 'default');
 
 switch ($params->get($type)) {
     case 'current':
-        $return_url = JFactory::getURI()->toString();
+        $return_url = JUri::getInstance()->toString();
         break;
 
     case 'home':

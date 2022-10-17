@@ -109,8 +109,7 @@ class MageBridgeViewConfig extends YireoCommonView
     {
         // Check if the settings are all empty
         if (MageBridgeModelConfig::allEmpty() == true) {
-            JError::raiseWarning(500, JText::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')));
-
+            JFactory::getApplication()->enqueueMessage(JText::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')), 'warning');
             return;
         }
 
@@ -121,7 +120,7 @@ class MageBridgeViewConfig extends YireoCommonView
                 isset($c['name']) && isset($c['value']) && $message = MageBridge::getConfig()
                 ->check($c['name'], $c['value'])
             ) {
-                JError::raiseWarning(500, $message);
+                JFactory::getApplication()->enqueueMessage($message, 'warning');
             }
         }
 

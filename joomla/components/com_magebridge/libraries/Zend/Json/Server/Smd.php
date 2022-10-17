@@ -371,7 +371,7 @@ class Zend_Json_Server_Smd
      * Remove service
      *
      * @param  string $name
-     * @return boolean
+     * @return bool
      */
     public function removeService($name)
     {

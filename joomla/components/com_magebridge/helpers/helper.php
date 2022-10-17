@@ -338,7 +338,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to parse the comma-seperated setting "disable_css_mage" into an array
+     * Helper-method to parse the comma-separated setting "disable_css_mage" into an array
      *
      * @param null
      *
@@ -390,7 +390,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to parse the comma-seperated setting "disable_js_mage" into an array
+     * Helper-method to parse the comma-separated setting "disable_js_mage" into an array
      *
      * @param null
      *
@@ -498,6 +498,7 @@ class MageBridgeHelper
      * @param null
      *
      * @return bool
+     * @deprecated
      */
     public static function isJoomla25()
     {
@@ -544,7 +545,7 @@ class MageBridgeHelper
      *
      * @param null
      *
-     * @return bool
+     * @return array
      */
     public static function csvToArray($csv)
     {

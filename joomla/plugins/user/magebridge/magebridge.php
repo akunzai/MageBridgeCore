@@ -127,7 +127,7 @@ class PlgUserMageBridge extends MageBridgePlugin
         }
 
         // Copy the username to the email address (if this is configured)
-        if ($this->app->isSite() == true && $this->getConfigValue('username_from_email') == 1 && $user['username'] != $user['email']) {
+        if ($this->app->isClient('site') == true && $this->getConfigValue('username_from_email') == 1 && $user['username'] != $user['email']) {
             $this->debug->notice("onUserAfterSave::bind on user " . $user['username']);
 
             // Load the right JUser object
@@ -177,7 +177,7 @@ class PlgUserMageBridge extends MageBridgePlugin
         }
 
         // Synchronize this user-record with Magento
-        if ($this->getConfigValue('enable_usersync') == 1 && $this->app->isSite()) {
+        if ($this->getConfigValue('enable_usersync') == 1 && $this->app->isClient('site')) {
             $user['id'] = JFactory::getUser()->id;
             $user       = $this->userModel->synchronize($user);
         }
@@ -209,11 +209,11 @@ class PlgUserMageBridge extends MageBridgePlugin
 
         $user = $options['user'];
 
-        if ($this->app->isSite() && $this->getConfigValue('enable_auth_frontend') == 1) {
+        if ($this->app->isClient('site') && $this->getConfigValue('enable_auth_frontend') == 1) {
             MageBridgeModelUserSSO::getInstance()->doSSOLogin($user);
         }
 
-        if ($this->app->isAdmin() && $this->getConfigValue('enable_auth_backend') == 1) {
+        if ($this->app->isClient('administrator') && $this->getConfigValue('enable_auth_backend') == 1) {
             MageBridgeModelUserSSO::getInstance()->doSSOLogin($user);
         }
 
@@ -290,11 +290,11 @@ class PlgUserMageBridge extends MageBridgePlugin
             return true;
         }
 
-        if ($this->app->isSite() && $this->getConfigValue('enable_auth_frontend') == 1) {
+        if ($this->app->isClient('site') && $this->getConfigValue('enable_auth_frontend') == 1) {
             MageBridgeModelUserSSO::getInstance()->doSSOLogout($options['username']);
         }
 
-        if ($this->app->isAdmin() && $this->getConfigValue('enable_auth_backend') == 1) {
+        if ($this->app->isClient('administrator') && $this->getConfigValue('enable_auth_backend') == 1) {
             MageBridgeModelUserSSO::getInstance()->doSSOLogout($options['username']);
         }
 

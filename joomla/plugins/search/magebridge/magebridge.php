@@ -156,7 +156,7 @@ class PlgSearchMageBridge extends JPlugin
     /**
      * Return whether MageBridge is available or not
      *
-     * @return boolean
+     * @return bool
      */
     private function isEnabled()
     {

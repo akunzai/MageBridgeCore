@@ -254,7 +254,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
      * @param string $sku
      * @param string $rule
      *
-     * @return boolean
+     * @return bool
      */
     protected function matchSku($sku, $rule)
     {
@@ -271,7 +271,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
             return true;
         }
 
-        // Comma-seperated listing of rules
+        // Comma-separated listing of rules
         if (strstr($rule, ',')) {
             $subrules = explode(',', $rule);
 

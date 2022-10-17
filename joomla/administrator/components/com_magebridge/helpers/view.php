@@ -34,9 +34,6 @@ class MageBridgeViewHelper
         $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend.css');
         $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-view-' . $view . '.css');
 
-        if (MageBridgeHelper::isJoomla25()) {
-            $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-j25.css');
-        }
         if (MageBridgeHelper::isJoomla35()) {
             $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-j35.css');
         }

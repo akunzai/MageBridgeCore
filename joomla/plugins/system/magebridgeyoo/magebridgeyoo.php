@@ -41,7 +41,7 @@ class plgSystemMageBridgeYoo extends JPlugin
         $application = JFactory::getApplication();
 
         // Don't do anything in other applications than the frontend
-        if ($application->isSite() == false) {
+        if ($application->isClient('site') == false) {
             return false;
         }
 
@@ -177,12 +177,12 @@ class plgSystemMageBridgeYoo extends JPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
-
+        $app = JFactory::getApplication();
         $disable_js_mootools = MageBridgeModelConfig::load('disable_js_mootools');
         if (MageBridgeTemplateHelper::hasPrototypeJs() && $disable_js_mootools == 1) {
-            $body = JResponse::getBody();
+            $body = $app->getBody();
             $body = preg_replace('/Warp.Settings(.*);/', '', $body);
-            JResponse::setBody($body);
+            $app->setBody($body);
         }
     }
 
@@ -191,7 +191,7 @@ class plgSystemMageBridgeYoo extends JPlugin
      *
      * @access private
      * @param null
-     * @return JParameter
+     * @return JRegistry
      */
     private function getParams()
     {

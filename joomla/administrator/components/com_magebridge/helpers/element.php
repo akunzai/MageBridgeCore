@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -84,12 +85,11 @@ class MageBridgeElementHelper
     public static function getProductList()
     {
         // Construct the arguments
-        $arguments = [
-            'minimal_price' => 0,];
+        $arguments = ['minimal_price' => 0];
 
         // Fetch any current filters
         $application = JFactory::getApplication();
-        $option = JFactory::getApplication()->input->getCmd('option') . '-element-products';
+        $option = $application->input->getCmd('option') . '-element-products';
 
         // Set the limits
         $default_limit = JFactory::getConfig()->get('list_limit');
@@ -101,10 +101,11 @@ class MageBridgeElementHelper
 
         // Add the search-filter
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
-        $search = JString::strtolower(trim($search));
+        $search = Joomla\String\StringHelper::strtolower(trim($search));
         if (strlen($search) > 0) {
             $arguments['filters'] = [
-                'name' => ['like' => ['%' . $search . '%']], ];
+                'name' => ['like' => ['%' . $search . '%']],
+            ];
         }
 
         // Register this request
@@ -136,11 +137,12 @@ class MageBridgeElementHelper
 
         // Add the search-filter
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
-        $search = JString::strtolower(trim($search));
+        $search = Joomla\String\StringHelper::strtolower(trim($search));
 
         if (strlen($search) > 0) {
             $arguments['filters'] = [
-                'name' => ['like' => ['%' . $search . '%']], ];
+                'name' => ['like' => ['%' . $search . '%']],
+            ];
         }
 
         // Add arguments

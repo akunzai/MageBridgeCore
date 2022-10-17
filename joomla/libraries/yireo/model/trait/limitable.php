@@ -70,7 +70,7 @@ trait YireoModelTraitLimitable
     public function initLimitstart($limitStart = null)
     {
         if (is_numeric($limitStart) === false) {
-            if ($this->app->isSite()) {
+            if ($this->app->isClient('site')) {
                 $limitStart = $this->app->input->getInt('limitstart', 0);
             } else {
                 $limitStart = $this->app->getUserStateFromRequest($this->getFilterName('limitstart'), 'limitstart', 0, 'int');
@@ -92,7 +92,7 @@ trait YireoModelTraitLimitable
     /**
      * Method to set whether the query should use LIMIT or not
      *
-     * @param boolean
+     * @param bool
      *
      * @return null
      */

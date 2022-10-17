@@ -49,7 +49,7 @@ abstract class MageBridgeModelProxyAbstract
     protected $debug;
 
     /**
-     * @var JApplicationWeb
+     * @var CMSApplication
      */
     protected $app;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -163,7 +164,7 @@ class MageBridgeTemplateHelper
      *
      * @param string
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasHandle($match)
     {
@@ -772,7 +773,7 @@ class MageBridgeTemplateHelper
 
         if (!preg_match('/^(http|https):\/\//', $file)) {
             $file = MageBridge::getBridge()
-                    ->getMagentoUrl() . 'skin/frontend/' . $interface . '/' . $theme . '/css/' . $file;
+                ->getMagentoUrl() . 'skin/frontend/' . $interface . '/' . $theme . '/css/' . $file;
         }
 
         $document = JFactory::getDocument();
@@ -792,6 +793,7 @@ class MageBridgeTemplateHelper
         // Fetch system-variables
         $template = JFactory::getApplication()
             ->getTemplate();
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = JFactory::getDocument();
         $application = JFactory::getApplication();
 
@@ -905,14 +907,16 @@ class MageBridgeTemplateHelper
 
         $root = JUri::root();
 
-        if (JUri::getInstance()
-                ->isSSL() == true
+        if (
+            JUri::getInstance()
+            ->isSSL() == true
         ) {
             $root = preg_replace('/^http:\/\//', 'https://', $root);
         }
 
-        if (JUri::getInstance()
-                ->isSSL() == false
+        if (
+            JUri::getInstance()
+            ->isSSL() == false
         ) {
             $root = preg_replace('/^https:\/\//', 'http://', $root);
         }
@@ -953,9 +957,9 @@ class MageBridgeTemplateHelper
     public static function debug()
     {
         $prototype_loaded = (MageBridgeTemplateHelper::hasPrototypeJs()) ? 'Yes' : 'No';
-
-        JError::raiseNotice('notice', JText::sprintf('View: %s', JFactory::getApplication()->input->getCmd('view')));
-        JError::raiseNotice('notice', JText::sprintf('Page layout: %s', MageBridgeTemplateHelper::getPageLayout()));
-        JError::raiseNotice('notice', JText::sprintf('Prototype JavaScript loaded: %s', $prototype_loaded));
+        $app = JFactory::getApplication();
+        $app->enqueueMessage(JText::sprintf('View: %s', JFactory::getApplication()->input->getCmd('view')), 'notice');
+        $app->enqueueMessage(JText::sprintf('Page layout: %s', MageBridgeTemplateHelper::getPageLayout()), 'notice');
+        $app->enqueueMessage(JText::sprintf('Prototype JavaScript loaded: %s', $prototype_loaded), 'notice');
     }
 }

@@ -156,7 +156,7 @@ class YireoModel extends YireoCommonModel
     protected $_orderby_title = null;
 
     /**
-     * List of fields to autoconvert into column-seperated fields
+     * List of fields to auto-convert into column-separated fields
      *
      * @var array
      */
@@ -328,7 +328,7 @@ class YireoModel extends YireoCommonModel
             return $this->params;
         }
 
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             $this->params = JComponentHelper::getParams($this->_option);
 
             return $this->params;
@@ -459,7 +459,7 @@ class YireoModel extends YireoCommonModel
                 // Check to see if the data is published
                 $stateField = $this->table->getStateField();
 
-                if ($this->app->isSite() && isset($data->$stateField) && $data->$stateField == 0) {
+                if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
                     throw new \Yireo\Exception\Model\NotFound(JText::_('LIB_YIREO_MODEL_NOT_FOUND'));
                 }
 
@@ -480,7 +480,7 @@ class YireoModel extends YireoCommonModel
                         // Prepare these data
                         foreach ($data as $index => $item) {
                             // Frontend permissions
-                            if ($this->app->isSite() && isset($item->access) && is_numeric($item->access)) {
+                            if ($this->app->isClient('site') && isset($item->access) && is_numeric($item->access)) {
                                 $accessLevels = $this->user->getAuthorisedViewLevels();
 
                                 if ($item->access > 0 && !in_array($item->access, $accessLevels)) {
@@ -490,7 +490,7 @@ class YireoModel extends YireoCommonModel
                             }
 
                             // Backend permissions
-                            if ($this->app->isAdmin() && (bool) $this->table->hasAssetId() == true) {
+                            if ($this->app->isClient('administrator') && (bool) $this->table->hasAssetId() == true) {
                                 // Determine the owner
                                 $owner = 0;
 
@@ -543,7 +543,7 @@ class YireoModel extends YireoCommonModel
                             }
 
                             // Check for publish_up and publish_down
-                            if ($this->app->isSite()) {
+                            if ($this->app->isClient('site')) {
                                 $publish_up   = $item->params->get('publish_up');
                                 $publish_down = $item->params->get('publish_down');
 
@@ -984,7 +984,7 @@ class YireoModel extends YireoCommonModel
             $fieldsStrings = [];
 
             foreach ($fields as $field) {
-                if ($this->app->isSite() && in_array($field, $skipFrontendFields)) {
+                if ($this->app->isClient('site') && in_array($field, $skipFrontendFields)) {
                     continue;
                 }
 
@@ -1001,7 +1001,7 @@ class YireoModel extends YireoCommonModel
             $fieldsString = implode(',', $fieldsStrings);
 
             // Frontend or backend query
-            if ($this->allowCheckout() == true && $this->app->isAdmin()) {
+            if ($this->allowCheckout() == true && $this->app->isClient('administrator')) {
                 $query = "SELECT " . $fieldsString . ", `editor`.`name` AS `editor` FROM `{table}` AS `{tableAlias}`\n";
                 $query .= " LEFT JOIN `#__users` AS `editor` ON `{tableAlias}`.`checked_out` = `editor`.`id`\n";
             } else {
@@ -1107,7 +1107,7 @@ class YireoModel extends YireoCommonModel
         }
 
         // Automatically add a WHERE-statement if only published items should appear on the frontend
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $stateField = $this->table->getStateField();
 
             if (!empty($stateField)) {
@@ -1414,7 +1414,7 @@ class YireoModel extends YireoCommonModel
     /**
      * Method to check if any errors are set
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {

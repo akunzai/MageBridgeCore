@@ -82,7 +82,7 @@ class MageBridgeUrlHelper
         // If the request is not set by Magento, and if it is not set earlier in MageBridge, set it
         if (empty(self::$request)) {
             // If this is not the frontend, default to the root
-            if ($app->isSite() == false) {
+            if ($app->isClient('site') == false) {
                 $request = null;
             }
             // If the MageBridge component is not called, default to the root
@@ -291,7 +291,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * @param boolean
+     * @param bool
      *
      * @return array|null
      */
@@ -641,7 +641,7 @@ class MageBridgeUrlHelper
      * Helper method to generate a MageBridge URL
      *
      * @param string  $request
-     * @param boolean $xhtml
+     * @param bool $xhtml
      * @param array   $arguments
      *
      * @return string
@@ -700,7 +700,7 @@ class MageBridgeUrlHelper
      *
      * @param string $request
      *
-     * @return boolean
+     * @return bool
      */
     public static function isSSLPage($request = null)
     {

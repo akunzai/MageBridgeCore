@@ -29,7 +29,7 @@ class MageBridgeControllerUsers extends MageBridgeController
      */
     public function import()
     {
-        $this->_app->input->set('layout', 'import');
+        $this->app->input->set('layout', 'import');
         parent::display();
     }
 
@@ -91,7 +91,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     public function upload()
     {
         // Construct the needed variables
-        $upload = $this->_app->input->getVar('csv', null, 'files');
+        $upload = $this->app->input->getVar('csv', null, 'files');
         $user_records_ok = 0;
         $user_records_fail = 0;
 
@@ -170,7 +170,7 @@ class MageBridgeControllerUsers extends MageBridgeController
      *
      * @param null
      *
-     * @return null
+     * @return string
      */
     private function getOutput($users, $website_id, $group_id)
     {

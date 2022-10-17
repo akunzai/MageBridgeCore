@@ -194,7 +194,7 @@ class YireoModelItems extends YireoDataModel
             return $this->params;
         }
 
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             $this->params = JComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
@@ -274,7 +274,7 @@ class YireoModelItems extends YireoDataModel
             // Prepare these data
             foreach ($data as $index => $item) {
                 // Frontend permissions
-                if ($this->app->isSite() && isset($item->access) && is_numeric($item->access)) {
+                if ($this->app->isClient('site') && isset($item->access) && is_numeric($item->access)) {
                     $accessLevels = $this->user->getAuthorisedViewLevels();
 
                     if ($item->access > 0 && !in_array($item->access, $accessLevels)) {
@@ -284,7 +284,7 @@ class YireoModelItems extends YireoDataModel
                 }
 
                 // Backend permissions
-                if ($this->app->isAdmin() && (bool) $this->table->hasAssetId() == true) {
+                if ($this->app->isClient('administrator') && (bool) $this->table->hasAssetId() == true) {
                     // Determine the owner
                     $owner = 0;
 
@@ -337,7 +337,7 @@ class YireoModelItems extends YireoDataModel
                 }
 
                 // Check for publish_up and publish_down
-                if ($this->app->isSite()) {
+                if ($this->app->isClient('site')) {
                     $publish_up   = $item->params->get('publish_up');
                     $publish_down = $item->params->get('publish_down');
 

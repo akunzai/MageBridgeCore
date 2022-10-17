@@ -22,32 +22,14 @@ require_once dirname(__FILE__) . '/../loader.php';
 class YireoCommonController extends YireoAbstractController
 {
     /**
-     * @var JApplicationWeb
+     * @var CMSApplication
      */
     protected $app;
-
-    /**
-     * @var JApplicationWeb
-     * @deprecated
-     */
-    protected $_app;
-
-    /**
-     * @var JApplicationWeb
-     * @deprecated
-     */
-    protected $_application;
 
     /**
      * @var JInput
      */
     protected $input;
-
-    /**
-     * @var JInput
-     * @deprecated
-     */
-    protected $_jinput;
 
     /**
      * Value of the last message
@@ -88,10 +70,6 @@ class YireoCommonController extends YireoAbstractController
      */
     protected function handleLegacy()
     {
-        $this->_app = $this->app;
-        $this->_application = $this->app;
-        $this->_jinput = $this->input;
-
         parent::handleLegacy();
     }
 
@@ -103,7 +81,7 @@ class YireoCommonController extends YireoAbstractController
         // Add extra model-paths
         $option = $this->input->getCmd('option');
 
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $this->addModelPath(JPATH_ADMINISTRATOR . '/components/' . $option . '/models');
             $this->addModelPath(JPATH_SITE . '/components/' . $option . '/models');
 

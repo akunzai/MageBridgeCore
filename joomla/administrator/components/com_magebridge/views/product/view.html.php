@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -13,7 +14,7 @@
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 // Import the needed libraries
 jimport('joomla.filter.output');
@@ -35,7 +36,7 @@ class MageBridgeViewProduct extends YireoViewForm
         $this->fetchItem();
 
         // Initialize the form-file
-        $file = JPATH_ADMINISTRATOR.'/components/com_magebridge/models/product.xml';
+        $file = JPATH_ADMINISTRATOR . '/components/com_magebridge/models/product.xml';
 
         // Prepare the params-form
         $params = YireoHelper::toRegistry($this->item->params)->toArray();
@@ -58,8 +59,7 @@ class MageBridgeViewProduct extends YireoViewForm
         if (!empty($this->item->connector)) {
             $plugin = JPluginHelper::getPlugin('magebridgeproduct', $this->item->connector);
             if (empty($plugin)) {
-                $plugin_warning = JText::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector);
-                JError::raiseWarning(500, $plugin_warning);
+                JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

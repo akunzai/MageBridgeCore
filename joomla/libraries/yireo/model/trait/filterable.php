@@ -69,7 +69,7 @@ trait YireoModelTraitFilterable
     /**
      * Method to set whether filtering is allowed
      *
-     * @param boolean
+     * @param bool
      *
      * @return null
      */

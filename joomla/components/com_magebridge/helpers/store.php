@@ -150,7 +150,7 @@ class MageBridgeStoreHelper
         }
 
         // Determine the current store using MageBridge Store Plugins
-        if ($application->isSite()) {
+        if ($application->isClient('site')) {
             $store = MageBridgeConnectorStore::getInstance()
                 ->getStore();
 
@@ -168,7 +168,7 @@ class MageBridgeStoreHelper
         $website = MageBridgeModelConfig::load('website');
 
         // Never use a Store View or Store Group in the backend
-        if ($application->isAdmin()) {
+        if ($application->isClient('administrator')) {
             if (JFactory::getApplication()->input->getCmd('view') == 'root') {
                 $this->app_type = 'website';
                 $this->app_value = 'admin';

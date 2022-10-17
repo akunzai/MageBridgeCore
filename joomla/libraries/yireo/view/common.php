@@ -28,7 +28,7 @@ require_once dirname(__FILE__) . '/../loader.php';
 class YireoCommonView extends YireoAbstractView
 {
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behavior
      */
     use YireoModelTraitConfigurable;
 
@@ -58,7 +58,7 @@ class YireoCommonView extends YireoAbstractView
     protected $db;
 
     /**
-     * @var JApplicationCms
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -80,7 +80,7 @@ class YireoCommonView extends YireoAbstractView
     protected $jinput;
 
     /**
-     * @var JDocumentHtml
+     * @var Joomla\CMS\Document\HtmlDocument
      */
     protected $doc;
 
@@ -124,7 +124,7 @@ class YireoCommonView extends YireoAbstractView
         $this->_name = $this->getConfig('view');
         $option_id   = $this->getConfig('option') . '_' . $this->getConfig('view') . '_';
 
-        if ($this->app->isSite()) {
+        if ($this->app->isClient('site')) {
             $option_id .= $this->input->getInt('Itemid') . '_';
         }
 
@@ -261,7 +261,7 @@ class YireoCommonView extends YireoAbstractView
      */
     public function addCss($stylesheet)
     {
-        $prefix   = ($this->app->isSite()) ? 'site-' : 'backend-';
+        $prefix   = ($this->app->isClient('site')) ? 'site-' : 'backend-';
         $template = $this->app->getTemplate();
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet)) {
@@ -306,7 +306,7 @@ class YireoCommonView extends YireoAbstractView
      */
     public function addJs($script)
     {
-        $prefix   = ($this->app->isSite()) ? 'site-' : 'backend-';
+        $prefix   = ($this->app->isClient('site')) ? 'site-' : 'backend-';
         $template = $this->app->getTemplate();
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script)) {
@@ -346,7 +346,7 @@ class YireoCommonView extends YireoAbstractView
      * @subpackage Yireo
      *
      * @param string  $path
-     * @param boolean $first
+     * @param bool $first
      *
      * @return bool
      */
@@ -389,7 +389,7 @@ class YireoCommonView extends YireoAbstractView
         $view   = $this->getConfig('view');
 
         // Construct the paths where to locate a specific template
-        if ($this->app->isSite() == false) {
+        if ($this->app->isClient('site') == false) {
             // Reset the template-paths
             $this->templatePaths = [];
 

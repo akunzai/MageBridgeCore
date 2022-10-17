@@ -141,21 +141,20 @@ class MagebridgeModelCheck extends YireoCommonModel
     {
         $val  = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
+        $result = intval($val);
 
         switch ($last) {
             case 'g':
-                $val *= 1024;
-
+                $result *= 1024;
                 // no break
             case 'm':
-                $val *= 1024;
-
+                $result *= 1024;
                 // no break
             case 'k':
-                $val *= 1024;
+                $result *= 1024;
         }
 
-        return $val;
+        return $result;
     }
 
     /**
@@ -168,8 +167,8 @@ class MagebridgeModelCheck extends YireoCommonModel
         $server_software = (isset($_SERVER['software'])) ? $_SERVER['software'] : null;
 
         // System Compatibility
-        $result = (version_compare(phpversion(), '5.6.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('compatibility', 'PHP version', $result, JText::sprintf('COM_MAGEBRIDGE_CHECK_PHP_VERSION', '5.6.0'));
+        $result = (version_compare(phpversion(), '7.4.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('compatibility', 'PHP version', $result, JText::sprintf('COM_MAGEBRIDGE_CHECK_PHP_VERSION', '7.4.0'));
 
         $memoryLimit = $this->getBytesFromValue(ini_get('memory_limit'));
         $result      = ($memoryLimit >= (32 * 1024 * 1024)) ? self::CHECK_OK : self::CHECK_ERROR;

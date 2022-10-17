@@ -37,7 +37,7 @@ if (empty($stores)) {
 }
 
 // Set extra variables
-$redirect_url = JFactory::getURI()->toString();
+$redirect_url = JUri::getInstance()->toString();
 
 // Build HTML elements
 if ($layout == 'language') {

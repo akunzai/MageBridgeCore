@@ -77,7 +77,7 @@ trait YireoModelTraitTable
     /**
      * Flag to automatically set the table class prefix
      *
-     * @var boolean
+     * @var bool
      * @deprecated Use $this->getConfig('table_prefix_auto') instead
      */
     protected $_tbl_prefix_auto = false;

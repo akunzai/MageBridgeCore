@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -33,6 +34,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
         // Fetch all the available packages
         $packages = MageBridgeUpdateHelper::getPackageList();
         $count    = 0;
+        $app = JFactory::getApplication();
 
         foreach ($packages as $package) {
             // Skip optional packages which are not yet installed and not selected in the list
@@ -47,8 +49,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
 
             // Update the package and add an error if something goes wrong
             if ($this->update($package['name']) == false) {
-                JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FAILED', $package['name']));
-
+                $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FAILED', $package['name']), 'warning');
                 // Only crash when installing the component, continue for all other extensions
                 if ($package['name'] == 'com_magebridge') {
                     return false;
@@ -64,9 +65,8 @@ class MagebridgeModelUpdate extends YireoCommonModel
         YireoHelperInstall::remove();
 
         // Simple notices as feedback
-        JError::raiseNotice('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_SUCCESS', $count));
-        JError::raiseNotice('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_CHANGELOG', MageBridgeHelper::getHelpLink('changelog')));
-
+        $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_SUCCESS', $count), 'notice');
+        $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_CHANGELOG', MageBridgeHelper::getHelpLink('changelog')), 'notice');
         return true;
     }
 
@@ -79,10 +79,10 @@ class MagebridgeModelUpdate extends YireoCommonModel
      */
     private function update($extension_name = null)
     {
+        $app = JFactory::getApplication();
         // Do not continue if the extension name is empty
         if ($extension_name == null) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_NO_EXTENSION'));
-
+            $app->enqueueMessage(JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_NO_EXTENSION'), 'warning');
             return false;
         }
 
@@ -99,8 +99,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
 
         // Do not continue if the extension does not appear from the list
         if ($extension === false) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_UNKNOWN_EXTENSION'));
-
+            $app->enqueueMessage(JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_UNKNOWN_EXTENSION'), 'warning');
             return false;
         }
 
@@ -109,13 +108,11 @@ class MagebridgeModelUpdate extends YireoCommonModel
 
         if ($extension['type'] == 'component' && $config->get('ftp_enable') == 0) {
             if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $extension['name']) && !is_writable(JPATH_ADMINISTRATOR . '/components/' . $extension['name'])) {
-                JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DIR_NOT_WRITABLE', JPATH_ADMINISTRATOR . '/components/' . $extension['name']));
-
+                $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DIR_NOT_WRITABLE', JPATH_ADMINISTRATOR . '/components/' . $extension['name']), 'warning');
                 return false;
             } else {
                 if (!is_dir(JPATH_ADMINISTRATOR . '/components/' . $extension['name']) && !is_writable(JPATH_ADMINISTRATOR . '/components')) {
-                    JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DIR_NOT_WRITABLE', JPATH_ADMINISTRATOR . '/components'));
-
+                    $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DIR_NOT_WRITABLE', JPATH_ADMINISTRATOR . '/components'), 'warning');
                     return false;
                 }
             }
@@ -142,8 +139,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
 
         // Simple check for the result
         if ($package_file == false) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DOWNLOAD_FAILED', $extension_uri));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_DOWNLOAD_FAILED', $extension_uri), 'warning');
             return false;
         }
 
@@ -151,15 +147,13 @@ class MagebridgeModelUpdate extends YireoCommonModel
         $tmp_path     = $config->get('tmp_path');
         $package_path = $tmp_path . '/' . $package_file;
         if (!is_file($package_path)) {
-            JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NOT_EXISTS', $package_path));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NOT_EXISTS', $package_path), 'warning');
             return false;
         }
 
         // Check if the file is readable
         if (!is_readable($package_path)) {
-            JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NOT_READABLE', $package_path));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NOT_READABLE', $package_path), 'warning');
             return false;
         }
 
@@ -167,27 +161,23 @@ class MagebridgeModelUpdate extends YireoCommonModel
         if (filesize($package_path) < 128) {
             $contents = @file_get_contents($package_path);
             if (empty($contents)) {
-                JError::raiseWarning('MB', JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_EMPTY'));
-
+                $app->enqueueMessage(JText::_('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_EMPTY'), 'warning');
                 return false;
             } else {
                 if (preg_match('/^Restricted/', $contents)) {
-                    JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_NO_ACCESS'));
-
+                    $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_NO_ACCESS'), 'warning');
                     return false;
                 }
             }
 
-            JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NO_ARCHIVE', $package_path));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_NO_ARCHIVE', $package_path), 'warning');
             return false;
         }
 
         // Now we assume this is an archive, so let's unpack it
         $package = JInstallerHelper::unpack($package_path);
         if ($package == false) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_GONE', $extension['name']));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FILE_GONE', $extension['name']), 'warning');
             return false;
         }
 
@@ -199,8 +189,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
         // Call the actual installer to install the package
         $installer = JInstaller::getInstance();
         if ($installer->install($package['dir']) == false) {
-            JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FAILED', $extension['name']));
-
+            $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_FAILED', $extension['name']), 'warning');
             return false;
         }
 
@@ -222,14 +211,7 @@ class MagebridgeModelUpdate extends YireoCommonModel
                 try {
                     $db->execute();
                 } catch (Exception $e) {
-                    JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_POSTQUERY_FAILED', $db->getErrorMsg()));
-
-                    return false;
-                }
-
-                if ($db->getErrorMsg()) {
-                    JError::raiseWarning('MB', JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_POSTQUERY_FAILED', $db->getErrorMsg()));
-
+                    $app->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_MODEL_UPDATE_INSTALL_POSTQUERY_FAILED', $e->getMessage()), 'warning');
                     return false;
                 }
             }

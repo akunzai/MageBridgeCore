@@ -209,7 +209,7 @@ class MageBridgeModelUserSSO
      */
     protected function getCurrentApp()
     {
-        return ($this->app->isAdmin()) ? 'admin' : 'frontend';
+        return ($this->app->isClient('administrator')) ? 'admin' : 'frontend';
     }
 
     /**
