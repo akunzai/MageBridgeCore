@@ -92,4 +92,8 @@
 
     </administration>
 
+    <updateservers>
+		<server type="extension" priority="1" name="COM_MAGEBRIDGE">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
+	</updateservers>
+
 </extension>
