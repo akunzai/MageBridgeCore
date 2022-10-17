@@ -141,21 +141,20 @@ class MagebridgeModelCheck extends YireoCommonModel
     {
         $val  = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
+        $result = intval($val);
 
         switch ($last) {
             case 'g':
-                $val *= 1024;
-
+                $result *= 1024;
                 // no break
             case 'm':
-                $val *= 1024;
-
+                $result *= 1024;
                 // no break
             case 'k':
-                $val *= 1024;
+                $result *= 1024;
         }
 
-        return $val;
+        return $result;
     }
 
     /**
