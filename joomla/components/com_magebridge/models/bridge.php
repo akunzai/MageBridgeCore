@@ -686,7 +686,7 @@ class MageBridgeModelBridge
      * @deprecated Use getSessionData() instead
      *
      * @param string  $name
-     * @param boolean $allow_cache
+     * @param bool $allow_cache
      *
      * @return mixed
      */
@@ -699,7 +699,7 @@ class MageBridgeModelBridge
      * Helper-method to return the Magento configuration
      *
      * @param string  $name
-     * @param boolean $allow_cache
+     * @param bool $allow_cache
      *
      * @return mixed
      */

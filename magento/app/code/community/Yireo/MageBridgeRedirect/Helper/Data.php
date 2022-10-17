@@ -16,7 +16,7 @@ class Yireo_MageBridgeRedirect_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @access public
      * @param null
-     * @return boolean
+     * @return bool
      */
     public function enabled()
     {
@@ -45,7 +45,7 @@ class Yireo_MageBridgeRedirect_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @access public
      * @param null
-     * @return boolean
+     * @return bool
      */
     public function checkIPv4()
     {

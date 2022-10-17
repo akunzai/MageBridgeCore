@@ -616,7 +616,7 @@ class YireoView extends YireoCommonView
     /**
      * Override original method
      *
-     * @return  string|boolean  The name of the model
+     * @return  string|bool  The name of the model
      * @throws Exception
      */
     public function getName()

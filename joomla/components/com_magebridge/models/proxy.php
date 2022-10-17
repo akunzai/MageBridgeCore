@@ -277,7 +277,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      * @param string $rawResponse
      * @param string $decodedResponse
      *
-     * @return boolean
+     * @return bool
      */
     protected function handleNonBridgeOutput($rawResponse, $decodedResponse)
     {
@@ -386,7 +386,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      * @param string  $url
      * @param array   $arguments
      * @param string  $requestType
-     * @param boolean $runBridge
+     * @param bool $runBridge
      *
      * @return string
      */

@@ -118,7 +118,7 @@ abstract class JModuleHelper
      *
      * @param   string  $module  The module name
      *
-     * @return  boolean See description for conditions.
+     * @return  bool See description for conditions.
      *
      * @since   1.5
      */

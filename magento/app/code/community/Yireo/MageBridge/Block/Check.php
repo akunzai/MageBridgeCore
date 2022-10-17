@@ -299,7 +299,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     protected function hasOutgoingWebaccess()
     {
@@ -310,7 +310,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     /**
      * Check for a valid OP caching mechanism
      *
-     * @return boolean
+     * @return bool
      */
     protected function hasOpcaching()
     {

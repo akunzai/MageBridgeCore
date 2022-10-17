@@ -39,14 +39,14 @@ class YireoViewList extends YireoView
     /**
      * Flag to determine whether to load edit/copy/new buttons
      *
-     * @var boolean
+     * @var bool
      */
     protected $loadToolbarEdit = true;
 
     /**
      * Flag to determine whether to load delete buttons
      *
-     * @var boolean
+     * @var bool
      */
     protected $loadToolbarDelete = true;
 
@@ -124,7 +124,7 @@ class YireoViewList extends YireoView
      *
      * @param string  $name
      * @param string  $value
-     * @param boolean $ajax
+     * @param bool $ajax
      * @param int     $id
      *
      * @return string

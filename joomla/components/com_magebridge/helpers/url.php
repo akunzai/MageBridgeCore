@@ -291,7 +291,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * @param boolean
+     * @param bool
      *
      * @return array|null
      */
@@ -641,7 +641,7 @@ class MageBridgeUrlHelper
      * Helper method to generate a MageBridge URL
      *
      * @param string  $request
-     * @param boolean $xhtml
+     * @param bool $xhtml
      * @param array   $arguments
      *
      * @return string
@@ -700,7 +700,7 @@ class MageBridgeUrlHelper
      *
      * @param string $request
      *
-     * @return boolean
+     * @return bool
      */
     public static function isSSLPage($request = null)
     {

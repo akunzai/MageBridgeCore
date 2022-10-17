@@ -303,7 +303,7 @@ class YireoHelper
      * @access public
      * @subpackage Yireo
      * @param null
-     * @return boolean
+     * @return bool
      */
     public static function hasBootstrap()
     {

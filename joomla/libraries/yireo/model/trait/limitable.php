@@ -92,7 +92,7 @@ trait YireoModelTraitLimitable
     /**
      * Method to set whether the query should use LIMIT or not
      *
-     * @param boolean
+     * @param bool
      *
      * @return null
      */

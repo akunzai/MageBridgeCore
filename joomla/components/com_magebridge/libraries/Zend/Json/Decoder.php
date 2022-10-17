@@ -121,7 +121,7 @@ class Zend_Json_Decoder
      * following:
      *		- integer
      *		- float
-     *		- boolean
+     *		- bool
      *		- null
      *	  - StdClass
      *	  - array

@@ -71,7 +71,7 @@ class Zend_Server_Reflection_Node
      * Set parent node
      *
      * @param Zend_Server_Reflection_Node $node
-     * @param boolean $new Whether or not the child node is newly created
+     * @param bool $new Whether or not the child node is newly created
      * and should always be attached
      * @return void
      */
@@ -127,7 +127,7 @@ class Zend_Server_Reflection_Node
     /**
      * Does this node have children?
      *
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {

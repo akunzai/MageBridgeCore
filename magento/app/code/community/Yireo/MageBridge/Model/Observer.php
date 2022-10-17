@@ -968,7 +968,7 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
             }
         }
 
-        // Convert the integer to a boolean
+        // Convert the integer to a bool
         if (is_numeric($enabled)) {
             return (bool)$enabled;
         }

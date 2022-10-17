@@ -55,7 +55,7 @@ class MageBridgeUserHelper
      *
      * @param mixed $user User object or identifier
      * @param string $type Either object, email or username
-     * @return boolean
+     * @return bool
      */
     public static function isBackendUser($user = null, $type = 'object')
     {

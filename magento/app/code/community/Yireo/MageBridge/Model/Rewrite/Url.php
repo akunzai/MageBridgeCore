@@ -15,7 +15,7 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      * Rewrite of original method
      *
      * @param   null
-     * @return  boolean
+     * @return  bool
      */
     public function getSecure()
     {
@@ -92,7 +92,7 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      * Helper method
      *
      * @param   string $routePath
-     * @return  boolean
+     * @return  bool
      */
     protected function isSecurePage($routePath = null)
     {

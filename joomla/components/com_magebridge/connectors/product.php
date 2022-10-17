@@ -254,7 +254,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
      * @param string $sku
      * @param string $rule
      *
-     * @return boolean
+     * @return bool
      */
     protected function matchSku($sku, $rule)
     {

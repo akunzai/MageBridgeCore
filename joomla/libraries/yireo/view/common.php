@@ -346,7 +346,7 @@ class YireoCommonView extends YireoAbstractView
      * @subpackage Yireo
      *
      * @param string  $path
-     * @param boolean $first
+     * @param bool $first
      *
      * @return bool
      */

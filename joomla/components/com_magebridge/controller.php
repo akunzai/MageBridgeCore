@@ -140,8 +140,8 @@ class MageBridgeController extends YireoAbstractController
     /**
      * Default method showing a JView
      *
-     * @param boolean $cachable
-     * @param boolean $urlparams
+     * @param bool $cachable
+     * @param bool $urlparams
      *
      * @return null
      */

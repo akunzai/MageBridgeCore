@@ -56,7 +56,7 @@ class MageBridgePluginStore extends MageBridgePlugin
      *
      * @param JForm $form The form to be altered
      * @param JForm $data The associated data for the form
-     * @return boolean
+     * @return bool
      */
     public function onMageBridgeStorePrepareForm($form, $data)
     {
@@ -86,7 +86,7 @@ class MageBridgePluginStore extends MageBridgePlugin
      * Method to manipulate the MageBridge Store Relation backend-form
      *
      * @param object $connector The connector-row
-     * @return boolean
+     * @return bool
      */
     public function onMageBridgeStoreConvertField($connector, $actions)
     {

@@ -42,7 +42,7 @@ class Zend_Json
 {
     /**
      * How objects should be encoded -- arrays or as StdClass. TYPE_ARRAY is 1
-     * so that it is a boolean true value, allowing it to be used with
+     * so that it is a bool true value, allowing it to be used with
      * ext/json's functions.
      */
     public const TYPE_ARRAY  = 1;
@@ -121,7 +121,7 @@ class Zend_Json
      * @see Zend_Json_Expr
      *
      * @param  mixed $valueToEncode
-     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param  bool $cycleCheck Optional; whether or not to check for object recursion; off by default
      * @param  array $options Additional options used during encoding
      * @return string JSON encoded object
      */
@@ -232,7 +232,7 @@ class Zend_Json
      * @static
      * @access public
      * @param string $xmlStringContents XML String to be converted
-     * @param boolean $ignoreXmlAttributes Include or exclude XML attributes in
+     * @param bool $ignoreXmlAttributes Include or exclude XML attributes in
      * the xml2json conversion process.
      * @return mixed - JSON formatted string on success
      * @throws Zend_Json_Exception
@@ -278,7 +278,7 @@ class Zend_Json
      * @static
      * @access protected
      * @param SimpleXMLElement $simpleXmlElementObject XML element to be converted
-     * @param boolean $ignoreXmlAttributes Include or exclude XML attributes in
+     * @param bool $ignoreXmlAttributes Include or exclude XML attributes in
      * the xml2json conversion process.
      * @param int $recursionDepth Current recursion depth of this function
      * @return mixed - On success, a PHP associative array of traversed XML elements

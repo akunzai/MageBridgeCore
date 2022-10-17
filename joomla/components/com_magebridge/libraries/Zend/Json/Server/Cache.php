@@ -43,7 +43,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      *
      * @param  string $filename
      * @param  Zend_Json_Server $server
-     * @return boolean
+     * @return bool
      */
     public static function saveSmd($filename, Zend_Json_Server $server)
     {
@@ -63,7 +63,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      * Retrieve a cached SMD
      *
      * On success, returns the cached SMD (a JSON string); an failure, returns
-     * boolean false.
+     * bool false.
      *
      * @param  string $filename
      * @return string|false

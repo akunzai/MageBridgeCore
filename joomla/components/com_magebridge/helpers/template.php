@@ -163,7 +163,7 @@ class MageBridgeTemplateHelper
      *
      * @param string
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasHandle($match)
     {

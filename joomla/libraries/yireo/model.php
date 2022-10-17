@@ -1414,7 +1414,7 @@ class YireoModel extends YireoCommonModel
     /**
      * Method to check if any errors are set
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {

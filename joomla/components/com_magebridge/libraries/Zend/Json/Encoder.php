@@ -34,7 +34,7 @@ class Zend_Json_Encoder
     /**
      * Whether or not to check for possible cycling
      *
-     * @var boolean
+     * @var bool
      */
     protected $_cycleCheck;
 
@@ -55,7 +55,7 @@ class Zend_Json_Encoder
     /**
      * Constructor
      *
-     * @param boolean $cycleCheck Whether or not to check for recursion when encoding
+     * @param bool $cycleCheck Whether or not to check for recursion when encoding
      * @param array $options Additional options used during encoding
      * @return void
      */
@@ -69,7 +69,7 @@ class Zend_Json_Encoder
      * Use the JSON encoding scheme for the value specified
      *
      * @param mixed $value The value to be encoded
-     * @param boolean $cycleCheck Whether or not to check for possible object recursion when encoding
+     * @param bool $cycleCheck Whether or not to check for possible object recursion when encoding
      * @param array $options Additional options used during encoding
      * @return string  The encoded value
      */
@@ -159,7 +159,7 @@ class Zend_Json_Encoder
      * Determine if an object has been serialized already
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     protected function _wasVisited(&$value)
     {
@@ -216,9 +216,9 @@ class Zend_Json_Encoder
 
 
     /**
-     * JSON encode a basic data type (string, number, boolean, null)
+     * JSON encode a basic data type (string, number, bool, null)
      *
-     * If value type is not a string, number, boolean, or null, the string
+     * If value type is not a string, number, bool, or null, the string
      * 'null' is returned.
      *
      * @param $value mixed

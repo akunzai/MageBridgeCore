@@ -400,7 +400,7 @@ class MageBridgeModelDebug
      *
      * @param array $data
      *
-     * @return boolean
+     * @return bool
      */
     private function _writeLog($data = null)
     {

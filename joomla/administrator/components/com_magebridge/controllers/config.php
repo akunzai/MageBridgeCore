@@ -274,10 +274,10 @@ class MageBridgeControllerConfig extends YireoCommonController
     /**
      * Method to validate a change-request
      *
-     * @param boolean $check_token
-     * @param boolean $check_demo
+     * @param bool $check_token
+     * @param bool $check_demo
      *
-     * @return boolean
+     * @return bool
      */
     protected function _validate($check_token = true, $check_demo = true)
     {

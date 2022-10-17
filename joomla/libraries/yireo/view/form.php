@@ -36,7 +36,7 @@ class YireoViewForm extends YireoView
     /*
      * Flag to determine whether this view is a single-view
      *
-     * @var boolean
+     * @var bool
      */
     protected $_single = true;
 
