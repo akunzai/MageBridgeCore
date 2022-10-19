@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -22,8 +23,8 @@ class MagebridgeModelUsergroups extends YireoModel
      */
     public function __construct()
     {
-        $this->_checkout = false;
-        $this->_search   = ['description'];
+        $this->setConfig('checkout', false);
+        $this->setConfig('search_fields', ['description']);
 
         parent::__construct('usergroup');
     }

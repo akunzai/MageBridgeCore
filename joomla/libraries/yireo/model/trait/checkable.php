@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -20,14 +21,6 @@ defined('_JEXEC') or die();
  */
 trait YireoModelTraitCheckable
 {
-    /**
-     * Boolean to allow for checking out
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('checkout') instead
-     */
-    protected $_checkout = true;
-
     /**
      * Tests if an item is checked out
      *

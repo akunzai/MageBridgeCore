@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -20,14 +21,6 @@ defined('_JEXEC') or die();
  */
 trait YireoModelTraitFilterable
 {
-    /**
-     * Boolean to allow for filtering
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('allow_filter') instead
-     */
-    protected $_allow_filter = true;
-
     /**
      * Method to get a filter from the user-state
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -20,14 +21,6 @@ defined('_JEXEC') or die();
  */
 trait YireoModelTraitDebuggable
 {
-    /**
-     * Boolean to allow for debugging
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('debug') instead
-     */
-    protected $_debug = false;
-
     /**
      * @return bool
      */

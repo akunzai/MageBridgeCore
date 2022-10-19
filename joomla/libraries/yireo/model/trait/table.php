@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -35,54 +36,6 @@ trait YireoModelTraitTable
     protected $table;
 
     /**
-     * Database table object
-     *
-     * @var YireoTable
-     * @deprecated Use $this->table instead
-     */
-    protected $_tbl;
-
-    /**
-     * Database table-name
-     *
-     * @var string
-     * @deprecated Use $this->table->getTableName() instead
-     */
-    protected $_tbl_name = '';
-
-    /**
-     * Database table-alias
-     *
-     * @var string
-     * @deprecated Use $this->getConfig('table_alias') instead
-     */
-    protected $table_alias = '';
-
-    /**
-     * Database table-alias
-     *
-     * @var string
-     * @deprecated Use $this->getConfig('table_alias') instead
-     */
-    protected $_tbl_alias = '';
-
-    /**
-     * Database primary key
-     *
-     * @var string
-     * @deprecated Use $this->table->getKeyName() instead
-     */
-    protected $_tbl_key = '';
-
-    /**
-     * Flag to automatically set the table class prefix
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('table_prefix_auto') instead
-     */
-    protected $_tbl_prefix_auto = false;
-
-    /**
      * @return int
      */
     public function getSkipTable()
@@ -112,7 +65,6 @@ trait YireoModelTraitTable
     public function setTableAlias($table_alias)
     {
         $this->setConfig('table_alias', $table_alias);
-        $this->table_alias = $table_alias;
     }
 
     /**
@@ -122,10 +74,6 @@ trait YireoModelTraitTable
      */
     public function setTablePrefix($table_prefix = null)
     {
-        if (!empty($table_prefix)) {
-            $this->setConfig('table_prefix', $table_prefix);
-        }
-
         // Set the database variables
         if ($this->getConfig('table_prefix_auto') === true) {
             $tablePrefix = $this->getConfig('component') . 'Table';

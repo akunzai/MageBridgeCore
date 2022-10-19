@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -50,14 +51,6 @@ class YireoModelItems extends YireoDataModel
     protected $queryConfig = [];
 
     /**
-     * Boolean to allow for caching
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('cache') instead
-     */
-    protected $_cache = false;
-
-    /**
      * Ordering field
      *
      * @var string
@@ -70,22 +63,6 @@ class YireoModelItems extends YireoDataModel
      * @var array
      */
     protected $search = [];
-
-    /**
-     * Order-by default-value
-     *
-     * @var string
-     * @deprecated: Use $this->getConfig('orderby_default') instead
-     */
-    protected $_orderby_default = null;
-
-    /**
-     * Order-by default-title
-     *
-     * @var string
-     * @deprecated: Use $this->getConfig('orderby_title') instead
-     */
-    protected $_orderby_title = null;
 
     /**
      * List of fields to autoconvert into column-seperated fields
@@ -106,7 +83,7 @@ class YireoModelItems extends YireoDataModel
         // Handle a deprecated constructor call
         if (is_string($config)) {
             $tableAlias        = $config;
-            $this->table_alias = $tableAlias;
+            $this->setConfig('table_alias', $tableAlias);
             $config            = ['table_alias' => $tableAlias];
         }
 
@@ -199,8 +176,9 @@ class YireoModelItems extends YireoDataModel
 
             return $this->params;
         }
-
-        $this->params = $this->app->getParams($this->getConfig('option'));
+        /** @var Joomla\CMS\Application\SiteApplication */
+        $siteApp = $this->app;
+        $this->params = $siteApp->getParams($this->getConfig('option'));
 
         return $this->params;
     }
@@ -331,9 +309,9 @@ class YireoModelItems extends YireoDataModel
 
                 // Prepare the parameters
                 if (isset($item->params)) {
-                    $item->params = YireoHelper::toParameter($item->params);
+                    $item->params = YireoHelper::toRegistry($item->params);
                 } else {
-                    $item->params = YireoHelper::toParameter();
+                    $item->params = YireoHelper::toRegistry();
                 }
 
                 // Check for publish_up and publish_down

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -22,7 +23,7 @@ class MagebridgeModelUrls extends YireoModel
      */
     public function __construct()
     {
-        $this->_search = ['source', 'destination'];
+        $this->setConfig('search_fields', ['source', 'destination']);
         parent::__construct('url');
     }
 }

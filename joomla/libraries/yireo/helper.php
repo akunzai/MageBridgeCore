@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Joomla! Yireo Library
  *
  * @author Yireo (info@yireo.com)
@@ -18,25 +18,16 @@ require_once dirname(__FILE__) . '/loader.php';
 
 /**
  * Yireo Helper
+ * @subpackage Yireo
  */
 class YireoHelper
 {
-    /*
-     * Helper-method to get the Joomla! DBO
-     *
-     * @param null
-     * @return bool
-     */
-    public static function getDBO()
-    {
-        return JFactory::getDbo();
-    }
-
-    /*
+    /**
      * Helper-method to parse the data defined in this component
      *
-     * @param null
-     * @return bool
+     * @param string $name
+     * @param string $option
+     * @return mixed
      */
     public static function getData($name = null, $option = null)
     {
@@ -62,11 +53,11 @@ class YireoHelper
         return null;
     }
 
-    /*
+    /**
      * Helper-method to return the HTML-ending of a form
      *
-     * @param null
-     * @return bool
+     * @param int $id
+     * @return void
      */
     public static function getFormEnd($id = 0)
     {
@@ -76,35 +67,20 @@ class YireoHelper
         echo JHtml::_('form.token');
     }
 
-    /*
-     * Helper-method to return the current Joomla version
-     *
-     * @return bool
-     */
-    public static function getJoomlaVersion()
-    {
-        JLoader::import('joomla.version');
-        $jversion = new JVersion();
-
-        return $jversion->RELEASE;
-    }
-
-    /*
+    /**
      * Helper-method to check whether the current Joomla! version equals some value
      *
-     * @param $version string|array
+     * @param string|array $version
      * @return bool
      */
     public static function isJoomla($version)
     {
-        $jversion = self::getJoomlaVersion();
-
         if (!is_array($version)) {
             $version = [$version];
         }
 
         foreach ($version as $v) {
-            if (version_compare($jversion, $v, 'eq')) {
+            if (version_compare(JVERSION, $v, 'eq')) {
                 return true;
             }
         }
@@ -112,62 +88,19 @@ class YireoHelper
         return false;
     }
 
-    /*
-     * Helper-method to check whether the current Joomla! version is 3.5
-     *
-     * @param null
-     * @return bool
-     */
-    public static function isJoomla35()
-    {
-        return self::isJoomla(['3.0', '3.1', '3.2', '3.5']);
-    }
-
-    /*
-     * Helper-method to check whether the current Joomla! version is 2.5
-     *
-     * @param null
-     * @return bool
-     */
-    public static function isJoomla25()
-    {
-        if (self::isJoomla('2.5') || self::isJoomla('1.7') || self::isJoomla('1.6')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /*
-     * Helper-method to check whether the current Joomla! version is 1.5
-     *
-     * @param null
-     * @return bool
-     */
-    public static function isJoomla15()
-    {
-        return self::isJoomla('1.5');
-    }
-
-    /*
-     * Helper-method to check whether the current Joomla! version is 1.5
+    /**
+     * Helper-method to compare with current Joomla! version
      *
      * @param null
      * @return bool
      */
     public static function compareJoomlaVersion($version, $comparison)
     {
-        $jversion = self::getJoomlaVersion();
-
-        return version_compare($jversion, $version, $comparison);
+        return version_compare(JVERSION, $version, $comparison);
     }
 
     /**
      * Method to get the current version
-     *
-     * @access public
-     *
-     * @param null
      *
      * @return string
      */
@@ -181,46 +114,15 @@ class YireoHelper
     }
 
     /**
-     * Method to fetch a specific page
-     *
-     * @access public
-     *
-     * @param string $url
-     * @param string $useragent
-     *
-     * @return bool
-     */
-    public static function fetchRemote($url, $useragent = null)
-    {
-        if (function_exists('curl_init') == true) {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_MAXCONNECTS, 1);
-            curl_setopt($ch, CURLOPT_MAXREDIRS, 1);
-            curl_setopt($ch, CURLOPT_USERAGENT, (!empty($useragent)) ? $useragent : $_SERVER['HTTP_USER_AGENT']);
-            $contents = curl_exec($ch);
-        } else {
-            $contents = file_get_contents($url);
-        }
-
-        return $contents;
-    }
-
-    /*
      * Convert an object or string to JRegistry
      *
      * @param mixed $params
      * @param string $file
-     * @return \Joomla\Registry\Registry
+     * @return JRegistry
      */
     public static function toRegistry($params = null, $file = null)
     {
-        if (class_exists('JRegistry') && $params instanceof JRegistry) {
+        if ($params instanceof JRegistry) {
             return $params;
         }
 
@@ -228,7 +130,7 @@ class YireoHelper
             $params = trim($params);
         }
 
-        $registry = new \Joomla\Registry\Registry();
+        $registry = new JRegistry();
 
         if (!empty($params) && is_string($params)) {
             $registry->loadString($params);
@@ -255,26 +157,10 @@ class YireoHelper
         return $params;
     }
 
-    /*
-     * Deprecated shortcut for self::toRegistry()
-     *
-     * @param mixed $params
-     * @param string $file
-     * @return JRegistry
-     * @deprecated
-     */
-    public static function toParameter($params = null, $file = null)
-    {
-        return self::toRegistry($params, $file);
-    }
-
-    /*
+    /**
      * Add in Bootstrap
      *
-     * @access public
-     * @subpackage Yireo
-     * @param null
-     * @return null
+     * @return void
      */
     public static function bootstrap()
     {
@@ -282,12 +168,9 @@ class YireoHelper
         self::jquery();
     }
 
-    /*
+    /**
      * Method to check whether Bootstrap is used
      *
-     * @access public
-     * @subpackage Yireo
-     * @param null
      * @return bool
      */
     public static function hasBootstrap()
@@ -301,13 +184,10 @@ class YireoHelper
         return false;
     }
 
-    /*
+    /**
      * Add in jQuery
      *
-     * @access public
-     * @subpackage Yireo
-     * @param null
-     * @return null
+     * @return void
      */
     public static function jquery()
     {
@@ -348,13 +228,10 @@ class YireoHelper
         }
     }
 
-    /*
+    /**
      * Helper-method to load additional language-files
      *
-     * @access public
-     * @subpackage Yireo
-     * @param string $title
-     * @return null
+     * @return void
      */
     public static function loadLanguageFile()
     {
@@ -366,15 +243,5 @@ class YireoHelper
         $tag = $language->getTag();
         $reload = true;
         $language->load($extension, $folder, $tag, $reload);
-    }
-
-    /**
-     * @deprecated use built-in strlen() function
-     * @param mixed $string
-     * @return int
-     */
-    public static function strlen($string)
-    {
-        return strlen($string);
     }
 }

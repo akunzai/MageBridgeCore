@@ -328,36 +328,6 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        /**
-         * if ($element == 'storeview' && !empty($value)) {
-         * if ( preg_match( '/([a-zA-Z0-9\.\-\_]+)/', $value ) == false ) {
-         * return JText::_( 'Store-name contains illegal characters: '.$value );
-         * } else {
-         * $storeviews = MagebridgeModelConfig::getStoreNames();
-         * if (!is_array($storeviews) && $storeviews != 0) {
-         * return JText::_($storeviews);
-         *
-         * } else {
-         *
-         * $match = false;
-         * if (!empty($storeviews)) {
-         * foreach ($storeviews as $storeview) {
-         * if ($storeview['value'] == $value) {
-         * $match = true;
-         * break;
-         * }
-         * }
-         * }
-         *
-         * if ($match == false) {
-         * $msg = JText::sprintf( 'Store-names detected, but "%s" is not one of them', $value );
-         * return $msg;
-         * }
-         * }
-         * }
-         * }
-         */
-
         // Check basedir
         if ($element !== 'basedir') {
             return null;

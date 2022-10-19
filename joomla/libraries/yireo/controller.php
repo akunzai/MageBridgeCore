@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -24,29 +25,11 @@ require_once dirname(__FILE__) . '/loader.php';
 class YireoController extends YireoCommonController
 {
     /**
-     * Value of the current stable PHP 5.4 version
-     *
-     * @constant
-     */
-    public const PHP_STABLE_54 = '5.4.36';
-    /**
-     * Value of the current stable PHP 5.5 version
-     *
-     * @constant
-     */
-    public const PHP_STABLE_55 = '5.5.20';
-    /**
-     * Value of the current stable PHP 5.6 version
-     *
-     * @constant
-     */
-    public const PHP_STABLE_56 = '5.6.4';
-    /**
      * Value of the minimum supported PHP version
      *
      * @constant
      */
-    public const PHP_SUPPORTED_VERSION = '5.4.0';
+    public const PHP_SUPPORTED_VERSION = '7.4.0';
 
     /**
      * Unique identifier
@@ -59,24 +42,8 @@ class YireoController extends YireoCommonController
      * Value of the default View to use
      *
      * @protected string
-     * @deprecated: Use $default_view instead
-     */
-    protected $_default_view = 'home';
-
-    /**
-     * Value of the default View to use
-     *
-     * @protected string
      */
     protected $default_view = 'home';
-
-    /**
-     * Value of the current model
-     *
-     * @protected object
-     * @deprecated
-     */
-    protected $_model;
 
     /**
      * Value of the current model
@@ -89,26 +56,8 @@ class YireoController extends YireoCommonController
      * Boolean to allow or disallow frontend editing
      *
      * @protected bool
-     * @deprecated: Use $frontend_edit instead
-     */
-    protected $_frontend_edit = false;
-
-    /**
-     * Boolean to allow or disallow frontend editing
-     *
-     * @protected bool
      */
     protected $frontend_edit = false;
-
-    /**
-     * List of allowed tasks
-     *
-     * @protected array
-     * @deprecated: Use $allow_tasks instead
-     */
-    protected $_allow_tasks = [
-        'display',
-    ];
 
     /**
      * List of allowed tasks
@@ -123,36 +72,11 @@ class YireoController extends YireoCommonController
      * List of POST-values that should be allowed to contain raw content
      *
      * @protected array
-     * @deprecated: Use $allow_row instead
-     */
-    protected $_allow_raw = [
-        'description',
-        'text',
-        'comment',
-    ];
-
-    /**
-     * List of POST-values that should be allowed to contain raw content
-     *
-     * @protected array
      */
     protected $allow_raw = [
         'description',
         'text',
         'comment',
-    ];
-
-    /**
-     * List of relations between Views
-     *
-     * @protected int
-     * @deprecated
-     */
-    protected $_relations = [
-        'list'     => 'lists',
-        'category' => 'categories',
-        'item'     => 'items',
-        'status'   => 'statuses',
     ];
 
     /**
@@ -175,11 +99,6 @@ class YireoController extends YireoCommonController
         // Call the parent constructor
         parent::__construct();
 
-        // If no task has been set, try the default
-        if ($this->input->getCmd('view') == '' && !empty($this->_default_view)) {
-            $this->input->set('view', $this->_default_view);
-        }
-
         // Register extra tasks
         $this->registerTask('new', 'add');
         $this->registerTask('change', 'edit');
@@ -196,23 +115,6 @@ class YireoController extends YireoCommonController
             if ($user->authorise('core.manage', $this->input->getCmd('option')) == false) {
                 $this->app->redirect('index.php', JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
             }
-        }
-
-        // Neat trick to automatically remove obsolete files
-        if ($this->input->getCmd('view') == $this->_default_view) {
-            YireoHelperInstall::remove();
-        }
-
-        if (!empty($this->_allow_tasks)) {
-            $this->allow_tasks = array_merge($this->allow_tasks, $this->_allow_tasks);
-        }
-
-        if (!empty($this->_allow_raw)) {
-            $this->allow_raw = array_merge($this->allow_raw, $this->_allow_raw);
-        }
-
-        if (!empty($this->_relations)) {
-            $this->relations = array_merge($this->relations, $this->_relations);
         }
     }
 
@@ -277,14 +179,7 @@ class YireoController extends YireoCommonController
     public function loadPost()
     {
         $inputPost = $this->input->post;
-
-        if (YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
-            $post = $inputPost->getArray();
-        } else {
-            $post = $this->app->input->getArray($_POST);
-        }
-
-        return $post;
+        return $inputPost->getArray();
     }
 
     /**
@@ -312,20 +207,12 @@ class YireoController extends YireoCommonController
         if (!empty($this->allow_raw)) {
             foreach ($this->allow_raw as $raw) {
                 if (isset($post[$raw])) {
-                    if (YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
-                        $post[$raw] = $this->input->get($raw, '', 'raw');
-                    } else {
-                        $post[$raw] = $_POST[$raw];
-                    }
+                    $post[$raw] = $this->input->get($raw, '', 'raw');
                 }
 
                 if (isset($post['item'][$raw])) {
-                    if (YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
-                        $array              = $this->input->getArray(['item' => [$raw => 'raw']]);
-                        $post['item'][$raw] = $array['item'][$raw];
-                    } else {
-                        $post['item'][$raw] = $_POST['item'][$raw];
-                    }
+                    $array = $this->input->getArray(['item' => [$raw => 'raw']]);
+                    $post['item'][$raw] = $array['item'][$raw];
                 }
             }
         }
@@ -948,32 +835,9 @@ class YireoController extends YireoCommonController
     protected function showPhpSupported()
     {
         $phpversion = phpversion();
-        $phpmajor   = explode('.', $phpversion);
-        $phpmajor   = $phpmajor[0] . '.' . $phpmajor[1];
-
         if (version_compare($phpversion, self::PHP_SUPPORTED_VERSION, 'lt')) {
             $message = JText::sprintf('LIB_YIREO_PHP_UNSUPPORTED', $phpversion, self::PHP_SUPPORTED_VERSION);
             $this->app->enqueueMessage($message, 'error');
-        }
-
-        if (version_compare($phpversion, '5.4', 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP54_UPGRADE_NOTICE', $phpversion, self::PHP_SUPPORTED_VERSION);
-            $this->app->enqueueMessage($message, 'warning');
-        }
-
-        if ($phpmajor == '5.4' && version_compare($phpversion, self::PHP_STABLE_54, 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_54);
-            $this->app->enqueueMessage($message, 'warning');
-        }
-
-        if ($phpmajor == '5.5' && version_compare($phpversion, self::PHP_STABLE_55, 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_55);
-            $this->app->enqueueMessage($message, 'warning');
-        }
-
-        if ($phpmajor == '5.6' && version_compare($phpversion, self::PHP_STABLE_56, 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_56);
-            $this->app->enqueueMessage($message, 'warning');
         }
     }
 }

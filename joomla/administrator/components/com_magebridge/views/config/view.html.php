@@ -178,18 +178,6 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Method to print a specific tab
-     *
-     * @deprecated
-     */
-    public function printTab($name, $id, $template)
-    {
-        echo '<div class="tab-pane" id="' . $id . '">';
-        echo $this->loadTemplate($template);
-        echo '</div>';
-    }
-
-    /**
      * Method to print a specific fieldset
      */
     public function printFieldset($form, $fieldset)

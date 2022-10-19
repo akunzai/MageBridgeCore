@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -20,30 +21,6 @@ defined('_JEXEC') or die();
  */
 trait YireoModelTraitLimitable
 {
-    /**
-     * List limit
-     *
-     * @var int
-     * @deprecated Use $this->getState('limit') instead
-     */
-    protected $_limit = null;
-
-    /**
-     * Limit start
-     *
-     * @var int
-     * @deprecated Use $this->getState('limitstart') instead
-     */
-    protected $_limitstart = null;
-
-    /**
-     * Enable the limit in the query (or in the data-array)
-     *
-     * @var string
-     * @deprecated Use $this->getConfig('limit_query') instead
-     */
-    protected $_limit_query = false;
-
     /**
      * Method to initialize the limit parameter
      *
