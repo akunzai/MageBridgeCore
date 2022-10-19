@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="2.5.0" method="upgrade">
+<extension type="component" version="3" method="upgrade">
     <name>COM_MAGEBRIDGE</name>
     <author>Yireo</author>
     <authoremail>development@yireo.com</authoremail>
     <authorurl>https://www.yireo.com</authorurl>
-    <creationDate>augustus 2017</creationDate>
+    <creationDate>August 2017</creationDate>
     <copyright>Copyright (C) 2017 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <version>1.9.5500-dev</version>
@@ -36,6 +36,7 @@
         <folder>connectors</folder>
         <folder>controllers</folder>
         <folder>helpers</folder>
+        <folder>libraries</folder>
         <folder>models</folder>
         <folder>sef_ext</folder>
         <folder>views</folder>
@@ -93,7 +94,7 @@
     </administration>
 
     <updateservers>
-		<server type="extension" priority="1" name="COM_MAGEBRIDGE">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
+		<server type="extension" priority="1" name="MageBridge">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
 	</updateservers>
 
 </extension>

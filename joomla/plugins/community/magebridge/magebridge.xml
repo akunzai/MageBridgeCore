@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="community">
+<extension version="3" type="plugin" group="community">
     <name>PLG_COMMUNITY_MAGEBRIDGE</name>
     <author>Yireo</author>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <creationDate>augustus 2017</creationDate>
+    <creationDate>August 2017</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <copyright>Copyright (C) 2017 Yireo.com. All rights reserved.</copyright>
     <version>1.9.5500-dev</version>
     <description>PLG_COMMUNITY_MAGEBRIDGE_DESC</description>
     <isapplication>false</isapplication>
 
-    <!--
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_community_magebridge.ini</language>
+        <language tag="en-GB">en-GB.plg_community_magebridge.sys.ini</language>
     </languages>
-    -->
 
     <files>
         <filename plugin="magebridge">magebridge.php</filename>

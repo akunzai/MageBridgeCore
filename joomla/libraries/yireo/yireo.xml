@@ -34,6 +34,6 @@
     </files>
 
 	<updateservers>
-		<server type="extension" priority="1" name="lib_yireo">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
+		<server type="extension" priority="1" name="MageBridge">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
 	</updateservers>
 </extension>

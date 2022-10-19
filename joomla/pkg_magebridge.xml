@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="3" method="upgrade">
+
+    <name>MageBridge</name>
+    <author>Charley Wu</author>
+    <creationDate>October 2022</creationDate>
+    <version>1.9.5500-dev</version>
+    <packagename>magebridge</packagename>
+
+    <files folder="packages">
+        <file type="component" id="com_magebridge">com_magebridge.zip</file>
+        <file type="module" id="mod_magebridge_block" client="site">mod_magebridge_block.zip</file>
+        <file type="module" id="mod_magebridge_cart" client="site">mod_magebridge_cart.zip</file>
+        <file type="module" id="mod_magebridge_cms" client="site">mod_magebridge_cms.zip</file>
+        <file type="module" id="mod_magebridge_login" client="site">mod_magebridge_login.zip</file>
+        <file type="module" id="mod_magebridge_menu" client="site">mod_magebridge_menu.zip</file>
+        <file type="module" id="mod_magebridge_newsletter" client="site">mod_magebridge_newsletter.zip</file>
+        <file type="module" id="mod_magebridge_progress" client="site">mod_magebridge_progress.zip</file>
+        <file type="module" id="mod_magebridge_switcher" client="site">mod_magebridge_switcher.zip</file>
+        <file type="module" id="mod_magebridge_widget" client="site">mod_magebridge_widget.zip</file>
+        <file type="plugin" id="plg_authentication_magebridge" group="authentication">plg_authentication_magebridge.zip</file>
+        <file type="plugin" id="plg_community_magebridge" group="community">plg_community_magebridge.zip</file>
+        <file type="plugin" id="plg_content_magebridge" group="content">plg_content_magebridge.zip</file>
+        <file type="plugin" id="plg_finder_magebridge" group="finder">plg_finder_magebridge.zip</file>
+        <file type="plugin" id="plg_magebridge_magebridge" group="magebridge">plg_magebridge_magebridge.zip</file>
+        <file type="plugin" id="plg_magebridgenewsletter_example" group="magebridgenewsletter">plg_magebridgenewsletter_example.zip</file>
+        <file type="plugin" id="plg_magebridgeproduct_example" group="magebridgeproduct">plg_magebridgeproduct_example.zip</file>
+        <file type="plugin" id="plg_magebridgestore_example" group="magebridgestore">plg_magebridgestore_example.zip</file>
+        <file type="plugin" id="plg_magebridgestore_falang" group="magebridgestore">plg_magebridgestore_falang.zip</file>
+        <file type="plugin" id="plg_magebridgestore_joomfish" group="magebridgestore">plg_magebridgestore_joomfish.zip</file>
+        <file type="plugin" id="plg_magebridgestore_joomla" group="magebridgestore">plg_magebridgestore_joomla.zip</file>
+        <file type="plugin" id="plg_magebridgestore_nooku" group="magebridgestore">plg_magebridgestore_nooku.zip</file>
+        <file type="plugin" id="plg_magento_magebridge" group="magento">plg_magento_magebridge.zip</file>
+        <file type="plugin" id="plg_search_magebridge" group="search">plg_search_magebridge.zip</file>
+        <file type="plugin" id="plg_system_magebridge" group="system">plg_system_magebridge.zip</file>
+        <file type="plugin" id="plg_system_magebridgepositions" group="system">plg_system_magebridgepositions.zip</file>
+        <file type="plugin" id="plg_system_magebridgepre" group="system">plg_system_magebridgepre.zip</file>
+        <file type="plugin" id="plg_system_magebridgert" group="system">plg_system_magebridgert.zip</file>
+        <file type="plugin" id="plg_system_magebridgesample" group="system">plg_system_magebridgesample.zip</file>
+        <file type="plugin" id="plg_system_magebridget3" group="system">plg_system_magebridget3.zip</file>
+        <file type="plugin" id="plg_system_magebridgeyoo" group="system">plg_system_magebridgeyoo.zip</file>
+        <file type="plugin" id="plg_system_magebridgezoo" group="system">plg_system_magebridgeyoo.zip</file>
+        <file type="plugin" id="plg_user_magebridge" group="user">plg_user_magebridge.zip</file>
+        <file type="plugin" id="plg_user_magebridgefirstlast" group="user">plg_user_magebridgefirstlast.zip</file>
+        <file type="template" id="tpl_magebridge_root" client="site">tpl_magebridge_root.zip</file>
+    </files>
+
+    <updateservers>
+        <server type="extension" priority="1" name="MageBridge">https://raw.githubusercontent.com/akunzai/MageBridgeCore/main/manifest.xml</server>
+    </updateservers>
+
+</extension>

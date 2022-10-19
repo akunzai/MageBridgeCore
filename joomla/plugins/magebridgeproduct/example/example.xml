@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="magebridgeproduct" method="upgrade">
+<extension version="3" type="plugin" group="magebridgeproduct" method="upgrade">
 	<name>PLG_MAGEBRIDGEPRODUCT_EXAMPLE</name>
 	<author>Yireo</author>
 	<creationDate>December 2013</creationDate>
@@ -16,7 +16,7 @@
 		<filename>index.html</filename>
 	</files>
 
-	<languages>
+	<languages folder="language/en-GB">
 		<language tag="en-GB">en-GB.plg_magebridgeproduct_example.ini</language>
 		<language tag="en-GB">en-GB.plg_magebridgeproduct_example.sys.ini</language>
 	</languages>
