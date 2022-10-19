@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -35,27 +36,9 @@ class YireoAbstractModel extends JModelLegacy
     protected $app;
 
     /**
-     * @var JApplicationCms
-     * @deprecated Use $this->app instead
-     */
-    protected $application;
-
-    /**
      * @var JInput
      */
     protected $input;
-
-    /**
-     * @var JInput
-     * @deprecated Use $this->input instead
-     */
-    protected $jinput;
-
-    /**
-     * @var JInput
-     * @deprecated Use $this->input instead
-     */
-    protected $_input;
 
     /**
      * Constructor
@@ -80,9 +63,6 @@ class YireoAbstractModel extends JModelLegacy
      */
     protected function handleAbstractDeprecated()
     {
-        $this->application = $this->app;
-        $this->_input      = $this->input;
-        $this->jinput      = $this->input;
     }
 
     /**

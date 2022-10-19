@@ -79,21 +79,9 @@ class YireoView extends YireoCommonView
     protected $model;
 
     /**
-     * @var YireoModel
-     * @deprecated Use $this->model instead
-     */
-    protected $_model;
-
-    /**
      * @var null|YireoTable
      */
     protected $table;
-
-    /**
-     * @var null|YireoTable
-     * @deprecated Use $this->table instead
-     */
-    protected $_table;
 
     /**
      * Main constructor method
@@ -112,7 +100,9 @@ class YireoView extends YireoCommonView
             if ($this->app->isClient('site') == false) {
                 $this->params = JComponentHelper::getParams($this->getConfig('option'));
             } else {
-                $this->params = $this->app->getParams($this->getConfig('option'));
+                /** @var JApplicationSite */
+                $siteApp = $this->app;
+                $this->params = $siteApp->getParams($this->getConfig('option'));
             }
         }
 
@@ -129,7 +119,6 @@ class YireoView extends YireoCommonView
 
         // Insert the model & table
         $this->model  = $this->getModel(null, false);
-        $this->_model = $this->model;
 
         if (!empty($this->model) && method_exists($this->model, 'getTable')) {
             $useTable = false;
@@ -144,7 +133,6 @@ class YireoView extends YireoCommonView
 
             if ($useTable === true) {
                 $this->table  = $this->model->getTable();
-                $this->_table = $this->table;
             }
         }
 
@@ -225,10 +213,10 @@ class YireoView extends YireoCommonView
         if (!empty($this->item->params)) {
             if (file_exists(JPATH_COMPONENT . '/models/' . $this->_name . '.xml')) {
                 $file   = JPATH_COMPONENT . '/models/' . $this->_name . '.xml';
-                $params = YireoHelper::toParameter($this->item->params, $file);
+                $params = YireoHelper::toRegistry($this->item->params, $file);
             } else {
                 if (!empty($this->item->params)) {
-                    $params = YireoHelper::toParameter($this->item->params);
+                    $params = YireoHelper::toRegistry($this->item->params);
                 }
             }
         }

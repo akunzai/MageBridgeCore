@@ -13,18 +13,13 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 <form method="post" name="adminForm" id="adminForm">
-<div class="row-fluid">
-    <div class="span7">
+    <div class="row-fluid">
         <?php echo $this->loadTemplate('cpanel'); ?>
         <?php echo $this->loadTemplate('logo'); ?>
         <?php echo $this->loadTemplate('details'); ?>
     </div>
-    <div class="span5">
-        <?php echo $this->loadTemplate('ads'); ?>
-    </div>
-</div>
 
-<input type="hidden" name="option" value="<?php echo $this->getConfig('option'); ?>" />
-<input type="hidden" name="task" value="" />
-<?php echo JHtml::_('form.token'); ?>
+    <input type="hidden" name="option" value="<?php echo $this->getConfig('option'); ?>" />
+    <input type="hidden" name="task" value="" />
+    <?php echo JHtml::_('form.token'); ?>
 </form>

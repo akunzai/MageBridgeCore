@@ -287,7 +287,6 @@ class MagebridgeModelCheck extends YireoCommonModel
      */
     public function doPluginChecks()
     {
-        $application = JFactory::getApplication();
         $db          = JFactory::getDbo();
 
         $plugins = [

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -68,22 +69,6 @@ class YireoModel extends YireoCommonModel
     protected $data;
 
     /**
-     * Indicator if this is a model for multiple or single entries
-     *
-     * @var bool
-     * @deprecated Use YireoModelItem or YireoModelItems instead
-     */
-    protected $single = false;
-
-    /**
-     * Boolean to allow for caching
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('cache') instead
-     */
-    protected $_cache = false;
-
-    /**
      * Ordering field
      *
      * @var string
@@ -96,22 +81,6 @@ class YireoModel extends YireoCommonModel
      * @var array
      */
     protected $where = [];
-
-    /**
-     * Search columns
-     *
-     * @var array
-     * @deprecated Use $this->getConfig('search_fields') instead
-     */
-    protected $search = [];
-
-    /**
-     * Search columns
-     *
-     * @var array
-     * @deprecated Use $this->getConfig('search_fields') instead
-     */
-    protected $_search = [];
 
     /**
      * Order-by segments
@@ -179,7 +148,7 @@ class YireoModel extends YireoCommonModel
         // Handle a deprecated constructor call
         if (is_string($config)) {
             $tableAlias        = $config;
-            $this->table_alias = $tableAlias;
+            $this->setConfig('table_alias', $tableAlias);
             $config            = ['table_alias' => $tableAlias];
         }
 
@@ -243,7 +212,7 @@ class YireoModel extends YireoCommonModel
      */
     public function getDbResult($query, $type = 'object')
     {
-        if ($this->_cache == true) {
+        if ($this->getConfig('cache') == true) {
             $cache = JFactory::getCache('lib_yireo_model');
             $rs    = $cache->call([$this, '_getDbResult'], $query, $type);
         } else {
@@ -320,7 +289,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return JRegistry
      */
     protected function initParams()
     {
@@ -329,12 +298,14 @@ class YireoModel extends YireoCommonModel
         }
 
         if ($this->app->isClient('site') == false) {
-            $this->params = JComponentHelper::getParams($this->_option);
+            $this->params = JComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
         }
 
-        $this->params = $this->app->getParams($this->_option);
+        /** @var Joomla\CMS\Application\SiteApplication */
+        $siteApp = $this->app;
+        $this->params = $siteApp->getParams($this->getConfig('option'));
 
         return $this->params;
     }
@@ -384,14 +355,6 @@ class YireoModel extends YireoCommonModel
     protected function handleModelDeprecated()
     {
         $this->_table = $this->table;
-
-        if (!empty($this->_search)) {
-            $this->setConfig('search_fields', $this->_search);
-        }
-
-        if (!empty($this->search)) {
-            $this->setConfig('search_fields', $this->search);
-        }
     }
 
     /**
@@ -405,7 +368,6 @@ class YireoModel extends YireoCommonModel
     public function overrideUserState($key, $value)
     {
         $this->$key = $value;
-
         return true;
     }
 
@@ -537,9 +499,9 @@ class YireoModel extends YireoCommonModel
 
                             // Prepare the parameters
                             if (isset($item->params)) {
-                                $item->params = YireoHelper::toParameter($item->params);
+                                $item->params = YireoHelper::toRegistry($item->params);
                             } else {
-                                $item->params = YireoHelper::toParameter();
+                                $item->params = YireoHelper::toRegistry();
                             }
 
                             // Check for publish_up and publish_down

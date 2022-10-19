@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -20,22 +21,6 @@ defined('_JEXEC') or die();
  */
 trait YireoModelTraitFormable
 {
-    /**
-     * Boolean to allow forms in the frontend
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('frontend_form') instead
-     */
-    protected $_frontend_form = false;
-
-    /**
-     * Name of the XML-file containing the JForm definitions (if any)
-     *
-     * @var int
-     * @deprecated Use $this->getConfig('form_name') instead
-     */
-    protected $_form_name = '';
-
     /**
      * Method to get a XML-based form
      *
@@ -107,18 +92,6 @@ trait YireoModelTraitFormable
         }
 
         return $form;
-    }
-
-    /*
-     * Helper method to override the name of the form
-     *
-     * @param string $form_name
-     *
-     * @deprecated Use $this->setConfig('form_name', $form_name) instead
-     */
-    public function setFormName($form_name)
-    {
-        $this->setConfig('form_name', $form_name);
     }
 
     /**

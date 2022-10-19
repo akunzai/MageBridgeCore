@@ -65,7 +65,6 @@
             <menu link="option=com_magebridge&amp;view=users">COM_MAGEBRIDGE_VIEW_USERS</menu>
             <menu link="option=com_magebridge&amp;view=check">COM_MAGEBRIDGE_VIEW_CHECK</menu>
             <menu link="option=com_magebridge&amp;view=logs">COM_MAGEBRIDGE_VIEW_LOGS</menu>
-            <menu link="option=com_magebridge&amp;view=update">COM_MAGEBRIDGE_VIEW_UPDATE</menu>
         </submenu>
 
         <files folder="administrator/components/com_magebridge">

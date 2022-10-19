@@ -21,7 +21,6 @@ function com_install()
 
     $helper = new MageBridgeInstallHelper();
     $helper->updateQueries();
-    $helper->removeObsoleteFiles();
 
     // Done
     return true;

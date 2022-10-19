@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -23,7 +24,7 @@ class MagebridgeModelStores extends YireoModel
      */
     public function __construct()
     {
-        $this->_search = ['description'];
+        $this->setConfig('search_fields', ['description']);
 
         parent::__construct('store');
     }

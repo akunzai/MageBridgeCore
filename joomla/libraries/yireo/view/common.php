@@ -63,32 +63,14 @@ class YireoCommonView extends YireoAbstractView
     protected $app;
 
     /**
-     * @var JApplicationCms
-     * @deprecated Use $app instead
-     */
-    protected $application;
-
-    /**
      * @var JInput
      */
     protected $input;
 
     /**
-     * @var JInput
-     * @deprecated Use $input instead
-     */
-    protected $jinput;
-
-    /**
      * @var Joomla\CMS\Document\HtmlDocument
      */
     protected $doc;
-
-    /**
-     * @var mixed|string
-     * @deprecated Use $this->getConfig('option') instead
-     */
-    protected $_option;
 
     /**
      * @var JUser
@@ -113,9 +95,7 @@ class YireoCommonView extends YireoAbstractView
         $this->doc         = JFactory::getDocument();
         $this->user        = JFactory::getUser();
         $this->app         = JFactory::getApplication();
-        $this->application = $this->app;
         $this->input       = $this->app->input;
-        $this->jinput      = $this->input;
 
         // Create the namespace-variables
         $this->setConfig('view', (!empty($config['name'])) ? $config['name'] : $this->input->getCmd('view', 'default'));
@@ -239,7 +219,6 @@ class YireoCommonView extends YireoAbstractView
                     if ($layout) {
                         $url .= '&layout=' . $layout;
                     }
-
                     JSubMenuHelper::addEntry(JText::_($titleLabel), $url, $active);
                 } else {
                     if (preg_match('/option=/', $view)) {

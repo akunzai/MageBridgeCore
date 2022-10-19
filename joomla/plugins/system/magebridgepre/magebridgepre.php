@@ -50,9 +50,7 @@ class plgSystemMageBridgePre extends JPlugin
         }
 
         // Perform a postlogin if needed
-        if (YireoHelper::isJoomla35()) {
-            $post = $application->input->post->getArray();
-        }
+        $post = $application->input->post->getArray();
 
         if (empty($post)) {
             $postlogin_userevents = ($this->params->get('postlogin_userevents', 0) == 1) ? true : false;

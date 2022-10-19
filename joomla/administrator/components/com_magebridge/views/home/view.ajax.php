@@ -18,6 +18,6 @@ defined('_JEXEC') or die();
  * @static
  * @package MageBridge
  */
-class MageBridgeViewHome extends YireoViewHomeAjax
+class MageBridgeViewHome extends YireoCommonView
 {
 }

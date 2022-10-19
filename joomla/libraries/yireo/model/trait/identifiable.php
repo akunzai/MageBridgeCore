@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -26,14 +27,6 @@ trait YireoModelTraitIdentifiable
      * @var int
      */
     protected $id = 0;
-
-    /**
-     * Unique id
-     *
-     * @var int
-     * @deprecated Use $this->id instead
-     */
-    protected $_id = 0;
 
     /**
      * @return int

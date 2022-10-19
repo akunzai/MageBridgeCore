@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -22,15 +23,15 @@ class MagebridgeModelProducts extends YireoModel
      */
     public function __construct()
     {
-        $this->_checkout = false;
-        $this->_search   = ['label', 'sku'];
+        $this->setConfig('checkout', false);
+        $this->setConfig('search_fields', ['label', 'sku']);
 
         parent::__construct('product');
 
         $connector = $this->getFilter('connector');
 
         if (!empty($connector)) {
-            $this->addWhere($this->_tbl_alias . '.`connector` = ' . $this->_db->Quote($connector));
+            $this->addWhere($this->getConfig('table_alias') . '.`connector` = ' . $this->_db->Quote($connector));
         }
     }
 }

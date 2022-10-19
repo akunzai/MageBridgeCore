@@ -9,7 +9,6 @@ parameters:
   excludePaths:
     - joomla/administrator/language
     - joomla/language
-    - joomla/libraries/yireo/Yireo/Test
     - joomla/plugins/community/magebridge/magebridge.php
     - joomla/plugins/system/magebridge/overrides
     - joomla/plugins/system/magebridget3

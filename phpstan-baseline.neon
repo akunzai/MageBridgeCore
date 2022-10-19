@@ -141,21 +141,6 @@ parameters:
       path: joomla/administrator/components/com_magebridge/views/store/view.html.php
 
     -
-      message: "#^Access to an undefined property MageBridgeViewUpdate\\:\\:\\$data\\.$#"
-      count: 1
-      path: joomla/administrator/components/com_magebridge/views/update/view.html.php
-
-    -
-      message: "#^Access to an undefined property MageBridgeViewUpdate\\:\\:\\$search\\.$#"
-      count: 1
-      path: joomla/administrator/components/com_magebridge/views/update/view.html.php
-
-    -
-      message: "#^Access to an undefined property MageBridgeViewUpdate\\:\\:\\$update\\.$#"
-      count: 1
-      path: joomla/administrator/components/com_magebridge/views/update/view.html.php
-
-    -
       message: "#^Access to an undefined property MageBridgeViewUsergroup\\:\\:\\$fields\\.$#"
       count: 1
       path: joomla/administrator/components/com_magebridge/views/usergroup/view.html.php
@@ -416,9 +401,9 @@ parameters:
       path: joomla/libraries/yireo/model.php
 
     -
-      message: "#^Access to an undefined property YireoCommonModel\\:\\:\\$_user\\.$#"
+      message: "#^Access to an undefined property YireoModel\\:\\:\\$search\\.$#"
       count: 1
-      path: joomla/libraries/yireo/model/common.php
+      path: joomla/libraries/yireo/model.php
 
     -
       message: "#^Access to an undefined property YireoCommonModel\\:\\:\\$params\\.$#"
@@ -479,11 +464,6 @@ parameters:
       message: "#^Access to an undefined property YireoViewHome\\:\\:\\$current_version\\.$#"
       count: 1
       path: joomla/libraries/yireo/view/home.php
-
-    -
-      message: "#^Access to an undefined property YireoViewHomeAjax\\:\\:\\$feeds\\.$#"
-      count: 1
-      path: joomla/libraries/yireo/view/home/ajax.php
 
     -
       message: "#^Access to an undefined property YireoViewList\\:\\:\\$fields\\.$#"

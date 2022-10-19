@@ -55,20 +55,4 @@ class MageBridgeInstallHelper
             }
         }
     }
-
-    /**
-     * Method to remove obsolete files
-     */
-    public function removeObsoleteFiles()
-    {
-        $obsoleteFiles = [
-            JPATH_ADMINISTRATOR . '/components/com_magebridge/models/element.php',
-        ];
-
-        foreach ($obsoleteFiles as $obsoleteFile) {
-            if (is_file($obsoleteFile)) {
-                unlink($obsoleteFile);
-            }
-        }
-    }
 }

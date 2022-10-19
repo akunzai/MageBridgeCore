@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -34,7 +35,6 @@ class YireoCommonModel extends YireoAbstractModel
      */
     use YireoModelTraitFormable;
 
-
     /**
      * @var JDatabaseDriver
      */
@@ -51,32 +51,6 @@ class YireoCommonModel extends YireoAbstractModel
      * @var array
      */
     protected $data = [];
-
-    /**
-     * Data array
-     *
-     * @var array
-     * @deprecated Use $this->data instead
-     */
-    protected $_data = [];
-
-    /**
-     * @var string
-     * @deprecated Use $this->getConfig('view') instead
-     */
-    protected $_view;
-
-    /**
-     * @var string
-     * @deprecated Use $this->getConfig('option') instead
-     */
-    protected $_option;
-
-    /**
-     * @var string
-     * @deprecated Use $this->getConfig('option_id') instead
-     */
-    protected $_option_id;
 
     /**
      * Constructor
@@ -151,13 +125,6 @@ class YireoCommonModel extends YireoAbstractModel
      */
     protected function handleCommonDeprecated()
     {
-        $this->_db   = $this->db;
-        $this->_user = $this->user;
-
-        $this->_view          = $this->getConfig('view');
-        $this->_option        = $this->getConfig('option');
-        $this->_option_id     = $this->getConfig('option_id');
-        $this->_frontend_form = $this->getConfig('frontend_form');
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -35,14 +36,6 @@ class YireoModelItem extends YireoDataModel
     use YireoModelTraitFilterable;
 
     /**
-     * Boolean to allow for caching
-     *
-     * @var bool
-     * @deprecated Use $this->getConfig('cache') instead
-     */
-    protected $_cache = false;
-
-    /**
      * Constructor
      *
      * @param mixed $config
@@ -54,7 +47,7 @@ class YireoModelItem extends YireoDataModel
         // Handle a deprecated constructor call
         if (is_string($config)) {
             $tableAlias        = $config;
-            $this->table_alias = $tableAlias;
+            $this->setConfig('table_alias', $tableAlias);
             $config            = ['table_alias' => $tableAlias];
         }
 
