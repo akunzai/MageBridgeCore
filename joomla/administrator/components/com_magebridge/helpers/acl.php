@@ -64,9 +64,6 @@ class MageBridgeAclHelper
             case 'log':
                 $authorise = 'com_magebridge.logs';
                 break;
-            case 'update':
-                $authorise = 'com_magebridge.update';
-                break;
             default:
                 $authorise = 'core.manage';
         }

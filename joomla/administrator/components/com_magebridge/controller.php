@@ -74,16 +74,6 @@ class MageBridgeController extends YireoController
             return $this->setRedirect($link);
         }
 
-        // Redirect to the Yireo Forum
-        if ($this->app->input->getCmd('view') == 'forum') {
-            return $this->setRedirect('https://www.yireo.com/forum/');
-        }
-
-        // Redirect to the Yireo Tutorials
-        if ($this->app->input->getCmd('view') == 'tutorials') {
-            return $this->setRedirect('https://www.yireo.com/tutorials/magebridge/');
-        }
-
         parent::display();
     }
 
@@ -151,84 +141,6 @@ class MageBridgeController extends YireoController
 
         $link = 'index.php?option=com_magebridge&view=config';
         $this->setRedirect($link);
-    }
-
-    /**
-     * Method to upgrade specific extensions
-     *
-     * @return void
-     */
-    public function update()
-    {
-        // Validate whether this task is allowed
-        if ($this->_validate() == false) {
-            return;
-        }
-
-        // Get the selected packages
-        $packages = $this->app->input->get('packages');
-
-        // Get the model and update the packages
-        /** @var MagebridgeModelUpdate $model */
-        $model = $this->getModel('update');
-        $model->updateAll($packages);
-
-        // Clean the MageBridge cache
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
-        $cache->clean();
-
-        // Clean the Joomla! plugins cache
-        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
-
-        /** @var JCache $cache */
-        $cache = JCache::getInstance('callback', $options);
-        $cache->clean();
-
-        // Initialize the helper
-        $helper = new MageBridgeInstallHelper();
-
-        // Upgrade the database tables
-        $helper->updateQueries();
-        $helper->removeObsoleteFiles();
-
-        // Redirect
-        $link = 'index.php?option=com_magebridge&view=update';
-        $this->setRedirect($link);
-    }
-
-    /**
-     * Method to perform update queries
-     *
-     * @return void
-     */
-    public function updateQueries()
-    {
-        // Validate whether this task is allowed
-        if ($this->_validate() == false) {
-            return;
-        }
-
-        // Initialize the helper
-        $helper = new MageBridgeInstallHelper();
-
-        // Upgrade the database tables
-        $helper->updateQueries();
-
-        // Run the helper to remove obsolete files
-        YireoHelperInstall::remove();
-
-        // Clean the Joomla! plugins cache
-        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
-
-        /** @var JCache $cache */
-        $cache = JCache::getInstance('callback', $options);
-        $cache->clean();
-
-        // Redirect
-        $link = 'index.php?option=com_magebridge&view=update';
-        $msg  = JText::_('LIB_YIREO_CONTROLLER_DB_UPGRADED');
-        $this->setRedirect($link, $msg);
     }
 
     /**

@@ -79,14 +79,6 @@ class YireoViewHome extends YireoView
         // Variables
         $document = JFactory::getDocument();
 
-        // Generate the backend feeds
-        $this->backend_feed = (bool) $this->params->get('backend_feed', 1);
-
-        if ($this->backend_feed) {
-            $this->ajax('index.php?option=' . $this->getConfig('option') . '&view=home&format=ajax&layout=feeds', 'latest_news');
-            $this->ajax('index.php?option=' . $this->getConfig('option') . '&view=home&format=ajax&layout=promotion', 'promotion');
-        }
-
         // Add additional CSS
         $document->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
         $document->addStyleSheet('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
