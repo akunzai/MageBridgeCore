@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.5/template-install.dtd">
 <extension version="3" type="template" method="upgrade">
 	<name>magebridge_root</name>
 	<creationDate>September 2014</creationDate>
@@ -8,7 +7,7 @@
 	<authorUrl>https://www.yireo.com</authorUrl>
 	<copyright>Copyright 2016 Yireo.com. All rights reserved.</copyright>
 	<license>GNU/GPL</license>
-	<version>1.9.5235</version>
+	<version>1.9.5500-dev</version>
 	<description>MageBridge Root Template</description>
 	<files>
 		<filename>index.php</filename>
