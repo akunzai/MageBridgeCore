@@ -23,7 +23,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: |
-            build/com_magebridge.zip
+            build/pkg_magebridge.zip
             build/lib_yireo.zip
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -31,5 +31,5 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            build/com_magebridge.zip
+            build/pkg_magebridge.zip
             build/lib_yireo.zip
