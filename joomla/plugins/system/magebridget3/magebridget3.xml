@@ -16,7 +16,7 @@
         <folder>fields</folder>
     </files>
     
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_system_magebridget3.ini</language>
         <language tag="en-GB">en-GB.plg_system_magebridget3.sys.ini</language>
     </languages>

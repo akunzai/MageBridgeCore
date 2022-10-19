@@ -16,7 +16,7 @@
 		<folder>form</folder>
 	</files>
 
-	<languages>
+	<languages folder="language/en-GB">
 		<language tag="en-GB">en-GB.plg_user_magebridgefirstlast.ini</language>
 		<language tag="en-GB">en-GB.plg_user_magebridgefirstlast.sys.ini</language>
 	</languages>

@@ -16,7 +16,7 @@
         <folder>helpers</folder>
     </files>
 
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_system_magebridge.ini</language>
         <language tag="en-GB">en-GB.plg_system_magebridge.sys.ini</language>
     </languages>

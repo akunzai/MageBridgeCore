@@ -16,7 +16,7 @@
         <folder>rewrite</folder>
     </files>
 
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_system_magebridgepositions.ini</language>
         <language tag="en-GB">en-GB.plg_system_magebridgepositions.sys.ini</language>
     </languages>

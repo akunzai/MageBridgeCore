@@ -15,7 +15,7 @@
         <filename>index.html</filename>
     </files>
 
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_system_magebridgepre.ini</language>
         <language tag="en-GB">en-GB.plg_system_magebridgepre.sys.ini</language>
     </languages>

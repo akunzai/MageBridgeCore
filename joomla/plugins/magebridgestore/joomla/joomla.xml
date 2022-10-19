@@ -16,7 +16,7 @@
 		<filename>index.html</filename>
 	</files>
 
-	<languages>
+	<languages folder="language/en-GB">
 		<language tag="en-GB">en-GB.plg_magebridgestore_joomla.ini</language>
 		<language tag="en-GB">en-GB.plg_magebridgestore_joomla.sys.ini</language>
 	</languages>

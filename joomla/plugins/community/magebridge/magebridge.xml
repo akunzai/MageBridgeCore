@@ -11,11 +11,9 @@
     <description>PLG_COMMUNITY_MAGEBRIDGE_DESC</description>
     <isapplication>false</isapplication>
 
-    <!--
-    <languages>
+    <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_community_magebridge.ini</language>
     </languages>
-    -->
 
     <files>
         <filename plugin="magebridge">magebridge.php</filename>
