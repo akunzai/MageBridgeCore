@@ -57,7 +57,7 @@ class MageBridgeViewHelper
      */
     protected static function addMenuItems()
     {
-        $menu = JToolBar::getInstance('submenu');
+        $menu = JToolbar::getInstance('submenu');
         if (method_exists($menu, 'getItems')) {
             $currentItems = $menu->getItems();
         } else {
