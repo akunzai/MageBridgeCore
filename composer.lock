@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d48f2f28cfa4b4452cbdced65caf5a4",
+    "content-hash": "2bb00f55bca55b350eb36ceb30276e1b",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -190,7 +190,7 @@
             "version": "4.0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Cotya/magento-composer-installer.git",
+                "url": "https://github.com/Cotya/magento-composer-installer.git",
                 "reference": "ece5cc5bb2a0150a743619901543036597f9eb5b"
             },
             "dist": {
@@ -231,17 +231,7 @@
                     "MagentoHackathon\\Composer": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-0": {
-                    "MagentoHackathon\\Composer\\Magento": "tests/"
-                }
-            },
-            "archive": {
-                "exclude": [
-                    "vendor",
-                    "/tests/FullStackTest/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -277,6 +267,20 @@
                 "composer-installer",
                 "magento",
                 "openmage"
+            ],
+            "support": {
+                "issues": "https://github.com/Cotya/magento-composer-installer/issues",
+                "source": "https://github.com/Cotya/magento-composer-installer/tree/4.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/Flyingmana",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/Flyingmana",
+                    "type": "patreon"
+                }
             ],
             "time": "2022-04-20T19:23:22+00:00"
         },
@@ -1164,6 +1168,16 @@
     ],
     "packages-dev": [
         {
+            "name": "akunzai/joomla-stubs",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akunzai/joomla-stubs.git",
+                "reference": "master"
+            },
+            "type": "library"
+        },
+        {
             "name": "composer/pcre",
             "version": "3.0.0",
             "source": {
@@ -1620,16 +1634,6 @@
             "time": "2022-10-12T14:20:51+00:00"
         },
         {
-            "name": "hamidionline/joomla-stubs",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hamidionline/joomla-stubs",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
             "name": "joomla/joomla-cms",
             "version": "3.10.11",
             "source": {
@@ -1732,16 +1736,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.8.9",
+            "version": "1.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "3a72d9d9f2528fbd50c2d8fcf155fd9f74ade3f2"
+                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/3a72d9d9f2528fbd50c2d8fcf155fd9f74ade3f2",
-                "reference": "3a72d9d9f2528fbd50c2d8fcf155fd9f74ade3f2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0c4459dc42c568b818b3f25186589f3acddc1823",
+                "reference": "0c4459dc42c568b818b3f25186589f3acddc1823",
                 "shasum": ""
             },
             "require": {
@@ -1771,7 +1775,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.8.9"
+                "source": "https://github.com/phpstan/phpstan/tree/1.8.10"
             },
             "funding": [
                 {
@@ -1787,7 +1791,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-13T13:40:18+00:00"
+            "time": "2022-10-17T14:23:35+00:00"
         },
         {
             "name": "psr/cache",
@@ -2565,7 +2569,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "akunzai/joomla-stubs": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

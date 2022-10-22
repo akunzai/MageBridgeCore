@@ -14,7 +14,7 @@ parameters:
     - joomla/plugins/system/magebridget3
     - magento/app/etc
   scanFiles:
-    - vendor/hamidionline/joomla-stubs/stubs.php
+    - vendor/akunzai/joomla-stubs/joomla-stubs.php
     - vendor/openmage/magento-lts/app/Mage.php
   scanDirectories:
     - joomla/libraries
@@ -26,7 +26,4 @@ parameters:
     - vendor/joomla/joomla-cms/plugins
     - vendor/openmage/magento-lts/lib
     - vendor/openmage/magento-lts/app/code
-  ignoreErrors:
-    # joomla stubs
-    - '#Class j[a-zA-Z]+ referenced with incorrect case\: J[a-zA-Z]+#'
   tmpDir: tmp
