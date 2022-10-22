@@ -72,6 +72,15 @@
             "! find ./magento -type f -name '*.php' -exec php -d display_errors=1 -d error_reporting=-1 -l {} \\; 2>&1 | grep -v ^'No syntax errors'",
             "php-cs-fixer fix --diff --dry-run"
         ],
+        "fix": [
+            "php-cs-fixer -- fix"
+        ],
+        "phpstan": [
+            "phpstan analyse"
+        ],
+        "phpstan-baseline": [
+            "phpstan analyse --generate-baseline"
+        ],
         "build": [
             "php ./bundle.php ./joomla/libraries/yireo/yireo.xml ./build/lib_yireo.zip",
             "php ./bundle.php ./joomla/com_magebridge.xml ./joomla/packages/com_magebridge.zip",
