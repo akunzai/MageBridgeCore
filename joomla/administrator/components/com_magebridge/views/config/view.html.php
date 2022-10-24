@@ -41,25 +41,19 @@ class MageBridgeViewConfig extends YireoCommonView
             return parent::display($layout);
         }
 
-        $bar = JToolbar::getInstance('toolbar');
         // Toolbar options
         if (MageBridgeAclHelper::isDemo() == false) {
-            $bar->appendButton('Standard', 'export', 'Export', 'export', false);
+            JToolbarHelper::custom('export', 'download', null, 'Export', false);
         }
 
         if (MageBridgeAclHelper::isDemo() == false) {
-            $bar->appendButton('Standard', 'import', 'Import', 'import', false);
+            JToolbarHelper::custom('import', 'upload', null, 'Import', false);
         }
-        // Add a button linking to config for component.
-        $bar->appendButton(
-            'Link',
-            'options',
-            'JToolbar_Options',
-            'index.php?option=com_config&amp;view=component&amp;component=' . urlencode('com_magebridge') . '&amp;return=' . urlencode(base64_encode((string) JUri::getInstance()))
-        );
-        $bar->appendButton('Standard', 'save', 'JTOOLBAR_SAVE', 'save', false);
-        $bar->appendButton('Standard', 'apply', 'JTOOLBAR_APPLY', 'apply', false);
-        $bar->appendButton('Standard', 'cancel', 'JTOOLBAR_CANCEL', 'cancel', false);
+
+        JToolbarHelper::preferences('com_magebridge');
+        JToolbarHelper::save();
+        JToolbarHelper::apply();
+        JToolbarHelper::cancel();
 
         // Extra scripts
         MageBridgeTemplateHelper::load('jquery');

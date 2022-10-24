@@ -145,26 +145,21 @@ class YireoView extends YireoCommonView
 
             // Add some things to the task-bar
             if ($this->_single && $this->loadToolbar == true) {
-                $bar = JToolbar::getInstance('toolbar');
-
                 if ($this->params->get('toolbar_show_savenew', 1)) {
-                    $bar->appendButton('Standard', 'save', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', 'savenew', false);
+                    JToolbarHelper::custom('savenew', 'save', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveandcopy', 1)) {
-                    $bar->appendButton('Standard', 'copy', 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', 'saveandcopy', false);
+                    JToolbarHelper::custom('saveandcopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveascopy', 1)) {
-                    $bar->appendButton('Standard', 'copy', 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', 'saveascopy', false);
+                    JToolbarHelper::custom('saveascopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
                 }
 
-                // Add a save button.
-                $bar->appendButton('Standard', 'save', 'JTOOLBAR_SAVE', 'save', false);
-                // Add an apply button
-                $bar->appendButton('Standard', 'apply', 'JTOOLBAR_APPLY', 'apply', false);
-                // Add a cancel button.
-                $bar->appendButton('Standard', 'cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE', 'cancel', false);
+                JToolbarHelper::save();
+                JToolbarHelper::apply();
+                JToolbarHelper::cancel('cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE');
 
                 JHtml::_('behavior.tooltip');
             }

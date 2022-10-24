@@ -36,14 +36,8 @@ class MageBridgeViewHelper
         $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-j35.css');
 
         // Page title
-        $title = JText::_('MageBridge') . ': ' . JText::_('COM_MAGEBRIDGE_VIEW_' . strtoupper(str_replace(' ', '_', $title)));
-        $icon = 'logo.png';
-        $layout = new JLayoutFile('joomla.toolbar.title');
-        $html   = $layout->render(['title' => $title, 'icon' => $icon]);
-
-        $app = JFactory::getApplication();
-        $app->JComponentTitle = $html;
-        JFactory::getDocument()->setTitle(strip_tags($title) . ' - ' . $app->get('sitename') . ' - ' . JText::_('JADMINISTRATION'));
+        $title = JText::_('COM_MAGEBRIDGE_VIEW_'.strtoupper(str_replace(' ', '_', $title)));
+        JToolbarHelper::title('MageBridge: '.$title, 'logo.png');
 
         // Add the menu
         self::addMenuItems();
