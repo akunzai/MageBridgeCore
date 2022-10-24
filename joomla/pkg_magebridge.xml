@@ -43,6 +43,7 @@
         <file type="plugin" id="plg_user_magebridge" group="user">plg_user_magebridge.zip</file>
         <file type="plugin" id="plg_user_magebridgefirstlast" group="user">plg_user_magebridgefirstlast.zip</file>
         <file type="template" id="tpl_magebridge_root" client="site">tpl_magebridge_root.zip</file>
+        <file type="library" id="lib_yireo">lib_yireo.zip</file>
     </files>
 
     <updateservers>

@@ -82,7 +82,7 @@
             "phpstan analyse --generate-baseline"
         ],
         "build": [
-            "php ./bundle.php ./joomla/libraries/yireo/yireo.xml ./build/lib_yireo.zip",
+            "php ./bundle.php ./joomla/libraries/yireo/yireo.xml ./joomla/packages/lib_yireo.zip",
             "php ./bundle.php ./joomla/com_magebridge.xml ./joomla/packages/com_magebridge.zip",
             "php ./bundle.php ./joomla/modules/mod_magebridge_block/mod_magebridge_block.xml ./joomla/packages/mod_magebridge_block.zip",
             "php ./bundle.php ./joomla/modules/mod_magebridge_cart/mod_magebridge_cart.xml ./joomla/packages/mod_magebridge_cart.zip",
