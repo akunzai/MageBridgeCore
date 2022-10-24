@@ -146,15 +146,15 @@ class YireoView extends YireoCommonView
             // Add some things to the task-bar
             if ($this->_single && $this->loadToolbar == true) {
                 if ($this->params->get('toolbar_show_savenew', 1)) {
-                    JToolbarHelper::custom('savenew', 'save.png', 'save.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
+                    JToolbarHelper::custom('savenew', 'save', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveandcopy', 1)) {
-                    JToolbarHelper::custom('saveandcopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
+                    JToolbarHelper::custom('saveandcopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveascopy', 1)) {
-                    JToolbarHelper::custom('saveascopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
+                    JToolbarHelper::custom('saveascopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
                 }
 
                 JToolbarHelper::save();

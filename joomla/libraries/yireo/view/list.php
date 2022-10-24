@@ -168,7 +168,7 @@ class YireoViewList extends YireoView
         // Load the toolbar edit-buttons
         if ($this->loadToolbarEdit == true) {
             JToolbarHelper::editList();
-            JToolbarHelper::custom('copy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
+            JToolbarHelper::custom('copy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
             JToolbarHelper::addNew();
         }
 

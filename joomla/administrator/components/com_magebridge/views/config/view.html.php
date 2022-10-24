@@ -43,11 +43,11 @@ class MageBridgeViewConfig extends YireoCommonView
 
         // Toolbar options
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('export', 'export.png', null, 'Export', false);
+            JToolbarHelper::custom('export', 'download', null, 'Export', false);
         }
 
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('import', 'import.png', null, 'Import', false);
+            JToolbarHelper::custom('import', 'upload', null, 'Import', false);
         }
 
         JToolbarHelper::preferences('com_magebridge');
