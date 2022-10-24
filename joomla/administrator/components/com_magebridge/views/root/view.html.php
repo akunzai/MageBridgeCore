@@ -29,14 +29,7 @@ class MageBridgeViewRoot extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        $title = JText::_('MageBridge') . ': ' . JText::_('Magento Admin Panel');
-        $icon = 'yireo';
-        $layout = new JLayoutFile('joomla.toolbar.title');
-        $html   = $layout->render(['title' => $title, 'icon' => $icon]);
-
-        $app = JFactory::getApplication();
-        $app->JComponentTitle = $html;
-        JFactory::getDocument()->setTitle(strip_tags($title) . ' - ' . $app->get('sitename') . ' - ' . JText::_('JADMINISTRATION'));
+        JToolbarHelper::title(JText::_('MageBridge') . ': ' . JText::_('Magento Admin Panel'), 'yireo');
         parent::display($tpl);
     }
 }

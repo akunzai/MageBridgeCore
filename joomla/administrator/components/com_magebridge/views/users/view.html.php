@@ -31,9 +31,8 @@ class MageBridgeViewUsers extends MageBridgeView
     public function display($tpl = null)
     {
         // Set toolbar items for the page
-        $bar = JToolbar::getInstance('toolbar');
-        $bar->appendButton('Standard', 'export', 'Export', 'export', false);
-        $bar->appendButton('Standard', 'import', 'Import', 'import', false);
+        JToolbarHelper::custom('export', 'export.png', null, 'Export', false);
+        JToolbarHelper::custom('import', 'import.png', null, 'Import', false);
 
         $this->setMenu();
 

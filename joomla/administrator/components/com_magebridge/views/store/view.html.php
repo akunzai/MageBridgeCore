@@ -67,12 +67,9 @@ class MageBridgeViewStore extends YireoViewForm
         $this->setTitle(JText::_('COM_MAGEBRIDGE_VIEW_STORE_DEFAULT_STORE'));
 
         // Override the normal toolbar
-        $bar = JToolbar::getInstance('toolbar');
-
-        // Add a cancel button.
-        $bar->appendButton('Standard', 'cancel', 'JTOOLBAR_CANCEL', 'cancel', false);
-        $bar->appendButton('Standard', 'save', 'JTOOLBAR_SAVE', 'save', false);
-        $bar->appendButton('Standard', 'apply', 'JTOOLBAR_APPLY', 'apply', false);
+        JToolbarHelper::cancel();
+        JToolbarHelper::save();
+        JToolbarHelper::apply();
 
         // Load values from the configuration
         $storegroup = MageBridgeModelConfig::load('storegroup');

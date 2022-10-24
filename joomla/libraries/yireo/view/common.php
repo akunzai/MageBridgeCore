@@ -169,13 +169,7 @@ class YireoCommonView extends YireoAbstractView
         }
 
         $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
-        $title = $component_title . ': ' . $title;
-        $layout = new JLayoutFile('joomla.toolbar.title');
-        $html   = $layout->render(['title' => $title, 'icon' => $icon]);
-
-        $app = JFactory::getApplication();
-        $app->JComponentTitle = $html;
-        JFactory::getDocument()->setTitle(strip_tags($title) . ' - ' . $app->get('sitename') . ' - ' . JText::_('JADMINISTRATION'));
+        JToolbarHelper::title($component_title . ': ' . $title, $icon);
 
         return;
     }

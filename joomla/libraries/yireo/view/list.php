@@ -154,24 +154,22 @@ class YireoViewList extends YireoView
      */
     public function loadToolbarList()
     {
-        $bar = JToolbar::getInstance('toolbar');
-
         // Initialize the toolbar
         if ($this->table && $this->table->getStateField() != '') {
-            $bar->appendButton('Standard', 'publish', 'JTOOLBAR_PUBLISH', 'publish', true);
-            $bar->appendButton('Standard', 'unpublish', 'JTOOLBAR_UNPUBLISH', 'unpublish', true);
+            JToolbarHelper::publishList();
+            JToolbarHelper::unpublishList();
         }
 
         // Add the delete-button
         if ($this->loadToolbarDelete == true) {
-            $bar->appendButton('Standard', 'delete', 'JTOOLBAR_DELETE', 'remove', true);
+            JToolbarHelper::deleteList();
         }
 
         // Load the toolbar edit-buttons
         if ($this->loadToolbarEdit == true) {
-            $bar->appendButton('Standard', 'edit', 'JTOOLBAR_EDIT', 'edit', true);
-            $bar->appendButton('Standard', 'copy', 'LIB_YIREO_VIEW_TOOLBAR_COPY', 'copy', true);
-            $bar->appendButton('Standard', 'new', 'JTOOLBAR_NEW', 'add', false);
+            JToolbarHelper::editList();
+            JToolbarHelper::custom('copy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
+            JToolbarHelper::addNew();
         }
 
         return true;
