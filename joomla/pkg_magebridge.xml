@@ -39,7 +39,7 @@
         <file type="plugin" id="plg_system_magebridgesample" group="system">plg_system_magebridgesample.zip</file>
         <file type="plugin" id="plg_system_magebridget3" group="system">plg_system_magebridget3.zip</file>
         <file type="plugin" id="plg_system_magebridgeyoo" group="system">plg_system_magebridgeyoo.zip</file>
-        <file type="plugin" id="plg_system_magebridgezoo" group="system">plg_system_magebridgeyoo.zip</file>
+        <file type="plugin" id="plg_system_magebridgezoo" group="system">plg_system_magebridgezoo.zip</file>
         <file type="plugin" id="plg_user_magebridge" group="user">plg_user_magebridge.zip</file>
         <file type="plugin" id="plg_user_magebridgefirstlast" group="user">plg_user_magebridgefirstlast.zip</file>
         <file type="template" id="tpl_magebridge_root" client="site">tpl_magebridge_root.zip</file>
