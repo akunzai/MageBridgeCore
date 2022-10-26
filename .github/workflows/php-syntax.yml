@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - '**.php'
+      - '**.phtml'
   pull_request:
     paths:
       - '**.php'
+      - '**.phtml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -29,3 +31,5 @@ jobs:
           coverage: none
       - name: Check .php files
         run: '! find . -type f -name "*.php" -exec php -d display_errors=1 -d error_reporting=-1 -l {} \; 2>&1 | grep -v ^"No syntax errors"'
+      - name: Check .phtml files
+        run: '! find ./magento/app/design -type f -name "*.phtml" -exec php -d display_errors=1 -d error_reporting=-1 -l {} \; 2>&1 | grep -v ^"No syntax errors"'
