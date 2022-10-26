@@ -159,7 +159,7 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
 
             // Fill the local ZIP-file with the remote data
             file_put_contents($tmpfile, $data);
-            chmod($tmpfile, 0o644);
+            chmod($tmpfile, 0644);
         }
 
         // Check the filesize of the patch
