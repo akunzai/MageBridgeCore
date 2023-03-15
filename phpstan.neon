@@ -4,11 +4,13 @@ includes:
 parameters:
   level: 0
   paths:
-    - joomla
+    - joomla/administrator/components
+    - joomla/components
+    - joomla/libraries
+    - joomla/modules
+    - joomla/plugins
     - magento
   excludePaths:
-    - joomla/administrator/language
-    - joomla/language
     - joomla/plugins/community/magebridge/magebridge.php
     - joomla/plugins/system/magebridge/overrides
     - joomla/plugins/system/magebridget3
@@ -17,7 +19,6 @@ parameters:
     - vendor/akunzai/joomla-stubs/joomla-stubs.php
     - vendor/openmage/magento-lts/app/Mage.php
   scanDirectories:
-    - joomla/libraries
     - vendor/joomla/joomla-cms/administrator
     - vendor/joomla/joomla-cms/components
     - vendor/joomla/joomla-cms/includes
