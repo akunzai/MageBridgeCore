@@ -226,25 +226,6 @@ class MageBridgeModelRegister
     /**
      * Deprecated method
      *
-     * @param string $type
-     * @param string $name
-     * @param mixed  $arguments
-     * @param string $id
-     *
-     * @return mixed
-     * @deprecated Use getData() instead
-     */
-    public function getSegmentData($type = null, $name = null, $arguments = null, $id = null)
-    {
-        MageBridgeModelDebug::getInstance()
-            ->warning('Method MageBridgeModelRegister::getSegmentData() is deprecated');
-
-        return $this->getData($type, $name, $arguments, $id);
-    }
-
-    /**
-     * Deprecated method
-     *
      * @param string $id
      *
      * @return mixed
