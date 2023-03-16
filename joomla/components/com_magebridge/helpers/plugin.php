@@ -54,21 +54,6 @@ class MageBridgePluginHelper
     }
 
     /**
-     * Helper-method to determine if it's possible to run this event
-     *
-     * @param string $event
-     * @param array  $options
-     *
-     * @return bool
-     * @deprecated Use MageBridgePluginHelper::getInstance()->isEventAllowed() instead
-     */
-    public static function allowEvent($event, $options = [])
-    {
-        $instance = self::getInstance();
-        return $instance->isEventAllowed($event, $options);
-    }
-
-    /**
      * MageBridgePluginHelper constructor.
      */
     public function __construct()
