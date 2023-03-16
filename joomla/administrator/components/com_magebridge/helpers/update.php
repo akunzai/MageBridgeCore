@@ -45,7 +45,7 @@ class MageBridgeUpdateHelper
     {
         switch($package['type']) {
             case 'component':
-                $file = JPATH_ADMINISTRATOR.'/components/'.$package['name'].'/magebridge.xml';
+                $file = JPATH_ADMINISTRATOR.'/components/'.$package['name'].'/com_magebridge.xml';
                 break;
 
             case 'module':
