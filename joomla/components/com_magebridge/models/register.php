@@ -224,22 +224,6 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Deprecated method
-     *
-     * @param string $id
-     *
-     * @return mixed
-     * @deprecated Use getById() instead
-     */
-    public function getSegmentById($id)
-    {
-        MageBridgeModelDebug::getInstance()
-            ->warning('Method MageBridgeModelRegister::getSegmentById() is deprecated');
-
-        return $this->getById($id);
-    }
-
-    /**
      * Method to remove a request from the register
      *
      * @param string $type
