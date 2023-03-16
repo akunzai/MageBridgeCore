@@ -51,16 +51,6 @@ class MageBridgeDebugHelper
 
     /**
      * Helper-method to set the debugging information
-     *
-     * @deprecated
-     */
-    public function addDebug()
-    {
-        $this->addDebugBar();
-    }
-
-    /**
-     * Helper-method to set the debugging information
      */
     public function addDebugBar()
     {
