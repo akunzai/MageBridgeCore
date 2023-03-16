@@ -60,25 +60,6 @@ require_once 'Zend/Server/Method/Parameter.php';
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
 {
     /**
-     * @deprecated
-     * @var array List of PHP magic methods (lowercased)
-     */
-    protected static $magic_methods = [
-        '__call',
-        '__clone',
-        '__construct',
-        '__destruct',
-        '__get',
-        '__isset',
-        '__set',
-        '__set_state',
-        '__sleep',
-        '__tostring',
-        '__unset',
-        '__wakeup',
-    ];
-
-    /**
      * @var bool Flag; whether or not overwriting existing methods is allowed
      */
     protected $_overwriteExistingMethods = false;
