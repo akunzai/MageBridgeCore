@@ -44,8 +44,6 @@ class MageBridgePluginHelper
      */
     public static function getInstance()
     {
-        static $instance;
-
         if (null === self::$_instance) {
             self::$_instance = new self();
         }
