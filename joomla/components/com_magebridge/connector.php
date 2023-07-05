@@ -63,20 +63,6 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to check whether this connector is visible or not
-     *
-     * @deprecated
-     *
-     * @param null
-     *
-     * @return bool
-     */
-    public function isVisible()
-    {
-        return true;
-    }
-
-    /**
      * Get a list of all connectors
      *
      * @param string $type
