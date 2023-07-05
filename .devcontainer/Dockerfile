@@ -21,12 +21,12 @@ RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
     libfreetype6-dev libicu-dev libjpeg62-turbo-dev \
-    libpng-dev libxslt1-dev libzip-dev libwebp-dev \
+    libpng-dev libxslt1-dev libzip-dev libwebp-dev libxml2-dev \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     rm -rf /var/lib/apt/lists/*; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
-    docker-php-ext-install -j$(nproc) opcache \
+    docker-php-ext-install -j$(nproc) opcache soap \
     intl gd mysqli pcntl pdo_mysql xsl zip; \
     # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
