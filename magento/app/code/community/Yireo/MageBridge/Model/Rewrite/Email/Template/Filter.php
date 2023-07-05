@@ -27,22 +27,18 @@ class Yireo_MageBridge_Model_Rewrite_Email_Template_Filter extends Mage_Core_Mod
     public function storeDirective($construction)
     {
         // Get the bridge URLs
+        /** @var Yireo_MageBridge_Model_Core */
         $bridge = Mage::getSingleton('magebridge/core');
-        $joomla_url = $bridge->getMageBridgeUrl();
         $joomla_sef_url = $bridge->getMageBridgeSefUrl();
 
         // Remove the .html suffix from the URL
         if (preg_match('/\.html$/', $joomla_sef_url)) {
-            $url_suffix = true;
             $joomla_sef_url = preg_replace('/\.html$/', '', $joomla_sef_url);
-        } else {
-            $url_suffix = false;
         }
 
         // Call the parent function
         $url = parent::storeDirective($construction);
         $store_code = Mage::app()->getStore(Mage::getDesign()->getStore())->getCode();
-        $url = str_replace($joomla_url, $joomla_sef_url, $url);
         $url = preg_replace('/___store='.$store_code.'/', '', $url);
         $url = preg_replace('/SID=([a-zA-Z0-9]+)/', '', $url);
         $url = preg_replace('/\?$/', '', $url);
