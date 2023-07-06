@@ -805,7 +805,7 @@ class MageBridgeTemplateHelper
                 if (MageBridgeModelConfig::load('use_google_api') == 1) {
                     $prefix = (JUri::getInstance()
                         ->isSSL()) ? 'https' : 'http';
-                    $document->addScript($prefix . '://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js');
+                    $document->addScript($prefix . '://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js');
                 } else {
                     YireoHelper::jquery();
                 }
