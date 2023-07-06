@@ -64,23 +64,23 @@ class plgSystemMageBridgeT3 extends JPlugin
             if (empty($request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_homepage', 'full-width'));
 
-            // Magento customer or sales pages
+                // Magento customer or sales pages
             } elseif (preg_match('/^(customer|sales)/', $request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_customer', 'full-width'));
 
-            // Magento product-pages
+                // Magento product-pages
             } elseif (preg_match('/^catalog\/product/', $request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_product', 'full-width'));
 
-            // Magento category-pages
+                // Magento category-pages
             } elseif (preg_match('/^catalog\/category/', $request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_category', 'full-width'));
 
-            // Magento cart-pages
+                // Magento cart-pages
             } elseif (preg_match('/^checkout\/cart/', $request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_cart', 'full-width'));
 
-            // Magento checkout-pages
+                // Magento checkout-pages
             } elseif (preg_match('/^checkout/', $request)) {
                 JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_checkout', 'full-width'));
             }

@@ -9,7 +9,7 @@ This is the repository for the MageBridge Open Core. It includes the main Joomla
 
 ## Requirements
 
-- PHP >= 7.4
+- PHP >= 8.1
 - [Composer](https://getcomposer.org/)
 - [Joomla!](https://www.joomla.org/) 3.x
 - [OpenMage](https://github.com/OpenMage/magento-lts) 19.x

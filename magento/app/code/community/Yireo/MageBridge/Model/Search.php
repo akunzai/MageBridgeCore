@@ -77,7 +77,7 @@ class Yireo_MageBridge_Model_Search extends Mage_Core_Model_Abstract
                     ->addTaxPercents()
                 ;
 
-            // Instead of using the original classes, grab the collection using SQL-statements
+                // Instead of using the original classes, grab the collection using SQL-statements
             } else {
                 $catalogsearchTable = Mage::getSingleton('core/resource')->getTableName('catalogsearch/fulltext');
                 ;
