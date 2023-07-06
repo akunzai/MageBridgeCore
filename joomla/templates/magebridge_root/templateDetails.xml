@@ -7,7 +7,7 @@
 	<authorUrl>https://www.yireo.com</authorUrl>
 	<copyright>Copyright 2016 Yireo.com. All rights reserved.</copyright>
 	<license>GNU/GPL</license>
-	<version>1.9.5500-dev</version>
+	<version>1.9.5500</version>
 	<description>MageBridge Root Template</description>
 	<files>
 		<filename>index.php</filename>
