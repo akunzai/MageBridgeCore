@@ -172,7 +172,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 }
             }
 
-        // Backend actions
+            // Backend actions
         } else {
             if ($this->app->isClient('administrator')) {
                 // Handle SSO checks
@@ -635,7 +635,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                     if (!empty($base_js_url) && (strstr($script, 'http://' . $base_js_url) || strstr($script, 'https://' . $base_js_url))) {
                         continue;
 
-                    // Skip Magento frontend scripts
+                        // Skip Magento frontend scripts
                     } else {
                         if (preg_match('/\/skin\/frontend\//', $script)) {
                             continue;
@@ -698,7 +698,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                         }
                     }
 
-                // Disable MooTools
+                    // Disable MooTools
                 } else {
                     if ($disableJsMootools == 1) {
                         $mootools_scripts = [
@@ -730,7 +730,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                         $body = str_replace($tag . "\n", '', $body);
                         $body = str_replace($tag, '', $body);
 
-                    // Comment the tag
+                        // Comment the tag
                     } else {
                         if ($filter == 'comment') {
                             if (!in_array($tag, $commented)) {
@@ -738,7 +738,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                                 $body = str_replace($tag, '<!-- MB: ' . $tag . ' -->', $body);
                             }
 
-                        // Replace the script with the foo-script
+                            // Replace the script with the foo-script
                         } else {
                             $this->console[] = 'MageBridge removed ' . $script;
                             $body = str_replace($script, $foo_script, $body);
@@ -912,12 +912,12 @@ class PlgSystemMageBridge extends MageBridgePlugin
             if ($enforce_ssl == 0) {
                 $redirect = false;
 
-            // Set the redirect for the entire Joomla! site
+                // Set the redirect for the entire Joomla! site
             } else {
                 if ($enforce_ssl == 1) {
                     $redirect = true;
 
-                // Set the redirect for MageBridge only
+                    // Set the redirect for MageBridge only
                 } else {
                     if ($enforce_ssl == 2) {
                         // MageBridge links
@@ -952,7 +952,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $this->app->close();
             }
 
-        // Check if non-SSL should be forced
+            // Check if non-SSL should be forced
         } else {
             if ($uri->isSSL() == true && $this->getParam('enable_nonssl_redirect', 1) == 1) {
                 // Determine whether to do a redirect
@@ -963,12 +963,12 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 if ($enforce_ssl == 0) {
                     $redirect = true;
 
-                // Do not redirect if SSL is set for the entire site
+                    // Do not redirect if SSL is set for the entire site
                 } else {
                     if ($enforce_ssl == 1) {
                         $redirect = false;
 
-                    // Do redirect if SSL is set for the shop only
+                        // Do redirect if SSL is set for the shop only
                     } else {
                         if ($enforce_ssl == 2) {
                             if (!in_array($this->input->getCmd('option'), $components)) {
@@ -978,7 +978,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                                 }
                             }
 
-                        // Set the redirect if SSL is only enabled for MageBridge
+                            // Set the redirect if SSL is only enabled for MageBridge
                         } else {
                             if ($enforce_ssl == 3) {
                                 if ($this->input->getCmd('option') == 'com_magebridge') {
