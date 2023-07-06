@@ -39,18 +39,6 @@ class MageBridgeUserHelper
     }
 
     /**
-     * Helper-method to return the default Joomla! usergroup name
-     *
-     * @deprecated
-     * @param null
-     * @return string
-     */
-    public static function getDefaultJoomlaGroup()
-    {
-        return null;
-    }
-
-    /**
      * Helper-method to determine whether an user is a backend user
      *
      * @param mixed $user User object or identifier

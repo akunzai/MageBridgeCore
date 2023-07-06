@@ -31,7 +31,7 @@ class MageBridgeModuleHelper extends JModuleHelper
             static $modules = null;
 
             if (is_array($modules) == false) {
-                $modules = self::_load();
+                $modules = JModuleHelper::load();
                 foreach ($modules as $index => $module) {
                     if (strstr($module->module, 'mod_magebridge') == false) {
                         unset($modules[$index]);

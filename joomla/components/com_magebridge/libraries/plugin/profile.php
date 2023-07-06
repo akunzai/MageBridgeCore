@@ -95,7 +95,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
     public function getConfigFile()
     {
         // Determine the conversion-file
-        $params = $this->getParams();
+        $params = $this->params;
         $custom = $this->getPath($params->get('file', 'map').'.php');
         $default = $this->getPath('map.php');
 

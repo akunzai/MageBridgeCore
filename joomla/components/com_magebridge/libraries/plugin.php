@@ -75,13 +75,4 @@ class MageBridgePlugin extends JPlugin
 
         return false;
     }
-
-    /**
-     * @return \Joomla\Registry\Registry
-     * @deprecated
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
 }

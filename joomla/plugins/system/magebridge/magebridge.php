@@ -232,7 +232,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
             // Add the debugging bar if configured
             $debugHelper = new MageBridgeDebugHelper();
-            $debugHelper->addDebug();
+            $debugHelper->addDebugBar();
         }
     }
 

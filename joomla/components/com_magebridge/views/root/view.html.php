@@ -49,7 +49,7 @@ class MageBridgeViewRoot extends MageBridgeView
         }
 
         // Add controller information
-        $mageConfig = $bridge->getMageConfig();
+        $mageConfig = $bridge->getSessionData();
         $mageController = (isset($mageConfig['controller'])) ? $mageConfig['controller'] : null;
         $mageAction = (isset($mageConfig['action'])) ? $mageConfig['action'] : null;
 

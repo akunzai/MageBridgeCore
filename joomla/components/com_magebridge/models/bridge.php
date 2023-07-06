@@ -685,21 +685,6 @@ class MageBridgeModelBridge
     /**
      * Helper-method to return the Magento configuration
      *
-     * @deprecated Use getSessionData() instead
-     *
-     * @param string  $name
-     * @param bool $allow_cache
-     *
-     * @return mixed
-     */
-    public function getMageConfig($name = null, $allow_cache = true)
-    {
-        return $this->getSessionData($name, $allow_cache);
-    }
-
-    /**
-     * Helper-method to return the Magento configuration
-     *
      * @param string  $name
      * @param bool $allow_cache
      *

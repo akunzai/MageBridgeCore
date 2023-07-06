@@ -977,7 +977,7 @@ class Yireo_MageBridge_Model_Core
      */
     public function parse($string)
     {
-        $string = str_replace(Mage::getUrl(), $this->getMageBridgeUrl(), $string);
+        $string = str_replace(Mage::getUrl(), $this->getMageBridgeSefUrl(), $string);
         return $string;
     }
 
@@ -1371,21 +1371,6 @@ class Yireo_MageBridge_Model_Core
     {
         $this->_events = $events;
         return null;
-    }
-
-    /**
-     * Helper-method to get the Joomla! URL from the meta-data
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return string
-     * @deprecated
-     */
-    public function getMageBridgeUrl()
-    {
-        return $this->getMageBridgeSefUrl();
     }
 
     /**

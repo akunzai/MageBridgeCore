@@ -50,7 +50,7 @@ class MageBridgeView extends YireoAbstractView
     {
         // Add debugging
         $debugHelper = new MageBridgeDebugHelper();
-        $debugHelper->addDebug();
+        $debugHelper->addDebugBar();
 
         // Build the block
         $this->block = $this->build();

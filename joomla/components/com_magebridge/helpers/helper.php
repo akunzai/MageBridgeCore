@@ -493,19 +493,6 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to get the current Joomla! core version
-     *
-     * @param null
-     *
-     * @return bool
-     * @deprecated
-     */
-    public static function isJoomla25()
-    {
-        return self::isJoomlaVersion(['1.6', '1.7', '2.5']);
-    }
-
-    /**
      * Helper-method to get the component parameters
      *
      * @param null
