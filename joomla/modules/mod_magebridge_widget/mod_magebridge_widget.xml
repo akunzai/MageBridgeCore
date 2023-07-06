@@ -18,8 +18,8 @@
 	</files>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.mod_magebridge_widget.ini</language>
-        <language tag="en-GB">en-GB.mod_magebridge_widget.sys.ini</language>
+        <language tag="en-GB">mod_magebridge_widget.ini</language>
+        <language tag="en-GB">mod_magebridge_widget.sys.ini</language>
     </languages>
 
 	<config>

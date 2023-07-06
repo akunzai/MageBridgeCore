@@ -16,8 +16,8 @@
     </files>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.plg_system_magebridgezoo.ini</language>
-        <language tag="en-GB">en-GB.plg_system_magebridgezoo.sys.ini</language>
+        <language tag="en-GB">plg_system_magebridgezoo.ini</language>
+        <language tag="en-GB">plg_system_magebridgezoo.sys.ini</language>
     </languages>
 
 </extension>

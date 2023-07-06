@@ -12,8 +12,8 @@
     <isapplication>false</isapplication>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.plg_community_magebridge.ini</language>
-        <language tag="en-GB">en-GB.plg_community_magebridge.sys.ini</language>
+        <language tag="en-GB">plg_community_magebridge.ini</language>
+        <language tag="en-GB">plg_community_magebridge.sys.ini</language>
     </languages>
 
     <files>

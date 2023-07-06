@@ -16,8 +16,8 @@
     </files>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.plg_magento_magebridge.ini</language>
-        <language tag="en-GB">en-GB.plg_magento_magebridge.sys.ini</language>
+        <language tag="en-GB">plg_magento_magebridge.ini</language>
+        <language tag="en-GB">plg_magento_magebridge.sys.ini</language>
     </languages>
 
     <config>
