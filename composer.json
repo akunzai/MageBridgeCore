@@ -51,7 +51,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.1",
         "magento-hackathon/magento-composer-installer": "^4.0"
     },
     "require-dev": {
