@@ -78,7 +78,7 @@ class MageBridgeBlockHelper
      */
     public static function getModuleHtml($name, $attributes)
     {
-        jimport('joomla.application.module.helper');
+        JLoader::import('joomla.application.module.helper');
         $modules = JModuleHelper::getModules($name);
 
         if (empty($modules)) {

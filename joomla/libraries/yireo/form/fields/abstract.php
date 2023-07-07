@@ -12,6 +12,8 @@
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
+use Joomla\CMS\Factory;
+
 class YireoFormFieldAbstract extends JFormField
 {
     /**
@@ -22,8 +24,8 @@ class YireoFormFieldAbstract extends JFormField
      */
     public function __construct($form = null)
     {
-        $this->app = JFactory::getApplication();
-        $this->doc = JFactory::getDocument();
+        $this->app = Factory::getApplication();
+        $this->doc = Factory::getDocument();
 
         parent::__construct($form);
     }
@@ -39,7 +41,7 @@ class YireoFormFieldAbstract extends JFormField
     protected function getTemplate($layoutName, $variables)
     {
         // Load the path-handler
-        jimport('joomla.filesystem.path');
+        JLoader::import('joomla.filesystem.path');
 
         // Determine the layout-name
         $overrideName = $this->getAttribute('template');

@@ -10,6 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -43,17 +49,17 @@ class MageBridgeViewConfig extends YireoCommonView
 
         // Toolbar options
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('export', 'download', null, 'Export', false);
+            ToolbarHelper::custom('export', 'download', null, 'Export', false);
         }
 
         if (MageBridgeAclHelper::isDemo() == false) {
-            JToolbarHelper::custom('import', 'upload', null, 'Import', false);
+            ToolbarHelper::custom('import', 'upload', null, 'Import', false);
         }
 
-        JToolbarHelper::preferences('com_magebridge');
-        JToolbarHelper::save();
-        JToolbarHelper::apply();
-        JToolbarHelper::cancel();
+        ToolbarHelper::preferences('com_magebridge');
+        ToolbarHelper::save();
+        ToolbarHelper::apply();
+        ToolbarHelper::cancel();
 
         // Extra scripts
         MageBridgeTemplateHelper::load('jquery');
@@ -83,7 +89,7 @@ class MageBridgeViewConfig extends YireoCommonView
         }
 
         $formFile = JPATH_SITE . '/components/com_magebridge/models/config.xml';
-        $form     = JForm::getInstance('config', $formFile);
+        $form     = Form::getInstance('config', $formFile);
         $form->bind($configData);
         $this->form = $form;
 
@@ -103,7 +109,7 @@ class MageBridgeViewConfig extends YireoCommonView
     {
         // Check if the settings are all empty
         if (MageBridgeModelConfig::allEmpty() == true) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')), 'warning');
+            Factory::getApplication()->enqueueMessage(Text::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')), 'warning');
             return;
         }
 
@@ -114,7 +120,7 @@ class MageBridgeViewConfig extends YireoCommonView
                 isset($c['name']) && isset($c['value']) && $message = MageBridge::getConfig()
                 ->check($c['name'], $c['value'])
             ) {
-                JFactory::getApplication()->enqueueMessage($message, 'warning');
+                Factory::getApplication()->enqueueMessage($message, 'warning');
             }
         }
 
@@ -132,9 +138,9 @@ class MageBridgeViewConfig extends YireoCommonView
     protected function getCustomField($type, $name)
     {
         require_once JPATH_COMPONENT . '/fields/' . $type . '.php';
-        jimport('joomla.form.helper');
+        JLoader::import('joomla.form.helper');
 
-        $field = JFormHelper::loadFieldType($type);
+        $field = FormHelper::loadFieldType($type);
         $field->setName($name);
         $field->setValue(MageBridgeModelConfig::load($name));
 

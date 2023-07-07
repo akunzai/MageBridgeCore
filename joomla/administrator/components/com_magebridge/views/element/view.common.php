@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,12 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Cache\Cache;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Pagination\Pagination;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -24,6 +31,11 @@ require_once JPATH_COMPONENT . '/view.php';
 class MageBridgeViewCommon extends MageBridgeView
 {
     /**
+     * @var Pagination
+     */
+    private $pagination;
+
+    /**
      * Display method
      *
      * @param string $tpl
@@ -33,13 +45,13 @@ class MageBridgeViewCommon extends MageBridgeView
     public function display($tpl = null)
     {
         // Add CSS
-        JHtml::stylesheet('media/com_magebridge/css/backend-elements.css');
+        HTMLHelper::stylesheet('media/com_magebridge/css/backend-elements.css');
 
         // Load jQuery
         YireoHelper::jquery();
 
-        $this->current = JFactory::getApplication()->input->get('current');
-        $this->object = JFactory::getApplication()->input->get('object');
+        $this->current = Factory::getApplication()->input->get('current');
+        $this->object = Factory::getApplication()->input->get('object');
 
         parent::display($tpl);
     }
@@ -56,7 +68,7 @@ class MageBridgeViewCommon extends MageBridgeView
         $request = [];
 
         // Get the current request-options
-        $get = JFactory::getApplication()->input->get->getArray();
+        $get = Factory::getApplication()->input->get->getArray();
 
         if (!empty($get)) {
             foreach ($get as $name => $value) {
@@ -65,7 +77,7 @@ class MageBridgeViewCommon extends MageBridgeView
         }
 
         // Merge the POST if it is there
-        $post = JFactory::getApplication()->input->post->getArray();
+        $post = Factory::getApplication()->input->post->getArray();
 
         if (!empty($post)) {
             foreach ($post as $name => $value) {
@@ -93,7 +105,7 @@ class MageBridgeViewCommon extends MageBridgeView
     public function doCategoryLayout()
     {
         // Initialize some important variables
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $option = $application->input->getCmd('option') . '-element-categories';
 
         // Set common options
@@ -104,8 +116,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge.admin');
         $tree = $cache->call(['MageBridgeElementHelper', 'getCategoryTree']);
 
         // If search is active, we use a flat list instead of a tree
@@ -123,7 +135,7 @@ class MageBridgeViewCommon extends MageBridgeView
 
         require_once JPATH_COMPONENT . '/fields/store.php';
 
-        $field = JFormHelper::loadFieldType('magebridge.store');
+        $field = FormHelper::loadFieldType('magebridge.store');
         $field->setName('store');
         $field->setValue($current_store);
         $store = $field->getHtmlInput();
@@ -145,8 +157,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Widget');
         $this->setLayout('widget');
 
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $widgets = $cache->call(['MageBridgeElementHelper', 'getWidgetList']);
 
@@ -154,8 +166,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->widgets = $this->initPagination('widgets', $widgets);
 
         // Initialize search
-        $application = JFactory::getApplication();
-        $option = JFactory::getApplication()->input->getCmd('option') . '-element-widgets';
+        $application = Factory::getApplication();
+        $option = Factory::getApplication()->input->getCmd('option') . '-element-widgets';
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
@@ -174,8 +186,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Customer');
         $this->setLayout('customer');
 
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $customers = $cache->call(['MageBridgeElementHelper', 'getCustomerList']);
 
@@ -183,8 +195,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->customers = $this->initPagination('customers', $customers);
 
         // Initialize search
-        $application = JFactory::getApplication();
-        $option = JFactory::getApplication()->input->getCmd('option') . '-element-customers';
+        $application = Factory::getApplication();
+        $option = Factory::getApplication()->input->getCmd('option') . '-element-customers';
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
@@ -203,8 +215,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Product');
         $this->setLayout('product');
 
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $products = $cache->call(['MageBridgeElementHelper', 'getProductList']);
 
@@ -212,8 +224,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->products = $this->initPagination('products', $products);
 
         // Initialize search
-        $application = JFactory::getApplication();
-        $option = JFactory::getApplication()->input->getCmd('option') . '-element-products';
+        $application = Factory::getApplication();
+        $option = Factory::getApplication()->input->getCmd('option') . '-element-products';
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
@@ -234,13 +246,13 @@ class MageBridgeViewCommon extends MageBridgeView
     public function initPagination($type = '', $items = [])
     {
         // Get the limit & limitstart
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $option = $application->input->getCmd('option') . '-element-' . $type;
-        $limit = (int) $application->getUserStateFromRequest($option . '.limit', 'limit', JFactory::getConfig()->get('list_limit'), 'int');
+        $limit = (int) $application->getUserStateFromRequest($option . '.limit', 'limit', Factory::getConfig()->get('list_limit'), 'int');
         $limitstart = (int) $application->getUserStateFromRequest($option . '.limitstart', 'limitstart', 0, 'int');
 
         // Set the pagination
-        $this->pagination = new JPagination(count($items), $limitstart, $limit);
+        $this->pagination = new Pagination(count($items), $limitstart, $limit);
 
         // Do not do anything when using a limit of 0
         if ($limit == 0) {

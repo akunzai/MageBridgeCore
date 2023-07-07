@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 /**
  * HTML View class
@@ -29,7 +32,7 @@ class MageBridgeViewAjax extends MageBridgeView
     public function display($tpl = null)
     {
         // Determine which block to display
-        $blockName = JFactory::getApplication()->input->getString('block');
+        $blockName = Factory::getApplication()->input->getString('block');
 
         // Fetch the block
         if (!empty($blockName)) {
@@ -39,7 +42,7 @@ class MageBridgeViewAjax extends MageBridgeView
             $register->add('block', $blockName);
 
             // Build the bridge
-            MageBridgeModelDebug::getInstance()->notice('Building AJAX view for block "'.$blockName.'"');
+            MageBridgeModelDebug::getInstance()->notice('Building AJAX view for block "' . $blockName . '"');
             $bridge = MageBridgeModelBridge::getInstance();
             $bridge->build();
 
@@ -49,6 +52,6 @@ class MageBridgeViewAjax extends MageBridgeView
         }
 
         // Close the application
-        JFactory::getApplication()->close();
+        Factory::getApplication()->close();
     }
 }

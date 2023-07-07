@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -38,6 +40,6 @@ class MagebridgeFormFieldHttpauth extends MageBridgeFormFieldAbstract
             ['value' => CURLAUTH_NTLM, 'text' => 'CURLAUTH_HTLM'],
         ];
 
-        return JHtml::_('select.genericlist', $options, 'http_authtype', null, 'value', 'text', $this->getConfig('http_authtype'));
+        return HTMLHelper::_('select.genericlist', $options, 'http_authtype', null, 'value', 'text', $this->getConfig('http_authtype'));
     }
 }

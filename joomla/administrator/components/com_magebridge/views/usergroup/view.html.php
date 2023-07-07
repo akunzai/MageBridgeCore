@@ -16,7 +16,7 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 // Import the needed libraries
-jimport('joomla.filter.output');
+JLoader::import('joomla.filter.output');
 
 /**
  * HTML View class

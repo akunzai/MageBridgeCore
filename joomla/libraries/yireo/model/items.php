@@ -11,6 +11,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -172,11 +174,11 @@ class YireoModelItems extends YireoDataModel
         }
 
         if ($this->app->isClient('site') == false) {
-            $this->params = JComponentHelper::getParams($this->getConfig('option'));
+            $this->params = ComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
         }
-        /** @var Joomla\CMS\Application\SiteApplication */
+        /** @var \Joomla\CMS\Application\SiteApplication */
         $siteApp = $this->app;
         $this->params = $siteApp->getParams($this->getConfig('option'));
 

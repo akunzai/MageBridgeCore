@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -23,7 +28,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     public function cancel()
     {
         // Redirect back to the form-page
-        return $this->setRedirect(JRoute::_('index.php?option=com_magebridge'), $this->msg, $this->msg_type);
+        return $this->setRedirect(Route::_('index.php?option=com_magebridge'), $this->msg, $this->msg_type);
     }
 
     /**
@@ -32,7 +37,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     public function save()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Validate whether this task is allowed
         if ($this->_validate(true, true) == false) {
@@ -52,7 +57,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     public function apply()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Validate whether this task is allowed
         if ($this->_validate(true, true) == false) {
@@ -76,7 +81,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     public function store($post = [])
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Validate whether this task is allowed
         if ($this->_validate(true, true) == false) {
@@ -92,12 +97,12 @@ class MageBridgeControllerConfig extends YireoCommonController
 
         // Store these data with the model
         if ($model->store($post)) {
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->app->input->getCmd('view'));
+            $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->app->input->getCmd('view'));
 
             return true;
         }
 
-        $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->app->input->getCmd('view'));
+        $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->app->input->getCmd('view'));
         $error = $model->getError();
 
         if (!empty($error)) {
@@ -203,7 +208,7 @@ class MageBridgeControllerConfig extends YireoCommonController
 
         // Check whether this is a valid download
         if ($this->isValidUpload($upload) == false) {
-            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', JText::_('File upload failed on system level'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', Text::_('File upload failed on system level'), 'error');
 
             return false;
         }
@@ -212,7 +217,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         $xmlString = @file_get_contents($upload['tmp_name']);
 
         if (empty($xmlString)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', JText::_('Empty file upload'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', Text::_('Empty file upload'), 'error');
 
             return false;
         }
@@ -220,7 +225,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         $xml = @simplexml_load_string($xmlString);
 
         if (!$xml) {
-            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', JText::_('Invalid XML-configuration'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', Text::_('Invalid XML-configuration'), 'error');
 
             return false;
         }
@@ -236,13 +241,13 @@ class MageBridgeControllerConfig extends YireoCommonController
         }
 
         if (empty($config)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', JText::_('Nothing to import'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=config&task=import', Text::_('Nothing to import'), 'error');
 
             return false;
         }
 
         MageBridgeModelConfig::getSingleton()->store($config);
-        $this->setRedirect('index.php?option=com_magebridge&view=config', JText::_('Imported configuration succesfully'));
+        $this->setRedirect('index.php?option=com_magebridge&view=config', Text::_('Imported configuration succesfully'));
 
         return true;
     }
@@ -282,8 +287,8 @@ class MageBridgeControllerConfig extends YireoCommonController
     protected function _validate($check_token = true, $check_demo = true)
     {
         // Check the token
-        if ($check_token == true && (JSession::checkToken('post') == false && JSession::checkToken('get') == false)) {
-            $msg = JText::_('JINVALID_TOKEN');
+        if ($check_token == true && (Session::checkToken('post') == false && Session::checkToken('get') == false)) {
+            $msg = Text::_('JINVALID_TOKEN');
             $link = 'index.php?option=com_magebridge&view=home';
             $this->setRedirect($link, $msg);
 
@@ -292,7 +297,7 @@ class MageBridgeControllerConfig extends YireoCommonController
 
         // Check demo-access
         if ($check_demo == true && MageBridgeAclHelper::isDemo() == true) {
-            $msg = JText::_('LIB_YIREO_CONTROLLER_DEMO_NO_ACTION');
+            $msg = Text::_('LIB_YIREO_CONTROLLER_DEMO_NO_ACTION');
             $link = 'index.php?option=com_magebridge&view=config';
             $this->setRedirect($link, $msg);
 

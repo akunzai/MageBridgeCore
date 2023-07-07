@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -9,6 +10,8 @@
  * @link      http://www.yireo.com/
  * @version   0.6.0
  */
+
+use Joomla\CMS\Factory;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -26,7 +29,7 @@ class YireoDispatcher
     public static function dispatch()
     {
         // Fetch URL-variables
-        $jinput = JFactory::getApplication()->input;
+        $jinput = Factory::getApplication()->input;
         $option = $jinput->getCmd('option');
         $view = $jinput->getCmd('view');
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -21,6 +25,16 @@ class MageBridgeStoreHelper
      * Instance variable
      */
     protected static $_instance = null;
+
+    /**
+     * @var string
+     */
+    protected $app_type;
+
+    /**
+     * @var string
+     */
+    protected $app_value;
 
     /**
      * Singleton
@@ -87,7 +101,7 @@ class MageBridgeStoreHelper
         }
 
         // Initialize system variables
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         // Check if the current Menu-Item has something to say about this
         $store = MageBridgeHelper::getParams()
@@ -123,9 +137,9 @@ class MageBridgeStoreHelper
         }
 
         // Check whether the GET-connector is enabled
-        jimport('joomla.plugin.helper');
+        JLoader::import('joomla.plugin.helper');
 
-        if (JPluginHelper::isEnabled('magebridgestore', 'get')) {
+        if (PluginHelper::isEnabled('magebridgestore', 'get')) {
             // Check for GET-variables __store
             $store = $application->getUserState('___store');
             if (!empty($store)) {
@@ -167,7 +181,7 @@ class MageBridgeStoreHelper
 
         // Never use a Store View or Store Group in the backend
         if ($application->isClient('administrator')) {
-            if (JFactory::getApplication()->input->getCmd('view') == 'root') {
+            if (Factory::getApplication()->input->getCmd('view') == 'root') {
                 $this->app_type = 'website';
                 $this->app_value = 'admin';
             } else {

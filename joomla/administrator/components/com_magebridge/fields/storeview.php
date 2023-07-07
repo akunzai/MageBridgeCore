@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -11,6 +12,9 @@
 
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -39,7 +43,7 @@ class MagebridgeFormFieldStoreview extends MageBridgeFormFieldAbstract
         $value     = $this->value;
 
         if ($this->getConfig('api_widgets') == true) {
-            $cache   = JFactory::getCache('com_magebridge.admin');
+            $cache   = Factory::getCache('com_magebridge.admin');
             $options = $cache->call(['JElementStoreview', 'getResult']);
 
             // Parse the result into an HTML form-field
@@ -58,7 +62,7 @@ class MagebridgeFormFieldStoreview extends MageBridgeFormFieldAbstract
 
                 array_unshift($options, ['value' => '', 'label' => '']);
 
-                return JHtml::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
+                return HTMLHelper::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "storeview"', $options);

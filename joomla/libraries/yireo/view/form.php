@@ -17,7 +17,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 // Import the needed libraries
-jimport('joomla.filter.output');
+JLoader::import('joomla.filter.output');
 
 /**
  * Form View class

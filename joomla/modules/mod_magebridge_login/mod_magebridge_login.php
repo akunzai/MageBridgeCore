@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge Login
  *
@@ -12,11 +13,13 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 // Decide whether to show a login-link or logout-link
-$user = JFactory::getUser();
+$user = Factory::getUser();
 $type = (!$user->get('guest')) ? 'logout_link' : 'login_link';
 
 // Read the parameters
@@ -28,7 +31,7 @@ switch ($params->get($type)) {
         break;
 
     case 'home':
-        $default = JFactory::getApplication()->getMenu('site')->getDefault();
+        $default = Factory::getApplication()->getMenu('site')->getDefault();
         $return_url = JRoute::_('index.php?Itemid=' . $default->id);
         break;
 

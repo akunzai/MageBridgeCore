@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Form Field - Components
  *
@@ -8,13 +9,16 @@
  * @link      http://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // Import classes
-jimport('joomla.html.html');
-jimport('joomla.access.access');
-jimport('joomla.form.formfield');
+JLoader::import('joomla.html.html');
+JLoader::import('joomla.access.access');
+JLoader::import('joomla.form.formfield');
 
 /**
  * Form Field-class for selecting a component
@@ -36,7 +40,7 @@ class YireoFormFieldComponents extends JFormField
     {
         $name = $this->name . '[]';
         $value = $this->value;
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
 
         // load the list of components
         $query = 'SELECT * FROM `#__extensions` WHERE `type`="component" AND `enabled`=1';
@@ -46,7 +50,7 @@ class YireoFormFieldComponents extends JFormField
         $options = [];
 
         foreach ($components as $component) {
-            $options[] = JHtml::_('select.option', $component->element, JText::_($component->name) . ' [' . $component->element . ']', 'value', 'text');
+            $options[] = JHtml::_('select.option', $component->element, Text::_($component->name) . ' [' . $component->element . ']', 'value', 'text');
         }
 
         $size = (count($options) > 12) ? 12 : count($options);

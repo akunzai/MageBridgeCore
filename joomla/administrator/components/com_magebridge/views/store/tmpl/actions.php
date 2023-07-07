@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 
 $form = $this->actions_form;
@@ -24,5 +26,5 @@ $fieldCount = count($form->getFieldset('actions'));
 <?php endforeach; ?>
 </table>
 <?php else: ?>
-<p><?php echo JText::_('COM_MAGEBRIDGE_STORE_NO_PLUGINS'); ?></p>
+<p><?php echo Text::_('COM_MAGEBRIDGE_STORE_NO_PLUGINS'); ?></p>
 <?php endif; ?>

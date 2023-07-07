@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -42,7 +45,7 @@ class MageBridgeInstallHelper
         ];
 
         // Perform the update queries
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         foreach ($update_queries as $query) {
             $query = trim($query);
             if (empty($query)) {
@@ -51,7 +54,7 @@ class MageBridgeInstallHelper
             $db->setQuery($query);
             try {
                 $db->execute();
-            } catch(Exception $e) {
+            } catch (Exception $e) {
             }
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge Preloader - System plugin
  *
@@ -12,13 +13,15 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 /**
  * MageBridge Preloader System Plugin
  */
-class plgSystemMageBridgePre extends JPlugin
+class plgSystemMageBridgePre extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterInitialise
@@ -31,14 +34,14 @@ class plgSystemMageBridgePre extends JPlugin
         }
 
         // Perform actions on the frontend
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         // Check for postlogin-cookie
         if (isset($_COOKIE['mb_postlogin']) && !empty($_COOKIE['mb_postlogin'])) {
             // If the user is already logged in, remove the cookie
-            if (JFactory::getUser()->id > 0) {
+            if (Factory::getUser()->id > 0) {
                 setcookie('mb_postlogin', '', time() - 3600, '/', '.' . JUri::getInstance()
-                        ->toString(['host']));
+                    ->toString(['host']));
             }
 
             // Otherwise decrypt the cookie and use it here

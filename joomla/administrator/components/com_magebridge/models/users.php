@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Pagination\Pagination;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -45,11 +49,11 @@ class MagebridgeModelUsers extends YireoCommonModel
     {
         parent::__construct();
 
-        $application = JFactory::getApplication();
-        $option      = JFactory::getApplication()->input->getCmd('option') . '-users';
+        $application = Factory::getApplication();
+        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
 
         // Get the pagination request variables
-        $limit      = $application->getUserStateFromRequest('global.list.limit', 'limit', JFactory::getConfig()
+        $limit      = $application->getUserStateFromRequest('global.list.limit', 'limit', Factory::getConfig()
             ->get('list_limit'), 'int');
         $limitstart = $application->getUserStateFromRequest($option . 'limitstart', 'limitstart', 0, 'int');
 
@@ -92,14 +96,14 @@ class MagebridgeModelUsers extends YireoCommonModel
     /**
      * Method to get a pagination object for the items
      *
-     * @return JPagination
+     * @return Pagination
      */
     public function getPagination()
     {
         // Lets load the content if it doesn't already exist
         if (empty($this->_pagination)) {
-            jimport('joomla.html.pagination');
-            $this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit'));
+            JLoader::import('joomla.html.pagination');
+            $this->_pagination = new Pagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit'));
         }
 
         return $this->_pagination;
@@ -128,8 +132,8 @@ class MagebridgeModelUsers extends YireoCommonModel
      */
     private function _buildContentOrderBy()
     {
-        $application = JFactory::getApplication();
-        $option      = JFactory::getApplication()->input->getCmd('option') . '-users';
+        $application = Factory::getApplication();
+        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
 
         $filter_order     = $application->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'u.username', 'cmd');
         $filter_order_Dir = $application->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
@@ -150,8 +154,8 @@ class MagebridgeModelUsers extends YireoCommonModel
      */
     private function _buildContentWhere()
     {
-        $application = JFactory::getApplication();
-        $option      = JFactory::getApplication()->input->getCmd('option') . '-users';
+        $application = Factory::getApplication();
+        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
 
         $filter_state     = $application->getUserStateFromRequest($option . 'filter_state', 'filter_state', '', 'word');
 

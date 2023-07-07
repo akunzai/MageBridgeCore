@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Plugin\PluginHelper;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -59,7 +61,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         }
 
         // Import the plugins
-        JPluginHelper::importPlugin('magebridgeproduct');
+        PluginHelper::importPlugin('magebridgeproduct');
 
         // Foreach of these conditions, run the product-plugins
         foreach ($conditions as $condition) {

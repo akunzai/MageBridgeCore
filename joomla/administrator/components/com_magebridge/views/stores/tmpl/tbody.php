@@ -9,19 +9,21 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 <td>
-	<a href="<?php echo $item->custom_edit_link; ?>" title="<?php echo JText::_('COM_MAGEBRIDGE_VIEW_STORE_ACTION_EDIT'); ?>"><?php echo $item->label; ?></a>
+	<a href="<?php echo $item->custom_edit_link; ?>" title="<?php echo Text::_('COM_MAGEBRIDGE_VIEW_STORE_ACTION_EDIT'); ?>"><?php echo $item->label; ?></a>
 </td>
 <td>
-	<a href="<?php echo $item->custom_edit_link; ?>" title="<?php echo JText::_('COM_MAGEBRIDGE_VIEW_STORE_ACTION_EDIT'); ?>"><?php echo $item->title; ?></a>
+	<a href="<?php echo $item->custom_edit_link; ?>" title="<?php echo Text::_('COM_MAGEBRIDGE_VIEW_STORE_ACTION_EDIT'); ?>"><?php echo $item->title; ?></a>
 </td>
 <td>
 	<?php echo $item->name; ?>
 </td>
 <td>
-	<?php echo JText::_($item->type); ?>
+	<?php echo Text::_($item->type); ?>
 </td>
 <td>
 	<?php echo $item->connector; ?>

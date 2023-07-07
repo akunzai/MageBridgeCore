@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 
 $message = $item->message;
@@ -25,7 +27,7 @@ if (strlen($message) > 100) {
 	<?php echo $this->printType($item->type); ?>
 </td>
 <td>
-	<?php echo JText::_($item->origin); ?>
+	<?php echo Text::_($item->origin); ?>
 </td>
 <td>
 	<?php echo $item->remote_addr; ?>

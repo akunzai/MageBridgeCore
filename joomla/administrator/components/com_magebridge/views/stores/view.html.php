@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -61,7 +63,7 @@ class MageBridgeViewStores extends YireoViewList
         $default->connector_value  = null;
         $default->hasState         = false;
         $default->hasOrdering      = false;
-        $default->label            = JText::_('JDEFAULT');
+        $default->label            = Text::_('JDEFAULT');
         $default->custom_edit_link = 'index.php?option=com_magebridge&view=store&task=default';
 
         // Load the configuration values
@@ -76,9 +78,9 @@ class MageBridgeViewStores extends YireoViewList
                 $default->name = $storegroup;
                 $default->type = 'COM_MAGEBRIDGE_VIEW_STORE_FIELD_TYPE_VALUE_GROUP';
             } else {
-                $default->name  = JText::_('JNONE');
-                $default->type  = JText::_('JNONE');
-                $default->title = JText::_('JNONE');
+                $default->name  = Text::_('JNONE');
+                $default->type  = Text::_('JNONE');
+                $default->title = Text::_('JNONE');
             }
         }
 

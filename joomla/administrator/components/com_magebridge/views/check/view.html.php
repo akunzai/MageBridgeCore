@@ -10,6 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -42,7 +46,7 @@ class MageBridgeViewCheck extends YireoCommonView
     {
         $this->setMenu();
 
-        $input = JFactory::getApplication()->input;
+        $input = Factory::getApplication()->input;
 
         if ($input->getCmd('layout') == 'browser') {
             $this->displayBrowser($tpl);
@@ -78,8 +82,8 @@ class MageBridgeViewCheck extends YireoCommonView
         MageBridgeViewHelper::initialize('Check');
 
         // Load libraries
-        JHtml::_('behavior.tooltip');
-        JToolbarHelper::custom('refresh', 'refresh', null, 'Refresh', false);
+        HTMLHelper::_('behavior.tooltip');
+        ToolbarHelper::custom('refresh', 'refresh', null, 'Refresh', false);
 
         $this->checks = $this->get('checks');
 
@@ -103,7 +107,7 @@ class MageBridgeViewCheck extends YireoCommonView
         // Initialize common elements
         MageBridgeViewHelper::initialize('PRODUCT_RELATION_TEST');
 
-        JToolbarHelper::custom('check_product', 'refresh', null, 'Run', false);
+        ToolbarHelper::custom('check_product', 'refresh', null, 'Run', false);
 
         parent::display('product');
     }
@@ -118,7 +122,7 @@ class MageBridgeViewCheck extends YireoCommonView
         // Initialize common elements
         MageBridgeViewHelper::initialize('Internal Browse Test');
 
-        JToolbarHelper::custom('refresh', 'refresh', null, 'Browse', false);
+        ToolbarHelper::custom('refresh', 'refresh', null, 'Browse', false);
 
         $this->url  = MageBridgeModelConfig::load('url') . 'magebridge.php';
         $this->host = MageBridgeModelConfig::load('host');

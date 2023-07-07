@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 // Import the loader
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
@@ -169,7 +171,7 @@ class YireoDataModel extends YireoCommonModel
     public function getDbResult($query, $type = 'object')
     {
         if ($this->getConfig('cache') == true) {
-            $cache = JFactory::getCache('lib_yireo_model');
+            $cache = Factory::getCache('lib_yireo_model');
             $rs    = $cache->call([$this, '_getDbResult'], $query, $type);
         } else {
             $rs = $this->_getDbResult($query, $type);
@@ -215,7 +217,7 @@ class YireoDataModel extends YireoCommonModel
      */
     protected function throwDbException()
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         throw new JDatabaseExceptionUnsupported($db->getErrorMsg());
     }

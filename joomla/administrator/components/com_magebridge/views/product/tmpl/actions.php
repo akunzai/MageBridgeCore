@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 
 $form = $this->actions_form;
@@ -22,8 +24,8 @@ $fieldsetCount = count($form->getFieldsets('actions'));
 } ?>
 <fieldset class="adminform">
 <legend>
-	<?php echo JText::_('COM_MAGEBRIDGE_VIEW_PRODUCT_FIELDSET_ACTIONS'); ?>: 
-	<?php echo (!empty($fieldset->label)) ? JText::_($fieldset->label) : $fieldset->name; ?>
+	<?php echo Text::_('COM_MAGEBRIDGE_VIEW_PRODUCT_FIELDSET_ACTIONS'); ?>: 
+	<?php echo (!empty($fieldset->label)) ? Text::_($fieldset->label) : $fieldset->name; ?>
 </legend>
 	<?php foreach($form->getFieldset($fieldset->name) as $field): ?>
     <div class="row-fluid form-group" style="margin-bottom:5px;">
@@ -38,7 +40,7 @@ $fieldsetCount = count($form->getFieldsets('actions'));
 </fieldset>
 <?php endforeach; ?>
 <?php else: ?>
-<p><?php echo JText::_('COM_MAGEBRIDGE_PRODUCT_NO_PLUGINS'); ?></p>
+<p><?php echo Text::_('COM_MAGEBRIDGE_PRODUCT_NO_PLUGINS'); ?></p>
 <?php endif; ?>
 
 <style>

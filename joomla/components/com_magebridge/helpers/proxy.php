@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\Filesystem\File;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -18,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeProxyHelper
 {
     /**
-     * @var JApplicationWeb
+     * @var \Joomla\CMS\Application\WebApplication
      */
     protected $app;
 
@@ -57,7 +62,7 @@ class MageBridgeProxyHelper
                 switch ($file['error']) {
                     case 1:
                     case 2:
-                        $errorMessage = JText::sprintf('Upload of %s exceeded the maximum size [%d]', $file['name'], $file['error']);
+                        $errorMessage = Text::sprintf('Upload of %s exceeded the maximum size [%d]', $file['name'], $file['error']);
                         break;
 
                     case 3:
@@ -65,7 +70,7 @@ class MageBridgeProxyHelper
                     case 6:
                     case 7:
                     case 8:
-                        $errorMessage = JText::sprintf('Error when uploading file %s [%d]', $file['name'], $file['error']);
+                        $errorMessage = Text::sprintf('Error when uploading file %s [%d]', $file['name'], $file['error']);
                         break;
                 }
 
@@ -74,16 +79,16 @@ class MageBridgeProxyHelper
                 // Move the uploaded file to the Joomla tmp-directory
                 if (is_readable($file['tmp_name'])) {
                     // Upload the specific file
-                    jimport('joomla.filesystem.file');
+                    JLoader::import('joomla.filesystem.file');
                     $tmpFile = $this->getUploadPath() . '/' . $file['name'];
-                    Joomla\Filesystem\File::upload($file['tmp_name'], $tmpFile);
+                    File::upload($file['tmp_name'], $tmpFile);
 
                     // Check if the file is there
                     if (!is_file($tmpFile) || !is_readable($tmpFile)) {
-                        $errorMessage = JText::sprintf('Unable to read uploaded file %s', $tmpFile);
+                        $errorMessage = Text::sprintf('Unable to read uploaded file %s', $tmpFile);
                     } else {
                         if (!filesize($tmpFile) > 0) {
-                            $errorMessage = JText::sprintf('Uploaded file %s is empty', $tmpFile);
+                            $errorMessage = Text::sprintf('Uploaded file %s is empty', $tmpFile);
                         } else {
                             $file['tmp_name'] = $tmpFile;
                             $tmpFiles[$name] = $file;
@@ -91,13 +96,13 @@ class MageBridgeProxyHelper
                         }
                     }
                 } else {
-                    $errorMessage = JText::sprintf('Uploaded file %s is not readable', $file['tmp_name']);
+                    $errorMessage = Text::sprintf('Uploaded file %s is not readable', $file['tmp_name']);
                 }
 
                 // Handle errors
                 if (!empty($errorMessage)) {
                     // See if we can redirect back to the same old page
-                    $request = JFactory::getApplication()->input->getString('request');
+                    $request = Factory::getApplication()->input->getString('request');
 
                     if (preg_match('/\/uenc\/([a-zA-Z0-9\,\-\_]+)/', $request, $uenc)) {
                         $page = MageBridgeEncryptionHelper::base64_decode($uenc[1]);
@@ -130,7 +135,7 @@ class MageBridgeProxyHelper
      */
     public function getUploadPath()
     {
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
         return $config->get('tmp_path');
     }

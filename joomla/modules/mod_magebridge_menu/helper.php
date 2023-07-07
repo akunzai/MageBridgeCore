@@ -22,7 +22,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
      * Method to get the API-arguments based upon the module parameters
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function getArguments($params = null)
@@ -49,7 +49,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
      * Method to be called once the MageBridge is loaded
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function register($params = null)
@@ -63,7 +63,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
      * Fetch the content from the bridge
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return mixed
      */
     public static function build($params = null)
@@ -182,7 +182,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
      * Helper-method to return a CSS-class string
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @param array $item
      * @param int $level
      * @param int $counter

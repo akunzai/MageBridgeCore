@@ -9,11 +9,13 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Import Joomla! libraries
-jimport('joomla.utilities.date');
+JLoader::import('joomla.utilities.date');
 
 /**
  * MageBridge Store model
@@ -70,7 +72,7 @@ class MagebridgeModelStore extends YireoModel
             $data['title'] = $values[2];
             unset($data['store']);
         } else {
-            $this->setError(JText::_('COM_MAGEBRIDGE_MODEL_STORE_NO_STORE_SELECTED'));
+            $this->setError(Text::_('COM_MAGEBRIDGE_MODEL_STORE_NO_STORE_SELECTED'));
 
             return false;
         }
@@ -82,7 +84,7 @@ class MagebridgeModelStore extends YireoModel
         }
 
         if (empty($data['name']) || empty($data['title'])) {
-            $this->setError(JText::_('COM_MAGEBRIDGE_MODEL_STORE_INVALID_STORE'));
+            $this->setError(Text::_('COM_MAGEBRIDGE_MODEL_STORE_INVALID_STORE'));
 
             return false;
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - JoomlArt T3 System plugin
  *
@@ -19,13 +20,15 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 /**
  * MageBridge JoomlArt T3 System Plugin
  */
-class plgSystemMageBridgeT3 extends JPlugin
+class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterDispatch
@@ -37,8 +40,8 @@ class plgSystemMageBridgeT3 extends JPlugin
     public function onAfterInitialise()
     {
         // Get rid of annoying cookies
-        $application = JFactory::getApplication();
-        $cookie = $application->getTemplate().'_layouts';
+        $application = Factory::getApplication();
+        $cookie = $application->getTemplate() . '_layouts';
         unset($_COOKIE[$cookie]);
     }
 
@@ -57,32 +60,32 @@ class plgSystemMageBridgeT3 extends JPlugin
         }
 
         // Change the layout only for MageBridge-pages
-        $view = JFactory::getApplication()->input->getCmd('view');
-        $request = JFactory::getApplication()->input->getString('request');
+        $view = Factory::getApplication()->input->getCmd('view');
+        $request = Factory::getApplication()->input->getString('request');
         if ($view == 'root') {
             // Magento homepage
             if (empty($request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_homepage', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_homepage', 'full-width'));
 
                 // Magento customer or sales pages
             } elseif (preg_match('/^(customer|sales)/', $request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_customer', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_customer', 'full-width'));
 
                 // Magento product-pages
             } elseif (preg_match('/^catalog\/product/', $request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_product', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_product', 'full-width'));
 
                 // Magento category-pages
             } elseif (preg_match('/^catalog\/category/', $request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_category', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_category', 'full-width'));
 
                 // Magento cart-pages
             } elseif (preg_match('/^checkout\/cart/', $request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_cart', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_cart', 'full-width'));
 
                 // Magento checkout-pages
             } elseif (preg_match('/^checkout/', $request)) {
-                JFactory::getApplication()->input->set('layouts', $this->getParams()->get('layout_checkout', 'full-width'));
+                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_checkout', 'full-width'));
             }
         }
     }
@@ -92,7 +95,7 @@ class plgSystemMageBridgeT3 extends JPlugin
      *
      * @access private
      * @param null
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -108,19 +111,19 @@ class plgSystemMageBridgeT3 extends JPlugin
      */
     private function isEnabled()
     {
-        if (JFactory::getApplication()->isClient('site') == false) {
+        if (Factory::getApplication()->isClient('site') == false) {
             return false;
         }
 
-        $template = JFactory::getApplication()->getTemplate();
+        $template = Factory::getApplication()->getTemplate();
         if (preg_match('/^ja_/', $template) == false) {
             return false;
         }
 
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return false;
         }
-        if (is_file(JPATH_SITE.'/components/com_magebridge/models/config.php')) {
+        if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {
             return true;
         }
         return false;

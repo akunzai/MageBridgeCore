@@ -12,6 +12,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * MageBridge Widget Helper
  */
@@ -51,7 +53,7 @@ class MageBridgeWidgetHelper
                 return null;
         }
 
-        $cache = JFactory::getCache('com_magebridge.admin');
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $result = $cache->call(['MageBridgeWidgetHelper', $function]);
 

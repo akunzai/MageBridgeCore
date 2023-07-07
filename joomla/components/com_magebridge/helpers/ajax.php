@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -26,7 +30,7 @@ class MageBridgeAjaxHelper
      */
     public static function getLoaderImage()
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         $template = $app->getTemplate();
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/images/com_magebridge/loader.gif')) {
@@ -45,7 +49,7 @@ class MageBridgeAjaxHelper
      */
     public static function getUrl($block)
     {
-        $url = JUri::root() . 'index.php?option=com_magebridge&view=ajax&tmpl=component&block=' . $block;
+        $url = Uri::root() . 'index.php?option=com_magebridge&view=ajax&tmpl=component&block=' . $block;
         $request = MageBridgeUrlHelper::getRequest();
 
         if (!empty($request)) {
@@ -66,7 +70,7 @@ class MageBridgeAjaxHelper
      */
     public static function getScript($block, $element, $url = null)
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
 
         // Set the default AJAX-URL
         if (empty($url)) {

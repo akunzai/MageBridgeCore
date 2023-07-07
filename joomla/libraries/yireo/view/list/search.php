@@ -10,6 +10,8 @@
  * @version 0.6.0
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 ?>
@@ -20,5 +22,5 @@ onchange="document.adminForm.submit();" />
     <button class="btn" onclick="this.form.submit();"><i class="icon-search"></i></button>
 </div>
 <div class="btn-wrapper">
-    <button class="btn" onclick="jQuery('#search').value='';this.form.submit();"><?php echo JText::_('LIB_YIREO_VIEW_RESET'); ?></button>
+    <button class="btn" onclick="jQuery('#search').value='';this.form.submit();"><?php echo Text::_('LIB_YIREO_VIEW_RESET'); ?></button>
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -9,6 +10,12 @@
  * @link http://www.yireo.com
  * @version 0.6.0
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -32,7 +39,7 @@ class YireoHelper
     public static function getData($name = null, $option = null)
     {
         if (empty($option)) {
-            $option = JFactory::getApplication()->input->getCmd('option');
+            $option = Factory::getApplication()->input->getCmd('option');
         }
 
         $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/helpers/abstract.php';
@@ -61,10 +68,10 @@ class YireoHelper
      */
     public static function getFormEnd($id = 0)
     {
-        echo '<input type="hidden" name="option" value="' . JFactory::getApplication()->input->getCmd('option') . '" />';
+        echo '<input type="hidden" name="option" value="' . Factory::getApplication()->input->getCmd('option') . '" />';
         echo '<input type="hidden" name="cid[]" value="' . $id . '" />';
         echo '<input type="hidden" name="task" value="" />';
-        echo JHtml::_('form.token');
+        echo HTMLHelper::_('form.token');
     }
 
     /**
@@ -106,23 +113,23 @@ class YireoHelper
      */
     public static function getCurrentVersion()
     {
-        $option = JFactory::getApplication()->input->getCmd('option');
+        $option = Factory::getApplication()->input->getCmd('option');
         $name = preg_replace('/^com_/', '', $option);
         $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/' . $name . '.xml';
-        $data = JInstaller::parseXMLInstallFile($file);
+        $data = Installer::parseXMLInstallFile($file);
         return $data['version'];
     }
 
     /**
-     * Convert an object or string to JRegistry
+     * Convert an object or string to Registry
      *
      * @param mixed $params
      * @param string $file
-     * @return JRegistry
+     * @return Registry
      */
     public static function toRegistry($params = null, $file = null)
     {
-        if ($params instanceof JRegistry) {
+        if ($params instanceof Registry) {
             return $params;
         }
 
@@ -130,7 +137,7 @@ class YireoHelper
             $params = trim($params);
         }
 
-        $registry = new JRegistry();
+        $registry = new Registry();
 
         if (!empty($params) && is_string($params)) {
             $registry->loadString($params);
@@ -164,7 +171,7 @@ class YireoHelper
      */
     public static function bootstrap()
     {
-        JHtml::_('bootstrap.framework');
+        HTMLHelper::_('bootstrap.framework');
         self::jquery();
     }
 
@@ -175,7 +182,7 @@ class YireoHelper
      */
     public static function hasBootstrap()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if (method_exists($application, 'get') && $application->get('bootstrap') == true) {
             return true;
@@ -192,33 +199,33 @@ class YireoHelper
     public static function jquery()
     {
         // Do not load when having no HTML-document
-        /** @var Joomla\CMS\Document\HtmlDocument */
-        $document = JFactory::getDocument();
+        /** @var \Joomla\CMS\Document\HtmlDocument */
+        $document = Factory::getDocument();
 
         if (stristr(get_class($document), 'html') == false) {
             return;
         }
 
         // Load jQuery using the framework
-        return JHtml::_('jquery.framework');
+        return HTMLHelper::_('jquery.framework');
 
         // Check if jQuery is loaded already
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if (method_exists($application, 'get') && $application->get('jquery') == true) {
             return;
         }
 
         // Do not load this for specific extensions
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_virtuemart') {
+        if (Factory::getApplication()->input->getCmd('option') == 'com_virtuemart') {
             return false;
         }
 
         // Load jQuery
-        $option = JFactory::getApplication()->input->getCmd('option');
+        $option = Factory::getApplication()->input->getCmd('option');
 
         if (file_exists(JPATH_SITE . '/media/' . $option . '/js/jquery.js')) {
-            $document->addScript(JURI::root() . 'media/' . $option . '/js/jquery.js');
+            $document->addScript(Uri::root() . 'media/' . $option . '/js/jquery.js');
             $document->addCustomTag('<script type="text/javascript">jQuery.noConflict();</script>');
 
             // Set the flag that jQuery has been loaded
@@ -235,8 +242,8 @@ class YireoHelper
      */
     public static function loadLanguageFile()
     {
-        $application = JFactory::getApplication();
-        $language = JFactory::getLanguage();
+        $application = Factory::getApplication();
+        $language = Factory::getLanguage();
         $extension = 'lib_yireo';
 
         $folder = ($application->isClient('site')) ? JPATH_SITE : JPATH_ADMINISTRATOR;

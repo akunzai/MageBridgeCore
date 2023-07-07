@@ -9,11 +9,14 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Installer\Installer;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Include Joomla! libraries
-jimport('joomla.filesystem.file');
+JLoader::import('joomla.filesystem.file');
 
 /**
  * MageBridge Controller
@@ -70,13 +73,13 @@ class MageBridgeUpdateHelper
                 break;
         }
 
-        if (JFile::exists($file) == false) {
+        if (File::exists($file) == false) {
             return false;
         }
 
         // @todo: Add a check whether this extension is actually installed (#__extensions)
 
-        $data = JInstaller::parseXMLInstallFile($file);
+        $data = Installer::parseXMLInstallFile($file);
         return $data['version'];
     }
 

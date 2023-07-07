@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Language\Text;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -25,17 +30,16 @@ class MageBridgeFormHelper
      */
     public static function getField($type, $name, $value = null, $array = 'magebridge')
     {
-        jimport('joomla.form.helper');
-        jimport('joomla.form.form');
+        JLoader::import('joomla.form.helper');
+        JLoader::import('joomla.form.form');
 
         $fileType = preg_replace('/^magebridge\./', '', $type);
-        include_once JPATH_ADMINISTRATOR.'/components/com_magebridge/fields/'.$fileType.'.php';
+        include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/fields/' . $fileType . '.php';
 
-        $form = new JForm('magebridge');
-        $field = JFormHelper::loadFieldType($type);
+        $field = FormHelper::loadFieldType($type);
         if (is_object($field) == false) {
-            $message = JText::sprintf('COM_MAGEBRIDGE_UNKNOWN_FIELD', $type);
-            JFactory::getApplication()->enqueueMessage($message, 'error');
+            $message = Text::sprintf('COM_MAGEBRIDGE_UNKNOWN_FIELD', $type);
+            Factory::getApplication()->enqueueMessage($message, 'error');
             return null;
         }
 
@@ -54,7 +58,7 @@ class MageBridgeFormHelper
     public static function getUsergroupOptions()
     {
         $query = 'SELECT `id` AS `value`, `title` AS `text` FROM `#__usergroups` WHERE `parent_id` > 0';
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery($query);
         return $db->loadObjectList();
     }

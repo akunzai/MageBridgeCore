@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - Authentication plugin
  *
@@ -12,8 +13,10 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -21,7 +24,7 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge Authentication Plugin
  */
-class PlgAuthenticationMageBridge extends JPlugin
+class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     // MageBridge constants
     public const MAGEBRIDGE_AUTHENTICATION_FAILURE = 0;
@@ -36,7 +39,7 @@ class PlgAuthenticationMageBridge extends JPlugin
      * @param object $subject
      * @param array  $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
@@ -67,7 +70,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate called');
 
-        if (JFactory::getApplication()->isClient('site') == false) {
+        if (Factory::getApplication()->isClient('site') == false) {
             // Check if authentication is enabled for the backend
             if ($this->getParam('enable_auth_backend') != 1) {
                 return false;
@@ -85,7 +88,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         // Lookup the email instead
         if ($this->params->get('lookup_email', 0) == 1) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $db->setQuery("SELECT email FROM #__users WHERE username = " . $db->Quote($credentials['username']));
             $email = $db->loadResult();
 

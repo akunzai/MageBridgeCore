@@ -10,6 +10,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -27,6 +29,11 @@ class MageBridgePluginStore extends MageBridgePlugin
     protected $connector_field = null;
 
     /**
+     * @var JDatabaseDriver
+     */
+    private $db;
+
+    /**
      * Constructor
      *
      * @access	  protected
@@ -37,7 +44,7 @@ class MageBridgePluginStore extends MageBridgePlugin
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = JFactory::getDbo();
+        $this->db = Factory::getDbo();
     }
 
     /**

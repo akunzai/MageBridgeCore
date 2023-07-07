@@ -23,7 +23,7 @@ class ModMageBridgeProgressHelper
      *
      * @access public
      *
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -45,7 +45,7 @@ class ModMageBridgeProgressHelper
      *
      * @access public
      *
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return string
      */

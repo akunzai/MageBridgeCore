@@ -10,6 +10,14 @@
  * @version 0.6.0
  */
 
+use Joomla\CMS\Cache\Cache;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Installer\InstallerHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\Filesystem\File;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -34,13 +42,13 @@ class YireoHelperInstall
             foreach ($files as $file) {
                 if (file_exists($file)) {
                     if (is_file($file)) {
-                        jimport('joomla.filesystem.file');
-                        JFile::delete($file);
+                        JLoader::import('joomla.filesystem.file');
+                        File::delete($file);
                     }
 
                     if (is_dir($file)) {
-                        jimport('joomla.filesystem.folder');
-                        JFolder::delete($file);
+                        JLoader::import('joomla.filesystem.folder');
+                        Folder::delete($file);
                     }
                 }
             }
@@ -57,18 +65,18 @@ class YireoHelperInstall
     public static function installExtension($url, $label)
     {
         // Include Joomla! libraries
-        jimport('joomla.installer.installer');
-        jimport('joomla.installer.helper');
+        JLoader::import('joomla.installer.installer');
+        JLoader::import('joomla.installer.helper');
 
         // System variables
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
 
         // Download the package-file
         $package_file = self::downloadPackage($url);
 
         // Simple check for the result
         if ($package_file == false) {
-            throw new Exception(JText::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_EMPTY', $url));
+            throw new Exception(Text::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_EMPTY', $url));
         }
 
         // Check if the downloaded file exists
@@ -76,41 +84,41 @@ class YireoHelperInstall
         $package_path = $tmp_path . '/' . $package_file;
 
         if (!is_file($package_path)) {
-            throw new Exception(JText::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_NOT_EXIST', $package_path));
+            throw new Exception(Text::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_NOT_EXIST', $package_path));
         }
 
         // Check if the file is readable
         if (!is_readable($package_path)) {
-            throw new Exception(JText::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_NOT_READABLE', $package_path));
+            throw new Exception(Text::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_FILE_NOT_READABLE', $package_path));
         }
 
         // Now we assume this is an archive, so let's unpack it
-        $package = JInstallerHelper::unpack($package_path);
+        $package = InstallerHelper::unpack($package_path);
 
         if ($package == false) {
-            throw new Exception(JText::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_NO_ARCHIVE', $package['name']));
+            throw new Exception(Text::sprintf('LIB_YIREO_HELPER_INSTALL_DOWNLOAD_NO_ARCHIVE', $package['name']));
         }
 
         // Call the actual installer to install the package
-        $installer = JInstaller::getInstance();
+        $installer = Installer::getInstance();
 
         if ($installer->install($package['dir']) == false) {
-            throw new Exception(JText::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_FAIL', $package['name']));
+            throw new Exception(Text::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_FAIL', $package['name']));
         }
 
         // Get the name of downloaded package
         if (!is_file($package['packagefile'])) {
-            $config = JFactory::getConfig();
+            $config = Factory::getConfig();
             $package['packagefile'] = $config->get('tmp_path') . '/' . $package['packagefile'];
         }
 
         // Clean up the installation
-        @JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
-        $app->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_SUCCESS', $label), 'notice');
+        @InstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
+        $app->enqueueMessage(Text::sprintf('LIB_YIREO_HELPER_INSTALL_EXTENSION_SUCCESS', $label), 'notice');
 
         // Clean the Joomla! plugins cache
         $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
-        $cache = JCache::getInstance('callback', $options);
+        $cache = Cache::getInstance('callback', $options);
         $cache->clean();
 
         return true;
@@ -127,17 +135,17 @@ class YireoHelperInstall
     public static function downloadPackage($url, $file = null)
     {
         // System variables
-        $app = JFactory::getApplication();
-        $config = JFactory::getConfig();
+        $app = Factory::getApplication();
+        $config = Factory::getConfig();
 
         // Use fopen() instead
         if (ini_get('allow_url_fopen') == 1) {
-            return JInstallerHelper::downloadPackage($url, $file);
+            return InstallerHelper::downloadPackage($url, $file);
         }
 
         // Set the target path if not given
         if (empty($file)) {
-            $file = $config->get('tmp_path') . '/' . JInstallerHelper::getFilenameFromURL($url);
+            $file = $config->get('tmp_path') . '/' . InstallerHelper::getFilenameFromURL($url);
         } else {
             $file = $config->get('tmp_path') . '/' . basename($file);
         }
@@ -160,12 +168,12 @@ class YireoHelperInstall
         curl_close($ch);
 
         if (empty($data)) {
-            JFactory::getApplication()->enqueueMessage(JText::_('LIB_YIREO_HELPER_INSTALL_REMOTE_DOWNLOAD_FAILED') . ', ' . curl_error($ch), 'warning');
+            Factory::getApplication()->enqueueMessage(Text::_('LIB_YIREO_HELPER_INSTALL_REMOTE_DOWNLOAD_FAILED') . ', ' . curl_error($ch), 'warning');
             return false;
         }
 
         // Write received data to file
-        Joomla\Filesystem\File::write($file, $data);
+        File::write($file, $data);
 
         // Return the name of the downloaded package
         return basename($file);
@@ -175,7 +183,7 @@ class YireoHelperInstall
     {
         if (is_dir(JPATH_SITE . '/libraries/' . $library)) {
             $query = 'SELECT `name` FROM `#__extensions` WHERE `type`="library" AND `element`="' . $library . '"';
-            $db = JFactory::getDBO();
+            $db = Factory::getDBO();
             $db->setQuery($query);
 
             return (bool) $db->loadObject();
@@ -188,7 +196,7 @@ class YireoHelperInstall
     {
         if (file_exists(JPATH_SITE . '/plugins/' . $group . '/' . $plugin . '/' . $plugin . '.xml')) {
             $query = 'SELECT `name` FROM `#__extensions` WHERE `type`="plugin" AND `element`="' . $plugin . '" AND `folder`="' . $group . '"';
-            $db = JFactory::getDBO();
+            $db = Factory::getDBO();
             $db->setQuery($query);
 
             return (bool) $db->loadObject();
@@ -200,7 +208,7 @@ class YireoHelperInstall
     public static function hasPluginEnabled($plugin, $group)
     {
         $query = 'SELECT `enabled` FROM `#__extensions` WHERE `type`="plugin" AND `element`="' . $plugin . '" AND `folder`="' . $group . '"';
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $db->setQuery($query);
 
         return (bool) $db->loadResult();
@@ -215,19 +223,19 @@ class YireoHelperInstall
         }
 
         $query = 'UPDATE `#__extensions` SET `enabled`="1" WHERE `type`="plugin" AND `element`="' . $plugin . '" AND `folder`="' . $group . '"';
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $db->setQuery($query);
 
         try {
             $db->execute();
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_SUCCESS', $label), 'notice');
+            Factory::getApplication()->enqueueMessage(Text::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_SUCCESS', $label), 'notice');
         } catch (Exception $e) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_FAIL', $label), 'warning');
+            Factory::getApplication()->enqueueMessage(Text::sprintf('LIB_YIREO_HELPER_INSTALL_ENABLE_PLUGIN_FAIL', $label), 'warning');
         }
 
         // Clean the Joomla! plugins cache
         $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
-        $cache = JCache::getInstance('callback', $options);
+        $cache = Cache::getInstance('callback', $options);
         $cache->clean();
 
         return true;
@@ -242,7 +250,7 @@ class YireoHelperInstall
 
         // Otherwise first, try to install the library
         if (self::installExtension($url, $label) == false) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
+            Factory::getApplication()->enqueueMessage(Text::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
         }
     }
 
@@ -257,7 +265,7 @@ class YireoHelperInstall
             if (self::installExtension($url, $label)) {
                 self::enablePlugin($plugin, $group, $label);
             } else {
-                JFactory::getApplication()->enqueueMessage(JText::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
+                Factory::getApplication()->enqueueMessage(Text::sprintf('LIB_YIREO_HELPER_INSTALL_MISSING', $label), 'warning');
             }
         }
     }

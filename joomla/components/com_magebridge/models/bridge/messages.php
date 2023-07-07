@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -47,13 +50,13 @@ class MageBridgeModelBridgeMessages extends MageBridgeModelBridgeSegment
 
         $messages = $this->getResponseData();
         if (!empty($messages) && is_array($messages)) {
-            $application = JFactory::getApplication();
+            $application = Factory::getApplication();
             foreach ($messages as $message) {
                 if (!is_array($message)) {
                     continue;
                 }
 
-                switch($message['type']) {
+                switch ($message['type']) {
                     case 'warning':
                         $type = 'warning';
                         break;

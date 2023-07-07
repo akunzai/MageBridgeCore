@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link	  https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -49,7 +52,7 @@ abstract class MageBridgeModelProxyAbstract
     protected $debug;
 
     /**
-     * @var CMSApplication
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -59,7 +62,7 @@ abstract class MageBridgeModelProxyAbstract
     protected $helper;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
@@ -98,7 +101,7 @@ abstract class MageBridgeModelProxyAbstract
 
         $this->debug = MageBridgeModelDebug::getInstance();
 
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
 
         $this->helper = new MageBridgeProxyHelper($this->app);
 
@@ -106,7 +109,7 @@ abstract class MageBridgeModelProxyAbstract
 
         $this->user = MageBridgeModelUser::getInstance();
 
-        $this->config = JFactory::getConfig();
+        $this->config = Factory::getConfig();
     }
 
 

@@ -8,15 +8,18 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Language\Text;
+
 ?>
 <?php if(strtolower($field->type) == 'spacer') : ?>
-<h4 class="fieldgroup"><?php echo JText::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELDGROUP_'.$field->fieldname); ?></h4>
+<h4 class="fieldgroup"><?php echo Text::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELDGROUP_'.$field->fieldname); ?></h4>
 <?php else: ?>
 <?php
-    $fieldDescription = JText::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_'.$field->fieldname.'_DESC');
+    $fieldDescription = Text::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_'.$field->fieldname.'_DESC');
     $fieldTooltip = '['.$field->fieldname.'] '.$fieldDescription;
     $oldFieldLabel = $field->label;
-    $fieldLabel = JText::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_'.$field->fieldname);
+    $fieldLabel = Text::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_'.$field->fieldname);
     ?>
 <div class="control-group">
 	<div class="control-label">

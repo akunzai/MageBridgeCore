@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -17,7 +20,7 @@ require_once JPATH_SITE . '/components/com_magebridge/libraries/factory.php';
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 require_once JPATH_COMPONENT . '/helpers/acl.php';
 
-$app = JFactory::getApplication();
+$app = Factory::getApplication();
 
 // If no view has been set, try the default
 if ($app->input->getCmd('view') == '') {

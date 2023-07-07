@@ -8,6 +8,9 @@
  * @link      http://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
@@ -49,12 +52,12 @@ class YireoFormFieldFile extends JFormFieldFile
         $onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 
         // Including fallback code for HTML5 non supported browsers.
-        JHtml::_('jquery.framework');
-        JHtml::_('script', 'system/html5fallback.js', false, true);
+        HTMLHelper::_('jquery.framework');
+        HTMLHelper::_('script', 'system/html5fallback.js', false, true);
 
         $html = [];
         $html[] = '<input type="file" name="' . $this->name . '" id="' . $this->id . '"' . $accept . ' value="' . $this->value . '"' . $disabled . $class . $size . $onchange . $required . $autofocus . $multiple . ' />';
-        $html[] = '<br/><p></p><strong>' . JText::_('Current') . ': </strong><span class="current">' . $this->value . '</span></p>';
+        $html[] = '<br/><p></p><strong>' . Text::_('Current') . ': </strong><span class="current">' . $this->value . '</span></p>';
 
         return implode('', $html);
     }

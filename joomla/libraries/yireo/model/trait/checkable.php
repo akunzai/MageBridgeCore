@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * Yireo Model Trait: Checkable - allows models to have checkout behaviour
  *
@@ -67,7 +69,7 @@ trait YireoModelTraitCheckable
         }
 
         if (!$this->table->checkin($id)) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             throw new JDatabaseExceptionExecuting($db->getErrorMsg());
         }
 
@@ -100,7 +102,7 @@ trait YireoModelTraitCheckable
 
         // Lets get to it and checkout the thing...
         if (!$this->table->checkout($userId, $id)) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             throw new JDatabaseExceptionExecuting($db->getErrorMsg());
         }
 

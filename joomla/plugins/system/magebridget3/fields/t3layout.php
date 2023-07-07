@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -52,6 +54,6 @@ class JElementT3Layout extends JElement
             $options[] = [ 'value' => $layoutIndex, 'label' => $layoutIndex];
         }
 
-        return JHtml::_('select.genericlist', $options, $name, null, 'value', 'label', $value);
+        return HTMLHelper::_('select.genericlist', $options, $name, null, 'value', 'label', $value);
     }
 }

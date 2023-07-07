@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - Magento plugin
  *
@@ -9,11 +10,14 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -21,7 +25,7 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge Magento Plugin
  */
-class PlgMagentoMageBridge extends JPlugin
+class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * @var JApplicationWeb
@@ -92,7 +96,7 @@ class PlgMagentoMageBridge extends JPlugin
         $options = ['disable_bridge' => true, 'action' => 'core.login.site', 'clientid' => $this->app->getClientId()];
 
         // Call the Joomla! event "onLogoutUser"
-        JPluginHelper::importPlugin('user');
+        PluginHelper::importPlugin('user');
         $this->app->triggerEvent('onUserLogout', [$customer, $options]);
 
         return true;
@@ -199,7 +203,7 @@ class PlgMagentoMageBridge extends JPlugin
 
         // Try to load the user through the Joomla! ID stored in Magento
         if (isset($customer['joomla_id'])) {
-            $user = JFactory::getUser();
+            $user = Factory::getUser();
             $user->load($customer['joomla_id']);
         }
 
@@ -231,7 +235,8 @@ class PlgMagentoMageBridge extends JPlugin
             // Set the firstname and lastname
             $data['magebridgefirstlast'] = [
                 'firstname' => $customer['firstname'],
-                'lastname' => $customer['lastname'],];
+                'lastname' => $customer['lastname'],
+            ];
 
             // Include the password
             if (!empty($customer['password'])) {
@@ -290,7 +295,7 @@ class PlgMagentoMageBridge extends JPlugin
 
             // Run the newsletter plugins
             if (isset($customer['is_subscribed'])) {
-                JPluginHelper::importPlugin('magebridgenewsletter');
+                PluginHelper::importPlugin('magebridgenewsletter');
                 $this->app->triggerEvent('onNewsletterSubscribe', [$user, (bool)$customer['is_subscribed']]);
             }
 
@@ -354,7 +359,7 @@ class PlgMagentoMageBridge extends JPlugin
         $user = $this->getUser()->loadByEmail($subscriber['email']);
 
         // Run the newsletter plugins
-        JPluginHelper::importPlugin('magebridgenewsletter');
+        PluginHelper::importPlugin('magebridgenewsletter');
         $this->app->triggerEvent('onNewsletterSubscribe', [$user, $state]);
 
         return true;

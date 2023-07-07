@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Store plugin - Falang
  *
@@ -11,6 +12,8 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Factory;
 
 /**
  * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! falang
@@ -45,11 +48,11 @@ class plgMageBridgeStoreFalang extends MageBridgePluginStore
         }
 
         // Fetch the current language
-        $language = JFactory::getLanguage();
+        $language = Factory::getLanguage();
 
         // Fetch the languages
         $languages = FalangManager::getInstance()->getActiveLanguages();
-        $language_code = JFactory::getApplication()->input->getCmd('lang');
+        $language_code = Factory::getApplication()->input->getCmd('lang');
         if (!empty($languages)) {
             foreach ($languages as $l) {
                 if ($language->getTag() == $l->code || $language->getTag() == $l->lang_code) {
@@ -81,7 +84,7 @@ class plgMageBridgeStoreFalang extends MageBridgePluginStore
      */
     public function isEnabled()
     {
-        if (is_dir(JPATH_SITE.'/components/com_falang')) {
+        if (is_dir(JPATH_SITE . '/components/com_falang')) {
             return true;
         } else {
             return false;

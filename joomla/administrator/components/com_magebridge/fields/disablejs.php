@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,14 +10,15 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
-// Import namespaces
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * Form Field-class
@@ -38,10 +40,10 @@ class MagebridgeFormFieldDisablejs extends MageBridgeFormFieldAbstract
     protected function getInput()
     {
         $options = [
-            ['value' => 0, 'text' => JText::_('JNO')],
-            ['value' => 1, 'text' => JText::_('JYES')],
-            ['value' => 2, 'text' => JText::_('JONLY')],
-            ['value' => 3, 'text' => JText::_('JALL_EXCEPT')],
+            ['value' => 0, 'text' => Text::_('JNO')],
+            ['value' => 1, 'text' => Text::_('JYES')],
+            ['value' => 2, 'text' => Text::_('JONLY')],
+            ['value' => 3, 'text' => Text::_('JALL_EXCEPT')],
         ];
 
         foreach ($options as $index => $option) {
@@ -56,7 +58,7 @@ class MagebridgeFormFieldDisablejs extends MageBridgeFormFieldAbstract
         }
 
         $html = '';
-        $html .= JHtml::_('select.radiolist', $options, 'disable_js_all', 'class="btn-group"', 'value', 'text', $current);
+        $html .= HTMLHelper::_('select.radiolist', $options, 'disable_js_all', 'class="btn-group"', 'value', 'text', $current);
         $html .= '<br/><br/>';
         $html .= '<textarea type="text" id="disable_js_custom" name="disable_js_custom" ' . $disabled . 'rows="5" cols="40" maxlength="255">' . $this->getConfig('disable_js_custom') . '</textarea>';
 

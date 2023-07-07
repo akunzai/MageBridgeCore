@@ -11,6 +11,12 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Date\Date;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -213,7 +219,7 @@ class YireoModel extends YireoCommonModel
     public function getDbResult($query, $type = 'object')
     {
         if ($this->getConfig('cache') == true) {
-            $cache = JFactory::getCache('lib_yireo_model');
+            $cache = Factory::getCache('lib_yireo_model');
             $rs    = $cache->call([$this, '_getDbResult'], $query, $type);
         } else {
             $rs = $this->_getDbResult($query, $type);
@@ -259,7 +265,7 @@ class YireoModel extends YireoCommonModel
      */
     protected function throwDbException()
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         throw new JDatabaseExceptionUnsupported($db->getErrorMsg());
     }
@@ -289,7 +295,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     protected function initParams()
     {
@@ -298,12 +304,12 @@ class YireoModel extends YireoCommonModel
         }
 
         if ($this->app->isClient('site') == false) {
-            $this->params = JComponentHelper::getParams($this->getConfig('option'));
+            $this->params = ComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
         }
 
-        /** @var Joomla\CMS\Application\SiteApplication */
+        /** @var \Joomla\CMS\Application\SiteApplication */
         $siteApp = $this->app;
         $this->params = $siteApp->getParams($this->getConfig('option'));
 
@@ -422,7 +428,7 @@ class YireoModel extends YireoCommonModel
                 $stateField = $this->table->getStateField();
 
                 if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
-                    throw new \Yireo\Exception\Model\NotFound(JText::_('LIB_YIREO_MODEL_NOT_FOUND'));
+                    throw new \Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
                 }
 
                 // Fill in non-existing fields
@@ -584,8 +590,8 @@ class YireoModel extends YireoCommonModel
         }
 
         // Get the user metadata
-        jimport('joomla.utilities.date');
-        $now = new JDate('now');
+        JLoader::import('joomla.utilities.date');
+        $now = new Date('now');
         $uid = $this->user->get('id');
 
         // Convert the JForm array into the default data-set
@@ -735,14 +741,14 @@ class YireoModel extends YireoCommonModel
         $primaryKey = $this->table->getKeyName();
 
         if (empty($tableName)) {
-            throw new RuntimeException(JText::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_NAME'));
+            throw new RuntimeException(Text::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_NAME'));
         }
 
         if (empty($primaryKey)) {
-            throw new RuntimeException(JText::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_KEY'));
+            throw new RuntimeException(Text::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_KEY'));
         }
 
-        \Joomla\Utilities\ArrayHelper::toInteger($cid);
+        ArrayHelper::toInteger($cid);
         $cids = implode(',', $cid);
 
         $query = $this->_db->getQuery(true);

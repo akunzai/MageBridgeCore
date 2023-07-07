@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -100,7 +103,7 @@ class MageBridgeBridgeHelper
      */
     public static function getDefaultCookieNames()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if ($application->isClient('site') == 1) {
             return ['frontend', 'frontend_cid', 'user_allowed_save_cookie', 'persistent_shopping_cart'];

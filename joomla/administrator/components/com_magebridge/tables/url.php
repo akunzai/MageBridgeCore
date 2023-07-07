@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -35,7 +37,7 @@ class MagebridgeTableUrl extends YireoTable
     public function check()
     {
         if (empty($this->source) || empty($this->destination)) {
-            $this->setError(JText::_('Source and destination must be filled in.'));
+            $this->setError(Text::_('Source and destination must be filled in.'));
 
             return false;
         }

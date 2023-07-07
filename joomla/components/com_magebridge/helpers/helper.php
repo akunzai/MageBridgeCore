@@ -9,6 +9,11 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -118,7 +123,7 @@ class MageBridgeHelper
     {
         $help = MageBridgeHelper::getHelpItem($name);
         $target = ($help['internal'] == 0) ? ' target="_new"' : '';
-        $title = (!empty($title)) ? $title : JText::_($help['title']);
+        $title = (!empty($title)) ? $title : Text::_($help['title']);
 
         return '<a href="' . $help['link'] . '"' . $target . '>' . $title . '</a>';
     }
@@ -211,7 +216,7 @@ class MageBridgeHelper
                 }
 
                 // Extra check on HTTPS
-                if (JUri::getInstance()
+                if (Uri::getInstance()
                         ->isSSL() == true
                 ) {
                     $url = str_replace('http://', 'https://', $url);
@@ -257,12 +262,12 @@ class MageBridgeHelper
         }
 
         // Remove double-slashes
-        //$basedir = preg_replace('/^([\/]?)(.*)([\/]?)$/', '\2', JUri::base(true));
-        //$content = str_replace(JUri::base().$basedir, JUri::base(), $content);
-        $content = str_replace(JUri::base() . '/', JUri::base(), $content);
+        //$basedir = preg_replace('/^([\/]?)(.*)([\/]?)$/', '\2', Uri::base(true));
+        //$content = str_replace(Uri::base().$basedir, Uri::base(), $content);
+        $content = str_replace(Uri::base() . '/', Uri::base(), $content);
 
         // Adjust wrong media-URLs
-        if (JUri::getInstance()
+        if (Uri::getInstance()
                 ->isSSL() == true
         ) {
             $non_https = preg_replace('/^https:/', 'http:', $bridge->getMagentoUrl());
@@ -325,9 +330,9 @@ class MageBridgeHelper
             $url = MageBridgeUrlHelper::getSefUrl($url);
         }
 
-        $prefix = JUri::getInstance()
+        $prefix = Uri::getInstance()
             ->toString(['scheme', 'host', 'port']);
-        $path = str_replace($prefix, '', JUri::base());
+        $path = str_replace($prefix, '', Uri::base());
         $pos = strpos($url, $path);
 
         if (!empty($path) && $pos !== false) {
@@ -450,7 +455,7 @@ class MageBridgeHelper
     public static function getJoomlaVersion()
     {
         JLoader::import('joomla.version');
-        $version = new JVersion();
+        $version = new Version();
 
         return $version->getShortVersion();
     }
@@ -465,7 +470,7 @@ class MageBridgeHelper
     public static function isJoomlaVersion($version = null)
     {
         JLoader::import('joomla.version');
-        $jversion = new JVersion();
+        $jversion = new Version();
 
         if (!is_array($version)) {
             $version = [$version];
@@ -497,13 +502,13 @@ class MageBridgeHelper
      *
      * @param null
      *
-     * @return bool
+     * @return \Joomla\Registry\Registry
      */
     public static function getParams()
     {
-        $params = JFactory::getApplication()
+        $params = Factory::getApplication()
             ->getMenu('site')
-            ->getParams(JFactory::getApplication()->input->getInt('Itemid'));
+            ->getParams(Factory::getApplication()->input->getInt('Itemid'));
 
         return $params;
     }
@@ -517,7 +522,7 @@ class MageBridgeHelper
      */
     public static function arrayToSQl($array)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $sql = [];
 
         foreach ($array as $name => $value) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -32,12 +36,12 @@ class MageBridgeViewElement extends MageBridgeViewCommon
      */
     public function display($tpl = null)
     {
-        JHtml::_('jquery.ui');
-        JHtml::_('behavior.core');
-        JHtml::_('script', 'jui/cms.js', false, true);
+        HTMLHelper::_('jquery.ui');
+        HTMLHelper::_('behavior.core');
+        HTMLHelper::_('script', 'jui/cms.js', false, true);
 
         // Check for AJAX
-        if (JFactory::getApplication()->input->getInt('ajax') == 1) {
+        if (Factory::getApplication()->input->getInt('ajax') == 1) {
             $this->doAjaxLayout();
             $tpl = 'ajax';
 
@@ -47,7 +51,7 @@ class MageBridgeViewElement extends MageBridgeViewCommon
         }
 
         // Determine the layout and data
-        switch (JFactory::getApplication()->input->getCmd('type')) {
+        switch (Factory::getApplication()->input->getCmd('type')) {
             case 'product':
                 $this->doProductLayout();
                 break;

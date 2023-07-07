@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 
@@ -28,7 +31,7 @@ div.description pre {
 </style>
 
 <fieldset class="adminform">
-<legend><?php echo JText::_('COM_MAGEBRIDGE_BROWSE_TEST'); ?></legend>
+<legend><?php echo Text::_('COM_MAGEBRIDGE_BROWSE_TEST'); ?></legend>
 <h3>Step 1: From Joomla! to Magento</h3>
 <div class="description">
 <p>
@@ -39,7 +42,7 @@ On this page, you can see the result of Joomla! fetching data from the Magento M
 <table class="admintable" width="100%">
 <tr>
 	<td class="key">
-		<?php echo JText::_('COM_MAGEBRIDGE_URL'); ?>
+		<?php echo Text::_('COM_MAGEBRIDGE_URL'); ?>
 	</td>
 	<td>
 		<form method="post" name="adminForm" id="adminForm">
@@ -49,21 +52,21 @@ On this page, you can see the result of Joomla! fetching data from the Magento M
 			<input type="hidden" name="view" value="check" />
 			<input type="hidden" name="layout" value="browser" />
 			<input type="hidden" name="task" value="" />
-			<?php echo JHtml::_('form.token'); ?>
+			<?php echo HTMLHelper::_('form.token'); ?>
 		</form>
 	</td>
 </tr>
 <tr>
 	<td class="key">
-		<?php echo JText::_('COM_MAGEBRIDGE_HOSTNAME'); ?>
+		<?php echo Text::_('COM_MAGEBRIDGE_HOSTNAME'); ?>
 	</td>
 	<td>
-		<?php echo $this->host; ?> (<?php echo JText::_('COM_MAGEBRIDGE_IPADDRESS'); ?>: <?php echo gethostbyname($this->host); ?>)
+		<?php echo $this->host; ?> (<?php echo Text::_('COM_MAGEBRIDGE_IPADDRESS'); ?>: <?php echo gethostbyname($this->host); ?>)
 	</td>
 </tr>
 <tr>
 	<td class="key">
-		<?php echo JText::_('COM_MAGEBRIDGE_RESULT'); ?>
+		<?php echo Text::_('COM_MAGEBRIDGE_RESULT'); ?>
 	</td>
 	<td>
 		<iframe src="index.php?option=com_magebridge&view=check&layout=result" width="100%" height="80"></iframe>

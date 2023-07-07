@@ -13,8 +13,10 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 // Include libraries
-require_once dirname(dirname(__FILE__)).'/loader.php';
+require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
  * Yireo Form Helper
@@ -38,11 +40,10 @@ class YireoHelperForm
         $hash = md5($table);
 
         if (!isset(static::$items[$hash])) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = $db->getQuery(true)
                 ->select($db->quoteName([$valueField, $textField]))
-                ->from($db->quoteName($table))
-            ;
+                ->from($db->quoteName($table));
 
             $db->setQuery($query);
             $items = $db->loadObjectList();

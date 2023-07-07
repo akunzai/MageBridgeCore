@@ -9,11 +9,14 @@
  * @link      https://www.yireo.com/software/magebridge
  */
 
+use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die;
 
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
-class PlgUserMagebridgefirstlast extends JPlugin
+class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * @var array
@@ -133,7 +136,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     public function onUserAfterSave($data, $isNew, $result, $error)
     {
-        $userId = Joomla\Utilities\ArrayHelper::getValue($data, 'id', 0, 'int');
+        $userId = ArrayHelper::getValue($data, 'id', 0, 'int');
 
         if ($userId && $result && isset($data['magebridgefirstlast']) && (count($data['magebridgefirstlast']))) {
             try {
@@ -175,7 +178,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
             return false;
         }
 
-        $userId = Joomla\Utilities\ArrayHelper::getValue($user, 'id', 0, 'int');
+        $userId = ArrayHelper::getValue($user, 'id', 0, 'int');
 
         if ($userId) {
             try {
@@ -229,7 +232,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     protected function getFields($userId)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $query = $db->getQuery(true);
 
         $columns = ['profile_key', 'profile_value'];
@@ -253,7 +256,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     protected function deleteFields($userId)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         $query = $db->getQuery(true)
             ->delete($db->quoteName('#__user_profiles'))
@@ -274,7 +277,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     protected function insertField($userId, $name, $value, $ordering)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         $columns = ['user_id', 'profile_key', 'profile_value', 'ordering'];
         $values = [$userId, $db->quote('magebridgefirstlast.' . $name), $db->quote($value), $ordering];
@@ -297,7 +300,7 @@ class PlgUserMagebridgefirstlast extends JPlugin
      */
     protected function setUserName($userId, $firstname, $lastname)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $query = $db->getQuery(true)
             ->update($db->quoteName('#__users'))
             ->set($db->quoteName('name') . '=' . $db->quote($firstname . ' ' . $lastname))

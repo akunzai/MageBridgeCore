@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -32,11 +35,11 @@ class MageBridgeView extends YireoAbstractView
         // Call the parent constructor
         parent::__construct($config);
 
-        // Import use full variables from JFactory
-        $this->db = JFactory::getDbo();
-        $this->doc = JFactory::getDocument();
-        $this->user = JFactory::getUser();
-        $this->app = JFactory::getApplication();
+        // Import use full variables from Factory
+        $this->db = Factory::getDbo();
+        $this->doc = Factory::getDocument();
+        $this->user = Factory::getUser();
+        $this->app = Factory::getApplication();
         $this->input = $this->app->input;
     }
 
@@ -92,7 +95,7 @@ class MageBridgeView extends YireoAbstractView
             $bridge->setHeaders();
 
             // Add things for the frontend specifically
-            $application = JFactory::getApplication();
+            $application = Factory::getApplication();
             if ($application->isClient('site')) {
                 if (MageBridgeModelConfig::load('enable_breadcrumbs') == 1) {
                     $bridge->setBreadcrumbs();
@@ -105,7 +108,7 @@ class MageBridgeView extends YireoAbstractView
             // Empty blocks
             if (empty($block)) {
                 MageBridgeModelDebug::getInstance()->warning('JView: Empty block: '.$this->block_name);
-                $block = JText::_($this->getOfflineMessage());
+                $block = Text::_($this->getOfflineMessage());
             }
         }
 
@@ -152,7 +155,7 @@ class MageBridgeView extends YireoAbstractView
     public function addFixes($html)
     {
         // Check for a template-override of this file
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $file = JPATH_BASE.'/templates/'.$application->getTemplate().'/html/com_magebridge/fixes.php';
         if (!file_exists($file)) {
             $file = JPATH_SITE.'/components/com_magebridge/views/fixes.php';

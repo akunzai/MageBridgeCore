@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge: Newsletter block
  *
@@ -8,6 +9,10 @@
  * @license   GNU Public License
  * @link	  https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -23,7 +28,7 @@ require_once(dirname(__FILE__) . '/helper.php');
 $block = ModMageBridgeNewsletterHelper::build($params);
 
 // Get the current user
-$user = JFactory::getUser();
+$user = Factory::getUser();
 
 // Set the form URL
 $form_url = MageBridgeUrlHelper::route('newsletter/subscriber/new');
@@ -31,7 +36,7 @@ $redirect_url = MageBridgeUrlHelper::route(MageBridgeUrlHelper::getRequest());
 $redirect_url = MageBridgeEncryptionHelper::base64_encode($redirect_url);
 
 // Require form validation
-JHtml::_('behavior.formvalidation');
+HTMLHelper::_('behavior.formvalidation');
 
 // Include the layout-file
-require(JModuleHelper::getLayoutPath('mod_magebridge_newsletter', $layout));
+require(ModuleHelper::getLayoutPath('mod_magebridge_newsletter', $layout));

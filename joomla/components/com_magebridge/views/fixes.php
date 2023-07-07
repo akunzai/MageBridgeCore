@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -37,7 +40,7 @@ if (strstr($request, 'checkout/onepage') && $bridge->getBlock('checkout.progress
 
 // FIX: Make sure that when "page/one-column.phtml" is used, we set the Joomla! variable "tmpl=component"
 if ($page_layout == 'page/one-column.phtml') {
-    JFactory::getApplication()->input->set('tmpl', 'component');
+    Factory::getApplication()->input->set('tmpl', 'component');
 }
 
 // Developers note: Make sure the $html variable still contains your data

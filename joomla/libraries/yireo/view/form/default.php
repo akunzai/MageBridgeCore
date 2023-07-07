@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Set the right image directory for JavaScipt
-jimport('joomla.utilities.utility');
+JLoader::import('joomla.utilities.utility');
 ?>
 <?php echo $this->loadTemplate('script'); ?>
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge: Store Switcher
  *
@@ -12,6 +13,8 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
@@ -23,7 +26,7 @@ $layout = preg_replace('/^_:/', '', $layout);
 require_once(dirname(__FILE__) . '/helper.php');
 
 // If this is not a MageBridge page, exit
-$option = JFactory::getApplication()->input->getCmd('option');
+$option = Factory::getApplication()->input->getCmd('option');
 
 if ($option != 'com_magebridge') {
     return;

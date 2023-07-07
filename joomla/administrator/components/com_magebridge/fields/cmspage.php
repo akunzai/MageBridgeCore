@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\HTML\HTMLHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
@@ -70,7 +73,7 @@ class MagebridgeFormFieldCMSPage extends MageBridgeFormFieldAbstract
                 // Return a dropdown list
                 array_unshift($options, ['value' => '', 'label' => '']);
 
-                return JHtml::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
+                return HTMLHelper::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "cmspage"', $options);

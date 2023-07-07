@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge: Block
  *
@@ -12,6 +13,8 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 /**
  * Helper-class for the module
  */
@@ -22,7 +25,7 @@ class ModMageBridgeBlockHelper
      * Method to be called as soon as MageBridge is loaded
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function register($params = null)
@@ -46,7 +49,7 @@ class ModMageBridgeBlockHelper
      * Build output for the AJAX-layout
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return void
      */
     public static function ajaxbuild($params = null)
@@ -69,8 +72,8 @@ class ModMageBridgeBlockHelper
 
         // Load the Ajax script
         $script = MageBridgeAjaxHelper::getScript($blockName, 'magebridge-' . $blockName);
-        /** @var Joomla\CMS\Document\HtmlDocument */
-        $document = JFactory::getDocument();
+        /** @var \Joomla\CMS\Document\HtmlDocument */
+        $document = Factory::getDocument();
         $document->addCustomTag('<script type="text/javascript">' . $script . '</script>');
     }
 
@@ -78,7 +81,7 @@ class ModMageBridgeBlockHelper
      * Fetch the content from the bridge
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return string
      */
     public static function build($params = null)
@@ -112,7 +115,7 @@ class ModMageBridgeBlockHelper
      * Helper-method to construct the blocks arguments
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function getArguments($params)
@@ -162,7 +165,7 @@ class ModMageBridgeBlockHelper
      * Helper-method to fetch the block name from the parameters
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return string
      */
     public static function getBlockName($params)

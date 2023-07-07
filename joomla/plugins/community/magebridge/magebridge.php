@@ -16,8 +16,13 @@
  * - When creating a new group
  */
 
+use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
+
 
 class plgCommunityMageBridge extends CApplications
 {
@@ -26,11 +31,16 @@ class plgCommunityMageBridge extends CApplications
     public $_user = null;
 
     /**
+     * @var \Joomla\Registry\Registry
+     */
+    private $params;
+
+    /**
      * Load the parameters
      *
      * @access private
      * @param null
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -42,12 +52,12 @@ class plgCommunityMageBridge extends CApplications
      *
      * @access private
      * @param null
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     private function getUserParams()
     {
         require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
-        $plugin = JPluginHelper::getPlugin('user', 'magebridge');
+        $plugin = PluginHelper::getPlugin('user', 'magebridge');
         $params = YireoHelper::toRegistry($plugin->params);
         return $params;
     }
@@ -221,7 +231,7 @@ class plgCommunityMageBridge extends CApplications
         }
 
         // Copy the username to the email address
-        if (JFactory::getApplication()->isClient('site') == true && $this->getUserParams()->get('username_from_email', 1) == 1 && $user->username != $user->email) {
+        if (Factory::getApplication()->isClient('site') == true && $this->getUserParams()->get('username_from_email', 1) == 1 && $user->username != $user->email) {
             if ($this->getUser()->allowSynchronization($user, 'save') == true) {
                 MageBridgeModelDebug::getInstance()->notice("onUserDetailsUpdate::bind on user ".$user->username);
 
@@ -237,8 +247,8 @@ class plgCommunityMageBridge extends CApplications
 
             // Convert this object to an array
             if (!is_array($user)) {
-                jimport('joomla.utilities.arrayhelper');
-                $user = Joomla\Utilities\ArrayHelper::fromObject($user, false);
+                JLoader::import('joomla.utilities.arrayhelper');
+                $user = ArrayHelper::fromObject($user, false);
             }
 
             // Sync this user-record with the bridge

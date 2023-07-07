@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -110,7 +114,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 
             if (!empty($plugins)) {
                 foreach ($plugins as $plugin) {
-                    JPluginHelper::importPlugin('content', $plugin);
+                    PluginHelper::importPlugin('content', $plugin);
                 }
             }
 
@@ -122,7 +126,8 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
                 'com_magebridge.block',
                 &$item,
                 &$item->params,
-                0, ]);
+                0,
+            ]);
 
             // Move the modified contents into $block_data
             $block_data = $item->text;
@@ -131,8 +136,8 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 
         // Filter the block throw the "magebridge" plugin group
         if (MageBridgeModelConfig::load('enable_block_rendering') == 1) {
-            JPluginHelper::importPlugin('magebridge');
-            JFactory::getApplication()
+            PluginHelper::importPlugin('magebridge');
+            Factory::getApplication()
                 ->triggerEvent('onBeforeDisplayBlock', [&$block_name, $arguments, &$block_data]);
         }
 
@@ -214,7 +219,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
         }
 
         // Get system variables
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         $query = 'SELECT `element` FROM `#__extensions`' . ' WHERE `type` = "plugin" AND `enabled` = 1 AND `element` NOT LIKE "magebridge%" AND `element` != "emailcloak"' . ' ORDER BY `ordering`';
 

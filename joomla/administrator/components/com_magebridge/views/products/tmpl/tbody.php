@@ -9,10 +9,12 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 <td>
-	<a href="<?php echo $item->edit_link; ?>" title="<?php echo JText::_('Edit product'); ?>"><?php echo $item->label; ?></a>
+	<a href="<?php echo $item->edit_link; ?>" title="<?php echo Text::_('Edit product'); ?>"><?php echo $item->label; ?></a>
 </td>
 <td>
 	<?php echo $item->sku; ?>

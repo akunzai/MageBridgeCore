@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -38,12 +41,12 @@ class MageBridgePluginProduct extends MageBridgePlugin
      * @param       object $subject The object to observe
      * @param       array  $config  An array that holds the plugin configuration
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
 
         $this->loadLanguage();
-        $this->db = JFactory::getDbo();
+        $this->db = Factory::getDbo();
     }
 
     /**

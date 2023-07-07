@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Environment\Browser;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -364,8 +366,8 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
         }
 
         // Determine browser-specific stylesheets
-        jimport('joomla.environment.browser');
-        $browser = JBrowser::getInstance();
+        JLoader::import('joomla.environment.browser');
+        $browser = Browser::getInstance();
 
         if ($browser->getBrowser() == 'msie') {
             MageBridgeTemplateHelper::load('css', 'default-ie.css');

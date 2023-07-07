@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\Folder;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -61,9 +65,9 @@ class MageBridgeModelCache
     public function __construct($name = '', $request = null, $cache_time = null)
     {
         $this->request = (!empty($request)) ? $request : MageBridgeUrlHelper::getRequest();
-        $this->cache_name = $name.'_'.md5($this->request);
-        $this->cache_folder = JPATH_SITE.'/cache/com_magebridge';
-        $this->cache_file = $this->cache_folder.'/'.$this->cache_name.'.php';
+        $this->cache_name = $name . '_' . md5($this->request);
+        $this->cache_folder = JPATH_SITE . '/cache/com_magebridge';
+        $this->cache_file = $this->cache_folder . '/' . $this->cache_name . '.php';
         $this->cache_time = (!empty($cache_time)) ? (int)$cache_time : MageBridgeModelConfig::load('cache_time');
     }
 
@@ -82,8 +86,8 @@ class MageBridgeModelCache
 
         // Try to create the cache directory when needed
         if (!is_dir($this->cache_folder)) {
-            jimport('joomla.filesystem.folder');
-            $rt = Joomla\Filesystem\Folder::create($this->cache_folder);
+            JLoader::import('joomla.filesystem.folder');
+            $rt = Folder::create($this->cache_folder);
             if ($rt == false) {
                 return false;
             }
@@ -92,7 +96,7 @@ class MageBridgeModelCache
         // Do not allow caching on certain pages
         foreach ($this->deny_pages as $deny) {
             $deny = str_replace('/', '\/', $deny);
-            if (preg_match('/'.$deny.'/', $this->request)) {
+            if (preg_match('/' . $deny . '/', $this->request)) {
                 return false;
             }
         }
@@ -159,8 +163,8 @@ class MageBridgeModelCache
     {
         // If the cache file is there, remove it
         if (file_exists($this->cache_file)) {
-            jimport('joomla.filesystem.file');
-            return JFile::delete($this->cache_file);
+            JLoader::import('joomla.filesystem.file');
+            return File::delete($this->cache_file);
         }
         return false;
     }

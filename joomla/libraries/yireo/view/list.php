@@ -11,6 +11,9 @@
  * @version   1.0.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -53,7 +56,7 @@ class YireoViewList extends YireoView
     /**
      * Pagination
      *
-     * @var JPagination
+     * @var \Joomla\CMS\Pagination\Pagination
      */
     protected $pagination = null;
 
@@ -185,7 +188,7 @@ class YireoViewList extends YireoView
      */
     public function checkedout($item, $i)
     {
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         if (!isset($item->editor)) {
             $item->editor = $user->get('id');
@@ -200,7 +203,7 @@ class YireoViewList extends YireoView
         }
 
         $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
-        $checked    = JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, '', $canCheckin);
+        $checked    = HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, '', $canCheckin);
 
         return $checked;
     }
@@ -215,7 +218,7 @@ class YireoViewList extends YireoView
      */
     public function checkbox($item, $i)
     {
-        $checkbox = JHtml::_('grid.id', $i, $item->id);
+        $checkbox = HTMLHelper::_('grid.id', $i, $item->id);
 
         return $checkbox;
     }
@@ -234,7 +237,7 @@ class YireoViewList extends YireoView
         $published = null;
 
         // Import variables
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         // Create dummy publish_up and publish_down variables if not set
         if (!isset($item->publish_up)) {
@@ -252,7 +255,7 @@ class YireoViewList extends YireoView
 
         if (!empty($stateField)) {
             $canChange = $user->authorise('core.edit.state', $this->getConfig('option') . '.item.' . $item->id);
-            $published = JHtml::_('jgrid.published', $item->$stateField, $i, '', $canChange, 'cb', $item->publish_up, $item->publish_down);
+            $published = HTMLHelper::_('jgrid.published', $item->$stateField, $i, '', $canChange, 'cb', $item->publish_up, $item->publish_down);
         }
 
         return $published;
@@ -277,7 +280,7 @@ class YireoViewList extends YireoView
         }
 
         // Import variables
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         return $this->table->isCheckedOut($user->get('id'), $item->checked_out);
     }

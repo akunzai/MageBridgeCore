@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -21,7 +21,7 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge User Plugin
  */
-class PlgSearchMageBridge extends JPlugin
+class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Constructor

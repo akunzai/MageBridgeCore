@@ -10,6 +10,8 @@
  * @version   0.5.3
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -25,5 +27,5 @@ foreach ($limits as $limit) {
 $javascript = 'onchange="document.adminForm.submit();"';
 ?>
 <div class="list-limit">
-	<?php echo JHtml::_('select.genericlist', $options, 'filter_list_limit', $javascript, 'value', 'title', $currentLimit); ?>
+	<?php echo HTMLHelper::_('select.genericlist', $options, 'filter_list_limit', $javascript, 'value', 'title', $currentLimit); ?>
 </div>

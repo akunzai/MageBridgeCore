@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\Registry\Registry;
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -40,7 +42,7 @@ class MagebridgeTableStore extends YireoTable
     {
         // Convert the actions array to a flat string
         if (key_exists('actions', $array) && is_array($array['actions'])) {
-            $registry = new JRegistry();
+            $registry = new Registry();
             $registry->loadArray($array['actions']);
             $array['actions'] = $registry->toString();
         }

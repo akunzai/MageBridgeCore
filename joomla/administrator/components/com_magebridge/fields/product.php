@@ -9,6 +9,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -39,8 +42,8 @@ class MagebridgeFormFieldProduct extends MageBridgeFormFieldAbstract
         // Are the API widgets enabled?
         if ($this->getConfig('api_widgets') == true) {
             // Load the javascript
-            JHtml::script('media/com_magebridge/js/backend-elements.js');
-            JHtml::_('behavior.modal', 'a.modal');
+            HTMLHelper::script('media/com_magebridge/js/backend-elements.js');
+            HTMLHelper::_('behavior.modal', 'a.modal');
 
             $returnType = (string) $this->element['return'];
 
@@ -56,7 +59,7 @@ class MagebridgeFormFieldProduct extends MageBridgeFormFieldAbstract
             $html   = [];
             $html[] = '<span class="input-append">';
             $html[] = '<input type="text" class="input-medium" id="' . $id . '" name="' . $name . '" value="' . $title . '" size="35" />';
-            $html[] = '<a class="modal btn" role="button" href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> ' . JText::_('JSELECT') . '</a>';
+            $html[] = '<a class="modal btn" role="button" href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> ' . Text::_('JSELECT') . '</a>';
             $html[] = '</span>';
 
             $html = implode("\n", $html);

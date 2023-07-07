@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -17,6 +20,10 @@ defined('_JEXEC') or die('Restricted access');
  */
 class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
 {
+    /**
+     * @var array
+     */
+    private $_meta_data;
     /**
      * Singleton
      *
@@ -49,12 +56,11 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     {
         // Compile the meta-data
         if (empty($this->_meta_data) || !is_array($this->_meta_data)) {
-            $application = JFactory::getApplication();
+            $application = Factory::getApplication();
             $input = $application->input;
-            $user = JFactory::getUser();
+            $user = Factory::getUser();
             $uri = JUri::getInstance();
-            $session = JFactory::getSession();
-            $config = JFactory::getConfig();
+            $config = Factory::getConfig();
             $storeHelper = MageBridgeStoreHelper::getInstance();
 
             $bridge = MageBridgeModelBridge::getInstance();
@@ -104,7 +110,8 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'state' => 'initializing',
                 'ajax' => (int) $bridge->isAjax(),
                 'disable_css' => MageBridgeHelper::getDisableCss(),
-                'disable_js' => MageBridgeHelper::getDisableJs(), ];
+                'disable_js' => MageBridgeHelper::getDisableJs(),
+            ];
 
             if (MageBridgeTemplateHelper::isMobile()) {
                 $arguments['theme'] = MageBridgeModelConfig::load('mobile_magento_theme');

@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -16,7 +19,7 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT.'/view.php';
 
 // Import the needed libraries
-jimport('joomla.filter.output');
+JLoader::import('joomla.filter.output');
 
 /**
  * HTML View class
@@ -49,9 +52,9 @@ class MageBridgeViewUrl extends YireoViewItem
     public function getFieldSourceType($current = null)
     {
         $options = [
-            [ 'value' => 0, 'text' => JText::_('COM_MAGEBRIDGE_VIEW_URLS_MAGENTO_URL')],
-            [ 'value' => 1, 'text' => JText::_('COM_MAGEBRIDGE_VIEW_URLS_PARTIAL_MATCH')],
+            [ 'value' => 0, 'text' => Text::_('COM_MAGEBRIDGE_VIEW_URLS_MAGENTO_URL')],
+            [ 'value' => 1, 'text' => Text::_('COM_MAGEBRIDGE_VIEW_URLS_PARTIAL_MATCH')],
         ];
-        return JHtml::_('select.genericlist', $options, 'source_type', null, 'value', 'text', $current);
+        return HTMLHelper::_('select.genericlist', $options, 'source_type', null, 'value', 'text', $current);
     }
 }

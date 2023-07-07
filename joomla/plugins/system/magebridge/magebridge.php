@@ -13,11 +13,13 @@
  * @todo      : plgSystemMageBridgeHelperSsl
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -28,12 +30,12 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgSystemMageBridge extends MageBridgePlugin
 {
     /**
-     * @var Joomla\CMS\Application\CMSApplication
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var Joomla\CMS\Document\Document
+     * @var \Joomla\CMS\Document\Document
      */
     protected $doc;
 
@@ -52,7 +54,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     public function initialize()
     {
-        $this->doc = JFactory::getDocument();
+        $this->doc = Factory::getDocument();
         $this->input = $this->app->input;
         $this->replaceClasses();
         $this->loadLanguage();
@@ -132,7 +134,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return;
         }
 
-        /** @var Joomla\CMS\Application\SiteApplication $app */
+        /** @var \Joomla\CMS\Application\SiteApplication $app */
         $app = $this->app;
         if ($app->isClient('site')) {
             // Check for a different template
@@ -301,7 +303,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return;
         }
 
-        jimport('joomla.form.form');
+        JLoader::import('joomla.form.form');
         JForm::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
     }
 
@@ -339,7 +341,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
         // Redirect non-SEF URLs to their SEF-equivalent
         if (
-            $enabled == 1 && empty($post) && JFactory::getConfig()
+            $enabled == 1 && empty($post) && Factory::getConfig()
             ->get('sef') == 1 && $this->input->getCmd('option') == 'com_magebridge'
         ) {
             $request = str_replace($uri->base(), '', $uri->toString());
@@ -508,7 +510,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     private function handleJavaScript()
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         // Get MageBridge variables
         $disableJsMootools = $this->loadConfig('disable_js_mootools');
         $disableJsFootools = $this->loadConfig('disable_js_footools');
@@ -551,7 +553,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Load the whitelist
-        $whitelist = JFactory::getConfig()
+        $whitelist = Factory::getConfig()
             ->get('magebridge.script.whitelist');
 
         if (!is_array($whitelist)) {
@@ -572,7 +574,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Load the blacklist
-        $blacklist = JFactory::getConfig()
+        $blacklist = Factory::getConfig()
             ->get('magebridge.script.blacklist');
 
         // Only parse the body, if MageBridge has loaded the ProtoType library and only if configured
@@ -786,7 +788,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         return;
 
         if ($this->input->getCmd('task') == 'login') {
-            $user = JFactory::getUser();
+            $user = Factory::getUser();
 
             if (!$user->guest) {
                 MageBridgeModelUserSSO::getInstance()->checkSSOLogin();
@@ -807,7 +809,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function handleQueue()
     {
         // Get the current session
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         // Check whether some request is in the queue
         $tasks = $session->get('com_magebridge.task_queue');
@@ -819,12 +821,12 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
                 if ($task == 'cbsync' || $task == 'jomsocialsync') {
                     $cb = MageBridgeConnectorProfile::getInstance()->getConnector('cb');
-                    $cb->synchronize(JFactory::getUser()->id);
+                    $cb->synchronize(Factory::getUser()->id);
                 }
 
                 if ($task == 'jomsocialsync') {
                     $jomsocial = MageBridgeConnectorProfile::getInstance()->getConnector('jomsocial');
-                    $jomsocial->synchronize(JFactory::getUser()->id);
+                    $jomsocial->synchronize(Factory::getUser()->id);
                 }
             }
         }
@@ -836,7 +838,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         if ($this->getParam('spoof_cb_events')) {
             if ($this->input->getCmd('option') == 'com_comprofiler'
                 && $this->input->getCmd('task') == 'saveUserEdit'
-                && JFactory::getUser()->id == $this->input->getInt('id', 0, 'post')) {
+                && Factory::getUser()->id == $this->input->getInt('id', 0, 'post')) {
 
                 $tasks[] = 'cnsync';
             }

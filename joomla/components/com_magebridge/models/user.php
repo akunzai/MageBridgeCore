@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,14 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Date\Date;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\User\User;
+use Joomla\CMS\User\UserHelper;
+use Joomla\Utilities\ArrayHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -23,7 +32,7 @@ class MageBridgeModelUser
     protected static $_instance = null;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -51,7 +60,7 @@ class MageBridgeModelUser
      */
     public function __construct()
     {
-        $this->app   = JFactory::getApplication();
+        $this->app   = Factory::getApplication();
         $this->debug = MageBridgeModelDebug::getInstance();
     }
 
@@ -61,7 +70,7 @@ class MageBridgeModelUser
      * @param array $user
      * @param bool  $empty_password
      *
-     * @return JUser|false
+     * @return User|false
      */
     public function create($user, $empty_password = false)
     {
@@ -71,15 +80,15 @@ class MageBridgeModelUser
         }
 
         // Import needed libraries
-        jimport('joomla.utilities.date');
-        jimport('joomla.user.helper');
-        jimport('joomla.application.component.helper');
+        JLoader::import('joomla.utilities.date');
+        JLoader::import('joomla.user.helper');
+        JLoader::import('joomla.application.component.helper');
 
         // Import user plugins
-        JPluginHelper::importPlugin('user');
+        PluginHelper::importPlugin('user');
 
         // Get system variables
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         // Determine the email address
         $email = $user['email'];
@@ -107,7 +116,7 @@ class MageBridgeModelUser
             ];
 
             // Current date
-            $now                  = new JDate();
+            $now                  = new Date();
             $data['registerDate'] = $now->toSql();
 
             // Do not use empty passwords in the Joomla! user-record
@@ -116,12 +125,12 @@ class MageBridgeModelUser
                 if (!empty($user['password']) && is_string($user['password'])) {
                     $password = $user['password'];
                 } else {
-                    $password = JUserHelper::genRandomPassword();
+                    $password = UserHelper::genRandomPassword();
                 }
 
                 // Generate the encrypted password
-                $salt              = JUserHelper::genRandomPassword(32);
-                $crypt             = JUserHelper::getCryptedPassword($password, $salt);
+                $salt              = UserHelper::genRandomPassword(32);
+                $crypt             = UserHelper::getCryptedPassword($password, $salt);
                 $data['password']  = $crypt . ':' . $salt;
                 $data['password2'] = $crypt . ':' . $salt;
 
@@ -139,7 +148,7 @@ class MageBridgeModelUser
             $this->app->triggerEvent('onUserBeforeSave', [$data, true, $data]);
 
             // Get the com_user table-class and use it to store the data to the database
-            $table = JTable::getInstance('user', 'JTable');
+            $table = Table::getInstance('user', 'Table');
             $table->bind($data);
             $result = $table->store();
 
@@ -404,7 +413,7 @@ class MageBridgeModelUser
      * @param string $field
      * @param string $value
      *
-     * @return bool|JUser
+     * @return bool|User
      */
     public function loadByField($field = null, $value = null)
     {
@@ -414,7 +423,7 @@ class MageBridgeModelUser
         }
 
         // Fetch the user-record for this email-address
-        $db    = JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         $query->select($db->quoteName('id'));
         $query->from($db->quoteName('#__users'));
@@ -430,7 +439,7 @@ class MageBridgeModelUser
 
         // Load the user by its user-ID
         $user_id = $row->id;
-        $user    = JFactory::getUser($user_id);
+        $user    = Factory::getUser($user_id);
 
         if (empty($user->id)) {
             return false;
@@ -444,7 +453,7 @@ class MageBridgeModelUser
      *
      * @param string $username
      *
-     * @return bool|JUser
+     * @return bool|User
      */
     public function loadByUsername($username = null)
     {
@@ -456,7 +465,7 @@ class MageBridgeModelUser
      *
      * @param string $email
      *
-     * @return bool|JUser
+     * @return bool|User
      */
     public function loadByEmail($email = null)
     {
@@ -471,14 +480,14 @@ class MageBridgeModelUser
     /**
      * Method to check whether an user should be synchronized or not
      *
-     * @param JUser $user
+     * @param User $user
      *
      * @return bool
      */
     public function allowSynchronization($user = null, $action = null)
     {
         // Check if we have a valid object
-        if ($user instanceof JUser) {
+        if ($user instanceof User) {
             // Don't synchronize backend-users
             if (MageBridgeUserHelper::isBackendUser($user)) {
                 return false;
@@ -530,14 +539,14 @@ class MageBridgeModelUser
         }
 
         // Fetch the current user
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         // Set the changed-flag
         $changed = false;
 
         // Check whether the Joomla! ID is different
         if ($user_id > 0 && $user->id != $user_id) {
-            $db    = JFactory::getDbo();
+            $db    = Factory::getDbo();
             $query = $db->getQuery(true);
             $query->select($db->quoteName('id'));
             $query->from($db->quoteName('#__users'));
@@ -547,7 +556,7 @@ class MageBridgeModelUser
             $row = $db->loadObject();
 
             if (!empty($row)) {
-                $user    = JFactory::getUser($user_id);
+                $user    = Factory::getUser($user_id);
                 $changed = true;
             }
         }
@@ -575,7 +584,7 @@ class MageBridgeModelUser
         }
 
         // Set the last visit date
-        if ($user instanceof JUser) {
+        if ($user instanceof User) {
             $user->setLastVisit();
         }
 
@@ -600,11 +609,11 @@ class MageBridgeModelUser
             $options['remember'] = 1;
 
             // Convert the user-object to an array
-            $user = \Joomla\Utilities\ArrayHelper::fromObject($user);
+            $user = ArrayHelper::fromObject($user);
 
             // Fire the event
             $this->debug->notice('Firing event onUserLogin');
-            JPluginHelper::importPlugin('user');
+            PluginHelper::importPlugin('user');
             $this->app->triggerEvent('onUserLogin', [$user, $options]);
         }
 

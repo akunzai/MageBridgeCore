@@ -10,6 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -31,13 +35,13 @@ class MageBridgeViewUsers extends MageBridgeView
     public function display($tpl = null)
     {
         // Set toolbar items for the page
-        JToolbarHelper::custom('export', 'download', null, 'Export', false);
-        JToolbarHelper::custom('import', 'upload', null, 'Import', false);
+        ToolbarHelper::custom('export', 'download', null, 'Export', false);
+        ToolbarHelper::custom('import', 'upload', null, 'Import', false);
 
         $this->setMenu();
 
         // Initialize common variables
-        $app    = JFactory::getApplication();
+        $app    = Factory::getApplication();
         $option = $app->input->getCmd('option') . '-users';
 
         // Handle the filters
@@ -88,7 +92,7 @@ class MageBridgeViewUsers extends MageBridgeView
             }
         }
 
-        $this->user       = JFactory::getUser();
+        $this->user       = Factory::getUser();
         $this->lists      = $lists;
         $this->items      = $items;
         $this->pagination = $pagination;
@@ -112,7 +116,7 @@ class MageBridgeViewUsers extends MageBridgeView
      */
     public function checkbox($item, $i)
     {
-        $checkbox = JHtml::_('grid.id', $i, $item->id);
+        $checkbox = HTMLHelper::_('grid.id', $i, $item->id);
 
         return $checkbox;
     }

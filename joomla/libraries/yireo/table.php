@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,12 +11,18 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Access\Rules;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Include library dependencies
-jimport('joomla.filter.input');
-jimport('joomla.filter.output');
+JLoader::import('joomla.filter.input');
+JLoader::import('joomla.filter.output');
 
 // Load the helper
 require_once dirname(__FILE__) . '/loader.php';
@@ -23,7 +30,7 @@ require_once dirname(__FILE__) . '/loader.php';
 /**
  * Common Table class
  */
-class YireoTable extends JTable
+class YireoTable extends \Joomla\CMS\Table\Table
 {
     /**
      * List of fields to include in the Table-instance
@@ -68,7 +75,7 @@ class YireoTable extends JTable
     public function __construct($table_name, $primary_key, $db)
     {
         // Determine the table name
-        $table_namespace = preg_replace('/^com_/', '', JFactory::getApplication()->input->getCmd('option'));
+        $table_namespace = preg_replace('/^com_/', '', Factory::getApplication()->input->getCmd('option'));
 
         if (!empty($table_name)) {
             if (!strstr($table_name, '#__')) {
@@ -122,7 +129,7 @@ class YireoTable extends JTable
         $this->bindParams($array);
 
         if (isset($array['rules']) && is_array($array['rules'])) {
-            $rules = new JAccessRules($array['rules']);
+            $rules = new Rules($array['rules']);
             $this->setRules($rules);
         }
 
@@ -164,7 +171,7 @@ class YireoTable extends JTable
     {
         // Convert the parameter array to a flat string
         if (key_exists('params', $array) && is_array($array['params'])) {
-            $registry = new \Joomla\Registry\Registry();
+            $registry = new Registry();
             $registry->loadArray($array['params']);
             $array['params'] = $registry->toString();
         }
@@ -178,11 +185,11 @@ class YireoTable extends JTable
         // Generate an alias if it is empty, but if a title exists
         if (empty($array['alias'])) {
             if (!empty($array['name'])) {
-                $array['alias'] = JFilterOutput::stringURLSafe($array['name']);
+                $array['alias'] = OutputFilter::stringURLSafe($array['name']);
             }
 
             if (!empty($array['title'])) {
-                $array['alias'] = JFilterOutput::stringURLSafe($array['title']);
+                $array['alias'] = OutputFilter::stringURLSafe($array['title']);
             }
         }
     }
@@ -198,7 +205,7 @@ class YireoTable extends JTable
         if (!empty($this->_required)) {
             foreach ($this->_required as $r) {
                 if (!$this->_checkRequired($r)) {
-                    throw new Exception('Required field missing: '.$r);
+                    throw new Exception('Required field missing: ' . $r);
                 }
             }
         }
@@ -207,7 +214,7 @@ class YireoTable extends JTable
         if (!empty($this->_noduplicate)) {
             foreach ($this->_noduplicate as $d) {
                 if (!$this->_checkNoDuplicate($d)) {
-                    throw new Exception('Duplicate field value: '.$d);
+                    throw new Exception('Duplicate field value: ' . $d);
                 }
             }
         }
@@ -244,7 +251,7 @@ class YireoTable extends JTable
     protected function _checkRequired($field)
     {
         if (!isset($this->$field) || $this->$field == null || trim($this->$field) == '') {
-            $this->_error = JText::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field);
+            $this->_error = Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field);
 
             return false;
         }
@@ -269,8 +276,8 @@ class YireoTable extends JTable
 
             $xid = intval($this->_db->loadResult());
             if ($xid && $xid != intval($this->$primary_key)) {
-                $fieldLabel = JText::_('LIB_YIREO_TABLE_FIELDNAME_' . $field);
-                $this->_error = JText::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field);
+                $fieldLabel = Text::_('LIB_YIREO_TABLE_FIELDNAME_' . $field);
+                $this->_error = Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field);
 
                 return false;
             }
@@ -316,7 +323,7 @@ class YireoTable extends JTable
         }
         static $fields = [];
         if (!isset($fields[$tableName]) || !is_array($fields[$tableName])) {
-            $cache = JFactory::getCache('lib_yireo_table');
+            $cache = Factory::getCache('lib_yireo_table');
             $cache->setCaching(0);
             $fields[$tableName] = $cache->call(['YireoTable', 'getCachedDatabaseFields'], $tableName);
         }
@@ -334,7 +341,7 @@ class YireoTable extends JTable
     public static function getCachedDatabaseFields($tableName)
     {
         /** @var JDatabaseDriver $db */
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery('SHOW FIELDS FROM `' . $tableName . '`');
         $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray();
 

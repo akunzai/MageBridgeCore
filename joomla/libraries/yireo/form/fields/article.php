@@ -11,6 +11,10 @@
 
 defined('JPATH_BASE') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+
 // Require the parent
 require_once dirname(__FILE__) . '/abstract.php';
 
@@ -45,7 +49,7 @@ class JFormFieldArticle extends YireoFormFieldAbstract
         $script[] = '    }';
         $script[] = '    function jResetArticle_' . $this->id . '(id, title, catid, object) {';
         $script[] = '        document.id("' . $this->id . '_id").value = 0;';
-        $script[] = '        document.id("' . $this->id . '_name").value = "' . JText::_('COM_CONTENT_SELECT_AN_ARTICLE') . '";';
+        $script[] = '        document.id("' . $this->id . '_name").value = "' . Text::_('COM_CONTENT_SELECT_AN_ARTICLE') . '";';
         $script[] = '    }';
 
         // Add the script to the document head.
@@ -54,15 +58,15 @@ class JFormFieldArticle extends YireoFormFieldAbstract
         // Setup variables for display.
         $html = [];
         $link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=jSelectArticle_' . $this->id;
-        $link .= '&amp;' . JSession::getFormToken() . '=1';
+        $link .= '&amp;' . Session::getFormToken() . '=1';
 
         // Load the article title
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $db->setQuery('SELECT title FROM #__content WHERE id = ' . (int) $this->value);
         $title = $db->loadResult();
 
         if (empty($title)) {
-            $title = JText::_('COM_CONTENT_SELECT_AN_ARTICLE');
+            $title = Text::_('COM_CONTENT_SELECT_AN_ARTICLE');
         }
 
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
@@ -76,8 +80,8 @@ class JFormFieldArticle extends YireoFormFieldAbstract
 
         $html[] = '<span class="input-append">';
         $html[] = '<input type="text" class="input-medium" id="' . $this->id . '_name" value="' . $title . '" disabled="disabled" size="35" />';
-        $html[] = '<a class="modal btn" href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> ' . JText::_('JSELECT') . '</a>';
-        $html[] = '<button id="' . $this->id . '_clear" class="btn" onclick="return jResetArticle_' . $this->id . '();"><span class="icon-remove"></span>' . JText::_('JCLEAR') . '</button>';
+        $html[] = '<a class="modal btn" href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> ' . Text::_('JSELECT') . '</a>';
+        $html[] = '<button id="' . $this->id . '_clear" class="btn" onclick="return jResetArticle_' . $this->id . '();"><span class="icon-remove"></span>' . Text::_('JCLEAR') . '</button>';
         $html[] = '</span>';
 
         $class = '';

@@ -9,6 +9,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 $form = $this->form;
 ?>
@@ -20,7 +23,7 @@ $form = $this->form;
 			<?php $class = ($i == 0) ? 'active' : ''; ?>
 			<li>
 				<a href="#<?php echo $fieldset->name; ?>" data-toggle="tab" class="<?= $class ?>">
-					<?php echo JText::_($fieldset->label); ?>
+					<?php echo Text::_($fieldset->label); ?>
 				</a>
 			</li>
 			<?php $i++; ?>
@@ -38,7 +41,7 @@ $form = $this->form;
 	<input type="hidden" name="option" value="com_magebridge"/>
 	<input type="hidden" name="view" value="config"/>
 	<input type="hidden" name="task" value=""/>
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 
 <script type="text/javascript">

@@ -13,8 +13,10 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -22,14 +24,14 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge Content Plugin
  */
-class PlgContentMageBridge extends JPlugin
+class PlgContentMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onContentPrepare
      *
      * @param string     $context
      * @param object     $row
-     * @param JRegistry  $params
+     * @param \Joomla\Registry\Registry  $params
      * @param mixed      $page
      *
      * @return bool
@@ -47,7 +49,7 @@ class PlgContentMageBridge extends JPlugin
             $bridge = MageBridgeModelBridge::getInstance();
 
             // Include the MageBridge register
-            $option = JFactory::getApplication()->input->getCmd('option');
+            $option = Factory::getApplication()->input->getCmd('option');
             $key = md5(var_export($row, true)) . ':' . $option;
             $text = MageBridgeEncryptionHelper::base64_encode($row->text);
 

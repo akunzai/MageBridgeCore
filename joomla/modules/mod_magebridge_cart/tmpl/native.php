@@ -9,12 +9,14 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 ?>
 <div id="magebridge-cart" class="magebridge-module">
 	<?php if (isset($data['items']) && is_array($data['items']) && !empty($data['items'])) : ?>
-		<p><?php echo JText::sprintf('MOD_MAGEBRIDGE_CART_ITEMS_COUNT', $data['items_count']); ?></p>
+		<p><?php echo Text::sprintf('MOD_MAGEBRIDGE_CART_ITEMS_COUNT', $data['items_count']); ?></p>
 		<ul>
 		<?php foreach ($data['items'] as $item): ?>
 			<li style="height:100px;"> 
@@ -27,10 +29,10 @@ defined('_JEXEC') or die('Restricted access');
 			</li> 
 		<?php endforeach; ?>
 		</ul>
-		<p><?php echo JText::_('MOD_MAGEBRIDGE_CART_SUBTOTAL'); ?>: <?php echo $data['subtotal_formatted']; ?></p>
-		<p><a href="<?php echo $data['cart_url']; ?>"><?php echo JText::_('MOD_MAGEBRIDGE_CART_CHECKOUT'); ?></a></p>
+		<p><?php echo Text::_('MOD_MAGEBRIDGE_CART_SUBTOTAL'); ?>: <?php echo $data['subtotal_formatted']; ?></p>
+		<p><a href="<?php echo $data['cart_url']; ?>"><?php echo Text::_('MOD_MAGEBRIDGE_CART_CHECKOUT'); ?></a></p>
 	<?php else: ?>
-		<?php echo JText::_('MOD_MAGEBRIDGE_CART_NO_ITEMS'); ?>
+		<?php echo Text::_('MOD_MAGEBRIDGE_CART_NO_ITEMS'); ?>
 	<?php endif; ?>
 </div>
 <div style="clear:both"></div>

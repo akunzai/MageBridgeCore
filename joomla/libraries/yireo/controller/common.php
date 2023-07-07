@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -7,6 +8,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com/
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -22,12 +26,12 @@ require_once dirname(__FILE__) . '/../loader.php';
 class YireoCommonController extends YireoAbstractController
 {
     /**
-     * @var CMSApplication
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
@@ -52,7 +56,7 @@ class YireoCommonController extends YireoAbstractController
     public function __construct()
     {
         // Define variables
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
         $this->input = $this->app->input;
 
         // Add model paths
@@ -140,6 +144,6 @@ class YireoCommonController extends YireoAbstractController
             return $controller;
         }
 
-        throw new \Yireo\Exception\Controller\NotFound(JText::_('LIB_YIREO_NO_CONTROLLER_FOUND'));
+        throw new \Yireo\Exception\Controller\NotFound(Text::_('LIB_YIREO_NO_CONTROLLER_FOUND'));
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,13 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Cache\Cache;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -48,7 +56,7 @@ class MageBridgeController extends YireoController
      */
     public function home()
     {
-        $link = JRoute::_('index.php?option=com_magebridge');
+        $link = Route::_('index.php?option=com_magebridge');
 
         return $this->setRedirect($link);
     }
@@ -90,13 +98,13 @@ class MageBridgeController extends YireoController
         }
 
         // Clean the backend cache
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->clean();
 
         // Clean the frontend cache
-        ///** @var JCache $cache */
-        $cache = JFactory::getCache('com_magebridge');
+        /** @var Cache $cache */
+        $cache = Factory::getCache('com_magebridge');
         $cache->clean();
 
         // Build the next URL
@@ -158,17 +166,17 @@ class MageBridgeController extends YireoController
         // Only clean items for the right view
         if ($this->app->input->getCmd('view') == 'logs') {
             // Clean up the database
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $db->setQuery('DELETE FROM #__magebridge_log WHERE 1 = 1');
             $db->execute();
 
             // Clean up the database
-            $file = JFactory::getConfig()
-                    ->get('log_path') . '/magebridge.txt';
+            $file = Factory::getConfig()
+                ->get('log_path') . '/magebridge.txt';
             file_put_contents($file, null);
 
             // Redirect
-            $msg  = JText::_('LIB_YIREO_CONTROLLER_LOGS_TRUNCATED');
+            $msg  = Text::_('LIB_YIREO_CONTROLLER_LOGS_TRUNCATED');
             $link = 'index.php?option=com_magebridge&view=logs';
             $this->setRedirect($link, $msg);
 
@@ -224,17 +232,17 @@ class MageBridgeController extends YireoController
         // Validation checks
         if (!$user_id > 0) {
             $msgType = 'error';
-            $msg     = JText::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_ERROR_NO_USER');
+            $msg     = Text::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_ERROR_NO_USER');
         } elseif (empty($product_sku)) {
             $msgType = 'error';
-            $msg     = JText::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_ERROR_NO_PRODUCT');
+            $msg     = Text::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_ERROR_NO_PRODUCT');
         } else {
-            $user = JFactory::getUser($user_id);
+            $user = Factory::getUser($user_id);
             MageBridgeConnectorProduct::getInstance()
                 ->runOnPurchase($product_sku, $count, $user, $status);
 
             $msgType = null;
-            $msg     = JText::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_SUCCESS');
+            $msg     = Text::_('COM_MAGEBRIDGE_CHECK_PRODUCT_POST_SUCCESS');
         }
 
         $link = 'index.php?option=com_magebridge&view=check&layout=product';
@@ -247,14 +255,14 @@ class MageBridgeController extends YireoController
     public function ssoCheck()
     {
         $application = $this->app;
-        $user        = JFactory::getUser();
+        $user        = Factory::getUser();
 
         if (!$user->guest) {
             MageBridgeModelUserSSO::getInstance()
                 ->checkSSOLogin();
             $application->close();
         } else {
-            $this->setRedirect(JUri::base());
+            $this->setRedirect(Uri::base());
         }
     }
 
@@ -269,8 +277,8 @@ class MageBridgeController extends YireoController
     protected function _validate($check_token = true, $check_demo = true)
     {
         // Check the token
-        if ($check_token == true && (JSession::checkToken('post') == false && JSession::checkToken('get') == false)) {
-            $msg  = JText::_('JINVALID_TOKEN');
+        if ($check_token == true && (Session::checkToken('post') == false && Session::checkToken('get') == false)) {
+            $msg  = Text::_('JINVALID_TOKEN');
             $link = 'index.php?option=com_magebridge&view=home';
             $this->setRedirect($link, $msg);
 
@@ -279,7 +287,7 @@ class MageBridgeController extends YireoController
 
         // Check demo-access
         if ($check_demo == true && MageBridgeAclHelper::isDemo() == true) {
-            $msg  = JText::_('LIB_YIREO_CONTROLLER_DEMO_NO_ACTION');
+            $msg  = Text::_('LIB_YIREO_CONTROLLER_DEMO_NO_ACTION');
             $link = 'index.php?option=com_magebridge&view=home';
             $this->setRedirect($link, $msg);
 

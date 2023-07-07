@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -72,7 +76,7 @@ class MageBridgeUrlHelper
      */
     public static function getRequest()
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         $input = $app->input;
         $bridge = MageBridgeModelBridge::getInstance();
 
@@ -188,7 +192,7 @@ class MageBridgeUrlHelper
         if ($urls == null) {
             if (MageBridgeModelConfig::load('load_urls') == 1) {
                 $query = "SELECT `id`,`source`,`source_type`,`destination`,`access` FROM #__magebridge_urls WHERE `published` = 1 ORDER BY `ordering`";
-                $db = JFactory::getDbo();
+                $db = Factory::getDbo();
                 $db->setQuery($query);
                 $urls = $db->loadObjectList();
             } else {
@@ -214,8 +218,8 @@ class MageBridgeUrlHelper
             return $items;
         }
 
-        $app = JFactory::getApplication();
-        $component = JComponentHelper::getComponent('com_magebridge');
+        $app = Factory::getApplication();
+        $component = ComponentHelper::getComponent('com_magebridge');
         $menu = $app->getMenu('site');
 
         if (empty($menu)) {
@@ -279,7 +283,7 @@ class MageBridgeUrlHelper
      */
     public static function isDefault()
     {
-        $default = JFactory::getApplication()
+        $default = Factory::getApplication()
             ->getMenu('site')
             ->getDefault();
 
@@ -347,7 +351,7 @@ class MageBridgeUrlHelper
                 return $rootItem;
             }
 
-            if ($rootItem->id == JFactory::getApplication()->input->getInt('Itemid')) {
+            if ($rootItem->id == Factory::getApplication()->input->getInt('Itemid')) {
                 return $rootItem;
             }
 
@@ -372,7 +376,7 @@ class MageBridgeUrlHelper
         static $currentItem = null;
 
         if (empty($currentItem)) {
-            $menu = JFactory::getApplication()
+            $menu = Factory::getApplication()
                 ->getMenu('site');
             $currentItem = $menu->getActive();
 
@@ -381,7 +385,7 @@ class MageBridgeUrlHelper
 
                 if (!empty($items)) {
                     foreach ($items as $item) {
-                        if ($item->id == JFactory::getApplication()->input->getInt('Itemid')) {
+                        if ($item->id == Factory::getApplication()->input->getInt('Itemid')) {
                             $currentItem = $item;
                             break;
                         }
@@ -524,7 +528,7 @@ class MageBridgeUrlHelper
      */
     public static function hasUrlSuffix()
     {
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
         if ($config->get('sef') == 1) {
             return (bool) $config->get('sef_suffix');
@@ -612,7 +616,7 @@ class MageBridgeUrlHelper
      */
     public static function getForwardSef()
     {
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
         if ($config->get('sef') == 1) {
             return 1;
@@ -634,7 +638,7 @@ class MageBridgeUrlHelper
             return $rootItem->id;
         }
 
-        return JFactory::getApplication()->input->getInt('Itemid');
+        return Factory::getApplication()->input->getInt('Itemid');
     }
 
     /**
@@ -662,7 +666,7 @@ class MageBridgeUrlHelper
 
         if ($link_to_magento == 1) {
             $bridge = MageBridge::getBridge();
-            $config = JFactory::getConfig();
+            $config = Factory::getConfig();
 
             if ((bool) $config->get('sef_suffix') == true) {
                 if (preg_match('/\/$/', $request) == false) {
@@ -704,7 +708,7 @@ class MageBridgeUrlHelper
      */
     public static function isSSLPage($request = null)
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
 
         // Check current page
         if ($app->input->getCmd('option') == 'com_magebridge' && $app->input->getCmd('view') == 'content') {

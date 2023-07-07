@@ -10,6 +10,11 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -17,7 +22,7 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 // Import the needed libraries
-jimport('joomla.filter.output');
+JLoader::import('joomla.filter.output');
 
 /**
  * HTML View class
@@ -40,15 +45,15 @@ class MageBridgeViewProduct extends YireoViewForm
 
         // Prepare the params-form
         $params = YireoHelper::toRegistry($this->item->params)->toArray();
-        $params_form = JForm::getInstance('params', $file);
+        $params_form = Form::getInstance('params', $file);
         $params_form->bind(['params' => $params]);
         $this->params_form = $params_form;
 
         // Prepare the actions-form
         $actions = YireoHelper::toRegistry($this->item->actions)->toArray();
-        $actions_form = JForm::getInstance('actions', $file);
-        JPluginHelper::importPlugin('magebridgeproduct');
-        JFactory::getApplication()->triggerEvent('onMageBridgeProductPrepareForm', [&$actions_form, (array)$this->item]);
+        $actions_form = Form::getInstance('actions', $file);
+        PluginHelper::importPlugin('magebridgeproduct');
+        Factory::getApplication()->triggerEvent('onMageBridgeProductPrepareForm', [&$actions_form, (array)$this->item]);
         $actions_form->bind(['actions' => $actions]);
         $this->actions_form = $actions_form;
 
@@ -57,9 +62,9 @@ class MageBridgeViewProduct extends YireoViewForm
 
         // Check for a previous connector-value
         if (!empty($this->item->connector)) {
-            $plugin = JPluginHelper::getPlugin('magebridgeproduct', $this->item->connector);
+            $plugin = PluginHelper::getPlugin('magebridgeproduct', $this->item->connector);
             if (empty($plugin)) {
-                JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector), 'warning');
+                Factory::getApplication()->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

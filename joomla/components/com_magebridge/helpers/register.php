@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -16,12 +19,12 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 // Import the general module-helper
-jimport('joomla.application.module.helper');
+JLoader::import('joomla.application.module.helper');
 
 /**
  * Helper for handling the register
  */
-class MageBridgeRegisterHelper extends JModuleHelper
+class MageBridgeRegisterHelper extends \Joomla\CMS\Helper\ModuleHelper
 {
     /**
      * Pre-register the modules, because they are loaded after the component output
@@ -43,7 +46,7 @@ class MageBridgeRegisterHelper extends JModuleHelper
         }
 
         // Don't preload anything if the current output contains only the component-area
-        if (in_array(JFactory::getApplication()->input->getCmd('tmpl'), ['component', 'raw'])) {
+        if (in_array(Factory::getApplication()->input->getCmd('tmpl'), ['component', 'raw'])) {
             return null;
         }
 
@@ -68,15 +71,16 @@ class MageBridgeRegisterHelper extends JModuleHelper
                     $name = null;
 
                     $params = YireoHelper::toRegistry($module->params);
-                    $user = JFactory::getUser();
+                    $user = Factory::getUser();
 
                     // Check whether caching returns a valid module-output
-                    if ($params->get('cache', 0) && JFactory::getConfig()
-                            ->get('caching')
+                    if (
+                        $params->get('cache', 0) && Factory::getConfig()
+                        ->get('caching')
                     ) {
-                        $cache = JFactory::getCache($module->module);
-                        $cache->setLifeTime($params->get('cache_time', JFactory::getConfig()
-                                ->get('cachetime') * 60));
+                        $cache = Factory::getCache($module->module);
+                        $cache->setLifeTime($params->get('cache_time', Factory::getConfig()
+                            ->get('cachetime') * 60));
                         $contents = $cache->get(['JModuleHelper', 'renderModule'], [
                             $module,
                             $params->toArray(),

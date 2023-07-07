@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - YOOtheme System plugin
  *
@@ -12,16 +13,18 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
-include_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * MageBridge System Plugin
  */
-class plgSystemMageBridgeYoo extends JPlugin
+class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterDispatch
@@ -38,7 +41,7 @@ class plgSystemMageBridgeYoo extends JPlugin
         }
 
         // Load variables
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend
         if ($application->isClient('site') == false) {
@@ -46,7 +49,7 @@ class plgSystemMageBridgeYoo extends JPlugin
         }
 
         // Load the whitelist settings
-        $whitelist = JFactory::getConfig()->get('magebridge.script.whitelist');
+        $whitelist = Factory::getConfig()->get('magebridge.script.whitelist');
         if (empty($whitelist)) {
             $whitelist = [];
         }
@@ -59,15 +62,15 @@ class plgSystemMageBridgeYoo extends JPlugin
         if ($this->getParams()->get('enable_js_template', 1) == 1) {
             $whitelist[] = '/js/';
         }
-        JFactory::getConfig()->set('magebridge.script.whitelist', $whitelist);
+        Factory::getConfig()->set('magebridge.script.whitelist', $whitelist);
 
         // Read the template-related files
-        $ini = JPATH_THEMES.'/'.$application->getTemplate().'/params.ini';
-        $conf = JPATH_THEMES.'/'.$application->getTemplate().'/config';
+        $ini = JPATH_THEMES . '/' . $application->getTemplate() . '/params.ini';
+        $conf = JPATH_THEMES . '/' . $application->getTemplate() . '/config';
         if (!file_exists($conf)) {
-            $conf = JPATH_THEMES.'/'.$application->getTemplate().'/config.json';
+            $conf = JPATH_THEMES . '/' . $application->getTemplate() . '/config.json';
         }
-        $xml = JPATH_THEMES.'/'.$application->getTemplate().'/templateDetails.xml';
+        $xml = JPATH_THEMES . '/' . $application->getTemplate() . '/templateDetails.xml';
         $ini_content = @file_get_contents($ini);
         $conf_content = @file_get_contents($conf);
 
@@ -77,29 +80,29 @@ class plgSystemMageBridgeYoo extends JPlugin
             $data = json_decode($conf_content, true);
             if (is_array($data)) {
                 // Fetch the Itemid
-                $Itemid = JFactory::getApplication()->input->getInt('Itemid');
+                $Itemid = Factory::getApplication()->input->getInt('Itemid');
 
                 // Define the current profile-indications
                 $profileDefault = (isset($data['profile_default'])) ? $data['profile_default'] : null;
 
                 // Load the profile-specific CSS, set in GET
-                $profileGet = JFactory::getApplication()->input->getCmd('profile');
+                $profileGet = Factory::getApplication()->input->getCmd('profile');
                 if (!empty($profileGet)) {
                     $profile = $profileGet;
-                    MageBridgeTemplateHelper::load('css', 'profile-'.$profile.'.css');
+                    MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
 
                     // Load the profile-specific CSS, set through the Itemid-mapping
                 } elseif (isset($data['profile_map'][$Itemid])) {
                     $profileMapped = $data['profile_map'][$Itemid];
                     if (!empty($profileMapped)) {
                         $profile = $profileMapped;
-                        MageBridgeTemplateHelper::load('css', 'profile-'.$profile.'.css');
+                        MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
                     }
 
                     // Load the default profile-CSS
                 } elseif (!empty($profileDefault)) {
                     $profile = $profileDefault;
-                    MageBridgeTemplateHelper::load('css', 'profile-'.$profile.'.css');
+                    MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
                 }
 
                 // Load a profile-specific color-definition
@@ -111,7 +114,7 @@ class plgSystemMageBridgeYoo extends JPlugin
 
                 // If a color-definition is detected, load the CSS
                 if (!empty($color)) {
-                    MageBridgeTemplateHelper::load('css', 'color-'.$color.'.css');
+                    MageBridgeTemplateHelper::load('css', 'color-' . $color . '.css');
                 }
 
                 // Load a profile-specific style-definition
@@ -126,7 +129,7 @@ class plgSystemMageBridgeYoo extends JPlugin
                     if ($style == 'default') {
                         $style = $profileDefault;
                     }
-                    MageBridgeTemplateHelper::load('css', 'style-'.$style.'.css');
+                    MageBridgeTemplateHelper::load('css', 'style-' . $style . '.css');
                 }
 
                 // Load a layout-specific style-definition
@@ -141,7 +144,7 @@ class plgSystemMageBridgeYoo extends JPlugin
                     if ($layout == 'default') {
                         $layout = $profileDefault;
                     }
-                    MageBridgeTemplateHelper::load('css', 'style-'.$layout.'.css');
+                    MageBridgeTemplateHelper::load('css', 'style-' . $layout . '.css');
                 }
             }
 
@@ -153,13 +156,13 @@ class plgSystemMageBridgeYoo extends JPlugin
             // Load a specific stylesheet per color
             $color = $params->get('color');
             if (!empty($color)) {
-                MageBridgeTemplateHelper::load('css', 'color-'.$color.'.css');
+                MageBridgeTemplateHelper::load('css', 'color-' . $color . '.css');
             }
 
             // Load a specific stylesheet per style
             $style = $params->get('style');
             if (!empty($style)) {
-                MageBridgeTemplateHelper::load('css', 'style-'.$style.'.css');
+                MageBridgeTemplateHelper::load('css', 'style-' . $style . '.css');
             }
         }
     }
@@ -177,7 +180,7 @@ class plgSystemMageBridgeYoo extends JPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         $disable_js_mootools = MageBridgeModelConfig::load('disable_js_mootools');
         if (MageBridgeTemplateHelper::hasPrototypeJs() && $disable_js_mootools == 1) {
             $body = $app->getBody();
@@ -191,7 +194,7 @@ class plgSystemMageBridgeYoo extends JPlugin
      *
      * @access private
      * @param null
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -207,12 +210,12 @@ class plgSystemMageBridgeYoo extends JPlugin
      */
     private function isEnabled()
     {
-        $template = JFactory::getApplication()->getTemplate();
+        $template = Factory::getApplication()->getTemplate();
         if (preg_match('/^yoo_/', $template) == false) {
             return false;
         }
 
-        if (is_file(JPATH_SITE.'/components/com_magebridge/models/config.php')) {
+        if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {
             return true;
         }
         return false;

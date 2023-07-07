@@ -13,7 +13,7 @@
 defined('_JEXEC') or die();
 
 // Import Joomla! libraries
-jimport('joomla.utilities.date');
+JLoader::import('joomla.utilities.date');
 
 /**
  * MageBridge URL model

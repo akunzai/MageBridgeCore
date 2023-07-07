@@ -9,10 +9,12 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 
-$enabled_img = JHtml::image(JUri::base().'/images/disabled.png', JText::_('Disabled'));
-$disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled'));
+$enabled_img = JHtml::image(JUri::base().'/images/disabled.png', Text::_('Disabled'));
+$disabled_img = JHtml::image(JUri::base().'/images/check.png', Text::_('Enabled'));
 ?>
 <form method="post" name="adminForm" id="adminForm">
 <table>
@@ -26,7 +28,7 @@ $disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled
 	<thead>
 		<tr>
 			<th width="5">
-				<?php echo JText::_('NUM'); ?>
+				<?php echo Text::_('NUM'); ?>
 			</th>
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" />
@@ -41,19 +43,19 @@ $disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled
 				<?php echo JHtml::_('grid.sort', 'Email', 'u.email', $this->lists['order_Dir'], $this->lists['order']); ?>
 			</th>
 			<th width="150" class="title">
-				<?php echo JText::_('Magento Name'); ?>
+				<?php echo Text::_('Magento Name'); ?>
 			</th>
 			<th width="100" class="title">
-				<?php echo JText::_('User Type'); ?>
+				<?php echo Text::_('User Type'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Password'); ?>
+				<?php echo Text::_('Password'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Magento ID'); ?>
+				<?php echo Text::_('Magento ID'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Joomla! ID'); ?>
+				<?php echo Text::_('Joomla! ID'); ?>
 			</th>
 		</tr>
 	</thead>
@@ -115,7 +117,7 @@ if (count($this->items) > 0) {
     ?>
 		<tr>
 		<td colspan="11">
-			<?php echo JText::_('No items'); ?>
+			<?php echo Text::_('No items'); ?>
 		</td>
 		</tr>
 		<?php

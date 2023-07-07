@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Plugin\PluginHelper;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -18,13 +23,23 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeApi
 {
     /**
+     * @var MageBridgeModelDebug
+     */
+    private $debug;
+
+    /**
+     * @var \Joomla\CMS\Application\CMSApplication
+     */
+    private $app;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         MageBridgeModelDebug::getDebugOrigin(MageBridgeModelDebug::MAGEBRIDGE_DEBUG_ORIGIN_JOOMLA_JSONRPC);
         $this->debug = MageBridgeModelDebug::getInstance();
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
     }
 
     /**
@@ -50,7 +65,8 @@ class MageBridgeApi
     {
         $credentials = [
             'username' => $params[0],
-            'password' => $params[1],];
+            'password' => $params[1],
+        ];
 
         $rt = $this->app->login($credentials);
 
@@ -83,8 +99,8 @@ class MageBridgeApi
         $this->debug->trace('JSON-RPC: firing mageEvent ', $event);
 
         // Initialize the plugin-group "magento"
-        JPluginHelper::importPlugin('magento');
-        $application = JFactory::getApplication();
+        PluginHelper::importPlugin('magento');
+        $application = Factory::getApplication();
 
         // Trigger the event and return the result
         $result = $application->triggerEvent($event, [$arguments]);
@@ -134,15 +150,15 @@ class MageBridgeApi
         $position = $params[0];
         $style = (isset($params[1])) ? $params[1] : null;
 
-        jimport('joomla.application.module.helper');
-        $modules = JModuleHelper::getModules($position);
+        JLoader::import('joomla.application.module.helper');
+        $modules = ModuleHelper::getModules($position);
 
         $outputHtml = null;
         $attributes = ['style' => $style];
 
         if (!empty($modules)) {
             foreach ($modules as $module) {
-                $moduleHtml = JModuleHelper::renderModule($module, $attributes);
+                $moduleHtml = ModuleHelper::renderModule($module, $attributes);
                 $moduleHtml = preg_replace('/href=\"\/([^\"]{0,})\"/', 'href="' . JUri::root() . '\1"', $moduleHtml);
                 $outputHtml .= $moduleHtml;
             }
@@ -181,7 +197,7 @@ class MageBridgeApi
     protected function loadUsersFromQuery($search = null)
     {
         // System variables
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         // Construct the query
         $query = $db->getQuery(true);

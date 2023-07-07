@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent controller
-jimport('joomla.application.component.controller');
+JLoader::import('joomla.application.component.controller');
 
 /**
  * MageBridge SSO Controller
@@ -27,15 +30,16 @@ class MageBridgeControllerSso extends YireoAbstractController
      */
     public function login()
     {
+        $application = Factory::getApplication();
+
         // Fetch the user-email
-        $user_email = MageBridgeEncryptionHelper::decrypt(JFactory::getApplication()->input->getString('token'));
-        $application = JFactory::getApplication();
+        $user_email = MageBridgeEncryptionHelper::decrypt($application->input->getString('token'));
 
         // Perform a post-login
         $rt = MageBridge::getUser()->postlogin($user_email, null, true);
 
         // Determine the redirect URL
-        $redirectUrl = base64_decode(JFactory::getApplication()->input->getString('redirect'));
+        $redirectUrl = base64_decode($application->input->getString('redirect'));
         if (empty($redirectUrl)) {
             $redirectUrl = MageBridgeModelBridge::getInstance()->getMagentoUrl();
         }
@@ -51,12 +55,12 @@ class MageBridgeControllerSso extends YireoAbstractController
     public function logout()
     {
         // Perform a logout
-        $user = JFactory::getUser();
-        $application = JFactory::getApplication();
+        $user = Factory::getUser();
+        $application = Factory::getApplication();
         $application->logout($user->get('id'));
 
         // Determine the redirect URL
-        $redirectUrl = base64_decode(JFactory::getApplication()->input->getString('redirect'));
+        $redirectUrl = base64_decode($application->input->getString('redirect'));
         if (empty($redirectUrl)) {
             $redirectUrl = MageBridgeModelBridge::getInstance()->getMagentoUrl();
         }

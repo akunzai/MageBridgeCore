@@ -10,6 +10,11 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -36,9 +41,9 @@ class MageBridgeViewLogs extends YireoViewList
         // Toolbar options
         $this->loadToolbarEdit   = false;
         $this->loadToolbarDelete = false;
-        JToolbarHelper::custom('delete', 'delete', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_TRUNCATE', false);
-        JToolbarHelper::custom('refresh', 'refresh', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_REFRESH', false);
-        JToolbarHelper::custom('export', 'archive', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_EXPORT', false);
+        ToolbarHelper::custom('delete', 'delete', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_TRUNCATE', false);
+        ToolbarHelper::custom('refresh', 'refresh', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_REFRESH', false);
+        ToolbarHelper::custom('export', 'archive', null, 'COM_MAGEBRIDGE_VIEW_LOGS_TOOLBAR_EXPORT', false);
 
         // Custom filters
         $this->lists['remote_addr'] = $this->selectRemoteAddress($this->getFilter('remote_addr'));
@@ -48,7 +53,7 @@ class MageBridgeViewLogs extends YireoViewList
         // If debugging is enabled report it
         if ($this->countLogs() > 1000) {
             MageBridgeModelDebug::getInstance()
-                ->feedback(JText::sprintf('COM_MAGEBRIDGE_VIEW_LOGS_FLOOD_WARNING', (int) $this->countLogs()));
+                ->feedback(Text::sprintf('COM_MAGEBRIDGE_VIEW_LOGS_FLOOD_WARNING', (int) $this->countLogs()));
         }
 
         parent::display($tpl);
@@ -63,22 +68,22 @@ class MageBridgeViewLogs extends YireoViewList
      */
     public function selectOrigin($current)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery('SELECT DISTINCT(origin) AS value FROM #__magebridge_log');
         $rows = $db->loadObjectList();
 
         $options   = [];
-        $options[] = JHtml::_('select.option', '', '- ' . JText::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_ORIGIN') . ' -', 'id', 'title');
+        $options[] = HTMLHelper::_('select.option', '', '- ' . Text::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_ORIGIN') . ' -', 'id', 'title');
 
         if (!empty($rows)) {
             foreach ($rows as $row) {
-                $options[] = JHtml::_('select.option', $row->value, JText::_($row->value), 'id', 'title');
+                $options[] = HTMLHelper::_('select.option', $row->value, Text::_($row->value), 'id', 'title');
             }
         }
 
         $javascript = 'onchange="document.adminForm.submit();"';
 
-        return JHtml::_('select.genericlist', $options, 'filter_origin', $javascript, 'id', 'title', $current);
+        return HTMLHelper::_('select.genericlist', $options, 'filter_origin', $javascript, 'id', 'title', $current);
     }
 
     /**
@@ -90,22 +95,22 @@ class MageBridgeViewLogs extends YireoViewList
      */
     public function selectRemoteAddress($current)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery('SELECT DISTINCT(remote_addr) AS value FROM #__magebridge_log');
         $rows = $db->loadObjectList();
 
         $options   = [];
-        $options[] = JHtml::_('select.option', '', '- ' . JText::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_ADDRESS') . ' -', 'id', 'title');
+        $options[] = HTMLHelper::_('select.option', '', '- ' . Text::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_ADDRESS') . ' -', 'id', 'title');
 
         if (!empty($rows)) {
             foreach ($rows as $row) {
-                $options[] = JHtml::_('select.option', $row->value, $row->value, 'id', 'title');
+                $options[] = HTMLHelper::_('select.option', $row->value, $row->value, 'id', 'title');
             }
         }
 
         $javascript = 'onchange="document.adminForm.submit();"';
 
-        return JHtml::_('select.genericlist', $options, 'filter_remote_addr', $javascript, 'id', 'title', $current);
+        return HTMLHelper::_('select.genericlist', $options, 'filter_remote_addr', $javascript, 'id', 'title', $current);
     }
 
     /**
@@ -140,14 +145,14 @@ class MageBridgeViewLogs extends YireoViewList
     {
         $options = [];
 
-        $options[] = JHtml::_('select.option', '', '- ' . JText::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_TYPE') . ' -', 'id', 'title');
+        $options[] = HTMLHelper::_('select.option', '', '- ' . Text::_('COM_MAGEBRIDGE_VIEW_LOGS_SELECT_TYPE') . ' -', 'id', 'title');
         foreach ($this->getTypes() as $title => $id) {
-            $options[] = JHtml::_('select.option', $id, $title, 'id', 'title');
+            $options[] = HTMLHelper::_('select.option', $id, $title, 'id', 'title');
         }
 
         $javascript = 'onchange="document.adminForm.submit();"';
 
-        return JHtml::_('select.genericlist', $options, 'filter_type', $javascript, 'id', 'title', $current);
+        return HTMLHelper::_('select.genericlist', $options, 'filter_type', $javascript, 'id', 'title', $current);
     }
 
     /**
@@ -162,7 +167,7 @@ class MageBridgeViewLogs extends YireoViewList
         $types = $this->getTypes();
         foreach ($types as $name => $value) {
             if ($type == $value) {
-                return JText::_($name);
+                return Text::_($name);
             }
         }
 
@@ -178,7 +183,7 @@ class MageBridgeViewLogs extends YireoViewList
      */
     public function countLogs()
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery("SELECT COUNT(*) AS count FROM #__magebridge_log");
         $result = $db->loadObject();
 

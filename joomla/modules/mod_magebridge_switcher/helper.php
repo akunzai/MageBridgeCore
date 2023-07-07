@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge: Store switcher
  *
@@ -8,6 +9,11 @@
  * @license   GNU Public License
  * @link	  https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Router\Route;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -22,7 +28,7 @@ class ModMageBridgeSwitcherHelper
      *
      * @access public
      *
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -40,7 +46,7 @@ class ModMageBridgeSwitcherHelper
      *
      * @access public
      *
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -70,7 +76,7 @@ class ModMageBridgeSwitcherHelper
      * @access public
      *
      * @param array	 $stores
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -91,7 +97,8 @@ class ModMageBridgeSwitcherHelper
                 if ($showGroups) {
                     $options[] = [
                         'value' => 'g:' . $group['value'],
-                        'label' => $group['label'],];
+                        'label' => $group['label'],
+                    ];
                 }
 
                 if (!empty($group['childs'])) {
@@ -99,7 +106,8 @@ class ModMageBridgeSwitcherHelper
                         $labelPrefix = ($showGroups) ? '-- ' : null;
                         $options[] = [
                             'value' => 'v:' . $child['value'],
-                            'label' => $labelPrefix . $child['label'],];
+                            'label' => $labelPrefix . $child['label'],
+                        ];
                     }
                 }
             }
@@ -108,7 +116,7 @@ class ModMageBridgeSwitcherHelper
         array_unshift($options, ['value' => '', 'label' => '-- Select --']);
         $attribs = 'onChange="document.forms[\'mbswitcher\'].submit();"';
 
-        return JHtml::_('select.genericlist', $options, 'magebridge_store', $attribs, 'value', 'label', $currentValue);
+        return HTMLHelper::_('select.genericlist', $options, 'magebridge_store', $attribs, 'value', 'label', $currentValue);
     }
 
     /**
@@ -122,7 +130,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getRootItemAssociations()
     {
-        $assoc = JLanguageAssociations::isEnabled();
+        $assoc = Associations::isEnabled();
 
         if ($assoc == false) {
             return false;
@@ -150,7 +158,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getRootItemIdByLanguage($language)
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         $currentItemId = $app->input->getInt('Itemid');
 
         $rootItemAssociations = self::getRootItemAssociations();
@@ -178,7 +186,7 @@ class ModMageBridgeSwitcherHelper
      * @access public
      *
      * @param array	 $stores
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -190,7 +198,7 @@ class ModMageBridgeSwitcherHelper
         $storeUrls = MageBridgeModelBridge::getInstance()->getSessionData('store_urls');
 
         // Generic Joomla! variables
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
 
         // Loop through the stores
         if (!empty($stores) && is_array($stores)) {
@@ -211,19 +219,20 @@ class ModMageBridgeSwitcherHelper
 
                             // Use the original request
                         } else {
-                            $request = JFactory::getApplication()->input->getString('request');
+                            $request = $app->input->getString('request');
                         }
 
                         // Construct the Store View URL
                         $itemId = self::getRootItemIdByLanguage($child['locale']);
                         $url = 'index.php?option=com_magebridge&view=root&lang=' . $child['value'] . '&Itemid=' . $itemId . '&request=' . $request;
-                        $url = JRoute::_($url);
+                        $url = Route::_($url);
 
                         // Add this entry to the list
                         $languages[] = [
                             'url' => $url,
                             'code' => $child['value'],
-                            'label' => $child['label'],];
+                            'label' => $child['label'],
+                        ];
                     }
                 }
             }
@@ -236,7 +245,7 @@ class ModMageBridgeSwitcherHelper
      * Generate a simple list of store languages
      *
      * @param array	 $stores
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -262,7 +271,8 @@ class ModMageBridgeSwitcherHelper
 
                         $options[] = [
                             'value' => $url,
-                            'label' => $child['label'],];
+                            'label' => $child['label'],
+                        ];
                     }
                 }
             }
@@ -270,7 +280,7 @@ class ModMageBridgeSwitcherHelper
 
         array_unshift($options, ['value' => '', 'label' => '-- Select --']);
 
-        return JHtml::_('select.genericlist', $options, 'magebridge_store', 'onChange="window.location.href=this.value"', 'value', 'label', $currentValue);
+        return HTMLHelper::_('select.genericlist', $options, 'magebridge_store', 'onChange="window.location.href=this.value"', 'value', 'label', $currentValue);
     }
 
     /**
@@ -284,7 +294,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getCurrentStoreName()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $name = $application->getUserState('magebridge.store.name');
 
         return $name;
@@ -301,7 +311,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getCurrentStoreType()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $type = $application->getUserState('magebridge.store.type');
 
         return $type;

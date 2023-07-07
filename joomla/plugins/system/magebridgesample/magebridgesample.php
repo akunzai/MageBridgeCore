@@ -13,12 +13,12 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Import the parent class
-jimport('joomla.plugin.plugin');
+JLoader::import('joomla.plugin.plugin');
 
 /**
  * MageBridge Sample System Plugin
  */
-class plgSystemMageBridgeSample extends JPlugin
+class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
 {
     protected $magebridge_register_id = null;
 
