@@ -58,7 +58,7 @@
         "akunzai/joomla-stubs": "dev-master",
         "friendsofphp/php-cs-fixer": "^v3.21.2",
         "joomla/joomla-cms": "3.10.12",
-        "openmage/magento-lts": "^19.4",
+        "openmage/magento-lts": "^v20.0.20",
         "phpstan/phpstan": "^1.10.25"
     },
     "extra": {
