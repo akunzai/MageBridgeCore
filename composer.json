@@ -59,7 +59,7 @@
         "friendsofphp/php-cs-fixer": "^v3.21.2",
         "joomla/joomla-cms": "3.10.12",
         "openmage/magento-lts": "^19.4",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10.25"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts"
