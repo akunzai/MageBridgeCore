@@ -57,29 +57,29 @@ defined('_JEXEC') or die('Restricted access');
 		</tfoot>
 		<tbody>
 			<?php
-			if (!empty($this->customers)) {
-				$i = 0;
-				foreach ($this->customers as $customer) {
-					$css = [];
+            if (!empty($this->customers)) {
+                $i = 0;
+                foreach ($this->customers as $customer) {
+                    $css = [];
 
-					if (Factory::getApplication()->input->getCmd('return') == 'id') {
-						$return = $customer['customer_id'];
-					} else {
-						$return = $customer['email'];
-					}
+                    if (Factory::getApplication()->input->getCmd('return') == 'id') {
+                        $return = $customer['customer_id'];
+                    } else {
+                        $return = $customer['email'];
+                    }
 
-					if (Factory::getApplication()->input->getCmd('current') == $return) {
-						$css[] = 'current';
-					}
+                    if (Factory::getApplication()->input->getCmd('current') == $return) {
+                        $css[] = 'current';
+                    }
 
-					if ($customer['is_active'] == 1) {
-						$css[] = 'active';
-					} else {
-						$css[] = 'inactive';
-					}
+                    if ($customer['is_active'] == 1) {
+                        $css[] = 'active';
+                    } else {
+                        $css[] = 'inactive';
+                    }
 
-					$js = "window.parent.jSelectCustomer('$return', '$return', '" . Factory::getApplication()->input->get('object') . "');";
-			?>
+                    $js = "window.parent.jSelectCustomer('$return', '$return', '" . Factory::getApplication()->input->get('object') . "');";
+                    ?>
 					<tr class="<?php echo implode(' ', $css); ?>">
 						<td>
 							<?php echo $this->pagination->getRowOffset($i); ?>
@@ -94,23 +94,23 @@ defined('_JEXEC') or die('Restricted access');
 							</a>
 						</td>
 						<td>
-							<?php echo ($customer['is_active'] ? Text::_('JYES') : Text::_('JNO')); ?>
+							<?php echo($customer['is_active'] ? Text::_('JYES') : Text::_('JNO')); ?>
 						</td>
 						<td>
 							<?php echo $customer['customer_id']; ?>
 						</td>
 					</tr>
 				<?php
-					$i++;
-				}
-			} else {
-				?>
+                            $i++;
+                }
+            } else {
+                ?>
 				<tr>
 					<td colspan="5"><?php echo Text::_('LIB_YIREO_VIEW_LIST_NO_ITEMS'); ?></td>
 				</tr>
 			<?php
-			}
-			?>
+            }
+?>
 		</tbody>
 	</table>
 	<input type="hidden" name="option" value="com_magebridge" />

@@ -36,8 +36,8 @@ $redirect_url = MageBridgeUrlHelper::route(MageBridgeUrlHelper::getRequest());
 $redirect_url = MageBridgeEncryptionHelper::base64_encode($redirect_url);
 
 if (version_compare(JVERSION, '4.0.0', '<')) {
-	// Require form validation
-	HTMLHelper::_('behavior.formvalidation');
+    // Require form validation
+    HTMLHelper::_('behavior.formvalidation');
 }
 
 // Include the layout-file

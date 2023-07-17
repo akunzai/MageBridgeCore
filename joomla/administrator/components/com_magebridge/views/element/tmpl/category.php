@@ -100,7 +100,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                     $jsDefault     = "window.parent.jSelectCategory('" . $category[$return] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
                     $jsUrl         = "window.parent.jSelectCategory('" . $category['url'] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
                     $jsId          = "window.parent.jSelectCategory('" . $category['category_id'] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
-            ?>
+                    ?>
                     <tr class="<?php echo implode(' ', $css); ?>">
                         <td>
                             <?php echo $this->pagination->getRowOffset($i); ?>
@@ -121,7 +121,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                             <?php } ?>
                         </td>
                         <td>
-                            <?php echo ($category['is_active'] ? Text::_('JYES') : Text::_('JNO')); ?>
+                            <?php echo($category['is_active'] ? Text::_('JYES') : Text::_('JNO')); ?>
                         </td>
                         <td>
                             <?php if (!empty($category['category_id'])) { ?>
@@ -132,7 +132,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                         </td>
                     </tr>
                 <?php
-                    $i++;
+                            $i++;
                 }
             } else {
                 ?>
@@ -141,7 +141,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                 </tr>
             <?php
             }
-            ?>
+?>
         </tbody>
     </table>
     <input type="hidden" name="option" value="com_magebridge" />

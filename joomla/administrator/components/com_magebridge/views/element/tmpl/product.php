@@ -66,45 +66,45 @@ defined('_JEXEC') or die('Restricted access');
 		</tfoot>
 		<tbody>
 			<?php
-			if (!empty($this->products)) {
-				$i = 0;
-				foreach ($this->products as $product) {
-					if (Factory::getApplication()->input->getCmd('return') == 'id' || Factory::getApplication()->input->getCmd('return') == 'product_id') {
-						$return = $product['product_id'];
-					} else {
-						if (Factory::getApplication()->input->getCmd('return') == 'sku' && !empty($product['sku'])) {
-							$return = $product['sku'];
-						} else {
-							if (!empty($product['url_key'])) {
-								$return = $product['url_key'];
-							} else {
-								$return = $product['product_id'];
-							}
-						}
-					}
+            if (!empty($this->products)) {
+                $i = 0;
+                foreach ($this->products as $product) {
+                    if (Factory::getApplication()->input->getCmd('return') == 'id' || Factory::getApplication()->input->getCmd('return') == 'product_id') {
+                        $return = $product['product_id'];
+                    } else {
+                        if (Factory::getApplication()->input->getCmd('return') == 'sku' && !empty($product['sku'])) {
+                            $return = $product['sku'];
+                        } else {
+                            if (!empty($product['url_key'])) {
+                                $return = $product['url_key'];
+                            } else {
+                                $return = $product['product_id'];
+                            }
+                        }
+                    }
 
-					if (Factory::getApplication()->input->getCmd('current') == $return) {
-						$css[] = 'current';
-					}
+                    if (Factory::getApplication()->input->getCmd('current') == $return) {
+                        $css[] = 'current';
+                    }
 
-					$css = [];
-					if (isset($product['status']) && $product['status'] == 1) {
-						$css[] = 'active';
-					} else {
-						$css[] = 'inactive';
-					}
+                    $css = [];
+                    if (isset($product['status']) && $product['status'] == 1) {
+                        $css[] = 'active';
+                    } else {
+                        $css[] = 'inactive';
+                    }
 
-					if (strlen($product['name']) > 50) {
-						$product['name'] = substr($product['name'], 0, 47) . '...';
-					}
+                    if (strlen($product['name']) > 50) {
+                        $product['name'] = substr($product['name'], 0, 47) . '...';
+                    }
 
-					if (strlen($product['url_key']) > 30) {
-						$product['url_key'] = substr($product['url_key'], 0, 27) . '...';
-					}
+                    if (strlen($product['url_key']) > 30) {
+                        $product['url_key'] = substr($product['url_key'], 0, 27) . '...';
+                    }
 
-					$product_name = htmlspecialchars(str_replace("'", '', $product['name']));
-					$jsDefault = "window.parent.jSelectProduct('$return', '$product_name', '" . Factory::getApplication()->input->get('object') . "');";
-			?>
+                    $product_name = htmlspecialchars(str_replace("'", '', $product['name']));
+                    $jsDefault = "window.parent.jSelectProduct('$return', '$product_name', '" . Factory::getApplication()->input->get('object') . "');";
+                    ?>
 					<tr class="<?php echo implode(' ', $css); ?>">
 						<td>
 							<?php echo $this->pagination->getRowOffset($i); ?>
@@ -125,7 +125,7 @@ defined('_JEXEC') or die('Restricted access');
 							</a>
 						</td>
 						<td>
-							<?php echo ((isset($product['status']) && $product['status'] == 1) ? Text::_('JYES') : Text::_('JNO')); ?>
+							<?php echo((isset($product['status']) && $product['status'] == 1) ? Text::_('JYES') : Text::_('JNO')); ?>
 						</td>
 						<td>
 							<a style="cursor: pointer;" onclick="<?php echo $jsDefault; ?>">
@@ -134,16 +134,16 @@ defined('_JEXEC') or die('Restricted access');
 						</td>
 					</tr>
 				<?php
-					$i++;
-				}
-			} else {
-				?>
+                            $i++;
+                }
+            } else {
+                ?>
 				<tr>
 					<td colspan="6"><?php echo Text::_('LIB_YIREO_VIEW_LIST_NO_ITEMS'); ?></td>
 				</tr>
 			<?php
-			}
-			?>
+            }
+?>
 		</tbody>
 	</table>
 	<input type="hidden" name="option" value="com_magebridge" />

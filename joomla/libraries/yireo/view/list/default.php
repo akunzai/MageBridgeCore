@@ -68,34 +68,34 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 			<?php endif; ?>
 			<tbody>
 				<?php
-				$i = $this->pagination->limitstart;
-				if (!empty($this->items)) {
-					foreach ($this->items as $item) {
-						// Construct the checkbox
-						if (isset($item->hasCheckbox) && $item->hasCheckbox == false) {
-							$checkbox = $this->getImageTag('disabled.png');
-						} else {
-							$checkbox = $this->checkbox($item, $i);
-						}
+                $i = $this->pagination->limitstart;
+if (!empty($this->items)) {
+    foreach ($this->items as $item) {
+        // Construct the checkbox
+        if (isset($item->hasCheckbox) && $item->hasCheckbox == false) {
+            $checkbox = $this->getImageTag('disabled.png');
+        } else {
+            $checkbox = $this->checkbox($item, $i);
+        }
 
-						// Construct the published-field
-						if (isset($item->hasState) && $item->hasState == false) {
-							$published = $this->getImageTag('disabled.png');
-						} else {
-							$published = ($hasState == true) ? $this->published($item, $i, $this->getModel()) : true;
-						}
+        // Construct the published-field
+        if (isset($item->hasState) && $item->hasState == false) {
+            $published = $this->getImageTag('disabled.png');
+        } else {
+            $published = ($hasState == true) ? $this->published($item, $i, $this->getModel()) : true;
+        }
 
-						// Construct the published-field
-						if (isset($item->hasOrdering) && $item->hasOrdering == false) {
-							$ordering = false;
-						} else {
-							$ordering      = ($this->lists['order'] == $this->fields['ordering_field']);
-							$orderingField = $this->fields['ordering_field'];
-						}
+        // Construct the published-field
+        if (isset($item->hasOrdering) && $item->hasOrdering == false) {
+            $ordering = false;
+        } else {
+            $ordering      = ($this->lists['order'] == $this->fields['ordering_field']);
+            $orderingField = $this->fields['ordering_field'];
+        }
 
-						// Determine whether to automatically insert common columns or not
-						$auto_columns = true;
-				?>
+        // Determine whether to automatically insert common columns or not
+        $auto_columns = true;
+        ?>
 						<tr class="<?php echo "row" . ($i % 2); ?>">
 							<td>
 								<?php echo $i + 1; ?>
@@ -105,10 +105,10 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 							</td>
 
 							<?php echo $this->loadTemplate('tbody', [
-								'item'         => $item,
-								'auto_columns' => $auto_columns,
-								'published'    => $published,
-							]); ?>
+                        'item'         => $item,
+                        'auto_columns' => $auto_columns,
+                        'published'    => $published,
+                    ]); ?>
 
 							<?php if ($auto_columns) : ?>
 								<?php if ($hasState) : ?>
@@ -122,18 +122,18 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 							<?php endif; ?>
 						</tr>
 					<?php
-						$i++;
-					}
-				} else {
-					?>
+                $i++;
+    }
+} else {
+    ?>
 					<tr>
 						<td colspan="100">
 							<?php echo Text::_('LIB_YIREO_VIEW_LIST_NO_ITEMS'); ?>
 						</td>
 					</tr>
 				<?php
-				}
-				?>
+}
+?>
 			</tbody>
 		</table>
 	</div>

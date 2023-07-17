@@ -32,13 +32,13 @@ class MageBridgeDebugHelper
     private $register;
 
     /**
-     * 
+     *
      * @var string
      */
     private $request;
 
     /**
-     * 
+     *
      * @var \Joomla\CMS\Application\CMSApplication
      */
     private $app;
