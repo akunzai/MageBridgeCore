@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -46,7 +47,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
      * Method to do something on purchase
      *
      * @param string $sku
-     * @param JUser  $user
+     * @param \Joomla\CMS\User\User  $user
      * @param string $status
      *
      * @return mixed

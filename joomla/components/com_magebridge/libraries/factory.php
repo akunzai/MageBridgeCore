@@ -11,6 +11,7 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -182,7 +183,7 @@ class MageBridge
 
         // Add the return URL
         if (!empty($return_url)) {
-            $uenc = MageBridgeEncryptionHelper::base64_encode(JRoute::_($return_url));
+            $uenc = MageBridgeEncryptionHelper::base64_encode(Route::_($return_url));
             $request .= 'uenc/' . $uenc . '/';
         }
 

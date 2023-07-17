@@ -9,6 +9,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Utility\Utility;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -24,7 +28,7 @@ class MageBridgeBlockHelper
      */
     public static function parseBlock($data)
     {
-        $formToken = JHtml::_('form.token');
+        $formToken = HTMLHelper::_('form.token');
         $data = str_replace('</form>', $formToken . '</form>', $data);
 
         return $data;
@@ -47,7 +51,7 @@ class MageBridgeBlockHelper
             $count = count($matches[1]);
 
             for ($i = 0; $i < $count; $i++) {
-                $attributes = JUtility::parseAttributes($matches[2][$i]);
+                $attributes = Utility::parseAttributes($matches[2][$i]);
                 $type = $matches[1][$i];
 
                 if ($type != 'modules') {
@@ -79,7 +83,7 @@ class MageBridgeBlockHelper
     public static function getModuleHtml($name, $attributes)
     {
         JLoader::import('joomla.application.module.helper');
-        $modules = JModuleHelper::getModules($name);
+        $modules = ModuleHelper::getModules($name);
 
         if (empty($modules)) {
             return null;
@@ -88,7 +92,7 @@ class MageBridgeBlockHelper
         $moduleHtml = null;
 
         foreach ($modules as $module) {
-            $moduleHtml .= JModuleHelper::renderModule($module, $attributes);
+            $moduleHtml .= ModuleHelper::renderModule($module, $attributes);
         }
 
         return $moduleHtml;

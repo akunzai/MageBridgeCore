@@ -19,7 +19,7 @@ class YireoFormFieldAbstract extends JFormField
     /**
      * Method to instantiate the form field object.
      *
-     * @param JForm $form
+     * @param \Joomla\CMS\Form\Form $form
      * @return void
      */
     public function __construct($form = null)

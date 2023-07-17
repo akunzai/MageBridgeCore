@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -52,6 +54,6 @@ class MagebridgeFormFieldUsergroup extends MageBridgeFormFieldAbstract
             array_unshift($usergroups, ['value' => '', 'text' => '']);
         }
 
-        return JHtml::_('select.genericlist', $usergroups, $fieldName, $html, 'value', 'text', $value);
+        return HTMLHelper::_('select.genericlist', $usergroups, $fieldName, $html, 'value', 'text', $value);
     }
 }

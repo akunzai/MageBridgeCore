@@ -13,6 +13,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -159,7 +160,7 @@ class MageBridgeApi
         if (!empty($modules)) {
             foreach ($modules as $module) {
                 $moduleHtml = ModuleHelper::renderModule($module, $attributes);
-                $moduleHtml = preg_replace('/href=\"\/([^\"]{0,})\"/', 'href="' . JUri::root() . '\1"', $moduleHtml);
+                $moduleHtml = preg_replace('/href=\"\/([^\"]{0,})\"/', 'href="' . Uri::root() . '\1"', $moduleHtml);
                 $outputHtml .= $moduleHtml;
             }
         }

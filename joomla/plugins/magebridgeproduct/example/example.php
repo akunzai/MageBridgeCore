@@ -51,7 +51,7 @@ class plgMageBridgeProductExample extends MageBridgePluginProduct
      * Method to execute when this purchase is reversed
      *
      * @param array $actions
-     * @param JUser $user
+     * @param \Joomla\CMS\User\User $user
      * @param string $sku Magento SKU
      * @return bool
      */

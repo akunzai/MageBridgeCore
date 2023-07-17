@@ -13,6 +13,9 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -97,7 +100,7 @@ class YireoViewList extends YireoView
 
                 // Set the various links
                 if (empty($item->edit_link)) {
-                    $item->edit_link = JRoute::_($this->getCurrentLink() . '&task=edit&cid[]=' . $item->id);
+                    $item->edit_link = Route::_($this->getCurrentLink() . '&task=edit&cid[]=' . $item->id);
                 }
 
                 // Re-insert the item
@@ -144,8 +147,8 @@ class YireoViewList extends YireoView
             return $this->getImageTag($img);
         }
 
-        $token  = JSession::getFormToken();
-        $url    = JRoute::_($this->getCurrentLink() . '&task=toggle&id=' . $id . '&name=' . $name . '&value=' . $value . '&' . $token . '=1');
+        $token  = Session::getFormToken();
+        $url    = Route::_($this->getCurrentLink() . '&task=toggle&id=' . $id . '&name=' . $name . '&value=' . $value . '&' . $token . '=1');
 
         return '<a href="' . $url . '">' . $this->getImageTag($img) . '</a>';
     }
@@ -159,20 +162,20 @@ class YireoViewList extends YireoView
     {
         // Initialize the toolbar
         if ($this->table && $this->table->getStateField() != '') {
-            JToolbarHelper::publishList();
-            JToolbarHelper::unpublishList();
+            ToolbarHelper::publishList();
+            ToolbarHelper::unpublishList();
         }
 
         // Add the delete-button
         if ($this->loadToolbarDelete == true) {
-            JToolbarHelper::deleteList();
+            ToolbarHelper::deleteList();
         }
 
         // Load the toolbar edit-buttons
         if ($this->loadToolbarEdit == true) {
-            JToolbarHelper::editList();
-            JToolbarHelper::custom('copy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
-            JToolbarHelper::addNew();
+            ToolbarHelper::editList();
+            ToolbarHelper::custom('copy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
+            ToolbarHelper::addNew();
         }
 
         return true;

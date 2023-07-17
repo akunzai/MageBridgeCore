@@ -64,8 +64,8 @@ class MageBridgePluginProduct extends MageBridgePlugin
     /**
      * Method to manipulate the MageBridge Product Relation backend-form
      *
-     * @param JForm $form The form to be altered
-     * @param JForm $data The associated data for the form
+     * @param \Joomla\CMS\Form\Form $form The form to be altered
+     * @param \Joomla\CMS\Form\Form $data The associated data for the form
      *
      * @return bool
      */
@@ -126,7 +126,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * @param JForm $form
+     * @param \Joomla\CMS\Form\Form $form
      */
     protected function loadFormFile(&$form)
     {

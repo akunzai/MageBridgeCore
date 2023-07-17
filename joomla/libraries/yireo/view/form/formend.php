@@ -10,6 +10,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 ?>
@@ -19,4 +21,4 @@ defined('_JEXEC') or die();
 	<input type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>"/>
 <?php endif; ?>
 <input type="hidden" name="task" value="<?php echo $this->_task; ?>"/>
-<?php echo JHtml::_('form.token'); ?>
+<?php echo HTMLHelper::_('form.token'); ?>

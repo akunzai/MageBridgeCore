@@ -12,6 +12,7 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 
@@ -38,7 +39,7 @@ class JFormFieldArticle extends YireoFormFieldAbstract
     protected function getInput()
     {
         // Load the modal behavior script.
-        JHtml::_('behavior.modal', 'a.modal');
+        HTMLHelper::_('behavior.modal', 'a.modal');
 
         // Build the script.
         $script = [];

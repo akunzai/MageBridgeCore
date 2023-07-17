@@ -14,6 +14,9 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -94,7 +97,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $current_url = preg_replace('/\.html$/', '', $_SERVER['REQUEST_URI']);
                 $root_item = MageBridgeUrlHelper::getRootItem();
                 $root_item_id = ($root_item) ? $root_item->id : null;
-                $bridge_url = JRoute::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
+                $bridge_url = Route::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
 
                 if (substr($current_url, 0, strlen($bridge_url)) == $bridge_url) {
                     $request = substr_replace($current_url, '', 0, strlen($bridge_url));
@@ -304,7 +307,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         JLoader::import('joomla.form.form');
-        JForm::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
+        Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
     }
 
     /**
@@ -335,7 +338,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function redirectNonSef()
     {
         // Initialize variables
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
         $post = $this->input->post->getArray();
         $enabled = $this->getParam('enable_nonsef_redirect', 1);
 
@@ -352,7 +355,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $controller = $this->app->input->getCmd('controller');
                 $task = $this->app->input->getCmd('task');
 
-                if ($request != JRoute::_($request) && $view != 'ajax' && $view != 'jsonrpc' && $view != 'block' && $controller != 'jsonrpc' && $task != 'login') {
+                if ($request != Route::_($request) && $view != 'ajax' && $view != 'jsonrpc' && $view != 'block' && $controller != 'jsonrpc' && $task != 'login') {
                     $request = MageBridgeUrlHelper::getSefUrl($request);
                     $this->app->redirect($request);
                     $this->app->close();
@@ -413,19 +416,19 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
                 // Prepare the destination URL
                 if (preg_match('/^index\.php\?option=/', $destination)) {
-                    $destination = JRoute::_($destination);
+                    $destination = Route::_($destination);
                 }
 
                 // Fix the destination URL to be a FQDN
                 if (!preg_match('/^(http|https)\:\/\//', $destination)) {
-                    $destination = JUri::base() . $destination;
+                    $destination = Uri::base() . $destination;
                 }
 
-                if ($replacement_url->source_type == 1 && preg_match('/' . $source . '/', JUri::current())) {
+                if ($replacement_url->source_type == 1 && preg_match('/' . $source . '/', Uri::current())) {
                     header('Location: ' . $destination);
                     exit;
                 } else {
-                    if ($replacement_url->source_type == 0 && preg_match('/' . $source . '$/', JUri::current())) {
+                    if ($replacement_url->source_type == 0 && preg_match('/' . $source . '$/', Uri::current())) {
                         header('Location: ' . $destination);
                         exit;
                     }
@@ -522,10 +525,10 @@ class PlgSystemMageBridge extends MageBridgePlugin
         $magento_js = MageBridgeModelBridgeHeaders::getInstance()
             ->getScripts();
 
-        $uri = JUri::getInstance();
-        $foo_script = JUri::root(true) . '/media/com_magebridge/js/foo.js';
-        $footools_script = JUri::root(true) . '/media/com_magebridge/js/footools.min.js';
-        $frototype_script = JUri::root(true) . '/media/com_magebridge/js/frototype.min.js';
+        $uri = Uri::getInstance();
+        $foo_script = Uri::root(true) . '/media/com_magebridge/js/foo.js';
+        $footools_script = Uri::root(true) . '/media/com_magebridge/js/footools.min.js';
+        $frototype_script = Uri::root(true) . '/media/com_magebridge/js/frototype.min.js';
         $base_url = $this->getBaseUrl();
         $base_js_url = $this->getBaseJsUrl();
 
@@ -872,7 +875,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function redirectSSL()
     {
         // Get system variables
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
         $enforce_ssl = $this->loadConfig('enforce_ssl');
         $from_http_to_https = $this->getParam('enable_ssl_redirect', 1);
         $from_https_to_http = $this->getParam('enable_nonssl_redirect', 1);

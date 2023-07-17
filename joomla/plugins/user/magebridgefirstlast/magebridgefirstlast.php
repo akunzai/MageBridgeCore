@@ -11,6 +11,7 @@
 
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 
 defined('_JEXEC') or die;
 
@@ -44,14 +45,14 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     /**
      * Event onContentPrepareForm
      *
-     * @param JForm $form
+     * @param Form $form
      * @param array $data
      *
      * @return bool
      */
     public function onContentPrepareForm($form, $data)
     {
-        if (!($form instanceof JForm)) {
+        if (!($form instanceof Form)) {
             $this->_subject->setError('JERROR_NOT_A_FORM');
 
             return false;
@@ -63,7 +64,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
             return true;
         }
 
-        JForm::addFormPath(__DIR__ . '/form');
+        Form::addFormPath(__DIR__ . '/form');
         $form->loadFile('form', false);
 
         return true;
@@ -166,7 +167,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     /**
      * Event onUserAfterDelete
      *
-     * @param JUser  $user
+     * @param \Joomla\CMS\User\User  $user
      * @param bool   $success
      * @param string $msg
      *
@@ -196,7 +197,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     /**
      * Event onUserLoad
      *
-     * @param JUser $user
+     * @param \Joomla\CMS\User\User $user
      *
      * @return bool
      */

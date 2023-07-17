@@ -14,7 +14,9 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
 
 // Check to ensure this file is included in Joomla!
@@ -130,7 +132,7 @@ class YireoController extends YireoCommonController
      * @param bool $cachable
      * @param bool $urlparams
      *
-     * @return JControllerLegacy
+     * @return \Joomla\CMS\MVC\Controller\BaseController
      */
     public function display($cachable = false, $urlparams = false)
     {
@@ -577,10 +579,10 @@ class YireoController extends YireoCommonController
         $model->setId($id);
 
         // If this vote is made from an external source, make sure we redirect to an internal page
-        if (!JUri::isInternal($url)) {
+        if (!Uri::isInternal($url)) {
             $option = $this->input->getCmd('option');
             $view   = $this->input->getCmd('view');
-            $url    = JRoute::_('index.php?option=' . $option . '&view=' . $view . '&id=' . $id);
+            $url    = Route::_('index.php?option=' . $option . '&view=' . $view . '&id=' . $id);
         }
 
         // Store the vote in this model
@@ -764,7 +766,7 @@ class YireoController extends YireoCommonController
 
         // Set the redirect, including messages if they are set
         if ($this->app->isClient('site')) {
-            $link = JRoute::_($link);
+            $link = Route::_($link);
         }
 
         $this->setRedirect($link, $this->msg, $this->msg_type);

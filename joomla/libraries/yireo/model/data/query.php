@@ -44,7 +44,7 @@ class YireoModelDataQuery
     protected $tableAlias;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 

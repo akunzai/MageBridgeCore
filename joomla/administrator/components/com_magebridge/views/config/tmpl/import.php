@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die('Restricted access');
 
 ?>
@@ -28,5 +30,5 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_magebridge" />
 <input type="hidden" name="view" value="config" />
 <input type="hidden" name="task" value="upload" />
-<?php echo JHtml::_('form.token'); ?>
+<?php echo HTMLHelper::_('form.token'); ?>
 </form>

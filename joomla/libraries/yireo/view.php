@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -644,7 +645,7 @@ class YireoView extends YireoCommonView
         $variables = array_merge($variables, get_object_vars($this));
 
         $basePath = null;
-        $layout   = new JLayoutFile($name, $basePath);
+        $layout   = new FileLayout($name, $basePath);
 
         echo $layout->render($variables);
     }

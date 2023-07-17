@@ -78,7 +78,7 @@ class plgCommunityMageBridge extends CApplications
      * JomSocial event "onUserDetailsUpdate"
      *
      * @access public
-     * @param object JUser
+     * @param \Joomla\CMS\User\User $user
      * @return null
      */
     public function onUserDetailsUpdate($user = null)
@@ -220,7 +220,7 @@ class plgCommunityMageBridge extends CApplications
      * Helper method to sync the user
      *
      * @access private
-     * @param object JUser
+     * @param \Joomla\CMS\User\User $user
      * @return bool
      */
     private function syncUser($user = null)

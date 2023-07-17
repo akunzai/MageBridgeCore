@@ -10,10 +10,11 @@
  * @version 0.6.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-use Joomla\CMS\Factory;
 
 /**
  * Yireo View Helper
@@ -35,7 +36,7 @@ class YireoHelperView
             if (is_bool($selectNone) || is_numeric($selectNone)) {
                 $selectNone = '';
             } else {
-                $selectNone = '- '.$selectNone.' -';
+                $selectNone = '- ' . $selectNone . ' -';
             }
             array_unshift($options, ['value' => '', 'title' => $selectNone]);
         }
@@ -53,11 +54,11 @@ class YireoHelperView
             if ($multipleSelect < count($options) && count($options) < 20) {
                 $multipleSelect = count($options);
             }
-            $attributes[] = 'multiple="multiple" size="'.$multipleSelect.'"';
+            $attributes[] = 'multiple="multiple" size="' . $multipleSelect . '"';
         }
 
         // Return the select-box
-        return JHtml::_('select.genericlist', $options, $name, implode(' ', $attributes), 'value', 'title', $value);
+        return HTMLHelper::_('select.genericlist', $options, $name, implode(' ', $attributes), 'value', 'title', $value);
     }
 
     /*
@@ -127,13 +128,13 @@ class YireoHelperView
         $script = "<script type=\"text/javascript\">\n"
             . "jQuery(document).ready(function() {\n"
             . "    var MBajax = jQuery.ajax({\n"
-            . "        url: '".$url."', \n"
+            . "        url: '" . $url . "', \n"
             . "        method: 'get', \n"
             . "        success: function(result){\n"
             . "            if (result == '') {\n"
             . "                alert('Empty result');\n"
             . "            } else {\n"
-            . "                jQuery('#".$div."').html(result);\n"
+            . "                jQuery('#" . $div . "').html(result);\n"
             . "            }\n"
             . "        }\n"
             . "    });\n"

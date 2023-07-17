@@ -14,6 +14,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -40,7 +41,7 @@ if (empty($stores)) {
 }
 
 // Set extra variables
-$redirect_url = JUri::getInstance()->toString();
+$redirect_url = Uri::getInstance()->toString();
 
 // Build HTML elements
 if ($layout == 'language') {

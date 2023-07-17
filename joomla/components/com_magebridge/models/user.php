@@ -12,6 +12,7 @@
 
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Mail\MailHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\User\User;
@@ -627,7 +628,7 @@ class MageBridgeModelUser
      */
     public function isValidEmail($email)
     {
-        if (JMailHelper::isEmailAddress($email)) {
+        if (MailHelper::isEmailAddress($email)) {
             return true;
         }
 

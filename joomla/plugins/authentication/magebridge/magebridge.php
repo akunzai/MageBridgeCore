@@ -10,10 +10,11 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Authentication\Authentication;
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-use Joomla\CMS\Factory;
 
 // Import the parent class
 JLoader::import('joomla.plugin.plugin');
@@ -104,7 +105,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
         // Abort if the result is empty
         if (empty($result)) {
             MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate returns empty');
-            $response->status = (defined('JAuthentication::STATUS_FAILURE')) ? JAuthentication::STATUS_FAILURE : JAUTHENTICATE_STATUS_FAILURE;
+            $response->status = Authentication::STATUS_FAILURE;
             $response->error_message = 'Failed to authenticate';
 
             return false;
@@ -113,7 +114,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
         // Abort if the result contains an unknown state
         if (empty($result['state']) || $result['state'] != self::MAGEBRIDGE_AUTHENTICATION_SUCCESS) {
             MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate returns false');
-            $response->status = (defined('JAuthentication::STATUS_FAILURE')) ? JAuthentication::STATUS_FAILURE : JAUTHENTICATE_STATUS_FAILURE;
+            $response->status = Authentication::STATUS_FAILURE;
             $response->error_message = 'Failed to authenticate';
 
             return false;
@@ -124,7 +125,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 
         // Compile the plugin-response
         $response->type = 'MageBridge';
-        $response->status = (defined('JAuthentication::STATUS_SUCCESS')) ? JAuthentication::STATUS_SUCCESS : JAUTHENTICATE_STATUS_SUCCESS;
+        $response->status = Authentication::STATUS_SUCCESS;
         $response->error_message = '';
         $response->email = $result['email'];
         $response->application = $application_name;

@@ -28,7 +28,7 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * @var JApplicationWeb
+     * @var \Joomla\CMS\Application\WebApplication
      */
     protected $app;
 

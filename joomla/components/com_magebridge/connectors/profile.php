@@ -53,7 +53,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
     /**
      * Method to do something when changing the profile from Magento
      *
-     * @param JUser $user
+     * @param \Joomla\CMS\User\User $user
      * @param array $customer
      * @param array $address
      *

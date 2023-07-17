@@ -13,6 +13,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Version;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -189,7 +190,7 @@ class MagebridgeModelCheck extends YireoCommonModel
 
         $this->addResult('compatibility', 'PHP memory', $result, Text::sprintf('COM_MAGEBRIDGE_CHECK_PHP_MEMORY', '32Mb', ini_get('memory_limit')));
 
-        $jversion = new JVersion();
+        $jversion = new Version();
         $result   = (version_compare($jversion->getShortVersion(), '3.0.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
         $this->addResult('compatibility', 'Joomla! version', $result, Text::sprintf('COM_MAGEBRIDGE_CHECK_JOOMLA_VERSION', '3.0.0'));
 

@@ -12,6 +12,9 @@
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -104,7 +107,7 @@ class MageBridgeUrlHelper
                     $currentVars = ['option', 'view', 'layout', 'format', 'request', 'Itemid', 'lang', 'tmpl'];
 
                     // Add the form token to current variables
-                    $currentsVars[] = JSession::getFormToken();
+                    $currentsVars[] = Session::getFormToken();
 
                     // If the request is set, filter all rubbish
                     if (!empty($request)) {
@@ -459,7 +462,7 @@ class MageBridgeUrlHelper
      */
     public static function current()
     {
-        return JUri::getInstance()
+        return Uri::getInstance()
             ->toString();
     }
 
@@ -479,7 +482,7 @@ class MageBridgeUrlHelper
         $url = preg_replace('/^(http|https):\/\/([a-zA-Z0-9\.\-\_]+)/', '', $url); // Strip all domain-information
 
         // Extra workaround if Magento hostname is same as current hostname
-        $hostname = JUri::getInstance()
+        $hostname = Uri::getInstance()
             ->toString(['host']);
 
         if ($hostname == MageBridgeModelConfig::load('host')) {
@@ -500,7 +503,7 @@ class MageBridgeUrlHelper
     {
         if (MageBridgeModelBridge::sh404sef() == true) {
             $oldUrl = $url;
-            $newUrl = JRoute::_($oldUrl);
+            $newUrl = Route::_($oldUrl);
 
             if (!empty($url)) {
                 $url = $newUrl;
@@ -513,7 +516,7 @@ class MageBridgeUrlHelper
 
             // Regular Joomla! SEF
         } else {
-            $url = JRoute::_($url);
+            $url = Route::_($url);
         }
 
         return $url;
@@ -654,7 +657,7 @@ class MageBridgeUrlHelper
     {
         if (preg_match('/^(http|https):\/\//', $request)) {
             // Try to strip domain part
-            $url = JUri::base();
+            $url = Uri::base();
             $request = str_replace($url, '', $request);
             $request = str_replace(str_replace('https://', 'http://', $url), '', $request);
             $request = str_replace(str_replace('http://', 'https://', $url), '', $request);
@@ -696,7 +699,7 @@ class MageBridgeUrlHelper
             $url .= '&' . http_build_query($arguments);
         }
 
-        return JRoute::_($url, $xhtml, $ssl);
+        return Route::_($url, $xhtml, $ssl);
     }
 
     /**

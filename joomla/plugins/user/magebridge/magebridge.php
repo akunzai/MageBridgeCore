@@ -134,7 +134,7 @@ class PlgUserMageBridge extends MageBridgePlugin
         if ($this->app->isClient('site') == true && $this->getConfigValue('username_from_email') == 1 && $user['username'] != $user['email']) {
             $this->debug->notice("onUserAfterSave::bind on user " . $user['username']);
 
-            // Load the right JUser object
+            // Load the right user object
             $data   = ['username' => $user['email']];
             $object = Factory::getUser($user['id']);
 

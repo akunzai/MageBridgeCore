@@ -13,6 +13,7 @@
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 // No direct access
@@ -90,7 +91,7 @@ class MageBridgeModelBridge
                 if (self::sh404sef() || self::mijosef()) {
                     $route = 'index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id . '&request=';
                 } else {
-                    $route = JRoute::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
+                    $route = Route::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
                 }
             } else {
                 $route = MageBridgeUrlHelper::route($request, false);
@@ -916,7 +917,7 @@ class MageBridgeModelBridge
         $application = Factory::getApplication();
         $router = $application->getRouter();
 
-        if ($router->getMode() == JROUTER_MODE_RAW) {
+        if ($router->getMode() == RouteR_MODE_RAW) {
             return false;
         } else {
             return true;

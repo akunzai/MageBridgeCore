@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die('Restricted access');
 
-/** @var JForm $form */
+/** @var \Joomla\CMS\Form\Form */
 $form = $this->form;
 
 if (empty($form)) {

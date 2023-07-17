@@ -14,6 +14,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 // Import the parent class
 JLoader::import('joomla.plugin.plugin');
@@ -40,7 +41,7 @@ class plgSystemMageBridgePre extends \Joomla\CMS\Plugin\CMSPlugin
         if (isset($_COOKIE['mb_postlogin']) && !empty($_COOKIE['mb_postlogin'])) {
             // If the user is already logged in, remove the cookie
             if (Factory::getUser()->id > 0) {
-                setcookie('mb_postlogin', '', time() - 3600, '/', '.' . JUri::getInstance()
+                setcookie('mb_postlogin', '', time() - 3600, '/', '.' . Uri::getInstance()
                     ->toString(['host']));
             }
 

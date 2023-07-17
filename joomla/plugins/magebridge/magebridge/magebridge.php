@@ -24,7 +24,7 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgMagebridgeMagebridge extends MageBridgePlugin
 {
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 

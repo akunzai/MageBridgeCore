@@ -66,7 +66,7 @@ trait YireoModelTraitFormable
     /**
      * Allow usage of this form
      *
-     * @return false|JForm
+     * @return false|\Joomla\CMS\Form\Form
      */
     protected function loadForm()
     {
@@ -135,7 +135,7 @@ trait YireoModelTraitFormable
      *
      * @param $xmlFile
      *
-     * @return JForm
+     * @return \Joomla\CMS\Form\Form
      */
     protected function getFormFromXml($xmlFile)
     {

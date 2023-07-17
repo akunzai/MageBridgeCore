@@ -58,7 +58,7 @@ class MageBridgeUserHelper
         }
 
         // Get the right instance
-        if ($user instanceof JUser == false) {
+        if ($user instanceof \Joomla\CMS\User\User == false) {
             if ($type == 'email') {
                 $user = MageBridge::getUser()->loadByEmail($user);
             }

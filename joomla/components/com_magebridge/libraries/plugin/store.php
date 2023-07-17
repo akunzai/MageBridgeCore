@@ -61,8 +61,8 @@ class MageBridgePluginStore extends MageBridgePlugin
     /**
      * Method to manipulate the MageBridge Store Relation backend-form
      *
-     * @param JForm $form The form to be altered
-     * @param JForm $data The associated data for the form
+     * @param \Joomla\CMS\Form\Form $form The form to be altered
+     * @param \Joomla\CMS\Form\Form $data The associated data for the form
      * @return bool
      */
     public function onMageBridgeStorePrepareForm($form, $data)

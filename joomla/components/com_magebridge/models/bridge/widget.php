@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Router\Route;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -126,7 +128,7 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
 
                 // Prepare the destination URL
                 if (preg_match('/^index\.php\?option=/', $destination)) {
-                    $destination = JRoute::_($destination);
+                    $destination = Route::_($destination);
                 }
 
                 // Replace the actual URLs

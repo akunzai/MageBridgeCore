@@ -33,7 +33,7 @@ class YireoAbstractModel extends JModelLegacy
     use YireoModelTraitConfigurable;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -68,7 +68,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @return JApplicationCms
+     * @return \Joomla\CMS\Application\CMSApplication
      */
     public function getApp()
     {
@@ -76,7 +76,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param JApplicationCms $app
+     * @param \Joomla\CMS\Application\CMSApplication $app
      */
     public function setApp($app)
     {

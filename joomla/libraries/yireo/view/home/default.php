@@ -10,6 +10,8 @@
  * @version 0.6.0
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 <form method="post" name="adminForm" id="adminForm">
@@ -21,5 +23,5 @@ defined('_JEXEC') or die('Restricted access');
 
     <input type="hidden" name="option" value="<?php echo $this->getConfig('option'); ?>" />
     <input type="hidden" name="task" value="" />
-    <?php echo JHtml::_('form.token'); ?>
+    <?php echo HTMLHelper::_('form.token'); ?>
 </form>

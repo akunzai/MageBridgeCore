@@ -10,6 +10,7 @@
  */
 
 use Joomla\CMS\Environment\Browser;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -70,7 +71,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     public function getBaseJsUrl()
     {
         $url = $this->bridge->getSessionData('base_js_url');
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
 
         if (empty($url)) {
             $url = $this->bridge->getMagentoUrl() . 'js/';
@@ -686,7 +687,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
      */
     public function convertUrl($url)
     {
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
 
         if ($uri->isSSL()) {
             $url = str_replace('http://', 'https://', $url);

@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -263,7 +264,7 @@ class ModMageBridgeSwitcherHelper
 
                 if (!empty($group['childs'])) {
                     foreach ($group['childs'] as $child) {
-                        $url = JUri::current() . '?__store=' . $child['value'];
+                        $url = Uri::current() . '?__store=' . $child['value'];
 
                         if ($child['value'] == $currentName) {
                             $currentValue = $url;
