@@ -35,8 +35,10 @@ $form_url = MageBridgeUrlHelper::route('newsletter/subscriber/new');
 $redirect_url = MageBridgeUrlHelper::route(MageBridgeUrlHelper::getRequest());
 $redirect_url = MageBridgeEncryptionHelper::base64_encode($redirect_url);
 
-// Require form validation
-HTMLHelper::_('behavior.formvalidation');
+if (version_compare(JVERSION, '4.0.0', '<')) {
+	// Require form validation
+	HTMLHelper::_('behavior.formvalidation');
+}
 
 // Include the layout-file
 require(ModuleHelper::getLayoutPath('mod_magebridge_newsletter', $layout));
