@@ -76,7 +76,7 @@ class MagebridgeModelConfigValue
             return $this->description;
         }
 
-        if ($this->app->isAdmin() && !empty($this->name)) {
+        if ($this->app->isClient('administrator') && !empty($this->name)) {
             return Text::_(strtoupper($this->name) . '_DESCRIPTION');
         }
 

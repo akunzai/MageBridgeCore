@@ -71,7 +71,7 @@ trait YireoModelTraitFormable
     protected function loadForm()
     {
         // Do not continue if this is not the right backend
-        if ($this->app->isAdmin() == false && $this->getConfig('frontend_form') == false) {
+        if ($this->app->isClient('administrator') == false && $this->getConfig('frontend_form') == false) {
             return false;
         }
 

@@ -117,7 +117,7 @@ class YireoController extends YireoCommonController
         }
 
         // Check for ACLs in backend
-        if ($this->app->isAdmin()) {
+        if ($this->app->isClient('administrator')) {
             $user = Factory::getUser();
 
             if ($user->authorise('core.manage', $this->input->getCmd('option')) == false) {
