@@ -82,7 +82,9 @@ class MageBridgeViewCheck extends YireoCommonView
         MageBridgeViewHelper::initialize('Check');
 
         // Load libraries
-        HTMLHelper::_('behavior.tooltip');
+        if (version_compare(JVERSION, '4.0.0', '<')) {
+            HTMLHelper::_('behavior.tooltip');
+        }
         ToolbarHelper::custom('refresh', 'refresh', null, 'Refresh', false);
 
         $this->checks = $this->get('checks');

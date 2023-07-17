@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -102,8 +103,10 @@ class YireoViewForm extends YireoView
         // Hide the menu
         $this->input->set('hidemainmenu', 1);
 
-        // Initialize tooltips
-        JHtml::_('behavior.tooltip');
+        if (version_compare(JVERSION, '4.0.0', '<')) {
+            // Initialize tooltips
+            JHtml::_('behavior.tooltip');
+        }
 
         // Automatically fetch the item and assign it to the layout
         if (!empty($this->table)) {

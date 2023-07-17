@@ -168,7 +168,9 @@ class YireoView extends YireoCommonView
                 ToolbarHelper::apply();
                 ToolbarHelper::cancel('cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE');
 
-                HTMLHelper::_('behavior.tooltip');
+                if (version_compare(JVERSION, '4.0.0', '<')) {
+                    HTMLHelper::_('behavior.tooltip');
+                }
             }
         }
     }
