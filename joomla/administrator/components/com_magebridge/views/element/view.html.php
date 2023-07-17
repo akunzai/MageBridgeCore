@@ -38,7 +38,7 @@ class MageBridgeViewElement extends MageBridgeViewCommon
     {
         HTMLHelper::_('jquery.ui');
         HTMLHelper::_('behavior.core');
-        HTMLHelper::_('script', 'jui/cms.js', false, true);
+        HTMLHelper::script('jui/cms.js', ['framework' => false, 'relative' => true]);
 
         // Check for AJAX
         if (Factory::getApplication()->input->getInt('ajax') == 1) {

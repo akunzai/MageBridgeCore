@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Form Field - Components
  *
@@ -53,7 +54,7 @@ class YireoFormFieldFile extends JFormFieldFile
 
         // Including fallback code for HTML5 non supported browsers.
         HTMLHelper::_('jquery.framework');
-        HTMLHelper::_('script', 'system/html5fallback.js', false, true);
+        HTMLHelper::script('system/html5fallback.js', ['framework' => false, 'relative' => true]);
 
         $html = [];
         $html[] = '<input type="file" name="' . $this->name . '" id="' . $this->id . '"' . $accept . ' value="' . $this->value . '"' . $disabled . $class . $size . $onchange . $required . $autofocus . $multiple . ' />';
