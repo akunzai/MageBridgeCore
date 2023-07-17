@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -13,37 +14,25 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die('Restricted access');
+
+HTMLHelper::_('jquery.framework');
+/** @var \Joomla\CMS\Form\Form */
 $form = $this->form;
+$fieldSets = $form->getFieldsets();
+$activeTabName = array_key_first($fieldSets);
 ?>
 <form method="post" name="adminForm" id="adminForm" autocomplete="off" class="form-horizontal">
-
-	<ul class="nav nav-tabs" id="configTabs">
-		<?php $i = 0; ?>
-		<?php foreach ($form->getFieldsets() as $fieldset): ?>
-			<?php $class = ($i == 0) ? 'active' : ''; ?>
-			<li>
-				<a href="#<?php echo $fieldset->name; ?>" data-toggle="tab" class="<?= $class ?>">
-					<?php echo Text::_($fieldset->label); ?>
-				</a>
-			</li>
-			<?php $i++; ?>
-		<?php endforeach; ?>
-	</ul>
-
-	<div class="span10">
-		<div class="tab-content">
-			<?php foreach ($form->getFieldsets() as $fieldset): ?>
-				<?php echo $this->printFieldset($form, $fieldset); ?>
-			<?php endforeach; ?>
+	<?php echo HTMLHelper::_('bootstrap.startTabSet', 'configTabs', ['active' => $activeTabName]); ?>
+	<?php foreach ($fieldSets as $fieldSet) : ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'configTabs', $fieldSet->name, Text::_($fieldSet->label)); ?>
+		<div class="span10">
+			<?php echo $this->printFieldset($form, $fieldSet); ?>
 		</div>
-	</div>
+		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+	<?php endforeach; ?>
 
-	<input type="hidden" name="option" value="com_magebridge"/>
-	<input type="hidden" name="view" value="config"/>
-	<input type="hidden" name="task" value=""/>
+	<input type="hidden" name="option" value="com_magebridge" />
+	<input type="hidden" name="view" value="config" />
+	<input type="hidden" name="task" value="" />
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
-
-<script type="text/javascript">
-	jQuery('#configTabs a:first').tab('show'); // Select first tab
-</script>
