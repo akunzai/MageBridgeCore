@@ -817,48 +817,6 @@ class PlgSystemMageBridge extends MageBridgePlugin
         // Check whether some request is in the queue
         $tasks = $session->get('com_magebridge.task_queue');
 
-        /*
-        // @todo: Remove deprecated code
-        if (!empty($tasks) && is_array($tasks)) {
-            foreach ($tasks as $task) {
-
-                if ($task == 'cbsync' || $task == 'jomsocialsync') {
-                    $cb = MageBridgeConnectorProfile::getInstance()->getConnector('cb');
-                    $cb->synchronize(Factory::getUser()->id);
-                }
-
-                if ($task == 'jomsocialsync') {
-                    $jomsocial = MageBridgeConnectorProfile::getInstance()->getConnector('jomsocial');
-                    $jomsocial->synchronize(Factory::getUser()->id);
-                }
-            }
-        }
-
-        // Add things to the queue, because some bastard extensions do not use events properly
-        $tasks = array();
-
-        // Add a CB profile-sync
-        if ($this->getParam('spoof_cb_events')) {
-            if ($this->input->getCmd('option') == 'com_comprofiler'
-                && $this->input->getCmd('task') == 'saveUserEdit'
-                && Factory::getUser()->id == $this->input->getInt('id', 0, 'post')) {
-
-                $tasks[] = 'cnsync';
-            }
-        }
-
-        // Add a JomSocial profile-sync
-        if ($this->getParam('spoof_jomsocial_events')) {
-            if ($this->input->getCmd('option') == 'com_community'
-                && $this->input->getCmd('view') == 'profile'
-                && in_array($this->input->getCmd('task'), array('edit', 'editDetails'))
-                && $this->input->getCmd('action', null, 'post') == 'save') {
-
-                $tasks[] = 'jomsocialsync';
-            }
-        }
-        */
-
         // Save the task queue in the session
         $session->set('com_magebridge.task_queue', $tasks);
     }
@@ -877,8 +835,6 @@ class PlgSystemMageBridge extends MageBridgePlugin
         // Get system variables
         $uri = Uri::getInstance();
         $enforce_ssl = $this->loadConfig('enforce_ssl');
-        $from_http_to_https = $this->getParam('enable_ssl_redirect', 1);
-        $from_https_to_http = $this->getParam('enable_nonssl_redirect', 1);
         $post = $this->input->post->getArray();
 
         // Match situation where we don't want to redirect

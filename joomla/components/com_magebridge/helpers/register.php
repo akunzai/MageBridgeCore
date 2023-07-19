@@ -67,9 +67,6 @@ class MageBridgeRegisterHelper extends \Joomla\CMS\Helper\ModuleHelper
                 // Check the name to see if this is a MageBridge-related module
                 if (preg_match('/^mod_magebridge/', $module->module)) {
                     // Initialize variables
-                    $type = null;
-                    $name = null;
-
                     $params = YireoHelper::toRegistry($module->params);
                     $user = Factory::getUser();
 

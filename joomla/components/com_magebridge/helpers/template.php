@@ -795,8 +795,6 @@ class MageBridgeTemplateHelper
     public static function load($type, $file = null)
     {
         // Fetch system-variables
-        $template = Factory::getApplication()
-            ->getTemplate();
         /** @var \Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
         $application = Factory::getApplication();

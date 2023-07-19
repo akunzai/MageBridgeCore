@@ -195,7 +195,6 @@ class ModMageBridgeSwitcherHelper
     {
         // Base variables
         $languages = [];
-        $currentName = (MageBridgeStoreHelper::getInstance()->getAppType() == 'store') ? MageBridgeStoreHelper::getInstance()->getAppValue() : null;
         $storeUrls = MageBridgeModelBridge::getInstance()->getSessionData('store_urls');
 
         // Generic Joomla! variables
