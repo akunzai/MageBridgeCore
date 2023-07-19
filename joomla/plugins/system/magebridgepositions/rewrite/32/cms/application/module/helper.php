@@ -449,13 +449,14 @@ abstract class JModuleHelper
             case 'safeuri':
                 $secureid = null;
                 if (is_array($cacheparams->modeparams)) {
-                    $uri = JRequest::get();
+                    $input = Factory::getApplication()->input;
                     $safeuri = new stdClass();
                     foreach ($cacheparams->modeparams as $key => $value) {
                         // Use int filter for id/catid to clean out spamy slugs
-                        if (isset($uri[$key])) {
+                        $value = $input->get($key);
+                        if (isset($value)) {
                             $noHtmlFilter = InputFilter::getInstance();
-                            $safeuri->$key = $noHtmlFilter->clean($uri[$key], $value);
+                            $safeuri->$key = $noHtmlFilter->clean($value, $value);
                         }
                     }
                 }
