@@ -1034,7 +1034,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             // Try to login into the Joomla! application
             $rt = $this->app->login($credentials);
 
-            // If the login is succesfull, we do not submit build the bridge any further, but redirect right away
+            // If the login is successful, we do not submit build the bridge any further, but redirect right away
             if ($rt == true) {
                 $url = MageBridgeUrlHelper::route('customer/account');
                 $this->app->redirect($url);

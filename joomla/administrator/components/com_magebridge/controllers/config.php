@@ -247,7 +247,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         }
 
         MageBridgeModelConfig::getSingleton()->store($config);
-        $this->setRedirect('index.php?option=com_magebridge&view=config', Text::_('Imported configuration succesfully'));
+        $this->setRedirect('index.php?option=com_magebridge&view=config', Text::_('Imported configuration successfully'));
 
         return true;
     }

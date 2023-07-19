@@ -287,7 +287,7 @@ class MageBridgeModelUser
         $profileConnector = MageBridgeConnectorProfile::getInstance();
         $user             = $profileConnector->modifyUserFields($user);
 
-        // Initalize the needed objects
+        // initialize the needed objects
         $bridge   = MageBridgeModelBridge::getInstance();
         $register = MageBridgeModelRegister::getInstance();
 
@@ -311,7 +311,7 @@ class MageBridgeModelUser
         // Add the Website ID to this user
         $user['website_id'] = MageBridgeModelConfig::load('website');
 
-        // Initalize the needed objects
+        // initialize the needed objects
         $bridge   = MageBridgeModelBridge::getInstance();
         $register = MageBridgeModelRegister::getInstance();
 
@@ -361,7 +361,7 @@ class MageBridgeModelUser
             'disable_events' => 1,
         ];
 
-        // Initalize the needed objects
+        // initialize the needed objects
         $bridge   = MageBridgeModelBridge::getInstance();
         $register = MageBridgeModelRegister::getInstance();
 
@@ -396,7 +396,7 @@ class MageBridgeModelUser
             'disable_events' => 1,
         ];
 
-        // Initalize the needed objects
+        // initialize the needed objects
         $bridge   = MageBridgeModelBridge::getInstance();
         $register = MageBridgeModelRegister::getInstance();
 

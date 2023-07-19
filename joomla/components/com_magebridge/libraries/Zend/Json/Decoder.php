@@ -65,7 +65,7 @@ class Zend_Json_Decoder
     protected $_sourceLength;
 
     /**
-     * The offset within the souce being decoded
+     * The offset within the source being decoded
      *
      * @var int
      *

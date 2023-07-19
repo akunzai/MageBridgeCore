@@ -150,7 +150,7 @@ class MageBridgeControllerUsers extends MageBridgeController
             }
         }
 
-        $this->setRedirect('index.php?option=com_magebridge&view=users', Text::sprintf('Imported %d users succesfully, %d users failed', $user_records_ok, $user_records_fail));
+        $this->setRedirect('index.php?option=com_magebridge&view=users', Text::sprintf('Imported %d users successfully, %d users failed', $user_records_ok, $user_records_fail));
 
         return true;
     }

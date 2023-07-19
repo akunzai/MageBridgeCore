@@ -67,7 +67,7 @@ class YireoModelItems extends YireoDataModel
     protected $search = [];
 
     /**
-     * List of fields to autoconvert into column-seperated fields
+     * List of fields to autoconvert into column-separated fields
      *
      * @var array
      */

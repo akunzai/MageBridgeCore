@@ -271,7 +271,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to check a specific configuratione-element
+     * Method to check a specific configuration-element
      *
      * @param string $element
      * @param string $value
@@ -405,7 +405,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        // Convert "disable_css_mage" array into comma-seperated string
+        // Convert "disable_css_mage" array into comma-separated string
         if (isset($post['disable_css_mage']) && is_array($post['disable_css_mage'])) {
             if (empty($post['disable_css_mage'][0])) {
                 array_shift($post['disable_css_mage']);
@@ -418,7 +418,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        // Convert "disable_js_mage" array into comma-seperated string
+        // Convert "disable_js_mage" array into comma-separated string
         if (isset($post['disable_js_mage']) && is_array($post['disable_js_mage'])) {
             if (empty($post['disable_js_mage'][0])) {
                 array_shift($post['disable_js_mage']);
