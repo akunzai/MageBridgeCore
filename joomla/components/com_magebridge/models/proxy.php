@@ -11,7 +11,7 @@
  */
 
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Crypt\Cipher\SimpleCipher;
+use Joomla\CMS\Crypt\Cipher\SodiumCipher;
 use Joomla\CMS\Crypt\Crypt;
 use Joomla\CMS\Crypt\Key;
 use Joomla\CMS\Factory;
@@ -872,8 +872,8 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                 // Create the encryption key, apply extra hardening using the user agent string.
                 $privateKey = ApplicationHelper::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
-                $key      = new Key('simple', $privateKey, $privateKey);
-                $crypt    = new Crypt(new SimpleCipher(), $key);
+                $key      = new Key('sodium', $privateKey, $privateKey);
+                $crypt    = new Crypt(new SodiumCipher(), $key);
                 $rcookie  = $crypt->encrypt(serialize($credentials));
                 $lifetime = time() + 365 * 24 * 60 * 60;
 
