@@ -418,6 +418,7 @@ abstract class JModuleHelper
         }
 
         $user = Factory::getUser();
+        /** @var CallbackController */
         $cache = Factory::getCache($cacheparams->cachegroup, 'callback');
         $conf = Factory::getConfig();
 

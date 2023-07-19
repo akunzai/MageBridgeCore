@@ -575,6 +575,7 @@ class YireoController extends YireoCommonController
         $id     = $this->input->get('cid', 0, '', 'int');
 
         // Load the current model
+        /** @var MageBridgeModelItem */
         $model = $this->getModel('item');
         $model->setId($id);
 

@@ -93,6 +93,7 @@ class MageBridgeControllerConfig extends YireoCommonController
         $post = $this->fixPost($post);
 
         // Get the model
+        /** @var MageBridgeModelConfig */
         $model = $this->getModel('config');
 
         // Store these data with the model

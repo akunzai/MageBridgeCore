@@ -253,7 +253,9 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
         }
 
         // Remove obsolete files
-        Mage::helper('magebridge/update')->removeFiles();
+        /** @var Yireo_MageBridge_Helper_Update */
+        $updateHelper = Mage::helper('magebridge/update');
+        $updateHelper->removeFiles();
 
         // Reset the cached API-details
         Mage::getConfig()->deleteConfig('magebridge/settings/xmlrpc_url'); // legacy
