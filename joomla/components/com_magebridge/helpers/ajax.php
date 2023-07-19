@@ -78,15 +78,26 @@ class MageBridgeAjaxHelper
         }
 
         if (MageBridgeTemplateHelper::hasPrototypeJs() == true) {
-            return "Event.observe(window,'load',function(){new Ajax.Updater('$element','$url',{method:'get'});});";
+            return <<<EOT
+                Event.observe(window,'load',function(){
+                    new Ajax.Updater('$element','$url',{method:'get'});
+                });
+                EOT;
         }
 
         if ($app->get('jquery') == true) {
-            return "jQuery(document).ready(function(){\n" . "	jQuery('#" . $element . "').load('" . $url . "');" . "});\n";
+            return <<<EOT
+                jQuery(document).ready(function(){
+                    jQuery('#$element').load('$url');
+                });
+                EOT;
         }
 
         YireoHelper::jquery();
-
-        return "jQuery(document).ready(function(){\n" . "	jQuery('#" . $element . "').load('" . $url . "');" . "});\n";
+        return <<<EOT
+            jQuery(document).ready(function(){
+                jQuery('#$element').load('$url');
+            });
+            EOT;
     }
 }

@@ -469,8 +469,23 @@ class YireoView extends YireoCommonView
      */
     public function getAjaxFunction()
     {
-        $script = "<script type=\"text/javascript\">\n" . "function getAjax(ajax_url, element_id, type) {\n" . "    var MBajax = jQuery.ajax({\n" . "        url: ajax_url, \n" . "        method: 'get', \n" . "        success: function(result){\n" . "            if (result == '') {\n" . "                alert('Empty result');\n" . "            } else {\n" . "                 jQuery('#' + element_id).val(result);\n" . "            }\n" . "        }\n" . "    });\n" . "}\n" . "</script>";
-
+        $script = <<<'EOT'
+            <script type="text/javascript">
+                function getAjax(ajax_url, element_id, type) {
+                    var MBajax = jQuery.ajax({
+                        url: ajax_url,
+                        method: 'get', 
+                        success: function(result){
+                            if (result == '') {
+                                alert('Empty result');
+                            } else {
+                                jQuery('#' + element_id).val(result);
+                            }
+                        }
+                    });
+                }
+            </script>
+            EOT;
         $this->doc->addCustomTag($script);
     }
 
