@@ -988,7 +988,6 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             // Make the CURL call
             curl_setopt($handle, CURLOPT_HEADER, false);
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, false);
-            curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
             curl_setopt($handle, CURLOPT_FILE, $tmp_body_handle);
             curl_setopt($handle, CURLOPT_WRITEHEADER, $tmp_header_handle);
             curl_setopt($handle, CURLOPT_HTTPHEADER, ['Expect:']);
@@ -1005,7 +1004,6 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             curl_setopt($handle, CURLOPT_HEADER, false);
             curl_setopt($handle, CURLOPT_NOBODY, false);
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
             curl_setopt($handle, CURLOPT_HEADERFUNCTION, [$this, 'setRawHeader']);
             curl_setopt($handle, CURLOPT_HTTPHEADER, ['Expect:']);
             $data = curl_exec($handle);

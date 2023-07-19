@@ -366,7 +366,6 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
         curl_setopt($ch, CURLOPT_FAILONERROR, false);
         @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
