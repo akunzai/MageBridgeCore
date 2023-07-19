@@ -238,7 +238,8 @@ class YireoController extends YireoCommonController
         $model = $this->_loadModel();
 
         // Store these data with the model
-        if ($model->store($post)) {
+        try {
+            $model->store($post);
             $id = $model->getId();
 
             if ($id > 0) {
@@ -246,11 +247,9 @@ class YireoController extends YireoCommonController
             }
 
             $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->input->getCmd('view'));
-
-            // If this fails, set the error
-        } else {
+        } catch (Exception $e) {
             $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->input->getCmd('view'));
-            $error     = $model->getError();
+            $error     = $e->getMessage();
 
             if (!empty($error)) {
                 $this->msg .= ': ' . $error;
@@ -418,16 +417,11 @@ class YireoController extends YireoCommonController
         // Use the model to publish this entry
         $model = $this->_loadModel();
 
-        if (!$model->publish($cid, 1)) {
-            echo "<script> alert('" . $model->getError(true) . "'); window.history.go(-1); </script>\n";
-        } else {
-            if (count($cid) == 1) {
-                $singleName = $this->getSingleName($this->input->getCmd('view'));
-                $this->msg  = Text::_('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED');
-            } else {
-                $pluralName = $this->getPluralName($this->input->getCmd('view'));
-                $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED', count($cid));
-            }
+        try {
+            $model->publish($cid, 1);
+            $this->msg = (count($cid) == 1) ? Text::_('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED') : Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED', count($cid));
+        } catch (Exception $e) {
+            echo "<script> alert('" . $e->getMessage() . "'); window.history.go(-1); </script>\n";
         }
 
         // Redirect to this same page
@@ -452,9 +446,8 @@ class YireoController extends YireoCommonController
         // Use the model to unpublish this entry
         $model = $this->_loadModel();
 
-        if (!$model->publish($cid, 0)) {
-            echo "<script> alert('" . $model->getError(true) . "'); window.history.go(-1); </script>\n";
-        } else {
+        try {
+            $model->publish($cid, 0);
             if (count($cid) == 1) {
                 $singleName = $this->getSingleName($this->input->getCmd('view'));
                 $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $singleName);
@@ -462,6 +455,8 @@ class YireoController extends YireoCommonController
                 $pluralName = $this->getPluralName($this->input->getCmd('view'));
                 $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $pluralName, count($cid));
             }
+        } catch (Exception $e) {
+            echo "<script> alert('" . $e->getMessage() . "'); window.history.go(-1); </script>\n";
         }
 
         // Redirect to this same page

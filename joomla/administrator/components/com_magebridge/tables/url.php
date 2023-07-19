@@ -37,9 +37,7 @@ class MagebridgeTableUrl extends YireoTable
     public function check()
     {
         if (empty($this->source) || empty($this->destination)) {
-            $this->setError(Text::_('Source and destination must be filled in.'));
-
-            return false;
+            throw new Exception(Text::_('Source and destination must be filled in.'));
         }
 
         return true;

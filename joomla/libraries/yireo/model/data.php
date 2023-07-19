@@ -11,10 +11,10 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-use Joomla\CMS\Factory;
 
 // Import the loader
 require_once dirname(dirname(__FILE__)) . '/loader.php';
@@ -210,15 +210,5 @@ class YireoDataModel extends YireoCommonModel
 
         // Return the result
         return $rs;
-    }
-
-    /**
-     * Throw a database exception
-     */
-    protected function throwDbException()
-    {
-        $db = Factory::getDbo();
-
-        throw new JDatabaseExceptionUnsupported($db->getErrorMsg());
     }
 }

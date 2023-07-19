@@ -261,16 +261,6 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Throw a database exception
-     */
-    protected function throwDbException()
-    {
-        $db = Factory::getDbo();
-
-        throw new JDatabaseExceptionUnsupported($db->getErrorMsg());
-    }
-
-    /**
      * Initialize ORDER BY details
      */
     protected function initOrderBy()
@@ -694,24 +684,14 @@ class YireoModel extends YireoCommonModel
 
         try {
             // Bind the fields to the table
-            if (!$this->table->bind($data)) {
-                $this->saveTmpSession($data);
-                $this->throwDbException();
-            }
-
+            $this->table->bind($data);
             // Make sure the table is valid
-            if (!$this->table->check()) {
-                $this->saveTmpSession($data);
-                $this->throwDbException();
-            }
-
+            $this->table->check();
             // Store the table to the database
-            if (!$this->table->store()) {
-                $this->saveTmpSession($data);
-                $this->throwDbException();
-            }
+            $this->table->store();
         } catch (Exception $e) {
-            throw $e;
+            $this->saveTmpSession($data);
+            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
         }
 
         // Try to fetch the last ID from the table
@@ -757,8 +737,10 @@ class YireoModel extends YireoCommonModel
 
         $this->_db->setQuery($query);
 
-        if (!$this->_db->execute()) {
-            $this->throwDbException();
+        try {
+            $this->_db->execute();
+        } catch (Exception $e) {
+            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -776,6 +758,12 @@ class YireoModel extends YireoCommonModel
     {
         if (count($cid)) {
             $return = $this->table->publish($cid, $publish, $this->user->get('id'));
+            if ($return === false) {
+                if (method_exists($this->table, 'getError')) {
+                    throw new RuntimeException($this->table->{'getError'}());
+                }
+                throw new RuntimeException("publish item failed");
+            }
 
             return $return;
         }
@@ -794,20 +782,16 @@ class YireoModel extends YireoCommonModel
      */
     public function move($direction, $field_name = null, $field_id = null)
     {
-        if (!$this->table->load($this->id)) {
-            $this->throwDbException();
+        try {
+            $this->table->load($this->id);
+            if (!empty($field_name) && !empty($field_id)) {
+                $this->table->move($direction, ' ' . $field_name . ' = ' . $field_id);
+                return true;
+            }
+            $this->table->move($direction);
+        } catch (Exception $e) {
+            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
         }
-
-        if (!empty($field_name) && !empty($field_id)) {
-            $rt = $this->table->move($direction, ' ' . $field_name . ' = ' . $field_id);
-        } else {
-            $rt = $this->table->move($direction);
-        }
-
-        if ($rt == false) {
-            $this->throwDbException();
-        }
-
         return true;
     }
 
@@ -843,8 +827,10 @@ class YireoModel extends YireoCommonModel
             if ($this->table->$ordering != $order[$i]) {
                 $this->table->$ordering = $order[$i];
 
-                if (!$this->table->store()) {
-                    $this->throwDbException();
+                try {
+                    $this->table->store();
+                } catch (Exception $e) {
+                    throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
                 }
             }
         }

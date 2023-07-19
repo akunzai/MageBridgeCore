@@ -204,18 +204,14 @@ class YireoTable extends \Joomla\CMS\Table\Table
         // Check the required fields
         if (!empty($this->_required)) {
             foreach ($this->_required as $r) {
-                if (!$this->_checkRequired($r)) {
-                    throw new Exception('Required field missing: ' . $r);
-                }
+                $this->_checkRequired($r);
             }
         }
 
         // Check the fields for duplicates
         if (!empty($this->_noduplicate)) {
             foreach ($this->_noduplicate as $d) {
-                if (!$this->_checkNoDuplicate($d)) {
-                    throw new Exception('Duplicate field value: ' . $d);
-                }
+                $this->_checkNoDuplicate($d);
             }
         }
 
@@ -231,11 +227,21 @@ class YireoTable extends \Joomla\CMS\Table\Table
      */
     public function store($updateNulls = false)
     {
-        $result = parent::store($updateNulls);
-        if ($this->_debug == true) {
-            echo "Query: " . $this->_db->getQuery();
-            echo "Error: " . $this->_db->getErrorMsg();
-            exit;
+        try {
+            $result = parent::store($updateNulls);
+            if ($this->_debug == true) {
+                echo "Query: " . $this->_db->getQuery();
+            }
+        } catch (Exception $e) {
+            if ($this->_debug == true) {
+                echo "Error: " . $e->getMessage();
+            } else {
+                throw $e;
+            }
+        } finally {
+            if ($this->_debug == true) {
+                exit;
+            }
         }
 
         return $result;
@@ -251,9 +257,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     protected function _checkRequired($field)
     {
         if (!isset($this->$field) || $this->$field == null || trim($this->$field) == '') {
-            $this->_error = Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field);
-
-            return false;
+            throw new Exception(Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field));
         }
 
         return true;
@@ -277,9 +281,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
             $xid = intval($this->_db->loadResult());
             if ($xid && $xid != intval($this->$primary_key)) {
                 $fieldLabel = Text::_('LIB_YIREO_TABLE_FIELDNAME_' . $field);
-                $this->_error = Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field);
-
-                return false;
+                throw new Exception(Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field));
             }
         }
 
@@ -299,16 +301,6 @@ class YireoTable extends \Joomla\CMS\Table\Table
         }
 
         return $this->_db->insertid();
-    }
-
-    /**
-     * Helper-method to get the error-message
-     *
-     * @return int
-     */
-    public function getErrorMsg()
-    {
-        return $this->_error;
     }
 
     /**

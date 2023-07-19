@@ -53,8 +53,6 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     public function onContentPrepareForm($form, $data)
     {
         if (!($form instanceof Form)) {
-            $this->_subject->setError('JERROR_NOT_A_FORM');
-
             return false;
         }
 
@@ -88,14 +86,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
             $userId = $data->id ?? 0;
 
             if (!isset($data->magebridgefirstlast) and $userId > 0) {
-                try {
-                    $fields = $this->getFields($userId);
-                } catch (RuntimeException $e) {
-                    $this->_subject->setError($e->getMessage());
-
-                    return false;
-                }
-
+                $fields = $this->getFields($userId);
                 $data->magebridgefirstlast = [];
 
                 foreach ($fields as $field) {
@@ -140,19 +131,13 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
         $userId = ArrayHelper::getValue($data, 'id', 0, 'int');
 
         if ($userId && $result && isset($data['magebridgefirstlast']) && (count($data['magebridgefirstlast']))) {
-            try {
-                $this->deleteFields($userId);
+            $this->deleteFields($userId);
 
-                $ordering = 0;
+            $ordering = 0;
 
-                foreach ($data['magebridgefirstlast'] as $fieldName => $fieldValue) {
-                    $this->insertField($userId, $fieldName, $fieldValue, $ordering);
-                    $ordering++;
-                }
-            } catch (RuntimeException $e) {
-                $this->_subject->setError($e->getMessage());
-
-                return false;
+            foreach ($data['magebridgefirstlast'] as $fieldName => $fieldValue) {
+                $this->insertField($userId, $fieldName, $fieldValue, $ordering);
+                $ordering++;
             }
         }
 
@@ -182,13 +167,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
         $userId = ArrayHelper::getValue($user, 'id', 0, 'int');
 
         if ($userId) {
-            try {
-                $this->deleteFields($userId);
-            } catch (Exception $e) {
-                $this->_subject->setError($e->getMessage());
-
-                return false;
-            }
+            $this->deleteFields($userId);
         }
 
         return true;
@@ -207,13 +186,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
             return false;
         }
 
-        try {
-            $fields = $this->getFields($user->id);
-        } catch (Exception $e) {
-            $this->_subject->setError($e->getMessage());
-
-            return false;
-        }
+        $fields = $this->getFields($user->id);
 
         foreach ($fields as $field) {
             $fieldName = str_replace('magebridgefirstlast.', '', $field[0]);

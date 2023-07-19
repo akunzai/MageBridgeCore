@@ -96,23 +96,24 @@ class MageBridgeControllerConfig extends YireoCommonController
         /** @var MageBridgeModelConfig */
         $model = $this->getModel('config');
 
-        // Store these data with the model
-        if ($model->store($post)) {
+        try {
+            // Store these data with the model
+            $model->store($post);
             $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->app->input->getCmd('view'));
 
             return true;
+        } catch (Exception $e) {
+            $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->app->input->getCmd('view'));
+            $error = $e->getMessage();
+
+            if (!empty($error)) {
+                $this->msg .= ': ' . $error;
+            }
+
+            $this->msg_type = 'error';
+
+            return false;
         }
-
-        $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->app->input->getCmd('view'));
-        $error = $model->getError();
-
-        if (!empty($error)) {
-            $this->msg .= ': ' . $error;
-        }
-
-        $this->msg_type = 'error';
-
-        return false;
     }
 
     /**

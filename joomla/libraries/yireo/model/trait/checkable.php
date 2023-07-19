@@ -68,9 +68,10 @@ trait YireoModelTraitCheckable
             return false;
         }
 
-        if (!$this->table->checkin($id)) {
-            $db = Factory::getDbo();
-            throw new JDatabaseExceptionExecuting($db->getErrorMsg());
+        try {
+            $this->table->checkin($id);
+        } catch (Exception $e) {
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -101,9 +102,10 @@ trait YireoModelTraitCheckable
         }
 
         // Lets get to it and checkout the thing...
-        if (!$this->table->checkout($userId, $id)) {
-            $db = Factory::getDbo();
-            throw new JDatabaseExceptionExecuting($db->getErrorMsg());
+        try {
+            $this->table->checkout($userId, $id);
+        } catch (Exception $e) {
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
