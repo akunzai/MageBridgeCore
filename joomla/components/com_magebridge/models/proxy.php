@@ -890,7 +890,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         preg_match('/^Location: ([^\s]+)/mi', $this->head['headers'], $matches);
 
         if ($this->allow_redirects && (preg_match('/^3([0-9]+)/', $this->head['http_code']) || !empty($matches))) {
-            $originalLocation = trim(array_pop($matches));
+            $originalLocation = trim((string)array_pop($matches));
             $location         = $originalLocation;
 
             // Check for a location-override
