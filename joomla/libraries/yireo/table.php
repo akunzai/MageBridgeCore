@@ -70,7 +70,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
      *
      * @param string    $table_name
      * @param string    $primary_key
-     * @param JDatabaseDriver $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
     public function __construct($table_name, $primary_key, $db)
     {
@@ -332,7 +332,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
      */
     public static function getCachedDatabaseFields($tableName)
     {
-        /** @var JDatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseDriver $db */
         $db = Factory::getDbo();
         $db->setQuery('SHOW FIELDS FROM `' . $tableName . '`');
         $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray();

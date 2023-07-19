@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\Component\Finder\Administrator\Indexer\Result;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
@@ -75,12 +77,11 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     /**
      * Method to index a single item
      *
-     * @param FinderIndexerResult $item
-     * @param string $format
+     * @param Result $item
      *
-     * @return null
+     * @return boolean  True on success.
      */
-    protected function index(FinderIndexerResult $item, $format = 'html')
+    protected function index(Result $item)
     {
         // Add the type taxonomy data.
         $item->addTaxonomy('Type', 'Product');
@@ -93,6 +94,8 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
 
         // Index the item.
         $this->indexer->index($item);
+
+        return true;
     }
 
     /**

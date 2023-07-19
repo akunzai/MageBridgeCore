@@ -43,7 +43,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     protected $doc;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 

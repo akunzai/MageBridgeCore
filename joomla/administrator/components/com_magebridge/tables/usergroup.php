@@ -22,7 +22,7 @@ class MagebridgeTableUsergroup extends YireoTable
     /**
      * Constructor
      *
-     * @param JDatabase $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
     public function __construct(& $db)
     {

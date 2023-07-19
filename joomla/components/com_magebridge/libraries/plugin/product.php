@@ -29,7 +29,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     protected $connector_field = null;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 

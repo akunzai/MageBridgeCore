@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\Exception\UnsupportedAdapterException;
 use Joomla\Utilities\ArrayHelper;
 
 // Check to ensure this file is included in Joomla!
@@ -691,7 +692,7 @@ class YireoModel extends YireoCommonModel
             $this->table->store();
         } catch (Exception $e) {
             $this->saveTmpSession($data);
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         // Try to fetch the last ID from the table
@@ -740,7 +741,7 @@ class YireoModel extends YireoCommonModel
         try {
             $this->_db->execute();
         } catch (Exception $e) {
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -790,7 +791,7 @@ class YireoModel extends YireoCommonModel
             }
             $this->table->move($direction);
         } catch (Exception $e) {
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
         return true;
     }
@@ -830,7 +831,7 @@ class YireoModel extends YireoCommonModel
                 try {
                     $this->table->store();
                 } catch (Exception $e) {
-                    throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+                    throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
                 }
             }
         }
@@ -1231,7 +1232,7 @@ class YireoModel extends YireoCommonModel
             return false;
         }
 
-        /** @var JDatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseDriver $db */
         $db = $this->db;
 
         $query = $db->getQuery(true);

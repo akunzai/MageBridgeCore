@@ -38,7 +38,7 @@ class YireoCommonModel extends YireoAbstractModel
     use YireoModelTraitFormable;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 

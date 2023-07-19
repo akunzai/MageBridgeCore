@@ -41,7 +41,7 @@ class MageBridgeConnector
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 

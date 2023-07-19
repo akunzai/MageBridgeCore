@@ -35,7 +35,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
     protected $pluginName = null;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     private $db;
 

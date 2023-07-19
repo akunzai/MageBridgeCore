@@ -49,12 +49,12 @@ class YireoModelDataQuery
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var JDatabaseQuery
+     * @var \Joomla\Database\DatabaseQuery
      */
     protected $query;
 
@@ -113,9 +113,9 @@ class YireoModelDataQuery
     /**
      * Method to build the query
      *
-     * @param null|JDatabaseQuery $query
+     * @param null|\Joomla\Database\DatabaseQuery $query
      *
-     * @return JDatabaseQuery
+     * @return \Joomla\Database\DatabaseQuery
      */
     public function build($query = null)
     {

@@ -57,7 +57,7 @@ trait YireoModelTraitPaginable
         }
 
         if (method_exists($this, 'buildQueryObject')) {
-            /** @var JDatabaseQuery $query */
+            /** @var \Joomla\Database\DatabaseQuery */
             $query = $this->buildQueryObject();
             $query->select('COUNT(*) AS count');
             $query->setLimit(0);

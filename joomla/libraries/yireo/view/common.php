@@ -59,7 +59,7 @@ class YireoCommonView extends YireoAbstractView
     protected $_task = null;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 

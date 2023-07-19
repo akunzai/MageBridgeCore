@@ -38,7 +38,7 @@ class YireoAbstractModel extends JModelLegacy
     protected $app;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
@@ -84,7 +84,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @return JInput
+     * @return \Joomla\CMS\Input\Input
      */
     public function getInput()
     {
@@ -92,7 +92,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param JInput $input
+     * @param \Joomla\CMS\Input\Input $input
      */
     public function setInput($input)
     {

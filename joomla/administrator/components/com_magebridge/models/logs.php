@@ -29,9 +29,9 @@ class MagebridgeModelLogs extends YireoModelItems
     }
 
     /**
-     * @param JDatabaseQuery $query
+     * @param \Joomla\Database\DatabaseQuery $query
      *
-     * @return JDatabaseQuery
+     * @return \Joomla\Database\DatabaseQuery
      */
     public function onBuildQuery($query)
     {

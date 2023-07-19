@@ -49,7 +49,7 @@ class YireoModelDataQuerytext
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 

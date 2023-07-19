@@ -14,6 +14,7 @@
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\Exception\UnsupportedAdapterException;
 use Joomla\Utilities\ArrayHelper;
 
 // Check to ensure this file is included in Joomla!
@@ -323,7 +324,7 @@ class YireoModelItem extends YireoDataModel
             $this->table->store();
         } catch (Exception $e) {
             $this->saveTmpSession($data);
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         // Try to fetch the last ID from the table
@@ -372,7 +373,7 @@ class YireoModelItem extends YireoDataModel
         try {
             $this->_db->execute();
         } catch (Exception $e) {
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -416,7 +417,7 @@ class YireoModelItem extends YireoDataModel
             }
             $this->table->move($direction);
         } catch (Exception $e) {
-            throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -457,7 +458,7 @@ class YireoModelItem extends YireoDataModel
                 try {
                     $this->table->store();
                 } catch (Exception $e) {
-                    throw new JDatabaseExceptionUnsupported($e->getMessage(), $e->getCode(), $e);
+                    throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
                 }
             }
         }

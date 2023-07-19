@@ -206,7 +206,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * @return JDatabaseQuery
+     * @return \Joomla\Database\DatabaseQuery
      */
     public function buildQueryObject()
     {
@@ -395,7 +395,7 @@ class YireoModelItems extends YireoDataModel
             return false;
         }
 
-        /** @var JDatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseDriver $db */
         $db = $this->db;
 
         $query = $db->getQuery(true);
