@@ -219,10 +219,10 @@ class YireoCommonView extends YireoAbstractView
                     if ($layout) {
                         $url .= '&layout=' . $layout;
                     }
-                    JSubMenuHelper::addEntry(Text::_($titleLabel), $url, $active);
+                    JHtmlSidebar::addEntry(Text::_($titleLabel), $url, $active);
                 } else {
                     if (preg_match('/option=/', $view)) {
-                        JSubMenuHelper::addEntry(Text::_($titleLabel), 'index.php?' . $view, false);
+                        JHtmlSidebar::addEntry(Text::_($titleLabel), 'index.php?' . $view, false);
                     }
                 }
             }
