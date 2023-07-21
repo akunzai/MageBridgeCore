@@ -53,7 +53,7 @@ class MageBridgeViewProduct extends YireoViewForm
         $actions = YireoHelper::toRegistry($this->item->actions)->toArray();
         $actions_form = Form::getInstance('actions', $file);
         PluginHelper::importPlugin('magebridgeproduct');
-        Factory::getApplication()->triggerEvent('onMageBridgeProductPrepareForm', [&$actions_form, (array)$this->item]);
+        $this->app->triggerEvent('onMageBridgeProductPrepareForm', [&$actions_form, (array)$this->item]);
         $actions_form->bind(['actions' => $actions]);
         $this->actions_form = $actions_form;
 
@@ -64,7 +64,7 @@ class MageBridgeViewProduct extends YireoViewForm
         if (!empty($this->item->connector)) {
             $plugin = PluginHelper::getPlugin('magebridgeproduct', $this->item->connector);
             if (empty($plugin)) {
-                Factory::getApplication()->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector), 'warning');
+                $this->app->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_PRODUCT_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

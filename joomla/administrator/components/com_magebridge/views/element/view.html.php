@@ -41,7 +41,7 @@ class MageBridgeViewElement extends MageBridgeViewCommon
         HTMLHelper::script('jui/cms.js', ['framework' => false, 'relative' => true]);
 
         // Check for AJAX
-        if (Factory::getApplication()->input->getInt('ajax') == 1) {
+        if ($this->input->getInt('ajax') == 1) {
             $this->doAjaxLayout();
             $tpl = 'ajax';
 
@@ -51,7 +51,7 @@ class MageBridgeViewElement extends MageBridgeViewCommon
         }
 
         // Determine the layout and data
-        switch (Factory::getApplication()->input->getCmd('type')) {
+        switch ($this->input->getCmd('type')) {
             case 'product':
                 $this->doProductLayout();
                 break;

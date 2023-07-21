@@ -84,6 +84,11 @@ class YireoCommonView extends YireoAbstractView
     protected $user;
 
     /**
+     * @var \Joomla\CMS\Uri\Uri
+     */
+    protected $uri;
+
+    /**
      * Main constructor method
      *
      * @subpackage Yireo
@@ -445,8 +450,8 @@ class YireoCommonView extends YireoAbstractView
             unset($file);
 
             // Never allow a 'this' property
-            if (isset($this->this)) {
-                unset($this->this);
+            if (isset($this->{'this'})) {
+                unset($this->{'this'});
             }
 
             // Unset variables

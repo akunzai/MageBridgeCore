@@ -30,6 +30,7 @@ class MageBridgeControllerSso extends YireoAbstractController
      */
     public function login()
     {
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Fetch the user-email
@@ -56,6 +57,7 @@ class MageBridgeControllerSso extends YireoAbstractController
     {
         // Perform a logout
         $user = Factory::getUser();
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $application->logout($user->get('id'));
 

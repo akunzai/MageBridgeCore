@@ -31,8 +31,9 @@ class MageBridgeViewAjax extends MageBridgeView
      */
     public function display($tpl = null)
     {
+        $app = Factory::getApplication();
         // Determine which block to display
-        $blockName = Factory::getApplication()->input->getString('block');
+        $blockName = $app->input->getString('block');
 
         // Fetch the block
         if (!empty($blockName)) {
@@ -52,6 +53,6 @@ class MageBridgeViewAjax extends MageBridgeView
         }
 
         // Close the application
-        Factory::getApplication()->close();
+        $app->close();
     }
 }

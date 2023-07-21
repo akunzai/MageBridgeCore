@@ -57,8 +57,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     {
         // Compile the meta-data
         if (empty($this->_meta_data) || !is_array($this->_meta_data)) {
-            $application = Factory::getApplication();
-            $input = $application->input;
+            $input = $this->app->input;
             $user = Factory::getUser();
             $uri = Uri::getInstance();
             $config = Factory::getConfig();
@@ -73,7 +72,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'api_user' => MageBridgeEncryptionHelper::encrypt(MageBridgeModelConfig::load('api_user')),
                 'api_key' => MageBridgeEncryptionHelper::encrypt(MageBridgeModelConfig::load('api_key')),
                 'api_url' => Uri::root() . 'component/magebridge/?controller=jsonrpc&task=call',
-                'app' => $application->getClientId(), // 0 = site, 1 = admin
+                'app' => $this->app->getClientId(), // 0 = site, 1 = admin
                 'app_type' => $app_type,
                 'app_value' => $app_value,
                 'storeview' => MageBridgeModelConfig::load('storeview'),
@@ -83,7 +82,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'joomla_url' => $bridge->getJoomlaBridgeUrl(),
                 'joomla_sef_url' => $bridge->getJoomlaBridgeSefUrl(),
                 'joomla_sef_suffix' => (int) MageBridgeUrlHelper::hasUrlSuffix(),
-                'joomla_user_email' => ($application->isClient('site') && !empty($user->email)) ? $user->email : null,
+                'joomla_user_email' => ($this->app->isClient('site') && !empty($user->email)) ? $user->email : null,
                 'joomla_current_url' => $uri->current(),
                 'modify_url' => MageBridgeModelConfig::load('modify_url'),
                 'enforce_ssl' => MageBridgeModelConfig::load('enforce_ssl'),

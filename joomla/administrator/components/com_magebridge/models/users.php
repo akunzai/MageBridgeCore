@@ -49,13 +49,12 @@ class MagebridgeModelUsers extends YireoCommonModel
     {
         parent::__construct();
 
-        $application = Factory::getApplication();
-        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
+        $option      = $this->input->getCmd('option') . '-users';
 
         // Get the pagination request variables
-        $limit      = $application->getUserStateFromRequest('global.list.limit', 'limit', Factory::getConfig()
+        $limit      = $this->app->getUserStateFromRequest('global.list.limit', 'limit', Factory::getConfig()
             ->get('list_limit'), 'int');
-        $limitstart = $application->getUserStateFromRequest($option . 'limitstart', 'limitstart', 0, 'int');
+        $limitstart = $this->app->getUserStateFromRequest($option . 'limitstart', 'limitstart', 0, 'int');
 
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
@@ -132,11 +131,10 @@ class MagebridgeModelUsers extends YireoCommonModel
      */
     private function _buildContentOrderBy()
     {
-        $application = Factory::getApplication();
-        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
+        $option      = $this->input->getCmd('option') . '-users';
 
-        $filter_order     = $application->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'u.username', 'cmd');
-        $filter_order_Dir = $application->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
+        $filter_order     = $this->app->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'u.username', 'cmd');
+        $filter_order_Dir = $this->app->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
 
         if ($filter_order && $filter_order_Dir) {
             $orderby = ' ORDER BY ' . $filter_order . ' ' . $filter_order_Dir;
@@ -154,10 +152,9 @@ class MagebridgeModelUsers extends YireoCommonModel
      */
     private function _buildContentWhere()
     {
-        $application = Factory::getApplication();
-        $option      = Factory::getApplication()->input->getCmd('option') . '-users';
+        $option      = $this->input->getCmd('option') . '-users';
 
-        $filter_state     = $application->getUserStateFromRequest($option . 'filter_state', 'filter_state', '', 'word');
+        $filter_state     = $this->app->getUserStateFromRequest($option . 'filter_state', 'filter_state', '', 'word');
 
         $where = [];
 

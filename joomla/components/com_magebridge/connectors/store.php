@@ -94,7 +94,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                Factory::getApplication()
+                $this->app
                     ->triggerEvent('onMageBridgeStoreConvertField', [$condition, &$actions]);
             }
 

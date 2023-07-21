@@ -10,7 +10,6 @@
  * @link      https://www.yireo.com
  */
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -46,21 +45,19 @@ class MageBridgeViewCheck extends YireoCommonView
     {
         $this->setMenu();
 
-        $input = Factory::getApplication()->input;
-
-        if ($input->getCmd('layout') == 'browser') {
+        if ($this->input->getCmd('layout') == 'browser') {
             $this->displayBrowser($tpl);
 
             return;
         }
 
-        if ($input->getCmd('layout') == 'product') {
+        if ($this->input->getCmd('layout') == 'product') {
             $this->displayProduct($tpl);
 
             return;
         }
 
-        if ($input->getCmd('layout') == 'result') {
+        if ($this->input->getCmd('layout') == 'result') {
             $this->displayResult($tpl);
 
             return;

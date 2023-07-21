@@ -487,7 +487,6 @@ class MageBridgeModelConfig extends YireoAbstractModel
 
         // Clean the cache if changes are detected
         if ($changeDetected) {
-            /** @var \Joomla\CMS\Cache\Cache $cache */
             $cache = Factory::getCache('com_magebridge.admin');
             $cache->clean();
         }

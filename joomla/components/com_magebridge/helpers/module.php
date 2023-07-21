@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -29,7 +30,10 @@ class MageBridgeModuleHelper extends JModuleHelper
      */
     public static function loadMageBridgeModules()
     {
-        if (MageBridgeModelConfig::load('preload_all_modules') == 0 && Factory::getApplication()->input->getInt('Itemid') != 0) {
+        /** @var \Joomla\CMS\Application\SiteApplication */
+        $application = Factory::getApplication();
+
+        if (MageBridgeModelConfig::load('preload_all_modules') == 0 && $application->input->getInt('Itemid') != 0) {
             static $modules = null;
 
             if (is_array($modules) == false) {
@@ -44,7 +48,6 @@ class MageBridgeModuleHelper extends JModuleHelper
             return $modules;
         }
 
-        $application = Factory::getApplication();
         $db = Factory::getDbo();
 
         $where = [];

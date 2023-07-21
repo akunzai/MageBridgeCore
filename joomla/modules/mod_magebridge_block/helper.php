@@ -10,10 +10,10 @@
  * @link	  https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
-
-use Joomla\CMS\Factory;
 
 /**
  * Helper-class for the module

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -18,8 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_COMPONENT . '/libraries/factory.php';
 require_once JPATH_COMPONENT . '/helpers/loader.php';
 
-$app   = Factory::getApplication();
-$input = $app->input;
+$input = Factory::getApplication()->input;
 
 // Handle the SSO redirect
 if ($input->getInt('sso') == 1) {

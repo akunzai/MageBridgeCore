@@ -40,6 +40,7 @@ class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
     public function onAfterInitialise()
     {
         // Get rid of annoying cookies
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $cookie = $application->getTemplate() . '_layouts';
         unset($_COOKIE[$cookie]);
@@ -58,34 +59,34 @@ class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
-
+        $app = Factory::getApplication();
         // Change the layout only for MageBridge-pages
-        $view = Factory::getApplication()->input->getCmd('view');
-        $request = Factory::getApplication()->input->getString('request');
+        $view = $app->input->getCmd('view');
+        $request = $app->input->getString('request');
         if ($view == 'root') {
             // Magento homepage
             if (empty($request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_homepage', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_homepage', 'full-width'));
 
                 // Magento customer or sales pages
             } elseif (preg_match('/^(customer|sales)/', $request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_customer', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_customer', 'full-width'));
 
                 // Magento product-pages
             } elseif (preg_match('/^catalog\/product/', $request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_product', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_product', 'full-width'));
 
                 // Magento category-pages
             } elseif (preg_match('/^catalog\/category/', $request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_category', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_category', 'full-width'));
 
                 // Magento cart-pages
             } elseif (preg_match('/^checkout\/cart/', $request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_cart', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_cart', 'full-width'));
 
                 // Magento checkout-pages
             } elseif (preg_match('/^checkout/', $request)) {
-                Factory::getApplication()->input->set('layouts', $this->getParams()->get('layout_checkout', 'full-width'));
+                $app->input->set('layouts', $this->getParams()->get('layout_checkout', 'full-width'));
             }
         }
     }
@@ -111,16 +112,19 @@ class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
      */
     private function isEnabled()
     {
-        if (Factory::getApplication()->isClient('site') == false) {
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+
+        if ($app->isClient('site') == false) {
             return false;
         }
 
-        $template = Factory::getApplication()->getTemplate();
+        $template = $app->getTemplate();
         if (preg_match('/^ja_/', $template) == false) {
             return false;
         }
 
-        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if ($app->input->getCmd('option') != 'com_magebridge') {
             return false;
         }
         if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {

@@ -10,7 +10,6 @@
  * @link      https://www.yireo.com
  */
 
-use Joomla\CMS\Cache\Cache;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -50,8 +49,8 @@ class MageBridgeViewCommon extends MageBridgeView
         // Load jQuery
         YireoHelper::jquery();
 
-        $this->current = Factory::getApplication()->input->get('current');
-        $this->object = Factory::getApplication()->input->get('object');
+        $this->current = $this->input->get('current');
+        $this->object = $this->input->get('object');
 
         parent::display($tpl);
     }
@@ -68,7 +67,7 @@ class MageBridgeViewCommon extends MageBridgeView
         $request = [];
 
         // Get the current request-options
-        $get = Factory::getApplication()->input->get->getArray();
+        $get = $this->input->get->getArray();
 
         if (!empty($get)) {
             foreach ($get as $name => $value) {
@@ -77,7 +76,7 @@ class MageBridgeViewCommon extends MageBridgeView
         }
 
         // Merge the POST if it is there
-        $post = Factory::getApplication()->input->post->getArray();
+        $post = $this->input->post->getArray();
 
         if (!empty($post)) {
             foreach ($post as $name => $value) {
@@ -105,18 +104,17 @@ class MageBridgeViewCommon extends MageBridgeView
     public function doCategoryLayout()
     {
         // Initialize some important variables
-        $application = Factory::getApplication();
-        $option = $application->input->getCmd('option') . '-element-categories';
+        $option = $this->input->getCmd('option') . '-element-categories';
 
         // Set common options
         $this->setTitle('Category');
         $this->setLayout('category');
 
         // Initialize search
-        $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
+        $search = $this->app->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
-        /** @var Cache $cache */
+        /** @var CacheController */
         $cache = Factory::getCache('com_magebridge.admin');
         $tree = $cache->call(['MageBridgeElementHelper', 'getCategoryTree']);
 
@@ -131,10 +129,11 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->categories = $this->initPagination('categories', $categories);
 
         // Add a dropdown list for Store Views
-        $current_store = $application->getUserStateFromRequest($option . '.store', 'store');
+        $current_store = $this->app->getUserStateFromRequest($option . '.store', 'store');
 
         require_once JPATH_COMPONENT . '/fields/store.php';
 
+        /** @var MagebridgeFormFieldStore */
         $field = FormHelper::loadFieldType('magebridge.store');
         $field->setName('store');
         $field->setValue($current_store);
@@ -157,7 +156,6 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Widget');
         $this->setLayout('widget');
 
-        /** @var Cache $cache */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $widgets = $cache->call(['MageBridgeElementHelper', 'getWidgetList']);
@@ -166,9 +164,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->widgets = $this->initPagination('widgets', $widgets);
 
         // Initialize search
-        $application = Factory::getApplication();
-        $option = Factory::getApplication()->input->getCmd('option') . '-element-widgets';
-        $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
+        $option = $this->input->getCmd('option') . '-element-widgets';
+        $search = $this->app->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
         // Build the lists
@@ -186,7 +183,6 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Customer');
         $this->setLayout('customer');
 
-        /** @var Cache $cache */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $customers = $cache->call(['MageBridgeElementHelper', 'getCustomerList']);
@@ -195,9 +191,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->customers = $this->initPagination('customers', $customers);
 
         // Initialize search
-        $application = Factory::getApplication();
-        $option = Factory::getApplication()->input->getCmd('option') . '-element-customers';
-        $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
+        $option = $this->input->getCmd('option') . '-element-customers';
+        $search = $this->app->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
         // Build the lists
@@ -215,7 +210,6 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Product');
         $this->setLayout('product');
 
-        /** @var Cache $cache */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
         $products = $cache->call(['MageBridgeElementHelper', 'getProductList']);
@@ -224,9 +218,8 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->products = $this->initPagination('products', $products);
 
         // Initialize search
-        $application = Factory::getApplication();
-        $option = Factory::getApplication()->input->getCmd('option') . '-element-products';
-        $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
+        $option = $this->input->getCmd('option') . '-element-products';
+        $search = $this->app->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
         // Build the lists
@@ -246,10 +239,9 @@ class MageBridgeViewCommon extends MageBridgeView
     public function initPagination($type = '', $items = [])
     {
         // Get the limit & limitstart
-        $application = Factory::getApplication();
-        $option = $application->input->getCmd('option') . '-element-' . $type;
-        $limit = (int) $application->getUserStateFromRequest($option . '.limit', 'limit', Factory::getConfig()->get('list_limit'), 'int');
-        $limitstart = (int) $application->getUserStateFromRequest($option . '.limitstart', 'limitstart', 0, 'int');
+        $option = $this->input->getCmd('option') . '-element-' . $type;
+        $limit = (int) $this->app->getUserStateFromRequest($option . '.limit', 'limit', Factory::getConfig()->get('list_limit'), 'int');
+        $limitstart = (int) $this->app->getUserStateFromRequest($option . '.limitstart', 'limitstart', 0, 'int');
 
         // Set the pagination
         $this->pagination = new Pagination(count($items), $limitstart, $limit);

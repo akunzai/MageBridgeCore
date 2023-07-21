@@ -169,7 +169,6 @@ class MageBridgeView extends YireoAbstractView
     /**
      * Helper-method to get the offline message
      *
-     * @param null
      * @return string
      */
     public function getOfflineMessage()

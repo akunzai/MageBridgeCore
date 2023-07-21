@@ -86,6 +86,7 @@ class MageBridgeTemplateHelper
     public static function removeMagentoScripts()
     {
         $bridge = MageBridgeModelBridge::getInstance();
+        /** @var \Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
 
         $bridge->build();
@@ -624,7 +625,7 @@ class MageBridgeTemplateHelper
     public static function isMobile()
     {
         if (class_exists('MobileDetector')) {
-            return MobileDetector::isMobile();
+            return call_user_func('MobileDetector::isMobile()');
         }
 
         JLoader::import('joomla.environment.browser');
@@ -633,7 +634,7 @@ class MageBridgeTemplateHelper
         if (method_exists($browser, 'isMobile')) {
             return (bool) $browser->isMobile();
         } elseif (method_exists($browser, 'get')) {
-            return (bool) $browser->get('mobile');
+            return (bool) $browser->{'get'}('mobile');
         }
 
         return false;

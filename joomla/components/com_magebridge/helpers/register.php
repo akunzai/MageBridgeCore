@@ -75,7 +75,6 @@ class MageBridgeRegisterHelper extends \Joomla\CMS\Helper\ModuleHelper
                         $params->get('cache', 0) && Factory::getConfig()
                         ->get('caching')
                     ) {
-                        /** @var CallbackController */
                         $cache = Factory::getCache($module->module);
                         $cache->setLifeTime($params->get('cache_time', Factory::getConfig()
                             ->get('cachetime') * 60));

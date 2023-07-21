@@ -41,6 +41,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
         }
 
         // Load variables
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend
@@ -80,13 +81,13 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
             $data = json_decode($conf_content, true);
             if (is_array($data)) {
                 // Fetch the Itemid
-                $Itemid = Factory::getApplication()->input->getInt('Itemid');
+                $Itemid = $application->input->getInt('Itemid');
 
                 // Define the current profile-indications
                 $profileDefault = (isset($data['profile_default'])) ? $data['profile_default'] : null;
 
                 // Load the profile-specific CSS, set in GET
-                $profileGet = Factory::getApplication()->input->getCmd('profile');
+                $profileGet = $application->input->getCmd('profile');
                 if (!empty($profileGet)) {
                     $profile = $profileGet;
                     MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');

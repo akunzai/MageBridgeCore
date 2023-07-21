@@ -160,6 +160,7 @@ abstract class JModuleHelper
             Profiler::getInstance('Application')->mark('beforeRenderModule ' . $module->module . ' (' . $module->title . ')');
         }
 
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
 
         // Record the scope.
@@ -262,7 +263,9 @@ abstract class JModuleHelper
      */
     public static function getLayoutPath($module, $layout = 'default')
     {
-        $template = Factory::getApplication()->getTemplate();
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+        $template = $app->getTemplate();
         $defaultLayout = $layout;
 
         if (strpos($layout, ':') !== false) {
@@ -303,6 +306,7 @@ abstract class JModuleHelper
             return $clean;
         }
 
+        /** @var \Joomla\CMS\Application\SiteApplication */
         $app = Factory::getApplication();
         $Itemid = $app->input->getInt('Itemid');
         $user = Factory::getUser();
@@ -418,9 +422,9 @@ abstract class JModuleHelper
         }
 
         $user = Factory::getUser();
-        /** @var CallbackController */
         $cache = Factory::getCache($cacheparams->cachegroup, 'callback');
         $conf = Factory::getConfig();
+        $app = Factory::getApplication();
 
         // Turn cache off for internal callers if parameters are set to off and for all logged in users
         if ($moduleparams->get('owncache', null) === '0' || $conf->get('caching') == 0 || $user->get('id')) {
@@ -449,7 +453,7 @@ abstract class JModuleHelper
             case 'safeuri':
                 $secureid = null;
                 if (is_array($cacheparams->modeparams)) {
-                    $input = Factory::getApplication()->input;
+                    $input = $app->input;
                     $safeuri = new stdClass();
                     foreach ($cacheparams->modeparams as $key => $value) {
                         // Use int filter for id/catid to clean out spamy slugs
@@ -499,7 +503,7 @@ abstract class JModuleHelper
                 $ret = $cache->get(
                     [$cacheparams->class, $cacheparams->method],
                     $cacheparams->methodparams,
-                    $module->id . $view_levels . Factory::getApplication()->input->getInt('Itemid', null),
+                    $module->id . $view_levels . $app->input->getInt('Itemid', null),
                     $wrkarounds,
                     $wrkaroundoptions
                 );

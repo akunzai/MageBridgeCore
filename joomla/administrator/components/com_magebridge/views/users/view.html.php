@@ -41,12 +41,11 @@ class MageBridgeViewUsers extends MageBridgeView
         $this->setMenu();
 
         // Initialize common variables
-        $app    = Factory::getApplication();
-        $option = $app->input->getCmd('option') . '-users';
+        $option = $this->input->getCmd('option') . '-users';
 
         // Handle the filters
-        $filter_order     = $app->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'p.ordering', 'cmd');
-        $filter_order_Dir = $app->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
+        $filter_order     = $this->app->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'p.ordering', 'cmd');
+        $filter_order_Dir = $this->app->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
 
         $this->setTitle('MageBridge: Users');
 
@@ -97,7 +96,7 @@ class MageBridgeViewUsers extends MageBridgeView
         $this->items      = $items;
         $this->pagination = $pagination;
 
-        $layout = $app->input->getCmd('layout');
+        $layout = $this->input->getCmd('layout');
 
         if ($layout == 'import') {
             $tpl = 'import';

@@ -221,6 +221,7 @@ class MageBridgeUrlHelper
             return $items;
         }
 
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $component = ComponentHelper::getComponent('com_magebridge');
         $menu = $app->getMenu('site');
@@ -286,7 +287,9 @@ class MageBridgeUrlHelper
      */
     public static function isDefault()
     {
-        $default = Factory::getApplication()
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+        $default = $app
             ->getMenu('site')
             ->getDefault();
 
@@ -377,10 +380,11 @@ class MageBridgeUrlHelper
     public static function getCurrentItem()
     {
         static $currentItem = null;
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
 
         if (empty($currentItem)) {
-            $menu = Factory::getApplication()
-                ->getMenu('site');
+            $menu = $app->getMenu('site');
             $currentItem = $menu->getActive();
 
             if (empty($currentItem) || $currentItem->component != 'com_magebridge') {
@@ -388,7 +392,7 @@ class MageBridgeUrlHelper
 
                 if (!empty($items)) {
                     foreach ($items as $item) {
-                        if ($item->id == Factory::getApplication()->input->getInt('Itemid')) {
+                        if ($item->id == $app->input->getInt('Itemid')) {
                             $currentItem = $item;
                             break;
                         }

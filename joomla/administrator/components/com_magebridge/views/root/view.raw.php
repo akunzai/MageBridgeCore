@@ -30,11 +30,8 @@ class MageBridgeViewRoot extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        // Get useful variables
-        $application = Factory::getApplication();
-
         // Set the admin-request
-        MageBridgeUrlHelper::setRequest($application->input->get('request', 'admin'));
+        MageBridgeUrlHelper::setRequest($this->input->get('request', 'admin'));
 
         // Set which block to display
         $this->setBlock('root');
@@ -43,7 +40,7 @@ class MageBridgeViewRoot extends MageBridgeView
         $block = $this->build();
 
         echo $block;
-        $application->close();
+        $this->app->close();
         exit;
     }
 }

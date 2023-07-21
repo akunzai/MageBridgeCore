@@ -10,7 +10,6 @@
  * @link      https://www.yireo.com
  */
 
-use Joomla\CMS\Cache\Cache;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -98,12 +97,10 @@ class MageBridgeController extends YireoController
         }
 
         // Clean the backend cache
-        /** @var Cache $cache */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->clean();
 
         // Clean the frontend cache
-        /** @var Cache $cache */
         $cache = Factory::getCache('com_magebridge');
         $cache->clean();
 

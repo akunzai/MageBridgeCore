@@ -85,7 +85,7 @@ class MageBridgeModelBridge
             // Return the MageBridge Root if the request is empty
             if (empty($request)) {
                 $root_item = MageBridgeUrlHelper::getRootItem();
-                $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : Factory::getApplication()->input->getInt('Itemid');
+                $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : $application->input->getInt('Itemid');
 
                 // Allow for experimental support for MijoSEF and sh404SEF
                 if (self::sh404sef() || self::mijosef()) {
@@ -438,10 +438,10 @@ class MageBridgeModelBridge
             }
 
             // Initialize proxy-settings
-            if ($application->isClient('site') && Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+            if ($application->isClient('site') && $application->input->getCmd('option') != 'com_magebridge') {
                 $proxy->setAllowRedirects(false);
             } else {
-                if ($application->isClient('administrator') && (Factory::getApplication()->input->getCmd('option') != 'com_magebridge' || Factory::getApplication()->input->getCmd('view') != 'root')) {
+                if ($application->isClient('administrator') && ($application->input->getCmd('option') != 'com_magebridge' || $application->input->getCmd('view') != 'root')) {
                     $proxy->setAllowRedirects(false);
                 }
             }
@@ -833,9 +833,9 @@ class MageBridgeModelBridge
      */
     public static function sh404sef()
     {
-        $class = JPATH_ADMINISTRATOR . '/components/com_sh404sef/sh404sef.class.php';
+        $classPath = JPATH_ADMINISTRATOR . '/components/com_sh404sef/sh404sef.class.php';
 
-        if (!is_file($class) || !is_readable($class)) {
+        if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }
 
@@ -845,13 +845,15 @@ class MageBridgeModelBridge
             return false;
         }
 
-        include_once($class);
+        include_once($classPath);
 
-        if (!class_exists('SEFConfig')) {
+        $class = 'SEFConfig';
+
+        if (!class_exists($class)) {
             return false;
         }
 
-        $sefConfig = new SEFConfig();
+        $sefConfig = new $class();
         if ($sefConfig->Enabled == 0) {
             return false;
         }
@@ -866,8 +868,8 @@ class MageBridgeModelBridge
      */
     public static function mijosef()
     {
-        $class = JPATH_ADMINISTRATOR . '/components/com_mijosef/library/mijosef.php';
-        if (!is_file($class) || !is_readable($class)) {
+        $classPath = JPATH_ADMINISTRATOR . '/components/com_mijosef/library/mijosef.php';
+        if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }
 
@@ -877,16 +879,15 @@ class MageBridgeModelBridge
             return false;
         }
 
-        include_once($class);
+        include_once($classPath);
 
         if (!class_exists('Mijosef')) {
             return false;
         }
 
-        $app = Factory::getApplication();
         $config = Factory::getConfig();
 
-        if ($app->isClient('administrator')) {
+        if (Factory::getApplication()->isClient('administrator')) {
             return false;
         }
 
@@ -894,7 +895,7 @@ class MageBridgeModelBridge
             return false;
         }
 
-        $MijosefConfig = Mijosef::getConfig();
+        $MijosefConfig = call_user_func('Mijosef::getConfig()');
 
         if ($MijosefConfig->mode == 0) {
             return false;
@@ -914,6 +915,7 @@ class MageBridgeModelBridge
      */
     public function sef()
     {
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $router = $application->getRouter();
 
@@ -961,13 +963,14 @@ class MageBridgeModelBridge
      */
     public function isOffline()
     {
+        $app = Factory::getApplication();
         // Set the bridge offline by using a flag
-        if (Factory::getApplication()->input->getInt('offline', 0) == 2) {
+        if ($app->input->getInt('offline', 0) == 2) {
             return false;
         }
 
         // Set the bridge offline by using a flag
-        if (Factory::getApplication()->input->getInt('offline', 0) == 1) {
+        if ($app->input->getInt('offline', 0) == 1) {
             return true;
         }
 
@@ -987,9 +990,9 @@ class MageBridgeModelBridge
         }
 
         // Set the bridge when editing an article in the frontend
-        $option = Factory::getApplication()->input->getCmd('option');
-        $view = Factory::getApplication()->input->getCmd('view');
-        $layout = Factory::getApplication()->input->getCmd('layout');
+        $option = $app->input->getCmd('option');
+        $view = $app->input->getCmd('view');
+        $layout = $app->input->getCmd('layout');
 
         if ($option == 'com_content' && $view == 'form' && $layout == 'edit') {
             return true;
@@ -1007,7 +1010,8 @@ class MageBridgeModelBridge
      */
     public function isAjax()
     {
-        if (in_array(Factory::getApplication()->input->getCmd('format'), ['xml', 'json', 'ajax'])) {
+        $app = Factory::getApplication();
+        if (in_array($app->input->getCmd('format'), ['xml', 'json', 'ajax'])) {
             return true;
         }
 
@@ -1015,11 +1019,11 @@ class MageBridgeModelBridge
         $check_xrequestedwith = true;
 
         if (
-            Factory::getApplication()->isClient('site') == false
+            $app->isClient('site') == false
         ) {
             $check_xrequestedwith = false;
         } else {
-            if (Factory::getApplication()->input->getCmd('view') == 'ajax') {
+            if ($app->input->getCmd('view') == 'ajax') {
                 $check_xrequestedwith = false;
             }
         }

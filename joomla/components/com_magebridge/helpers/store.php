@@ -101,6 +101,7 @@ class MageBridgeStoreHelper
         }
 
         // Initialize system variables
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Check if the current Menu-Item has something to say about this
@@ -181,7 +182,7 @@ class MageBridgeStoreHelper
 
         // Never use a Store View or Store Group in the backend
         if ($application->isClient('administrator')) {
-            if (Factory::getApplication()->input->getCmd('view') == 'root') {
+            if ($application->input->getCmd('view') == 'root') {
                 $this->app_type = 'website';
                 $this->app_value = 'admin';
             } else {

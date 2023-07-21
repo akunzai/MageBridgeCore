@@ -36,6 +36,7 @@ class MageBridgeFormHelper
         $fileType = preg_replace('/^magebridge\./', '', $type);
         include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/fields/' . $fileType . '.php';
 
+        /** @var MagebridgeFormFieldStore */
         $field = FormHelper::loadFieldType($type);
         if (is_object($field) == false) {
             $message = Text::sprintf('COM_MAGEBRIDGE_UNKNOWN_FIELD', $type);

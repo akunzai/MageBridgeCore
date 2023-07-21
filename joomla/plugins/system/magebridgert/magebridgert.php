@@ -42,6 +42,7 @@ class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
         }
 
         // Load the application
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend

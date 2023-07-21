@@ -15,6 +15,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die('Restricted access');
+
+$input     = Factory::getApplication()->input;
 ?>
 
 <form method="post" name="adminForm" id="adminForm">
@@ -60,11 +62,11 @@ defined('_JEXEC') or die('Restricted access');
                     $css = [];
                     $return = $widget['id'];
 
-                    if (Factory::getApplication()->input->getCmd('current') == $return) {
+                    if ($input->getCmd('current') == $return) {
                         $css[] = 'current';
                     }
 
-                    $js = "window.parent.jSelectWidget('$return', '$return', '" . Factory::getApplication()->input->get('object') . "');";
+                    $js = "window.parent.jSelectWidget('$return', '$return', '" . $input->get('object') . "');";
                     ?>
 					<tr class="<?php echo implode(' ', $css); ?>">
 						<td>

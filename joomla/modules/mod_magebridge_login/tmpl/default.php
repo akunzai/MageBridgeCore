@@ -19,6 +19,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 
 // Define some variables first
 $autocomplete = ($params->get('allow_autocomplete', 1) == 1) ? null : 'autocomplete="off"';
+$input = Factory::getApplication()->input;
 ?>
 <?php if ($type == 'logout_link') : ?>
 	<div>
@@ -38,7 +39,7 @@ $autocomplete = ($params->get('allow_autocomplete', 1) == 1) ? null : 'autocompl
 			<input type="hidden" name="option" value="<?php echo $component ?>"/>
 			<input type="hidden" name="task" value="<?php echo $task_logout ?>"/>
 			<input type="hidden" name="return" value="<?php echo $return_url ?>"/>
-			<input type="hidden" name="language" value="<?php echo Factory::getApplication()->input->getCmd('language'); ?>"/>
+			<input type="hidden" name="language" value="<?php echo $input->getCmd('language'); ?>"/>
 			<?php echo HTMLHelper::_('form.token'); ?>
 		</form>
 	</div>
@@ -79,7 +80,7 @@ $autocomplete = ($params->get('allow_autocomplete', 1) == 1) ? null : 'autocompl
 				<input type="hidden" name="option" value="<?php echo $component ?>"/>
 				<input type="hidden" name="task" value="<?php echo $task_login ?>"/>
 				<input type="hidden" name="return" value="<?php echo $return_url ?>"/>
-				<input type="hidden" name="language" value="<?php echo Factory::getApplication()->input->getCmd('language'); ?>"/>
+				<input type="hidden" name="language" value="<?php echo $input->getCmd('language'); ?>"/>
 				<?php echo HTMLHelper::_('form.token'); ?>
 			</div>
 		</form>

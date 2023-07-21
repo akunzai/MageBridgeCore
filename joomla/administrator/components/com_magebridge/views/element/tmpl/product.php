@@ -15,6 +15,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die('Restricted access');
+
+$input     = Factory::getApplication()->input;
 ?>
 
 <p class="notice"><?php echo Text::_('COM_MAGEBRIDGE_VIEW_ELEMENT_SELECT_PRODUCT'); ?></p>
@@ -29,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 				<button onclick="document.getElementById('search').value='';this.form.submit();"><?php echo Text::_('LIB_YIREO_VIEW_RESET'); ?></button>
 			</td>
 			<td align="right" width="40%">
-				<?php $js = "window.parent.jSelectProduct('', '', '" . Factory::getApplication()->input->get('object') . "');"; ?>
+				<?php $js = "window.parent.jSelectProduct('', '', '" . $input->get('object') . "');"; ?>
 				<button onclick="<?php echo $js; ?>"><?php echo Text::_('COM_MAGEBRIDGE_NO_PRODUCT'); ?></button>
 			</td>
 		</tr>
@@ -69,10 +71,10 @@ defined('_JEXEC') or die('Restricted access');
             if (!empty($this->products)) {
                 $i = 0;
                 foreach ($this->products as $product) {
-                    if (Factory::getApplication()->input->getCmd('return') == 'id' || Factory::getApplication()->input->getCmd('return') == 'product_id') {
+                    if ($input->getCmd('return') == 'id' || $input->getCmd('return') == 'product_id') {
                         $return = $product['product_id'];
                     } else {
-                        if (Factory::getApplication()->input->getCmd('return') == 'sku' && !empty($product['sku'])) {
+                        if ($input->getCmd('return') == 'sku' && !empty($product['sku'])) {
                             $return = $product['sku'];
                         } else {
                             if (!empty($product['url_key'])) {
@@ -83,7 +85,7 @@ defined('_JEXEC') or die('Restricted access');
                         }
                     }
 
-                    if (Factory::getApplication()->input->getCmd('current') == $return) {
+                    if ($input->getCmd('current') == $return) {
                         $css[] = 'current';
                     }
 
@@ -103,7 +105,7 @@ defined('_JEXEC') or die('Restricted access');
                     }
 
                     $product_name = htmlspecialchars(str_replace("'", '', $product['name']));
-                    $jsDefault = "window.parent.jSelectProduct('$return', '$product_name', '" . Factory::getApplication()->input->get('object') . "');";
+                    $jsDefault = "window.parent.jSelectProduct('$return', '$product_name', '" . $input->get('object') . "');";
                     ?>
 					<tr class="<?php echo implode(' ', $css); ?>">
 						<td>

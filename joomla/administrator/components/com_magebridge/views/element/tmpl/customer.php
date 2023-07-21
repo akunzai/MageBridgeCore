@@ -15,6 +15,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die('Restricted access');
+
+$input     = Factory::getApplication()->input;
 ?>
 
 <form method="post" name="adminForm" id="adminForm">
@@ -62,13 +64,13 @@ defined('_JEXEC') or die('Restricted access');
                 foreach ($this->customers as $customer) {
                     $css = [];
 
-                    if (Factory::getApplication()->input->getCmd('return') == 'id') {
+                    if ($input->getCmd('return') == 'id') {
                         $return = $customer['customer_id'];
                     } else {
                         $return = $customer['email'];
                     }
 
-                    if (Factory::getApplication()->input->getCmd('current') == $return) {
+                    if ($input->getCmd('current') == $return) {
                         $css[] = 'current';
                     }
 
@@ -78,7 +80,7 @@ defined('_JEXEC') or die('Restricted access');
                         $css[] = 'inactive';
                     }
 
-                    $js = "window.parent.jSelectCustomer('$return', '$return', '" . Factory::getApplication()->input->get('object') . "');";
+                    $js = "window.parent.jSelectCustomer('$return', '$return', '" . $input->get('object') . "');";
                     ?>
 					<tr class="<?php echo implode(' ', $css); ?>">
 						<td>

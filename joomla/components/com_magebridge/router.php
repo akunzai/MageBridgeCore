@@ -206,8 +206,10 @@ function MagebridgeParseRoute($segments)
         return $vars;
     }
 
+    /** @var \Joomla\CMS\Application\CMSApplication */
+    $app = Factory::getApplication();
     // Get the active menu item
-    $menu = Factory::getApplication()->getMenu('site');
+    $menu = $app->getMenu('site');
     $current_item = $menu->getActive();
     $items = MageBridgeUrlHelper::getMenuItems();
 
@@ -285,7 +287,7 @@ function MagebridgeParseRoute($segments)
 
     // Re-spoof the current Itemid
     if (isset($vars['Itemid']) && $vars['Itemid'] > 0) {
-        Factory::getApplication()->input->set('Itemid', $vars['Itemid']);
+        $app->input->set('Itemid', $vars['Itemid']);
     }
 
     return $vars;

@@ -10,11 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\String\StringHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Factory;
-use Joomla\String\StringHelper;
 
 include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/libraries/loader.php';
 
@@ -91,6 +92,7 @@ class MageBridgeElementHelper
         $arguments = ['minimal_price' => 0];
 
         // Fetch any current filters
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $option = $application->input->getCmd('option') . '-element-products';
 
@@ -135,6 +137,7 @@ class MageBridgeElementHelper
     public static function getCategoryTree($arguments = [])
     {
         // Initialize some important variables
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $option = Factory::getApplication()->input->getCmd('option') . '-element-categories';
 

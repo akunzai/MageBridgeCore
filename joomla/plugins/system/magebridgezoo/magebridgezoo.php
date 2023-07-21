@@ -67,7 +67,7 @@ class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
                 }
 
                 // Include the MageBridge register
-                $key = md5(var_export($body, true)) . ':' . Factory::getApplication()->input->getCmd('option');
+                $key = md5(var_export($body, true)) . ':' . $app->input->getCmd('option');
                 $text = MageBridgeEncryptionHelper::base64_encode($body);
 
                 // Conditionally load CSS

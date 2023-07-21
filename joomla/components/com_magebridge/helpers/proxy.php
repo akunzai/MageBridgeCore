@@ -102,7 +102,7 @@ class MageBridgeProxyHelper
                 // Handle errors
                 if (!empty($errorMessage)) {
                     // See if we can redirect back to the same old page
-                    $request = Factory::getApplication()->input->getString('request');
+                    $request = $this->app->input->getString('request');
 
                     if (preg_match('/\/uenc\/([a-zA-Z0-9\,\-\_]+)/', $request, $uenc)) {
                         $page = MageBridgeEncryptionHelper::base64_decode($uenc[1]);

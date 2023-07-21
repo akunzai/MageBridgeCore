@@ -37,7 +37,7 @@ class MageBridgeViewConfig extends YireoCommonView
     public function display($tpl = null)
     {
         // Load important variables
-        $layout = $this->app->input->getCmd('layout');
+        $layout = $this->input->getCmd('layout');
 
         // initialize common elements
         MageBridgeViewHelper::initialize('CONFIG');
@@ -109,7 +109,7 @@ class MageBridgeViewConfig extends YireoCommonView
     {
         // Check if the settings are all empty
         if (MageBridgeModelConfig::allEmpty() == true) {
-            Factory::getApplication()->enqueueMessage(Text::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')), 'warning');
+            $this->app->enqueueMessage(Text::sprintf('Check the online %s for more information.', MageBridgeHelper::getHelpText('quickstart')), 'warning');
             return;
         }
 
@@ -120,7 +120,7 @@ class MageBridgeViewConfig extends YireoCommonView
                 isset($c['name']) && isset($c['value']) && $message = MageBridge::getConfig()
                 ->check($c['name'], $c['value'])
             ) {
-                Factory::getApplication()->enqueueMessage($message, 'warning');
+                $this->app->enqueueMessage($message, 'warning');
             }
         }
 
@@ -140,6 +140,7 @@ class MageBridgeViewConfig extends YireoCommonView
         require_once JPATH_COMPONENT . '/fields/' . $type . '.php';
         JLoader::import('joomla.form.helper');
 
+        /** @var MagebridgeFormFieldStore */
         $field = FormHelper::loadFieldType($type);
         $field->setName($name);
         $field->setValue(MageBridgeModelConfig::load($name));

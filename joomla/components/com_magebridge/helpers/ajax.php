@@ -30,6 +30,7 @@ class MageBridgeAjaxHelper
      */
     public static function getLoaderImage()
     {
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $template = $app->getTemplate();
 

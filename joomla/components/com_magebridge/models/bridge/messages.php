@@ -10,8 +10,6 @@
  * @link https://www.yireo.com
  */
 
-use Joomla\CMS\Factory;
-
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -50,7 +48,6 @@ class MageBridgeModelBridgeMessages extends MageBridgeModelBridgeSegment
 
         $messages = $this->getResponseData();
         if (!empty($messages) && is_array($messages)) {
-            $application = Factory::getApplication();
             foreach ($messages as $message) {
                 if (!is_array($message)) {
                     continue;
@@ -68,7 +65,7 @@ class MageBridgeModelBridgeMessages extends MageBridgeModelBridgeSegment
                         break;
                 }
 
-                $application->enqueueMessage($message['message'], $type);
+                $this->app->enqueueMessage($message['message'], $type);
             }
         }
 

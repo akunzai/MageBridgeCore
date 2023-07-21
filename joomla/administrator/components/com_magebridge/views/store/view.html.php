@@ -51,7 +51,7 @@ class MageBridgeViewStore extends YireoViewForm
      */
     public function display($tpl = null)
     {
-        switch ($this->app->input->getCmd('task')) {
+        switch ($this->input->getCmd('task')) {
             case 'default':
                 $this->showDefaultForm($tpl);
                 break;
@@ -137,7 +137,7 @@ class MageBridgeViewStore extends YireoViewForm
         if (!empty($this->item->connector)) {
             $plugin = PluginHelper::getPlugin('magebridgestore', $this->item->connector);
             if (empty($plugin)) {
-                Factory::getApplication()->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector), 'warning');
+                $this->app->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

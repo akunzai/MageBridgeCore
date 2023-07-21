@@ -101,10 +101,9 @@ class MageBridgeApi
 
         // Initialize the plugin-group "magento"
         PluginHelper::importPlugin('magento');
-        $application = Factory::getApplication();
 
         // Trigger the event and return the result
-        $result = $application->triggerEvent($event, [$arguments]);
+        $result = $this->app->triggerEvent($event, [$arguments]);
 
         if (!empty($result[0])) {
             return $result[0];

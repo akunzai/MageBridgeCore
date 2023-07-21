@@ -48,7 +48,7 @@ class MageBridgeViewRoot extends MageBridgeView
         $bridge = MageBridge::getBridge();
         if ($bridge->isAjax()) {
             print $block;
-            Factory::getApplication()->close();
+            $this->app->close();
         }
 
         // Add controller information

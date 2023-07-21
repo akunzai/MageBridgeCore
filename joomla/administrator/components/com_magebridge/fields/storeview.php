@@ -10,11 +10,11 @@
  * @link      https://www.yireo.com
  */
 
-// Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
-
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+
+// Check to ensure this file is included in Joomla!
+defined('JPATH_BASE') or die();
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';

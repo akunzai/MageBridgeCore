@@ -294,6 +294,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getCurrentStoreName()
     {
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $name = $application->getUserState('magebridge.store.name');
 
@@ -311,6 +312,7 @@ class ModMageBridgeSwitcherHelper
      */
     public static function getCurrentStoreType()
     {
+        /** @var \Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $type = $application->getUserState('magebridge.store.type');
 

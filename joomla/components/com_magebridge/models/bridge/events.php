@@ -67,7 +67,7 @@ class MageBridgeModelBridgeEvents extends MageBridgeModelBridgeSegment
                     MageBridgeModelDebug::getInstance()->notice('Bridge feedback: firing mageEvent ' . $event['event'] . ' of group ' . $event['group']);
 
                     PluginHelper::importPlugin($event['group']);
-                    Factory::getApplication()->triggerEvent($event['event'], [$event['arguments']]);
+                    $this->app->triggerEvent($event['event'], [$event['arguments']]);
                 }
             }
         }

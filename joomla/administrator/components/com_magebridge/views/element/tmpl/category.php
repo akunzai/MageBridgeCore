@@ -34,7 +34,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                 <button onclick="document.getElementById('search').value='';this.form.submit();"><?php echo Text::_('LIB_YIREO_VIEW_RESET'); ?></button>
             </td>
             <td align="right" width="20%">
-                <?php $js = "window.parent.jSelectCategory('', '', '" . Factory::getApplication()->input->get('object') . "');"; ?>
+                <?php $js = "window.parent.jSelectCategory('', '', '" . $input->get('object') . "');"; ?>
                 <button onclick="<?php echo $js; ?>"><?php echo Text::_('COM_MAGEBRIDGE_NO_CATEGORY'); ?></button>
             </td>
         </tr>
@@ -86,7 +86,7 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                     }
 
                     $css = [];
-                    if (isset($category[$return]) && Factory::getApplication()->input->getCmd('current') == $category[$return]) {
+                    if (isset($category[$return]) && $input->getCmd('current') == $category[$return]) {
                         $css[] = 'current';
                     }
 
@@ -97,9 +97,9 @@ $allowRoot = ($input->getCmd('allow_root') === 1) ? true : false;
                     }
 
                     $category_name = htmlspecialchars(str_replace("'", '', $category['name']));
-                    $jsDefault     = "window.parent.jSelectCategory('" . $category[$return] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
-                    $jsUrl         = "window.parent.jSelectCategory('" . $category['url'] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
-                    $jsId          = "window.parent.jSelectCategory('" . $category['category_id'] . "', '$category_name', '" . Factory::getApplication()->input->get('object') . "');";
+                    $jsDefault     = "window.parent.jSelectCategory('" . $category[$return] . "', '$category_name', '" . $input->get('object') . "');";
+                    $jsUrl         = "window.parent.jSelectCategory('" . $category['url'] . "', '$category_name', '" . $input->get('object') . "');";
+                    $jsId          = "window.parent.jSelectCategory('" . $category['category_id'] . "', '$category_name', '" . $input->get('object') . "');";
                     ?>
                     <tr class="<?php echo implode(' ', $css); ?>">
                         <td>

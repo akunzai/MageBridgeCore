@@ -506,9 +506,11 @@ class MageBridgeHelper
      */
     public static function getParams()
     {
-        $params = Factory::getApplication()
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+        $params = $app
             ->getMenu('site')
-            ->getParams(Factory::getApplication()->input->getInt('Itemid'));
+            ->getParams($app->input->getInt('Itemid'));
 
         return $params;
     }

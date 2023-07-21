@@ -10,7 +10,6 @@
  * @link https://www.yireo.com
  */
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -56,13 +55,12 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
         }
 
         // Only run this for root-views
-        if (Factory::getApplication()->input->getCmd('view') != 'root') {
+        if ($this->app->input->getCmd('view') != 'root') {
             return true;
         }
 
         // Get variables
-        $application = Factory::getApplication();
-        $pathway = $application->getPathway();
+        $pathway = $this->app->getPathway();
         $data = $this->getResponseData();
 
         // Define empty data
