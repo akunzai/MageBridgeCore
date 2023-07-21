@@ -26,7 +26,7 @@ if (!empty($field)) {
                 <tr>
                     <td class="value">
                         <?php
-                            $editor = Factory::getEditor();
+                            $editor = Factory::getApplication()->get('editor');
     $value = $this->item->$field;
     echo @$editor->display($field, $value, '100%', '300', '44', '9', ['pagebreak', 'readmore']);
     ?>
