@@ -120,10 +120,8 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
             }
 
             // Once the plugins are imported, trigger the content-event
-            $dispatcher = JEventDispatcher::getInstance();
-
             $item->params = YireoHelper::toRegistry();
-            $result = $dispatcher->trigger('onContentPrepare', [
+            $this->app->triggerEvent('onContentPrepare', [
                 'com_magebridge.block',
                 &$item,
                 &$item->params,
@@ -138,8 +136,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
         // Filter the block throw the "magebridge" plugin group
         if (MageBridgeModelConfig::load('enable_block_rendering') == 1) {
             PluginHelper::importPlugin('magebridge');
-            Factory::getApplication()
-                ->triggerEvent('onBeforeDisplayBlock', [&$block_name, $arguments, &$block_data]);
+            $this->app->triggerEvent('onBeforeDisplayBlock', [&$block_name, $arguments, &$block_data]);
         }
 
         return $block_data;
