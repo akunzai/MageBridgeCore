@@ -25,15 +25,15 @@
             "type": "package",
             "package": {
                 "name": "joomla/joomla-cms",
-                "version": "3.10.12",
+                "version": "4.4.0",
                 "dist": {
-                    "url": "https://github.com/joomla/joomla-cms/releases/download/3.10.12/Joomla_3.10.12-Stable-Full_Package.zip",
+                    "url": "https://github.com/joomla/joomla-cms/releases/download/4.4.0/Joomla_4.4.0-Stable-Full_Package.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/joomla/joomla-cms.git",
                     "type": "git",
-                    "reference": "tags/3.10.12"
+                    "reference": "tags/4.4.0"
                 }
             }
         },
@@ -57,7 +57,7 @@
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
         "friendsofphp/php-cs-fixer": "^v3.21.2",
-        "joomla/joomla-cms": "3.10.12",
+        "joomla/joomla-cms": "4.4.0",
         "openmage/magento-lts": "^v20.0.20",
         "phpstan/phpstan": "^1.10.25"
     },
