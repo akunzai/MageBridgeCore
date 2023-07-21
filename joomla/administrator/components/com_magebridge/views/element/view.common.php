@@ -30,9 +30,44 @@ require_once JPATH_COMPONENT . '/view.php';
 class MageBridgeViewCommon extends MageBridgeView
 {
     /**
+     * @var array
+     */
+    protected $categories;
+
+    /**
+     * @var array
+     */
+    protected $customers;
+
+    /**
+     * @var mixed
+     */
+    protected $current;
+
+    /**
+     * @var array
+     */
+    protected $lists;
+
+    /**
+     * @var object
+     */
+    protected $object;
+
+    /**
      * @var Pagination
      */
-    private $pagination;
+    protected $pagination;
+
+    /**
+     * @var array
+     */
+    protected $products;
+
+    /**
+     * @var array
+     */
+    protected $widgets;
 
     /**
      * Display method

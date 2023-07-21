@@ -26,6 +26,21 @@ require_once JPATH_COMPONENT . '/view.php';
 class MageBridgeViewUsers extends MageBridgeView
 {
     /**
+     * @var array
+     */
+    protected $lists;
+
+    /**
+     * @var array
+     */
+    protected $items;
+
+    /**
+     * @var \Joomla\CMS\Pagination\Pagination
+     */
+    protected $pagination;
+
+    /**
      * Display method
      *
      * @param string $tpl

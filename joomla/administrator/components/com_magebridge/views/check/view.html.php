@@ -35,6 +35,21 @@ class MageBridgeViewCheck extends YireoCommonView
     public $checks = [];
 
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $host;
+
+    /**
      * Display method
      *
      * @param string $tpl

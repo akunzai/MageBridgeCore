@@ -72,6 +72,13 @@ class YireoView extends YireoCommonView
     protected $prepare_display = true;
 
     /**
+     * The pagination object
+     *
+     * @var \Joomla\CMS\Pagination\Pagination
+     */
+    protected $pagination;
+
+    /**
      * @var \Joomla\Registry\Registry
      */
     protected $params;
@@ -82,6 +89,11 @@ class YireoView extends YireoCommonView
     protected $item;
 
     /**
+     * @var array
+     */
+    protected $items;
+
+    /**
      * @var YireoModel
      */
     protected $model;
@@ -90,6 +102,16 @@ class YireoView extends YireoCommonView
      * @var null|YireoTable
      */
     protected $table;
+
+    /**
+     * @var int
+     */
+    protected $total;
+
+    /**
+     * @var null|\Joomla\CMS\Form\Form
+     */
+    protected $form;
 
     /**
      * Main constructor method
@@ -181,7 +203,7 @@ class YireoView extends YireoCommonView
      *
      * @param string $tpl
      *
-     * @return  mixed
+     * @return  void
      */
     public function display($tpl = null)
     {
@@ -193,7 +215,7 @@ class YireoView extends YireoCommonView
             $tpl = $this->getLayout();
         }
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**

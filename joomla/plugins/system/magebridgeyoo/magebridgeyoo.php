@@ -184,9 +184,9 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
         $app = Factory::getApplication();
         $disable_js_mootools = MageBridgeModelConfig::load('disable_js_mootools');
         if (MageBridgeTemplateHelper::hasPrototypeJs() && $disable_js_mootools == 1) {
-            $body = $app->getBody();
+            $body = $app->get('Body');
             $body = preg_replace('/Warp.Settings(.*);/', '', $body);
-            $app->setBody($body);
+            $app->set('Body', $body);
         }
     }
 

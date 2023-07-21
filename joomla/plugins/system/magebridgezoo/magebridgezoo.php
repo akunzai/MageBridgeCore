@@ -41,7 +41,7 @@ class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
         }
         $app = Factory::getApplication();
         if ($app->input->getCmd('option') == 'com_zoo') {
-            $body = $app->getBody();
+            $body = $app->get('Body');
 
             // Check for Magento CMS-tags
             if (preg_match('/\{\{([^}]+)\}\}/', $body) || preg_match('/\{mb([^}]+)\}/', $body)) {
@@ -109,7 +109,7 @@ class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
             }
 
             if (!empty($body)) {
-                $app->setBody($body);
+                $app->set('Body', $body);
             }
         }
     }

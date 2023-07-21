@@ -20,6 +20,11 @@ defined('_JEXEC') or die('Restricted access');
 class MagebridgeTableUsergroup extends YireoTable
 {
     /**
+     * @var string[]
+     */
+    protected $required;
+
+    /**
      * Constructor
      *
      * @param \Joomla\Database\DatabaseDriver $db

@@ -24,6 +24,11 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeControllerJsonrpc extends YireoAbstractController
 {
     /**
+     * @var MageBridgeModelDebug
+     */
+    protected $debug;
+
+    /**
      * @var object Zend_Json_Server
      */
     private $server = null;

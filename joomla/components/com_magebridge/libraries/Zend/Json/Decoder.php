@@ -80,6 +80,11 @@ class Zend_Json_Decoder
     protected $_token;
 
     /**
+     * @var string
+     */
+    protected $_tokenValue;
+
+    /**
      * Flag indicating how objects should be decoded
      *
      * @var int

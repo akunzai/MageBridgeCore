@@ -22,6 +22,10 @@ $model       = $this->getModel();
 $table       = $model->getTable();
 $hasState    = ($table->getStateField()) ? true : false;
 $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
+/** @var array */
+$fields = $this->fields;
+/** @var array */
+$lists = $this->lists;
 ?>
 <form method="post" name="adminForm" id="adminForm">
 	<table width="100%">
@@ -45,13 +49,13 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 						<?php echo HTMLHelper::_('grid.checkall'); ?>
 					</th>
 					<?php echo $this->loadTemplate('thead'); ?>
-					<?php if ($hasState && !empty($this->fields['state_field'])) : ?>
+					<?php if ($hasState && !empty($fields['state_field'])) : ?>
 						<th width="5%" class="title">
-							<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $this->fields['state_field'], $this->lists['order_Dir'], $this->lists['order']); ?>
+							<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $fields['state_field'], $lists['order_Dir'], $lists['order']); ?>
 						</th>
 					<?php endif; ?>
 					<th width="5">
-						<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ID', $this->fields['primary_field'], $this->lists['order_Dir'], $this->lists['order']); ?>
+						<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ID', $fields['primary_field'], $lists['order_Dir'], $lists['order']); ?>
 					</th>
 				</tr>
 			</thead>
@@ -89,8 +93,8 @@ if (!empty($this->items)) {
         if (isset($item->hasOrdering) && $item->hasOrdering == false) {
             $ordering = false;
         } else {
-            $ordering      = ($this->lists['order'] == $this->fields['ordering_field']);
-            $orderingField = $this->fields['ordering_field'];
+            $ordering      = ($lists['order'] == $fields['ordering_field']);
+            $orderingField = $fields['ordering_field'];
         }
 
         // Determine whether to automatically insert common columns or not

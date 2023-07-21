@@ -27,6 +27,16 @@ require_once JPATH_COMPONENT . '/view.php';
 class MageBridgeViewContent extends MageBridgeView
 {
     /**
+     * @var string
+     */
+    protected $logout_url;
+
+    /**
+     * @var mixed
+     */
+    protected $params;
+
+    /**
      * Method to display the requested view
      */
     public function display($tpl = null)

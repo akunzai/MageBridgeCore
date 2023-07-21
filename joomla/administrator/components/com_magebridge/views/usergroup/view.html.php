@@ -27,6 +27,21 @@ JLoader::import('joomla.filter.output');
 class MageBridgeViewUsergroup extends YireoViewItem
 {
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $params_form;
+
+    /**
+     * @var array
+     */
+    protected $fields;
+
+    /**
      * Display method
      *
      * @param string $tpl

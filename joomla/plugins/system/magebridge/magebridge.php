@@ -544,7 +544,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Fetch the body
-        $body = $app->getBody();
+        $body = $app->get('Body');
 
         // Determine whether ProtoType is loaded
         $has_prototype = MageBridgeTemplateHelper::hasPrototypeJs();
@@ -763,16 +763,16 @@ class PlgSystemMageBridge extends MageBridgePlugin
             }
 
             // Set the body
-            $app->setBody($body);
+            $app->set('Body', $body);
         } else {
             // Add FrotoType to the page
             if ($disableJsFrototype == 0) {
-                $body = $app->getBody();
+                $body = $app->get('Body');
 
                 $frototype_tag = '<script type="text/javascript" src="' . $frototype_script . '"></script>';
                 $body = preg_replace('/\<script/', $frototype_tag . "\n" . '<script ', $body, 1);
 
-                $app->setBody($body);
+                $app->set('Body', $body);
             }
         }
     }

@@ -40,6 +40,11 @@ class YireoViewHome extends YireoView
     protected $backend_feed;
 
     /**
+     * @var string
+     */
+    protected $current_version;
+
+    /**
      * Main constructor method
      *
      * @param $config array
@@ -70,7 +75,7 @@ class YireoViewHome extends YireoView
      *
      * @param string $tpl
      *
-     * @return mixed
+     * @return void
      */
     public function display($tpl = null)
     {
@@ -84,7 +89,7 @@ class YireoViewHome extends YireoView
         // Get the current version
         $this->current_version = YireoHelper::getCurrentVersion();
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**

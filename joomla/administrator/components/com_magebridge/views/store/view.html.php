@@ -28,6 +28,16 @@ JLoader::import('joomla.filter.output');
 class MageBridgeViewStore extends YireoViewForm
 {
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $actions_form;
+
+    /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $params_form;
+
+    /**
      * Main constructor method
      *
      * @param array $config

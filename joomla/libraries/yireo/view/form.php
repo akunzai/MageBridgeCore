@@ -120,7 +120,7 @@ class YireoViewForm extends YireoView
             $this->prepareDisplay();
         }
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /*

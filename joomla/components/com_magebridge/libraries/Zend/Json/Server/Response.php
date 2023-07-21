@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -31,6 +32,11 @@ defined('_JEXEC') or die('Restricted access');
  */
 class Zend_Json_Server_Response
 {
+    /**
+     * @var mixed
+     */
+    protected $_args;
+
     /**
      * Response error
      * @var null|Zend_Json_Server_Error
@@ -177,12 +183,12 @@ class Zend_Json_Server_Response
             $response = [
                 'result' => null,
                 'error'  => $this->getError()->toArray(),
-                'id'	 => $this->getId(),
+                'id'     => $this->getId(),
             ];
         } else {
             $response = [
                 'result' => $this->getResult(),
-                'id'	 => $this->getId(),
+                'id'     => $this->getId(),
                 'error'  => null,
             ];
         }

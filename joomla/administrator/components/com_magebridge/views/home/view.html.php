@@ -21,6 +21,16 @@ defined('_JEXEC') or die();
 class MageBridgeViewHome extends YireoViewHome
 {
     /**
+     * @var string[]
+     */
+    protected $icons;
+
+    /**
+     * @var array
+     */
+    protected $urls;
+
+    /**
      * Display method
      *
      * @param string $tpl

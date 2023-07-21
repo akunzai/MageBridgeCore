@@ -22,6 +22,11 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeModelCache
 {
     /**
+     * @var string
+     */
+    protected $request;
+
+    /**
      * Default cache directory
      */
     protected $cache_folder = null;

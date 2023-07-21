@@ -28,11 +28,21 @@ defined('_JEXEC') or die();
 class MageBridgeViewConfig extends YireoCommonView
 {
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var mixed
+     */
+    protected $configData;
+
+    /**
      * Display method
      *
      * @param string $tpl
      *
-     * @return null
+     * @return void
      */
     public function display($tpl = null)
     {
@@ -44,7 +54,8 @@ class MageBridgeViewConfig extends YireoCommonView
 
         // Load the import-layout directly
         if ($layout == 'import') {
-            return parent::display($layout);
+            parent::display($layout);
+            return;
         }
 
         // Toolbar options

@@ -36,6 +36,11 @@ class YireoViewList extends YireoView
     protected $items;
 
     /**
+     * @var array
+     */
+    protected $fields;
+
+    /**
      * Identifier of the library-view
      *
      * @var string
@@ -82,7 +87,7 @@ class YireoViewList extends YireoView
      *
      * @param string $tpl
      *
-     * @return mixed
+     * @return void
      */
     public function display($tpl = null)
     {
@@ -122,7 +127,7 @@ class YireoViewList extends YireoView
         $this->fields = $fields;
         $this->pagination = $this->model->getPagination();
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**
