@@ -130,10 +130,9 @@ class MageBridgeModelUser
                 }
 
                 // Generate the encrypted password
-                $salt              = UserHelper::genRandomPassword(32);
-                $crypt             = UserHelper::getCryptedPassword($password, $salt);
-                $data['password']  = $crypt . ':' . $salt;
-                $data['password2'] = $crypt . ':' . $salt;
+                $encryptedPassword = UserHelper::hashPassword($password);
+                $data['password']  = $encryptedPassword;
+                $data['password2'] = $encryptedPassword;
 
                 // Use empty password in the Joomla! user-record
             } else {
