@@ -14,7 +14,7 @@ defined('JPATH_BASE') or die();
 
 use Joomla\CMS\Factory;
 
-// @bug: JLoader::import() fails here
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/text.php';
 
 /*

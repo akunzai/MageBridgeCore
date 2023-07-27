@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 
 defined('JPATH_BASE') or die();
 
-// @bug: JLoader::import() fails here
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/radio.php';
 
 /*
