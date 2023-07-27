@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -16,9 +17,6 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
 
 /**
  * Parent plugin-class

@@ -247,7 +247,6 @@ class plgCommunityMageBridge extends CApplications
 
             // Convert this object to an array
             if (!is_array($user)) {
-                JLoader::import('joomla.utilities.arrayhelper');
                 $user = ArrayHelper::fromObject($user, false);
             }
 

@@ -18,8 +18,6 @@ use Joomla\Registry\Registry;
 
 defined('JPATH_PLATFORM') or die;
 
-JLoader::import('joomla.application.component.helper');
-
 define('MAGEBRIDGE_MODULEHELPER_OVERRIDE', true);
 
 /**

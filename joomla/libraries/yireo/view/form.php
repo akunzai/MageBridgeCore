@@ -20,9 +20,6 @@ defined('_JEXEC') or die();
 // Require the parent view
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
-// Import the needed libraries
-JLoader::import('joomla.filter.output');
-
 /**
  * Form View class
  *

@@ -21,9 +21,6 @@ use Joomla\CMS\Uri\Uri;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
-
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
@@ -305,8 +302,6 @@ class PlgSystemMageBridge extends MageBridgePlugin
         if ($this->app->isClient('site')) {
             return;
         }
-
-        JLoader::import('joomla.form.form');
         Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
     }
 

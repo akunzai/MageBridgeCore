@@ -15,9 +15,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
-
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 

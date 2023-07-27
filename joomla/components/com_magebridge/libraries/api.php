@@ -150,7 +150,6 @@ class MageBridgeApi
         $position = $params[0];
         $style = (isset($params[1])) ? $params[1] : null;
 
-        JLoader::import('joomla.application.module.helper');
         $modules = ModuleHelper::getModules($position);
 
         $outputHtml = null;

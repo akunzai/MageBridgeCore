@@ -15,11 +15,6 @@ defined('JPATH_BASE') or die();
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
-// Import required libraries
-JLoader::import('joomla.html.html');
-JLoader::import('joomla.access.access');
-JLoader::import('joomla.form.formfield');
-
 /**
  * Generic Form Field-class
  */

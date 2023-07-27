@@ -149,7 +149,6 @@ class MageBridgeViewConfig extends YireoCommonView
     protected function getCustomField($type, $name)
     {
         require_once JPATH_COMPONENT . '/fields/' . $type . '.php';
-        JLoader::import('joomla.form.helper');
 
         /** @var MagebridgeFormFieldStore */
         $field = FormHelper::loadFieldType($type);

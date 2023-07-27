@@ -20,10 +20,6 @@ use Joomla\Registry\Registry;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Include library dependencies
-JLoader::import('joomla.filter.input');
-JLoader::import('joomla.filter.output');
-
 // Load the helper
 require_once dirname(__FILE__) . '/loader.php';
 

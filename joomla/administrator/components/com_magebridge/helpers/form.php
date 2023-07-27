@@ -30,9 +30,6 @@ class MageBridgeFormHelper
      */
     public static function getField($type, $name, $value = null, $array = 'magebridge')
     {
-        JLoader::import('joomla.form.helper');
-        JLoader::import('joomla.form.form');
-
         $fileType = preg_replace('/^magebridge\./', '', $type);
         include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/fields/' . $fileType . '.php';
 

@@ -20,9 +20,6 @@ use Joomla\Filesystem\Path;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Includes from Joomla! Framework
-JLoader::import('joomla.filter.output');
-
 // Include the loader
 require_once dirname(__FILE__) . '/../loader.php';
 
@@ -427,7 +424,6 @@ class YireoCommonView extends YireoAbstractView
             $file = $file . '.php';
         }
 
-        JLoader::import('joomla.filesystem.path');
         $template = Path::find($templatePaths, $file);
 
         // If this template is empty, try to use alternatives

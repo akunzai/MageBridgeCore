@@ -15,9 +15,6 @@ use Joomla\CMS\Factory;
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Include the parent controller
-JLoader::import('joomla.application.component.controller');
-
 /**
  * MageBridge SSO Controller
  *

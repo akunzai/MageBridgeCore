@@ -367,7 +367,6 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
         }
 
         // Determine browser-specific stylesheets
-        JLoader::import('joomla.environment.browser');
         $browser = Browser::getInstance();
 
         if ($browser->getBrowser() == 'msie') {

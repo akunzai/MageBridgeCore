@@ -42,12 +42,10 @@ class YireoHelperInstall
             foreach ($files as $file) {
                 if (file_exists($file)) {
                     if (is_file($file)) {
-                        JLoader::import('joomla.filesystem.file');
                         File::delete($file);
                     }
 
                     if (is_dir($file)) {
-                        JLoader::import('joomla.filesystem.folder');
                         Folder::delete($file);
                     }
                 }
@@ -64,10 +62,6 @@ class YireoHelperInstall
      */
     public static function installExtension($url, $label)
     {
-        // Include Joomla! libraries
-        JLoader::import('joomla.installer.installer');
-        JLoader::import('joomla.installer.helper');
-
         // System variables
         $app = Factory::getApplication();
 

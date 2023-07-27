@@ -10,13 +10,10 @@
  * @link      https://www.yireo.com
  */
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die('Restricted access');
-
 use Joomla\CMS\Factory;
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
 
 /**
  * MageBridge Positions System Plugin

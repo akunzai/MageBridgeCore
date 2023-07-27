@@ -93,7 +93,6 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
             }
 
             // Check for Joomla version
-            JLoader::import('joomla.version');
             $jversion = new Version();
             if (version_compare($jversion->RELEASE, '3.0.0', '<')) {
                 return false;
@@ -109,7 +108,6 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         public function doUninstall()
         {
             // Initialize the Joomla! installer
-            JLoader::import('joomla.installer.installer');
             $installer = Installer::getInstance();
 
             // Select all MageBridge modules and remove them

@@ -79,7 +79,6 @@ class MageBridgeProxyHelper
                 // Move the uploaded file to the Joomla tmp-directory
                 if (is_readable($file['tmp_name'])) {
                     // Upload the specific file
-                    JLoader::import('joomla.filesystem.file');
                     $tmpFile = $this->getUploadPath() . '/' . $file['name'];
                     File::upload($file['tmp_name'], $tmpFile);
 

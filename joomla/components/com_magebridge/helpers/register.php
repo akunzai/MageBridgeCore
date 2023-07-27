@@ -18,9 +18,6 @@ defined('_JEXEC') or die('Restricted access');
 // Require the loader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
-// Import the general module-helper
-JLoader::import('joomla.application.module.helper');
-
 /**
  * Helper for handling the register
  */

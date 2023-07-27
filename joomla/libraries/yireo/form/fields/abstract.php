@@ -40,9 +40,6 @@ class YireoFormFieldAbstract extends JFormField
      */
     protected function getTemplate($layoutName, $variables)
     {
-        // Load the path-handler
-        JLoader::import('joomla.filesystem.path');
-
         // Determine the layout-name
         $overrideName = $this->getAttribute('template');
 

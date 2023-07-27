@@ -22,9 +22,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
-
 /**
  * MageBridge JoomlArt T3 System Plugin
  */

@@ -204,7 +204,6 @@ class YireoModelItem extends YireoDataModel
         }
 
         // Get the user metadata
-        JLoader::import('joomla.utilities.date');
         $now = new Date('now');
         $uid = $this->user->get('id');
 

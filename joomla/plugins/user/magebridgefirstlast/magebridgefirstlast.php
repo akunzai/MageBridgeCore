@@ -15,8 +15,6 @@ use Joomla\CMS\Form\Form;
 
 defined('_JEXEC') or die;
 
-JLoader::import('joomla.plugin.plugin');
-
 class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**

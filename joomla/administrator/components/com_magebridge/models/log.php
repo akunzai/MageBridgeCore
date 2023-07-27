@@ -14,9 +14,6 @@ use Joomla\CMS\Date\Date;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import Joomla! libraries
-JLoader::import('joomla.utilities.date');
-
 /**
  * MageBridge Logs model
  */

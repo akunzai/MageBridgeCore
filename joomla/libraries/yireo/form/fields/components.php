@@ -16,11 +16,6 @@ use Joomla\CMS\Language\Text;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import classes
-JLoader::import('joomla.html.html');
-JLoader::import('joomla.access.access');
-JLoader::import('joomla.form.formfield');
-
 /**
  * Form Field-class for selecting a component
  */

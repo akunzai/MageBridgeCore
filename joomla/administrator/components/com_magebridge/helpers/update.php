@@ -15,9 +15,6 @@ use Joomla\CMS\Installer\Installer;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Include Joomla! libraries
-JLoader::import('joomla.filesystem.file');
-
 /**
  * MageBridge Controller
  */

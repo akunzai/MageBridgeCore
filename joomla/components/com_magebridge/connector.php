@@ -202,8 +202,6 @@ class MageBridgeConnector
      */
     protected function checkComponent($component)
     {
-        JLoader::import('joomla.application.component.helper');
-
         if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
             return true;
         }

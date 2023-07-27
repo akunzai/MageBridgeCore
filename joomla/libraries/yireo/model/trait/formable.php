@@ -139,8 +139,6 @@ trait YireoModelTraitFormable
      */
     protected function getFormFromXml($xmlFile)
     {
-        JLoader::import('joomla.form.form');
-
         return Form::getInstance('item', $xmlFile);
     }
 

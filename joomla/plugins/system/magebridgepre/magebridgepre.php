@@ -10,14 +10,11 @@
  * @link      https://www.yireo.com
  */
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die('Restricted access');
-
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
 
 /**
  * MageBridge Preloader System Plugin

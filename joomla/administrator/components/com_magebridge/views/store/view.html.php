@@ -19,9 +19,6 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the needed libraries
-JLoader::import('joomla.filter.output');
-
 /**
  * HTML View class
  */

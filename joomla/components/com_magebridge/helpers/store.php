@@ -138,8 +138,6 @@ class MageBridgeStoreHelper
         }
 
         // Check whether the GET-connector is enabled
-        JLoader::import('joomla.plugin.helper');
-
         if (PluginHelper::isEnabled('magebridgestore', 'get')) {
             // Check for GET-variables __store
             $store = $application->getUserState('___store');

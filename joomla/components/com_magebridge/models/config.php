@@ -161,7 +161,6 @@ class MageBridgeModelConfig extends YireoAbstractModel
 
         // Determine the right update format
         if ($this->config['update_format']['value'] == '') {
-            JLoader::import('joomla.application.component.helper');
             $component = ComponentHelper::getComponent('com_magebridge');
             $params    = YireoHelper::toRegistry($component->params);
             $value     = $params->get('update_format', 'tar.gz');

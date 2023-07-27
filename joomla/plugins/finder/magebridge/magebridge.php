@@ -14,9 +14,6 @@ use Joomla\Component\Finder\Administrator\Indexer\Result;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
-
 // Load the base adapter.
 require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
 

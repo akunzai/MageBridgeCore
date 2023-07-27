@@ -91,7 +91,6 @@ class MageBridgeModelCache
 
         // Try to create the cache directory when needed
         if (!is_dir($this->cache_folder)) {
-            JLoader::import('joomla.filesystem.folder');
             $rt = Folder::create($this->cache_folder);
             if ($rt == false) {
                 return false;
@@ -168,7 +167,6 @@ class MageBridgeModelCache
     {
         // If the cache file is there, remove it
         if (file_exists($this->cache_file)) {
-            JLoader::import('joomla.filesystem.file');
             return File::delete($this->cache_file);
         }
         return false;

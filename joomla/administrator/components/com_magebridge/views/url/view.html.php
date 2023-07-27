@@ -18,9 +18,6 @@ defined('_JEXEC') or die();
 // Require the parent view
 require_once JPATH_COMPONENT.'/view.php';
 
-// Import the needed libraries
-JLoader::import('joomla.filter.output');
-
 /**
  * HTML View class
  */

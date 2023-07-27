@@ -22,9 +22,6 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Includes from Joomla! Framework
-JLoader::import('joomla.filter.output');
-
 // Include the loader
 require_once dirname(__FILE__) . '/loader.php';
 

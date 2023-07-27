@@ -80,11 +80,6 @@ class MageBridgeModelUser
             return false;
         }
 
-        // Import needed libraries
-        JLoader::import('joomla.utilities.date');
-        JLoader::import('joomla.user.helper');
-        JLoader::import('joomla.application.component.helper');
-
         // Import user plugins
         PluginHelper::importPlugin('user');
 

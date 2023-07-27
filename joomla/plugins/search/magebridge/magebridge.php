@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - Search plugin
  *
@@ -11,9 +12,6 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -29,7 +27,7 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
      * @param object $subject
      * @param array  $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
 
@@ -50,7 +48,8 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 
         static $areas = [
             'mage-products' => 'PLG_SEARCH_MAGEBRIDGE_PRODUCTS',
-            'mage-categories' => 'PLG_SEARCH_MAGEBRIDGE_CATEGORIES',];
+            'mage-categories' => 'PLG_SEARCH_MAGEBRIDGE_CATEGORIES',
+        ];
 
         return $areas;
     }
@@ -110,7 +109,8 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
             'website' => MageBridgeModelConfig::load('website'),
             'text' => $text,
             'search_limit' => $search_limit,
-            'search_fields' => $search_fields,];
+            'search_fields' => $search_fields,
+        ];
 
         // Include the MageBridge register
         MageBridgeModelDebug::getInstance()->trace('Search plugin');

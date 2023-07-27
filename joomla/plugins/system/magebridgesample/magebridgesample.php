@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the parent class
-JLoader::import('joomla.plugin.plugin');
-
 /**
  * MageBridge Sample System Plugin
  */

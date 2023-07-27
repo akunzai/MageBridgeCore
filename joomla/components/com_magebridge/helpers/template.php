@@ -628,7 +628,6 @@ class MageBridgeTemplateHelper
             return call_user_func('MobileDetector::isMobile()');
         }
 
-        JLoader::import('joomla.environment.browser');
         $browser = Browser::getInstance();
 
         if (method_exists($browser, 'isMobile')) {
@@ -652,9 +651,6 @@ class MageBridgeTemplateHelper
      */
     public static function hasModule($name = '')
     {
-        // Import the module helper
-        JLoader::import('joomla.application.module.helper');
-
         $instance = ModuleHelper::getModule($name);
 
         if (is_object($instance)) {

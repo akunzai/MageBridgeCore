@@ -506,7 +506,6 @@ class MageBridgeModelBridge
      */
     public function beforeBuild()
     {
-        JLoader::import('joomla.plugin.helper');
         PluginHelper::importPlugin('magebridge');
         $application = Factory::getApplication();
         $application->triggerEvent('onBeforeBuildMageBridge');
@@ -517,7 +516,6 @@ class MageBridgeModelBridge
      */
     public function afterBuild()
     {
-        JLoader::import('joomla.plugin.helper');
         PluginHelper::importPlugin('magebridge');
         $application = Factory::getApplication();
         $application->triggerEvent('onAfterBuildMageBridge');
@@ -839,8 +837,6 @@ class MageBridgeModelBridge
             return false;
         }
 
-        JLoader::import('joomla.application.component.helper');
-
         if (ComponentHelper::isEnabled('com_sh404sef') == false) {
             return false;
         }
@@ -872,8 +868,6 @@ class MageBridgeModelBridge
         if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }
-
-        JLoader::import('joomla.application.component.helper');
 
         if (ComponentHelper::isEnabled('com_mijosef') == false) {
             return false;

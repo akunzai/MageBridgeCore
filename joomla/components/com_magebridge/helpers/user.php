@@ -184,8 +184,6 @@ class MageBridgeUserHelper
      */
     public static function convert($user)
     {
-        JLoader::import('joomla.utilities.arrayhelper');
-
         $rt = 'object';
 
         if (is_array($user)) {

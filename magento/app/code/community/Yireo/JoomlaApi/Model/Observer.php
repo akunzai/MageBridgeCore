@@ -70,8 +70,6 @@ class Yireo_JoomlaApi_Model_Observer
         // Include the framework
         require_once(JPATH_BASE . '/includes/defines.php');
         require_once(JPATH_BASE . '/includes/framework.php');
-        jimport('joomla.environment.request');
-        jimport('joomla.database.database');
 
         // Start the application
         $startApp = false;

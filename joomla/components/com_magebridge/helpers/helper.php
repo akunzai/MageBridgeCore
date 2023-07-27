@@ -454,7 +454,6 @@ class MageBridgeHelper
      */
     public static function getJoomlaVersion()
     {
-        JLoader::import('joomla.version');
         $version = new Version();
 
         return $version->getShortVersion();
@@ -469,7 +468,6 @@ class MageBridgeHelper
      */
     public static function isJoomlaVersion($version = null)
     {
-        JLoader::import('joomla.version');
         $jversion = new Version();
 
         if (!is_array($version)) {

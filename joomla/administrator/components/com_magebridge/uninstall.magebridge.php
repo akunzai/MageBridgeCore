@@ -22,7 +22,6 @@ defined('_JEXEC') or die();
 function com_uninstall()
 {
     // Initialize the Joomla! installer
-    JLoader::import('joomla.installer.installer');
     $installer = Installer::getInstance();
 
     // Select all MageBridge modules and remove them
