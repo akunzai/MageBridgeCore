@@ -15,7 +15,8 @@
     ],
     "config": {
         "allow-plugins": {
-            "magento-hackathon/magento-composer-installer": true
+            "magento-hackathon/magento-composer-installer": true,
+            "cweagans/composer-patches": true
         },
         "preferred-install": "dist",
         "sort-packages": true
@@ -52,14 +53,14 @@
     ],
     "require": {
         "php": ">=8.1",
-        "magento-hackathon/magento-composer-installer": "^4.0"
+        "magento-hackathon/magento-composer-installer": "^4.0.2"
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^v3.21.2",
+        "friendsofphp/php-cs-fixer": "v3.40.0",
         "joomla/joomla-cms": "4.4.0",
-        "openmage/magento-lts": "^v20.0.20",
-        "phpstan/phpstan": "^1.10.25"
+        "openmage/magento-lts": "v20.2.0",
+        "phpstan/phpstan": "^1.10.44"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts"
