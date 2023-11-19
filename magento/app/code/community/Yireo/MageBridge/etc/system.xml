@@ -123,7 +123,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Encrypt sensitive data using Mcrypt if SSL is not available</comment>
+                            <comment>Encrypt sensitive data if SSL is not available</comment>
                         </encryption>
                         <encryption_key translate="label">
                             <label>Encryption Key</label>
