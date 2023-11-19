@@ -59,13 +59,13 @@ function MagebridgeBuildRoute(&$query)
                     $query = ['option' => 'com_magebridge', 'Itemid' => $item->id];
                     return [];
 
-                    // Match a specific combination of view-layout-request (ID)
+                // Match a specific combination of view-layout-request (ID)
                 } elseif (isset($query['id']) && $item->query['request'] == $query['id']) {
                     $query = ['option' => 'com_magebridge', 'Itemid' => $item->id];
                     return [];
                 }
 
-                // Match a specific combination of view-layout
+            // Match a specific combination of view-layout
             } elseif (
                 empty($query['request'])
                 && isset($item->query['view']) && isset($query['view']) && $item->query['view'] == $query['view']
@@ -125,15 +125,15 @@ function MagebridgeBuildRoute(&$query)
                 if (!empty($query['layout'])) {
                     $query['request'] = MageBridgeUrlHelper::getLayoutUrl($query['layout']);
 
-                    // Use the MVC-layout plus the current request to determine the request (f.i. configured Menu-Items)
+                // Use the MVC-layout plus the current request to determine the request (f.i. configured Menu-Items)
                 } elseif (!empty($cquery['layout'])) {
                     $query['request'] = MageBridgeUrlHelper::getLayoutUrl($cquery['layout'], $cquery['request']);
 
-                    // Use the Menu-Item request as Magento request
+                // Use the Menu-Item request as Magento request
                 } elseif (!empty($cquery['request'])) {
                     $query['request'] = $cquery['request'];
 
-                    // Use the Menu-Item parameter as Magento request
+                // Use the Menu-Item parameter as Magento request
                 } elseif ($cparams->get('request') != '') {
                     $query['request'] = $cparams->get('request');
 
@@ -152,12 +152,12 @@ function MagebridgeBuildRoute(&$query)
                 $query['Itemid'] = $root_item_id;
                 $query['view'] = 'root';
 
-                // If the request is not empty, set the route to the MageBridge Root
+            // If the request is not empty, set the route to the MageBridge Root
             } elseif (!empty($query['request'])) {
                 $query['Itemid'] = $root_item_id;
             }
 
-            // If there is no current item, assume to apply the Itemid of the MageBridge Root
+        // If there is no current item, assume to apply the Itemid of the MageBridge Root
         } else {
             $query['Itemid'] = $root_item_id;
         }

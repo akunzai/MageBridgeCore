@@ -144,7 +144,7 @@ class plgCommunityMageBridge extends CApplications
     private function showTab()
     {
         // Require the core JomSocial library
-        if (! class_exists('CFactory')) {
+        if (!class_exists('CFactory')) {
             require_once JPATH_BASE.'/components/com_community/libraries/core.php';
         }
 

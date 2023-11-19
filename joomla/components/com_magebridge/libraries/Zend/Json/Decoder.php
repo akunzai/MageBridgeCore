@@ -208,7 +208,7 @@ class Zend_Json_Decoder
         $tok = $this->_getNextToken();
 
         while ($tok && $tok != self::RBRACE) {
-            if ($tok != self::DATUM || ! is_string($this->_tokenValue)) {
+            if ($tok != self::DATUM || !is_string($this->_tokenValue)) {
                 require_once 'Zend/Json/Exception.php';
                 throw new Zend_Json_Exception('Missing key in object encoding: ' . $this->_source);
             }
@@ -407,21 +407,21 @@ class Zend_Json_Decoder
                 $this->_tokenValue = $result;
                 break;
             case 't':
-                if (($i+ 3) < $str_length && substr($str, $start, 4) == "true") {
+                if (($i + 3) < $str_length && substr($str, $start, 4) == "true") {
                     $this->_token = self::DATUM;
                 }
                 $this->_tokenValue = true;
                 $i += 3;
                 break;
             case 'f':
-                if (($i+ 4) < $str_length && substr($str, $start, 5) == "false") {
+                if (($i + 4) < $str_length && substr($str, $start, 5) == "false") {
                     $this->_token = self::DATUM;
                 }
                 $this->_tokenValue = false;
                 $i += 4;
                 break;
             case 'n':
-                if (($i+ 3) < $str_length && substr($str, $start, 4) == "null") {
+                if (($i + 3) < $str_length && substr($str, $start, 4) == "null") {
                     $this->_token = self::DATUM;
                 }
                 $this->_tokenValue = null;

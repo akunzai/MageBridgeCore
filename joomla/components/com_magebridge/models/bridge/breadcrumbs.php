@@ -72,7 +72,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
         if (MageBridgeTemplateHelper::isCartPage()) {
             $pathway->addItem(Text::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
 
-            // Add the checkout to this pathway
+        // Add the checkout to this pathway
         } elseif (MageBridgeTemplateHelper::isCheckoutPage()) {
             $pathway->addItem(Text::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
             $pathway->addItem(Text::_('COM_MAGEBRIDGE_CHECKOUT'), MageBridgeUrlHelper::route('checkout'));
@@ -127,7 +127,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
                 $pathway_items[] = $root_pathway_item;
             }
 
-            // Actions when we do not have a root-item
+        // Actions when we do not have a root-item
         } else {
             // Remove the first entry because it always is inaccurate
             @array_shift($data);

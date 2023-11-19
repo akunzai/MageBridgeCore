@@ -89,7 +89,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
                     $profile = $profileGet;
                     MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
 
-                    // Load the profile-specific CSS, set through the Itemid-mapping
+                // Load the profile-specific CSS, set through the Itemid-mapping
                 } elseif (isset($data['profile_map'][$Itemid])) {
                     $profileMapped = $data['profile_map'][$Itemid];
                     if (!empty($profileMapped)) {
@@ -97,7 +97,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
                         MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
                     }
 
-                    // Load the default profile-CSS
+                // Load the default profile-CSS
                 } elseif (!empty($profileDefault)) {
                     $profile = $profileDefault;
                     MageBridgeTemplateHelper::load('css', 'profile-' . $profile . '.css');
@@ -146,7 +146,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
                 }
             }
 
-            // Pre-WARP reading of Joomla! parameters
+        // Pre-WARP reading of Joomla! parameters
         } else {
             // Create the parameters object
             $params = YireoHelper::toRegistry($ini_content, $xml);

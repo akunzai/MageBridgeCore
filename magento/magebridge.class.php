@@ -194,7 +194,7 @@ class MageBridge
             $_SERVER['HTTP_X_ORIGINAL_URL'] = $request_uri;
 
 
-            // Set defaults otherwise
+        // Set defaults otherwise
         } else {
             $_SERVER['REQUEST_URI'] = '/';
             $_SERVER['HTTP_X_REWRITE_URL'] = '/';
@@ -251,14 +251,14 @@ class MageBridge
             setcookie('frontend', $_GET['SID']);
             $_COOKIE['frontend'] = $_GET['SID'];
 
-            // Initialize the Magento session by the session-ID tracked by MageBridge
+        // Initialize the Magento session by the session-ID tracked by MageBridge
         } elseif (!empty($data['magento_session']) && self::isValidSessionId($data['magento_session'])) {
             session_name('frontend');
             session_id($data['magento_session']);
             setcookie('frontend', $data['magento_session']);
             $_COOKIE['frontend'] = $data['magento_session'];
 
-            // Initialize Single Sign On
+        // Initialize Single Sign On
         } elseif (!empty($_GET['sso']) && !empty($_GET['app'])) {
             if ($_GET['app'] == 'admin' && isset($_COOKIE['adminhtml']) && self::isValidSessionId($_COOKIE['adminhtml'])) {
                 session_name('adminhtml');

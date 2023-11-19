@@ -72,7 +72,7 @@ $disabled_img = HTMLHelper::image(Uri::base().'/images/check.png', Text::_('Enab
 	<?php
     $k = 0;
 if (count($this->items) > 0) {
-    for ($i=0, $n=count($this->items); $i < $n; $i++) {
+    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
         $item = $this->items[$i];
         $migration_enabled = true;
         $item->checked_out = 0;

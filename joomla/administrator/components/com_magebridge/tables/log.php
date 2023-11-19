@@ -22,7 +22,7 @@ class MagebridgeTableLog extends YireoTable
      *
      * @param \Joomla\Database\DatabaseDriver $db
      */
-    public function __construct(& $db)
+    public function __construct(&$db)
     {
         parent::__construct('#__magebridge_log', 'id', $db);
     }

@@ -217,7 +217,7 @@ class ModMageBridgeSwitcherHelper
                         if (isset($storeUrls[$storeCode])) {
                             $request = $storeUrls[$storeCode];
 
-                            // Use the original request
+                        // Use the original request
                         } else {
                             $request = $app->input->getString('request');
                         }

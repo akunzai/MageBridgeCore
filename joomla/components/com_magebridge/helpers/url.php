@@ -518,7 +518,7 @@ class MageBridgeUrlHelper
                 }
             }
 
-            // Regular Joomla! SEF
+        // Regular Joomla! SEF
         } else {
             $url = Route::_($url);
         }

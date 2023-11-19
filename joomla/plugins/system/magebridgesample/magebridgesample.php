@@ -26,7 +26,7 @@ class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
      * @param object $subject
      * @param array $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();

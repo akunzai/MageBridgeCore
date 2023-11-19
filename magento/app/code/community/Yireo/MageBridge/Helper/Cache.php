@@ -78,11 +78,11 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
         if ($customerLoggedIn == false && preg_match('/^\/catalog\//', $page) && $block == 'content') {
             $allowCaching = true;
 
-            // All tag-listings for guest-users
+        // All tag-listings for guest-users
         } elseif ($customerLoggedIn == false && preg_match('/^\/tag\/product\/list\//', $page) && $block == 'content') {
             $allowCaching = true;
 
-            // Any block in the whitelist
+        // Any block in the whitelist
         } elseif (in_array($block, $blocksWhitelist)) {
             $allowCaching = true;
         }

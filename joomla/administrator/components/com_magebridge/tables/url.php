@@ -24,7 +24,7 @@ class MagebridgeTableUrl extends YireoTable
      *
      * @param \Joomla\Database\DatabaseDriver $db
      */
-    public function __construct(& $db)
+    public function __construct(&$db)
     {
         parent::__construct('#__magebridge_urls', 'id', $db);
     }

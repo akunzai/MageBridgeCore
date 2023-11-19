@@ -51,7 +51,7 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
      * @param object $subject
      * @param array  $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
 

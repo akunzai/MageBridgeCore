@@ -53,7 +53,7 @@ class Zend_Json
      *
      * @var int
      */
-    public static $maxRecursionDepthAllowed=25;
+    public static $maxRecursionDepthAllowed = 25;
 
     /**
      * @var bool
@@ -83,7 +83,7 @@ class Zend_Json
                     require_once 'Zend/Json/Exception.php';
                     throw new Zend_Json_Exception('Decoding failed');
                 }
-                // php >= 5.3
+            // php >= 5.3
             } elseif (($jsonLastErr = json_last_error()) != JSON_ERROR_NONE) {
                 require_once 'Zend/Json/Exception.php';
                 switch ($jsonLastErr) {
@@ -237,7 +237,7 @@ class Zend_Json
      * @return mixed - JSON formatted string on success
      * @throws Zend_Json_Exception
      */
-    public static function fromXml($xmlStringContents, $ignoreXmlAttributes=true)
+    public static function fromXml($xmlStringContents, $ignoreXmlAttributes = true)
     {
         // Load the XML formatted string into a Simple XML Element object.
         $simpleXmlElementObject = simplexml_load_string($xmlStringContents);
@@ -284,7 +284,7 @@ class Zend_Json
      * @return mixed - On success, a PHP associative array of traversed XML elements
      * @throws Zend_Json_Exception
      */
-    protected static function _processXml($simpleXmlElementObject, $ignoreXmlAttributes, $recursionDepth=0)
+    protected static function _processXml($simpleXmlElementObject, $ignoreXmlAttributes, $recursionDepth = 0)
     {
         // Keep an eye on how deeply we are involved in recursion.
         if ($recursionDepth > self::$maxRecursionDepthAllowed) {
@@ -321,7 +321,7 @@ class Zend_Json
             } // End of if (count($simpleXmlElementObject) <= 0)
 
             // Let us walk through the child elements now.
-            foreach ($simpleXmlElementObject as $key=>$value) {
+            foreach ($simpleXmlElementObject as $key => $value) {
                 // Check if we need to ignore the XML attributes.
                 // If yes, you can skip processing the XML attributes.
                 // Otherwise, add the XML attributes to the result array.
@@ -395,7 +395,7 @@ class Zend_Json
             $prefix = str_repeat($ind, $indent);
             if ($token == "{" || $token == "[") {
                 $indent++;
-                if ($result != "" && $result[strlen($result)-1] == "\n") {
+                if ($result != "" && $result[strlen($result) - 1] == "\n") {
                     $result .= $prefix;
                 }
                 $result .= "$token\n";
