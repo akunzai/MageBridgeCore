@@ -312,11 +312,6 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        // Check supportkey
-        if ($element == 'supportkey' && empty($value)) {
-            return Text::sprintf('Please configure your support-key. Your support-key can be obtained from %s', MageBridgeHelper::getHelpText('subscriptions'));
-        }
-
         // Check API widgets
         if ($element == 'api_widgets' && $value != 1) {
             return Text::_('API widgets are disabled');

@@ -105,8 +105,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     {
         $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
 
-        $this->addValidSupportKeyCheck();
-
         $api_url = Mage::getStoreConfig('magebridge/joomla/api_url');
         $result = (!empty($api_url)) ? self::CHECK_OK : self::CHECK_WARNING;
         $this->addResult('conf', 'Joomla! API', $result, 'Once Joomla! accesses MageBridge, the API URL is automatically configured');
@@ -151,22 +149,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
 
         $result = ($overrideGlobalBaseUrlUnsecure == false && $overrideGlobalBaseUrlSecure == false) ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('conf', 'Joomla! unsecure URLs', $result, $description);
-    }
-
-    /**
-     * Check for a valid support key
-     */
-    protected function addValidSupportKeyCheck()
-    {
-        $license = Mage::helper('magebridge')->getLicenseKey();
-        if (empty($license) || strlen($license) < 20) {
-            $result = self::CHECK_ERROR;
-            $description = "You don't have a valid support-key to communicate with Joomla! yet";
-        } else {
-            $result = self::CHECK_OK;
-            $description = "Your support-key is configured to communicate with Joomla!";
-        }
-        $this->addResult('conf', 'Support key', $result, $description);
     }
 
     /**

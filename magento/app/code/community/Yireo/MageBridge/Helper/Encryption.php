@@ -23,10 +23,6 @@ class Yireo_MageBridge_Helper_Encryption extends Mage_Core_Helper_Abstract
     public function getEncryptionKey()
     {
         $key = trim(Mage::getStoreConfig('magebridge/joomla/encryption_key'));
-        if (empty($key)) {
-            $key = Mage::getSingleton('magebridge/core')->getLicenseKey();
-        }
-
         return $key;
     }
 
@@ -67,9 +63,14 @@ class Yireo_MageBridge_Helper_Encryption extends Mage_Core_Helper_Abstract
             return $data;
         }
 
+        $key = self::getEncryptionKey();
+        if (empty($key)) {
+            return $data;
+        }
+
         // Generate a random key
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted = openssl_encrypt($data, 'aes-256-cbc', $this->getEncryptionKey(), 0, $iv);
+        $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
 
         $encoded = self::base64_encode($encrypted);
         $encodedIv = self::base64_encode($iv);

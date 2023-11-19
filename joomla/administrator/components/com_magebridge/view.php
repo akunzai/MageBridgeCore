@@ -48,10 +48,6 @@ class MageBridgeView extends YireoCommonView
                     $message = Text::_('COM_MAGEBRIDGE_VIEW_API_ERROR_EMPTY_METADATA');
                     break;
 
-                case 'SUPPORTKEY FAILED':
-                    $message = Text::sprintf('COM_MAGEBRIDGE_VIEW_API_ERROR_KEY_FAILED', $bridge->getApiExtra());
-                    break;
-
                 case 'AUTHENTICATION FAILED':
                     $message = Text::_('COM_MAGEBRIDGE_VIEW_API_ERROR_AUTHENTICATION_FAILED');
                     break;

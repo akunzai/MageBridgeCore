@@ -107,18 +107,6 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /*
-     * Helper-method to get the current license key
-     *
-     * @access public
-     * @param null
-     * @return string
-     */
-    public function getLicenseKey()
-    {
-        return Mage::getStoreConfig('magebridge/hidden/support_key');
-    }
-
-    /*
      * Helper-method to determine whether to autodetect API-details
      *
      * @access public

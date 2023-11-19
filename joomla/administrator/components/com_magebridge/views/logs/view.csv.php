@@ -34,7 +34,7 @@ class MageBridgeViewLogs extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        $filename = 'magebridge-debug-'.MageBridgeModelConfig::load('supportkey').'.csv';
+        $filename = 'magebridge-debug.csv';
 
         header('Expires: 0');
         header('Cache-control: private');

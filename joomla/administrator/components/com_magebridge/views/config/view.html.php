@@ -85,7 +85,7 @@ class MageBridgeViewConfig extends YireoCommonView
 
         // Make sure demo-users are not seeing any sensitive data
         if (MageBridgeAclHelper::isDemo() == true) {
-            $censored_values = ['supportkey', 'api_user', 'api_key'];
+            $censored_values = ['api_user', 'api_key'];
 
             foreach ($censored_values as $censored_value) {
                 $config[$censored_value]['value'] = str_repeat('*', strlen($config[$censored_value]['value']));
