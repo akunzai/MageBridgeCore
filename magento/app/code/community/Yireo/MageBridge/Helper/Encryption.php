@@ -69,7 +69,7 @@ class Yireo_MageBridge_Helper_Encryption extends Mage_Core_Helper_Abstract
 
         // Generate a random key
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted = openssl_encrypt($data, 'aes-256-cbc', $this->getEncryptionKey(), null, $iv);
+        $encrypted = openssl_encrypt($data, 'aes-256-cbc', $this->getEncryptionKey(), 0, $iv);
 
         $encoded = self::base64_encode($encrypted);
         $encodedIv = self::base64_encode($iv);
@@ -107,7 +107,7 @@ class Yireo_MageBridge_Helper_Encryption extends Mage_Core_Helper_Abstract
 
         $encrypted = self::base64_decode($array[0]);
         $iv = self::base64_decode($array[1]);
-        $result = openssl_decrypt($encrypted, 'aes-256-cbc', $this->getEncryptionKey(), null, $iv);
+        $result = openssl_decrypt($encrypted, 'aes-256-cbc', $this->getEncryptionKey(), 0, $iv);
 
         if ($result) {
             return $result;
