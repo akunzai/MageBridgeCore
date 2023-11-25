@@ -177,7 +177,11 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     protected function hasJsFileValidPermissions()
     {
-        return $this->hasFileValidPermissions(Mage::getBaseDir() . DS . 'js' . DS . 'index.php');
+        $file = Mage::getBaseDir() . DS . 'js' . DS . 'index.php';
+        if (file_exists($file)) {
+            return $this->hasFileValidPermissions($file);
+        }
+        return true;
     }
 
     /**
