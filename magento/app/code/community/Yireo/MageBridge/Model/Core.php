@@ -486,8 +486,8 @@ class Yireo_MageBridge_Model_Core
             $config_values['customer/create_account/default_group'] = $this->getMetaData('customer_group');
         }
 
-        if (strlen($this->getMetaData('theme')) > 0) {
-            $theme = $this->getMetaData('theme');
+        $theme = $this->getMetaData('theme');
+        if (!empty($theme)) {
             if (preg_match('/([a-zA-Z0-9\-\_]+)\/([a-zA-Z0-9\-\_]+)/', $theme, $match)) {
                 $config_values['design/package/name'] = $match[1];
                 $config_values['design/theme/default'] = $match[2];
