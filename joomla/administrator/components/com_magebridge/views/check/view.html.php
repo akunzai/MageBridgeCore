@@ -112,8 +112,9 @@ class MageBridgeViewCheck extends YireoCommonView
     public function displayProduct($tpl)
     {
         // Load the form if it's there
-        $this->getModel()
-            ->setFormName('check_product');
+        /** @var MagebridgeModelCheck */
+        $model = $this->getModel();
+        $model->setConfig('form_name', 'check_product');
 
         $this->_viewParent = 'form';
         $this->form        = $this->get('Form');
