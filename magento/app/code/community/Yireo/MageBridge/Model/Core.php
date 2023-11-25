@@ -772,13 +772,15 @@ class Yireo_MageBridge_Model_Core
 
         // Check for URLs that look like AJAX URLs
         $request = Mage::app()->getRequest();
-        if (stristr($request->getControllerName(), 'ajax') || stristr($request->getActionName(), 'ajax') || stristr($this->getRequestUrl(), 'ajax')) {
+        if ((!empty($request->getControllerName()) && stristr($request->getControllerName(), 'ajax'))
+        || (!empty($request->getActionName()) && stristr($request->getActionName(), 'ajax'))
+        || (!empty($this->getRequestUrl()) && stristr($this->getRequestUrl(), 'ajax'))) {
             Mage::getSingleton('magebridge/core')->getController(false);
             return true;
         }
 
         // Check if preoutput is forced manually
-        if (stristr($this->getRequestUrl(), 'getAdditional')) {
+        if (!empty($this->getRequestUrl()) && stristr($this->getRequestUrl(), 'getAdditional')) {
             Mage::app()->getFrontController()->dispatch();
             return true;
         }
