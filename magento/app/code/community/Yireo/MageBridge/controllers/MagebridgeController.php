@@ -250,7 +250,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
 
-        $events = Mage::getModel('magebridge/listener')->getEvents();
+        $events = Mage::getModel('magebridge/observer')->getEvents();
         foreach ($events as $event) {
             Mage::getConfig()->saveConfig('magebridge/settings/event_forwarding/'.$event[0], $event[1]);
         }

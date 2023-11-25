@@ -37,7 +37,7 @@ class Yireo_MageBridge_Block_Settings_Events extends Mage_Core_Block_Template
      */
     public function getEvents()
     {
-        $events = Mage::getModel('magebridge/listener')->getEvents();
+        $events = Mage::getModel('magebridge/observer')->getEvents();
         $event_list = [];
 
         foreach ($events as $event) {
