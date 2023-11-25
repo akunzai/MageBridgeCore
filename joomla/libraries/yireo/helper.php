@@ -114,8 +114,7 @@ class YireoHelper
     public static function getCurrentVersion()
     {
         $option = Factory::getApplication()->input->getCmd('option');
-        $name = preg_replace('/^com_/', '', $option);
-        $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/' . $name . '.xml';
+        $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/' . $option . '.xml';
         $data = Installer::parseXMLInstallFile($file);
         return $data['version'];
     }
