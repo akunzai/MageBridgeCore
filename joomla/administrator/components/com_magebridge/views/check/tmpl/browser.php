@@ -92,8 +92,5 @@ The feedback should be a bit cryptic, but should look like the following:
 <li>If you receive a 404-error in <strong>Step 1</strong> but NOT <strong>Step 2</strong>, something lacks in the webserver configuration: You should contact the system administrator
 of this webserver to fix this problem.</li>
 </ul>
-<p>
-Refer to the <?php echo MageBridgeHelper::getHelpText('troubleshooting'); ?> for more information.
-</p>
 </div>
 </fieldset>

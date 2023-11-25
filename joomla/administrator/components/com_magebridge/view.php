@@ -53,11 +53,11 @@ class MageBridgeView extends YireoCommonView
                     break;
 
                 case 'INTERNAL ERROR':
-                    $message = Text::sprintf('COM_MAGEBRIDGE_VIEW_API_ERROR_INTERNAL_ERROR', MageBridgeHelper::getHelpLink('troubleshooting'));
+                    $message = Text::_('COM_MAGEBRIDGE_VIEW_API_ERROR_INTERNAL_ERROR');
                     break;
 
                 case 'FAILED LOAD':
-                    $message = Text::sprintf('COM_MAGEBRIDGE_VIEW_API_ERROR_FAILED_LOAD', MageBridgeHelper::getHelpLink('faq-troubleshooting:api-widgets'));
+                    $message = Text::_('COM_MAGEBRIDGE_VIEW_API_ERROR_FAILED_LOAD');
                     break;
 
                 default:

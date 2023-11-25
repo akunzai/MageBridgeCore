@@ -34,10 +34,6 @@ defined('_JEXEC') or die('Restricted access');
 			<td class="key"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK'); ?></td>
 			<td class="result"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK_DESC'); ?></td>
 		</tr>
-		<tr>
-			<td class="key"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_TROUBLESHOOTING_GUIDE'); ?></td>
-			<td class="result"><?php echo Text::sprintf('COM_MAGEBRIDGE_CHECK_TROUBLESHOOTING_GUIDE_DESC', MageBridgeHelper::getHelpLink('troubleshooting')); ?></td>
-		</tr>
 	</table>
 	</fieldset>
 
