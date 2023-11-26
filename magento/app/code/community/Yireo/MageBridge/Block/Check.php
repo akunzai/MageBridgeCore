@@ -277,9 +277,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
         $result = (ini_get('safe_mode')) ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('system', 'Safe Mode', $result, 'PHP Safe Mode is strongly outdated and not supported by either Joomla! or Magento');
 
-        $result = (ini_get('magic_quotes_gpc')) ? self::CHECK_ERROR : self::CHECK_OK;
-        $this->addResult('system', 'Magic Quotes GPC', $result, 'Magic Quotes GPC is outdated and should be disabled');
-
         $cacheBackend = (string)Mage::getConfig()->getNode('global/cache/backend');
         $result = (in_array($cacheBackend, ['files', 'db'])) ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('system', 'Caching Backend', $result, 'We recommend a fast caching backend like Redis or memcache [current: ' . $cacheBackend . ']');
