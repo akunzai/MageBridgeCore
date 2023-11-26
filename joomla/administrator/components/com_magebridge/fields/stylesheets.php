@@ -41,8 +41,9 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
         $options   = null;
 
         if ($this->getConfig('api_widgets') == true) {
+            /** @var CallbackController */
             $cache   = Factory::getCache('com_magebridge.admin');
-            $options = $cache->call(['MagebridgeFormFieldStylesheets', 'getResult']);
+            $options = $cache->get(['MagebridgeFormFieldStylesheets', 'getResult']);
 
             if (empty($options) && !is_array($options)) {
                 $this->debugger->warning('Unable to obtain MageBridge API Widget "stylesheets"', $options);

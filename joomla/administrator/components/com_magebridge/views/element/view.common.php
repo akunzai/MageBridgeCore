@@ -149,9 +149,9 @@ class MageBridgeViewCommon extends MageBridgeView
         $search = $this->app->getUserStateFromRequest($option . '.search', 'search', '', 'string');
         $search = strtolower($search);
 
-        /** @var CacheController */
+        /** @var CallbackController */
         $cache = Factory::getCache('com_magebridge.admin');
-        $tree = $cache->call(['MageBridgeElementHelper', 'getCategoryTree']);
+        $tree = $cache->get(['MageBridgeElementHelper', 'getCategoryTree']);
 
         // If search is active, we use a flat list instead of a tree
         if (empty($search)) {
@@ -191,9 +191,10 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Widget');
         $this->setLayout('widget');
 
+        /** @var CallbackController */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
-        $widgets = $cache->call(['MageBridgeElementHelper', 'getWidgetList']);
+        $widgets = $cache->get(['MageBridgeElementHelper', 'getWidgetList']);
 
         // Initialize pagination
         $this->widgets = $this->initPagination('widgets', $widgets);
@@ -218,9 +219,10 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Customer');
         $this->setLayout('customer');
 
+        /** @var CallbackController */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
-        $customers = $cache->call(['MageBridgeElementHelper', 'getCustomerList']);
+        $customers = $cache->get(['MageBridgeElementHelper', 'getCustomerList']);
 
         // Initialize pagination
         $this->customers = $this->initPagination('customers', $customers);
@@ -245,9 +247,10 @@ class MageBridgeViewCommon extends MageBridgeView
         $this->setTitle('Product');
         $this->setLayout('product');
 
+        /** @var CallbackController */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
-        $products = $cache->call(['MageBridgeElementHelper', 'getProductList']);
+        $products = $cache->get(['MageBridgeElementHelper', 'getProductList']);
 
         // Initialize pagination
         $this->products = $this->initPagination('products', $products);

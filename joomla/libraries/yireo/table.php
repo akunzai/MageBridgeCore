@@ -311,9 +311,10 @@ class YireoTable extends \Joomla\CMS\Table\Table
         }
         static $fields = [];
         if (!isset($fields[$tableName]) || !is_array($fields[$tableName])) {
+            /** @var CallbackController */
             $cache = Factory::getCache('lib_yireo_table');
             $cache->setCaching(0);
-            $fields[$tableName] = $cache->call(['YireoTable', 'getCachedDatabaseFields'], $tableName);
+            $fields[$tableName] = $cache->get(['YireoTable', 'getCachedDatabaseFields'], $tableName);
         }
 
         return $fields[$tableName];

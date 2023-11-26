@@ -220,8 +220,9 @@ class YireoModel extends YireoCommonModel
     public function getDbResult($query, $type = 'object')
     {
         if ($this->getConfig('cache') == true) {
+            /** @var CallbackController */
             $cache = Factory::getCache('lib_yireo_model');
-            $rs    = $cache->call([$this, '_getDbResult'], $query, $type);
+            $rs    = $cache->get([$this, '_getDbResult'], $query, $type);
         } else {
             $rs = $this->_getDbResult($query, $type);
         }

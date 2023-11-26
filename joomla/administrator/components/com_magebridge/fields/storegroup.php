@@ -42,8 +42,9 @@ class MagebridgeFormFieldStoregroup extends MageBridgeFormFieldAbstract
 
         // Are the API widgets enabled?
         if ($this->getConfig('api_widgets') == true) {
+            /** @var CallbackController */
             $cache   = Factory::getCache('com_magebridge.admin');
-            $options = $cache->call(['JFormFieldStoregroup', 'getResult']);
+            $options = $cache->get(['JFormFieldStoregroup', 'getResult']);
 
             // Parse the result into an HTML form-field
             if (!empty($options) && is_array($options)) {

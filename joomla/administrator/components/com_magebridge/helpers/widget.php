@@ -53,9 +53,10 @@ class MageBridgeWidgetHelper
                 return null;
         }
 
+        /** @var CallbackController */
         $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
-        $result = $cache->call(['MageBridgeWidgetHelper', $function]);
+        $result = $cache->get(['MageBridgeWidgetHelper', $function]);
 
         return $result;
     }
