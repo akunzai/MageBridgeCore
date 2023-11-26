@@ -206,9 +206,6 @@ class MagebridgeModelCheck extends YireoCommonModel
         $result = (function_exists('curl_init')) ? self::CHECK_OK : self::CHECK_ERROR;
         $this->addResult('compatibility', 'CURL', $result, Text::_('COM_MAGEBRIDGE_CHECK_CURL'));
 
-        $result = (ini_get('safe_mode')) ? self::CHECK_ERROR : self::CHECK_OK;
-        $this->addResult('compatibility', 'safe_mode', $result, Text::_('COM_MAGEBRIDGE_CHECK_SAFE_MODE'));
-
         if (stristr($server_software, 'apache')) {
             if (function_exists('apache_get_modules')) {
                 $modules = apache_get_modules();

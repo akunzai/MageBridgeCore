@@ -274,9 +274,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
         $result = (@class_exists('ZipArchive')) ? self::CHECK_OK : self::CHECK_ERROR;
         $this->addResult('system', 'ZipArchive', $result, 'ZipArchive in PHP is needed for one-click upgrades. This bundles with PECL-zip 1.1.0 or higher.');
 
-        $result = (ini_get('safe_mode')) ? self::CHECK_ERROR : self::CHECK_OK;
-        $this->addResult('system', 'Safe Mode', $result, 'PHP Safe Mode is strongly outdated and not supported by either Joomla! or Magento');
-
         $cacheBackend = (string)Mage::getConfig()->getNode('global/cache/backend');
         $result = (in_array($cacheBackend, ['files', 'db'])) ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('system', 'Caching Backend', $result, 'We recommend a fast caching backend like Redis or memcache [current: ' . $cacheBackend . ']');
