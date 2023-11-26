@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -26,7 +29,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     protected $connector_field = null;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
@@ -38,12 +41,12 @@ class MageBridgePluginProduct extends MageBridgePlugin
      * @param       object $subject The object to observe
      * @param       array  $config  An array that holds the plugin configuration
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
 
         $this->loadLanguage();
-        $this->db = JFactory::getDbo();
+        $this->db = Factory::getDbo();
     }
 
     /**
@@ -61,8 +64,8 @@ class MageBridgePluginProduct extends MageBridgePlugin
     /**
      * Method to manipulate the MageBridge Product Relation backend-form
      *
-     * @param JForm $form The form to be altered
-     * @param JForm $data The associated data for the form
+     * @param \Joomla\CMS\Form\Form $form The form to be altered
+     * @param \Joomla\CMS\Form\Form $data The associated data for the form
      *
      * @return bool
      */
@@ -123,7 +126,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * @param JForm $form
+     * @param \Joomla\CMS\Form\Form $form
      */
     protected function loadFormFile(&$form)
     {

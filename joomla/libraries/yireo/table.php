@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,12 +11,14 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Access\Rules;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Include library dependencies
-jimport('joomla.filter.input');
-jimport('joomla.filter.output');
 
 // Load the helper
 require_once dirname(__FILE__) . '/loader.php';
@@ -23,7 +26,7 @@ require_once dirname(__FILE__) . '/loader.php';
 /**
  * Common Table class
  */
-class YireoTable extends JTable
+class YireoTable extends \Joomla\CMS\Table\Table
 {
     /**
      * List of fields to include in the Table-instance
@@ -63,12 +66,12 @@ class YireoTable extends JTable
      *
      * @param string    $table_name
      * @param string    $primary_key
-     * @param JDatabaseDriver $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
     public function __construct($table_name, $primary_key, $db)
     {
         // Determine the table name
-        $table_namespace = preg_replace('/^com_/', '', JFactory::getApplication()->input->getCmd('option'));
+        $table_namespace = preg_replace('/^com_/', '', Factory::getApplication()->input->getCmd('option'));
 
         if (!empty($table_name)) {
             if (!strstr($table_name, '#__')) {
@@ -122,7 +125,7 @@ class YireoTable extends JTable
         $this->bindParams($array);
 
         if (isset($array['rules']) && is_array($array['rules'])) {
-            $rules = new JAccessRules($array['rules']);
+            $rules = new Rules($array['rules']);
             $this->setRules($rules);
         }
 
@@ -164,7 +167,7 @@ class YireoTable extends JTable
     {
         // Convert the parameter array to a flat string
         if (key_exists('params', $array) && is_array($array['params'])) {
-            $registry = new \Joomla\Registry\Registry();
+            $registry = new Registry();
             $registry->loadArray($array['params']);
             $array['params'] = $registry->toString();
         }
@@ -178,11 +181,11 @@ class YireoTable extends JTable
         // Generate an alias if it is empty, but if a title exists
         if (empty($array['alias'])) {
             if (!empty($array['name'])) {
-                $array['alias'] = JFilterOutput::stringURLSafe($array['name']);
+                $array['alias'] = OutputFilter::stringURLSafe($array['name']);
             }
 
             if (!empty($array['title'])) {
-                $array['alias'] = JFilterOutput::stringURLSafe($array['title']);
+                $array['alias'] = OutputFilter::stringURLSafe($array['title']);
             }
         }
     }
@@ -197,18 +200,14 @@ class YireoTable extends JTable
         // Check the required fields
         if (!empty($this->_required)) {
             foreach ($this->_required as $r) {
-                if (!$this->_checkRequired($r)) {
-                    throw new Exception('Required field missing: '.$r);
-                }
+                $this->_checkRequired($r);
             }
         }
 
         // Check the fields for duplicates
         if (!empty($this->_noduplicate)) {
             foreach ($this->_noduplicate as $d) {
-                if (!$this->_checkNoDuplicate($d)) {
-                    throw new Exception('Duplicate field value: '.$d);
-                }
+                $this->_checkNoDuplicate($d);
             }
         }
 
@@ -224,11 +223,21 @@ class YireoTable extends JTable
      */
     public function store($updateNulls = false)
     {
-        $result = parent::store($updateNulls);
-        if ($this->_debug == true) {
-            echo "Query: " . $this->_db->getQuery();
-            echo "Error: " . $this->_db->getErrorMsg();
-            exit;
+        try {
+            $result = parent::store($updateNulls);
+            if ($this->_debug == true) {
+                echo "Query: " . $this->_db->getQuery();
+            }
+        } catch (Exception $e) {
+            if ($this->_debug == true) {
+                echo "Error: " . $e->getMessage();
+            } else {
+                throw $e;
+            }
+        } finally {
+            if ($this->_debug == true) {
+                exit;
+            }
         }
 
         return $result;
@@ -244,9 +253,7 @@ class YireoTable extends JTable
     protected function _checkRequired($field)
     {
         if (!isset($this->$field) || $this->$field == null || trim($this->$field) == '') {
-            $this->_error = JText::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field);
-
-            return false;
+            throw new Exception(Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_REQUIRED', $field));
         }
 
         return true;
@@ -269,10 +276,8 @@ class YireoTable extends JTable
 
             $xid = intval($this->_db->loadResult());
             if ($xid && $xid != intval($this->$primary_key)) {
-                $fieldLabel = JText::_('LIB_YIREO_TABLE_FIELDNAME_' . $field);
-                $this->_error = JText::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field);
-
-                return false;
+                $fieldLabel = Text::_('LIB_YIREO_TABLE_FIELDNAME_' . $field);
+                throw new Exception(Text::sprintf('LIB_YIREO_TABLE_FIELD_VALUE_DUPLICATE', $fieldLabel, $this->$field));
             }
         }
 
@@ -295,16 +300,6 @@ class YireoTable extends JTable
     }
 
     /**
-     * Helper-method to get the error-message
-     *
-     * @return int
-     */
-    public function getErrorMsg()
-    {
-        return $this->_error;
-    }
-
-    /**
      * Helper-method to get all fields from this table
      *
      * @return array
@@ -316,9 +311,10 @@ class YireoTable extends JTable
         }
         static $fields = [];
         if (!isset($fields[$tableName]) || !is_array($fields[$tableName])) {
-            $cache = JFactory::getCache('lib_yireo_table');
+            /** @var CallbackController */
+            $cache = Factory::getCache('lib_yireo_table');
             $cache->setCaching(0);
-            $fields[$tableName] = $cache->call(['YireoTable', 'getCachedDatabaseFields'], $tableName);
+            $fields[$tableName] = $cache->get(['YireoTable', 'getCachedDatabaseFields'], $tableName);
         }
 
         return $fields[$tableName];
@@ -333,8 +329,8 @@ class YireoTable extends JTable
      */
     public static function getCachedDatabaseFields($tableName)
     {
-        /** @var JDatabaseDriver $db */
-        $db = JFactory::getDbo();
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = Factory::getDbo();
         $db->setQuery('SHOW FIELDS FROM `' . $tableName . '`');
         $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray();
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,8 +11,13 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Cache\Controller\OutputController;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+
 
 // Import the loader
 require_once dirname(dirname(__FILE__)) . '/loader.php';
@@ -42,7 +48,6 @@ class YireoRouteQuery
      */
     public function getSegmentsFromCache()
     {
-        /** @var JCache $cache */
         $cache = $this->getCache();
         $cacheId = $this->getCacheId();
         $segments = $cache->get($cacheId);
@@ -60,15 +65,14 @@ class YireoRouteQuery
         static $items = null;
 
         if (empty($items)) {
-            /** @var JCache $cache */
             $cache = $this->getCache();
-            $component = JComponentHelper::getComponent($componentName);
+            $component = ComponentHelper::getComponent($componentName);
             $cacheId = 'menuitems_' . $component->id;
             $items = $cache->get($cacheId);
         }
 
         if (empty($items)) {
-            $application = JFactory::getApplication();
+            $application = Factory::getApplication();
             $menu = $application->getMenu();
             $items = $menu->getItems('component_id', $component->id);
             $cache->store($items, $cacheId);
@@ -99,12 +103,11 @@ class YireoRouteQuery
     }
 
     /**
-     * @return JCacheController
+     * @return OutputController
      */
     private function getCache()
     {
-        /** @var JCache $cache */
-        $cache = JFactory::getCache('lib_yireo_router', '');
+        $cache = Factory::getCache('lib_yireo_router', '');
         $cache->setCaching(true);
         $cache->setLifeTime(86400);
 

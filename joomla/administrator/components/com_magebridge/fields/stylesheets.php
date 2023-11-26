@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,15 +10,16 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
-// Import namespaces
-use Joomla\Utilities\ArrayHelper;
-
 /**
  * Form Field-class for selecting Magento CSS-stylesheets
  */
@@ -39,8 +41,9 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
         $options   = null;
 
         if ($this->getConfig('api_widgets') == true) {
-            $cache   = JFactory::getCache('com_magebridge.admin');
-            $options = $cache->call(['MagebridgeFormFieldStylesheets', 'getResult']);
+            /** @var CallbackController */
+            $cache   = Factory::getCache('com_magebridge.admin');
+            $options = $cache->get(['MagebridgeFormFieldStylesheets', 'getResult']);
 
             if (empty($options) && !is_array($options)) {
                 $this->debugger->warning('Unable to obtain MageBridge API Widget "stylesheets"', $options);
@@ -48,7 +51,7 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
         }
 
         MageBridgeTemplateHelper::load('jquery');
-        JHtml::script('media/com_magebridge/js/backend-customoptions.js');
+        HTMLHelper::script('media/com_magebridge/js/backend-customoptions.js');
 
         $html = '';
         $html .= $this->getRadioHTML();
@@ -76,13 +79,13 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
         ];
 
         foreach ($options as $index => $option) {
-            $option['label'] = JText::_($option['label']);
+            $option['label'] = Text::_($option['label']);
             $options[$index] = ArrayHelper::toObject($option);
         }
 
         $attributes = null;
 
-        return JHtml::_('select.radiolist', $options, $name, $attributes, 'value', 'label', $value);
+        return HTMLHelper::_('select.radiolist', $options, $name, $attributes, 'value', 'label', $value);
     }
 
     /**
@@ -106,9 +109,9 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
 
         if (!empty($options) && is_array($options)) {
             $size = (count($options) > 10) ? 10 : count($options);
-            array_unshift($options, ['value' => '', 'label' => '- ' . JText::_('JNONE') . ' -']);
+            array_unshift($options, ['value' => '', 'label' => '- ' . Text::_('JNONE') . ' -']);
 
-            return JHtml::_('select.genericlist', $options, $name . '[]', 'multiple="multiple" size="' . $size . '" ' . $disabled, 'value', 'label', $value);
+            return HTMLHelper::_('select.genericlist', $options, $name . '[]', 'multiple="multiple" size="' . $size . '" ' . $disabled, 'value', 'label', $value);
         }
 
         return '<input type="text" name="' . $name . '" value="' . implode(',', $value) . '" />';

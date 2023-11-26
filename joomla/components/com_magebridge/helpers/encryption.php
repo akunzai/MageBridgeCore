@@ -56,11 +56,6 @@ class MageBridgeEncryptionHelper
     public static function getEncryptionKey()
     {
         $key = MageBridgeModelConfig::load('encryption_key');
-
-        if (empty($key)) {
-            $key = MageBridgeModelConfig::load('supportkey');
-        }
-
         return $key;
     }
 
@@ -107,9 +102,14 @@ class MageBridgeEncryptionHelper
             return $data;
         }
 
+        $key = self::getEncryptionKey();
+        if (empty($key)) {
+            return $data;
+        }
+
         // Generate a random key
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted = openssl_encrypt($data, 'aes-256-cbc', self::getEncryptionKey(), null, $iv);
+        $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
 
         $encoded = MageBridgeEncryptionHelper::base64_encode($encrypted);
         $encodedIv = MageBridgeEncryptionHelper::base64_encode($iv);
@@ -146,7 +146,7 @@ class MageBridgeEncryptionHelper
         $encrypted = self::base64_decode($array[0]);
         $iv = self::base64_decode($array[1]);
 
-        $result = openssl_decrypt($encrypted, 'aes-256-cbc', self::getEncryptionKey(), null, $iv);
+        $result = openssl_decrypt($encrypted, 'aes-256-cbc', self::getEncryptionKey(), 0, $iv);
 
         if ($result) {
             return $result;

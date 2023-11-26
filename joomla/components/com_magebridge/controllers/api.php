@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -20,7 +23,7 @@ class MageBridgeControllerApi extends YireoAbstractController
     public function run()
     {
         // Parse the POST-request
-        $post = JFactory::getApplication()->input->post->getArray();
+        $post = Factory::getApplication()->input->post->getArray();
         $data = [];
 
         foreach ($post as $name => $value) {
@@ -56,7 +59,7 @@ class MageBridgeControllerApi extends YireoAbstractController
     protected function dispatch($data)
     {
         foreach ($data as $index => $segment) {
-            switch($index) {
+            switch ($index) {
                 case 'authenticate':
                     // @todo: $segment['data'] = MageBridgeModelUser->authenticate($segment['arguments']);
                     break;

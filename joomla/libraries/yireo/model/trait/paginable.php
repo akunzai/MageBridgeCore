@@ -11,6 +11,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Pagination\Pagination;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -31,7 +33,7 @@ trait YireoModelTraitPaginable
     /**
      * Pagination object
      *
-     * @var JPagination
+     * @var Pagination
      */
     protected $pagination = null;
 
@@ -55,7 +57,7 @@ trait YireoModelTraitPaginable
         }
 
         if (method_exists($this, 'buildQueryObject')) {
-            /** @var JDatabaseQuery $query */
+            /** @var \Joomla\Database\DatabaseQuery */
             $query = $this->buildQueryObject();
             $query->select('COUNT(*) AS count');
             $query->setLimit(0);
@@ -81,7 +83,7 @@ trait YireoModelTraitPaginable
     /**
      * Method to get a pagination object for the fetched records
      *
-     * @return JPagination
+     * @return Pagination
      */
     public function getPagination()
     {
@@ -101,7 +103,7 @@ trait YireoModelTraitPaginable
         }
 
         // Build the pagination
-        $this->pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit'));
+        $this->pagination = new Pagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit'));
 
         return $this->pagination;
     }

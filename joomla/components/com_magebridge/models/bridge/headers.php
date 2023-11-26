@@ -9,6 +9,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Environment\Browser;
+use Joomla\CMS\Uri\Uri;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -68,7 +71,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     public function getBaseJsUrl()
     {
         $url = $this->bridge->getSessionData('base_js_url');
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
 
         if (empty($url)) {
             $url = $this->bridge->getMagentoUrl() . 'js/';
@@ -364,8 +367,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
         }
 
         // Determine browser-specific stylesheets
-        jimport('joomla.environment.browser');
-        $browser = JBrowser::getInstance();
+        $browser = Browser::getInstance();
 
         if ($browser->getBrowser() == 'msie') {
             MageBridgeTemplateHelper::load('css', 'default-ie.css');
@@ -655,14 +657,14 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
 
             return true;
 
-            // Load Protoaculous
+        // Load Protoaculous
         } else {
             if (MageBridgeModelConfig::load('use_protoaculous') == 1) {
                 $this->addScript('media/com_magebridge/js/protoaculous.1.9.0-1.7.3.0.min.js');
 
                 return true;
 
-                // Load Protoculous
+            // Load Protoculous
             } else {
                 if (MageBridgeModelConfig::load('use_protoculous') == 1) {
                     $this->addScript('media/com_magebridge/js/protoculous-1.0.2-packed.js');
@@ -684,7 +686,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
      */
     public function convertUrl($url)
     {
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
 
         if ($uri->isSSL()) {
             $url = str_replace('http://', 'https://', $url);

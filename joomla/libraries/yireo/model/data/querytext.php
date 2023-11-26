@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * Yireo Model Data Query
  *
@@ -42,12 +44,12 @@ class YireoModelDataQuerytext
     protected $tableAlias;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
@@ -100,8 +102,8 @@ class YireoModelDataQuerytext
     {
         $this->table      = $table;
         $this->tableAlias = $tableAlias;
-        $this->app        = JFactory::getApplication();
-        $this->db         = JFactory::getDbo();
+        $this->app        = Factory::getApplication();
+        $this->db         = Factory::getDbo();
     }
 
     /**

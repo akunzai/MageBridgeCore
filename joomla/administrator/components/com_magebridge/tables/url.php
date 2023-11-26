@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -20,9 +22,9 @@ class MagebridgeTableUrl extends YireoTable
     /**
      * Constructor
      *
-     * @param JDatabase $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
-    public function __construct(& $db)
+    public function __construct(&$db)
     {
         parent::__construct('#__magebridge_urls', 'id', $db);
     }
@@ -35,9 +37,7 @@ class MagebridgeTableUrl extends YireoTable
     public function check()
     {
         if (empty($this->source) || empty($this->destination)) {
-            $this->setError(JText::_('Source and destination must be filled in.'));
-
-            return false;
+            throw new Exception(Text::_('Source and destination must be filled in.'));
         }
 
         return true;

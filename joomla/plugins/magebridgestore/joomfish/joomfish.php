@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Store plugin - Joomfish
  *
@@ -11,6 +12,8 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Factory;
 
 /**
  * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! joomfish
@@ -45,7 +48,7 @@ class plgMageBridgeStoreJoomfish extends MageBridgePluginStore
         }
 
         // Fetch the current language
-        $language = JFactory::getLanguage();
+        $language = Factory::getLanguage();
 
         // Fetch the languages
         $languages = JoomfishManager::getInstance()->getActiveLanguages();
@@ -62,7 +65,7 @@ class plgMageBridgeStoreJoomfish extends MageBridgePluginStore
                 }
             }
         } else {
-            $language_code = JFactory::getApplication()->input->getCmd('lang');
+            $language_code = Factory::getApplication()->input->getCmd('lang');
         }
 
         // Check if the condition applies
@@ -82,7 +85,7 @@ class plgMageBridgeStoreJoomfish extends MageBridgePluginStore
      */
     public function isEnabled()
     {
-        if (is_dir(JPATH_SITE.'/components/com_joomfish')) {
+        if (is_dir(JPATH_SITE . '/components/com_joomfish')) {
             return true;
         } else {
             return false;

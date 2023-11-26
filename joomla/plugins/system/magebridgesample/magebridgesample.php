@@ -12,13 +12,10 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the parent class
-jimport('joomla.plugin.plugin');
-
 /**
  * MageBridge Sample System Plugin
  */
-class plgSystemMageBridgeSample extends JPlugin
+class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
 {
     protected $magebridge_register_id = null;
 
@@ -29,7 +26,7 @@ class plgSystemMageBridgeSample extends JPlugin
      * @param object $subject
      * @param array $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();

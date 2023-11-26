@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -76,21 +79,6 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add general information to the bridge
-     */
-    public static function addGeneral()
-    {
-        static $flag = 0;
-        if ($flag == 0) {
-            $flag = 1;
-            if (MageBridgeModelDebug::isDebug() == true) {
-                MageBridgeModelDebug::getInstance()
-                    ->notice("Support Key: " . MageBridgeModelConfig::load('supportkey'));
-            }
-        }
-    }
-
-    /**
      * Method to run before the build
      */
     public static function beforeBuild()
@@ -104,7 +92,6 @@ class MageBridgeModelDebug
 
             $debug->notice("API session: " . $bridge->getApiSession());
             $debug->notice("Magento session: " . $bridge->getMageSession());
-            $debug->addGeneral();
         }
     }
 
@@ -180,7 +167,7 @@ class MageBridgeModelDebug
      */
     public function add($type = MAGEBRIDGE_DEBUG_NOTICE, $message = null, $section = null, $origin = null, $time = null)
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if ($application->isClient('administrator') && $type == MAGEBRIDGE_DEBUG_FEEDBACK) {
             $application->enqueueMessage($message, 'warning');
@@ -209,7 +196,8 @@ class MageBridgeModelDebug
                 'message' => $message,
                 'section' => $section,
                 'origin' => $origin,
-                'time' => $time,];
+                'time' => $time,
+            ];
             $this->_add($data);
 
             return true;
@@ -407,7 +395,7 @@ class MageBridgeModelDebug
             return false;
         }
 
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
         $log_path = $config->get('log_path');
 
         if (empty($log_path)) {
@@ -445,7 +433,7 @@ class MageBridgeModelDebug
             return false;
         }
 
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $remote_addr = (!empty($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : null;
         $http_agent = (!empty($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : null;
         $unique_id = $this->getUniqueId();
@@ -458,7 +446,8 @@ class MageBridgeModelDebug
             'timestamp' => date('Y-m-d H:i:s', $data['time']),
             'remote_addr' => $remote_addr,
             'session' => $unique_id,
-            'http_agent' => $http_agent,];
+            'http_agent' => $http_agent,
+        ];
 
         $query_parts = [];
 

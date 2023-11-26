@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 /**
  * HTML View class
@@ -24,15 +27,25 @@ require_once JPATH_COMPONENT.'/view.php';
 class MageBridgeViewContent extends MageBridgeView
 {
     /**
+     * @var string
+     */
+    protected $logout_url;
+
+    /**
+     * @var mixed
+     */
+    protected $params;
+
+    /**
      * Method to display the requested view
      */
     public function display($tpl = null)
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $params = $application->getParams();
 
         // Set the request based upon the choosen layout
-        switch($this->getLayout()) {
+        switch ($this->getLayout()) {
             case 'logout':
                 $intermediate_page = $params->get('intermediate_page');
                 if ($intermediate_page != 1) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link	  https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -62,9 +65,9 @@ class MageBridgeViewCatalog extends MageBridgeView
         }
 
         // Add the qty parameter
-        $qty = JFactory::getApplication()->input->getInt('qty');
+        $qty = Factory::getApplication()->input->getInt('qty');
         if (!empty($qty)) {
-            $request .= 'qty/'.$qty.'/';
+            $request .= 'qty/' . $qty . '/';
         }
 
         // Check for the redirect parameter
@@ -102,7 +105,7 @@ class MageBridgeViewCatalog extends MageBridgeView
         // Reuse this request to set the Canonical URL
         if (MageBridgeModelConfig::load('enable_canonical') == 1) {
             $uri = MageBridgeUrlHelper::route($request);
-            $document = JFactory::getDocument();
+            $document = Factory::getDocument();
             $document->setMetaData('canonical', $uri);
         }
 

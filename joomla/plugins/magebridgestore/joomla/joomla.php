@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Store plugin - Joomla
  *
@@ -11,6 +12,8 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Factory;
 
 /**
  * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! joomla
@@ -45,7 +48,7 @@ class plgMageBridgeStoreJoomla extends MageBridgePluginStore
         }
 
         // Check if the condition applies
-        $language_code = JFactory::getApplication()->input->getCmd('language');
+        $language_code = Factory::getApplication()->input->getCmd('language');
         if ($actions['joomla_language'] == $language_code) {
             return true;
         }

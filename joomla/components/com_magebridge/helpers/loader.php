@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -149,7 +151,7 @@ class MageBridge_Autoloader
      */
     public function getComponentPath()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if ($application->isClient('administrator')) {
             return JPATH_ADMINISTRATOR . '/components/com_magebridge/';

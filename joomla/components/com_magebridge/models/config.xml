@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
     <fields name="config" addfieldpath="/administrator/components/com_magebridge/fields">
-        <fieldset name="support" label="COM_MAGEBRIDGE_MODEL_CONFIG_FIELDSET_SUPPORT">
-            <field type="spacer" name="support" class="fieldgroup"/>
-            <field name="supportkey" type="text"/>
-        </fieldset>
 
         <fieldset name="api" label="COM_MAGEBRIDGE_MODEL_CONFIG_FIELDSET_API">
             <field type="spacer" name="magento_server" class="fieldgroup"/>

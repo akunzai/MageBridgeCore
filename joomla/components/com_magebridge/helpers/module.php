@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
-
-// Import the general module-helper
-jimport('joomla.application.module.helper');
 
 /**
  * Helper for usage in Joomla!/MageBridge modules and templates
@@ -27,7 +27,10 @@ class MageBridgeModuleHelper extends JModuleHelper
      */
     public static function loadMageBridgeModules()
     {
-        if (MageBridgeModelConfig::load('preload_all_modules') == 0 && JFactory::getApplication()->input->getInt('Itemid') != 0) {
+        /** @var \Joomla\CMS\Application\SiteApplication */
+        $application = Factory::getApplication();
+
+        if (MageBridgeModelConfig::load('preload_all_modules') == 0 && $application->input->getInt('Itemid') != 0) {
             static $modules = null;
 
             if (is_array($modules) == false) {
@@ -42,8 +45,7 @@ class MageBridgeModuleHelper extends JModuleHelper
             return $modules;
         }
 
-        $application = JFactory::getApplication();
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         $where = [];
         $where[] = 'm.published = 1';

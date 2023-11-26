@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 <form method="post" name="adminForm" id="adminForm">
@@ -17,29 +20,25 @@ defined('_JEXEC') or die('Restricted access');
 <tr>
 <td valign="top">
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_SUGGESTIONS'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_SUGGESTIONS'); ?></legend>
 	<table class="admintable" width="100%">
 		<tr>
-			<td class="key"><?php echo JText::_('COM_MAGEBRIDGE_CHECK_BROWSE_TEST'); ?></td>
-			<td class="result"><?php echo JText::sprintf('COM_MAGEBRIDGE_CHECK_BROWSE_TEST_DESC', 'index.php?option=com_magebridge&view=check&layout=browser'); ?></td>
+			<td class="key"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_BROWSE_TEST'); ?></td>
+			<td class="result"><?php echo Text::sprintf('COM_MAGEBRIDGE_CHECK_BROWSE_TEST_DESC', 'index.php?option=com_magebridge&view=check&layout=browser'); ?></td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('COM_MAGEBRIDGE_CHECK_PRODUCT_TEST'); ?></td>
-			<td class="result"><?php echo JText::sprintf('COM_MAGEBRIDGE_CHECK_PRODUCT_TEST_DESC', 'index.php?option=com_magebridge&view=check&layout=product'); ?></td>
+			<td class="key"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_PRODUCT_TEST'); ?></td>
+			<td class="result"><?php echo Text::sprintf('COM_MAGEBRIDGE_CHECK_PRODUCT_TEST_DESC', 'index.php?option=com_magebridge&view=check&layout=product'); ?></td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK'); ?></td>
-			<td class="result"><?php echo JText::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK_DESC'); ?></td>
-		</tr>
-		<tr>
-			<td class="key"><?php echo JText::_('COM_MAGEBRIDGE_CHECK_TROUBLESHOOTING_GUIDE'); ?></td>
-			<td class="result"><?php echo JText::sprintf('COM_MAGEBRIDGE_CHECK_TROUBLESHOOTING_GUIDE_DESC', MageBridgeHelper::getHelpLink('troubleshooting')); ?></td>
+			<td class="key"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK'); ?></td>
+			<td class="result"><?php echo Text::_('COM_MAGEBRIDGE_CHECK_MAGENTO_CHECK_DESC'); ?></td>
 		</tr>
 	</table>
 	</fieldset>
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_COMPATIBILITY'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_COMPATIBILITY'); ?></legend>
 	<table class="admintable" width="100%">
 	<?php foreach ($this->checks['compatibility'] as $result) { ?>
 	<tr class="check-row-<?php echo $result['status']; ?>">
@@ -56,7 +55,7 @@ defined('_JEXEC') or die('Restricted access');
 	</fieldset>
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_EXTENSION_CONFLICT'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_EXTENSION_CONFLICT'); ?></legend>
 	<table class="admintable" width="100%">
 	<?php if (isset($this->checks['extension'])) { ?>
 	<?php foreach ($this->checks['extension'] as $result) { ?>
@@ -77,7 +76,7 @@ defined('_JEXEC') or die('Restricted access');
 		</td>
 		<td class="check-image check-image-ok"></td>
 		<td class="check-description">
-			<?php echo JText::_('COM_MAGEBRIDGE_CHECK_NO_CONFLICTING_EXTENSIONS'); ?>
+			<?php echo Text::_('COM_MAGEBRIDGE_CHECK_NO_CONFLICTING_EXTENSIONS'); ?>
 		</td>
 	</tr>
 	<?php } ?>
@@ -85,7 +84,7 @@ defined('_JEXEC') or die('Restricted access');
 	</fieldset>
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_BRIDGE'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_BRIDGE'); ?></legend>
 	<table class="admintable" width="100%">
 	<?php foreach ($this->checks['bridge'] as $result) { ?>
 	<tr class="check-row-<?php echo $result['status']; ?>">
@@ -102,7 +101,7 @@ defined('_JEXEC') or die('Restricted access');
 	</fieldset>
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_SYSTEM'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_SYSTEM'); ?></legend>
 	<table class="admintable" width="100%">
 	<?php foreach ($this->checks['system'] as $result) { ?>
 	<tr class="check-row-<?php echo $result['status']; ?>">
@@ -119,7 +118,7 @@ defined('_JEXEC') or die('Restricted access');
 	</fieldset>
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('COM_MAGEBRIDGE_CHECK_EXTENSIONS'); ?></legend>
+	<legend><?php echo Text::_('COM_MAGEBRIDGE_CHECK_EXTENSIONS'); ?></legend>
 	<table class="admintable" width="100%">
 	<?php foreach ($this->checks['extensions'] as $result) { ?>
 	<tr class="check-row-<?php echo $result['status']; ?>">
@@ -140,5 +139,5 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_magebridge" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="boxchecked" value="0" />
-<?php echo JHtml::_('form.token'); ?>
+<?php echo HTMLHelper::_('form.token'); ?>
 </form>

@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -70,7 +72,7 @@ class MagebridgeFormFieldStore extends MageBridgeFormFieldAbstract
                 array_unshift($options, ['value' => '', 'label' => '-- Select --']);
                 $extra = null;
 
-                return JHtml::_('select.genericlist', $options, $fieldName, $extra, 'value', 'label', $value);
+                return HTMLHelper::_('select.genericlist', $options, $fieldName, $extra, 'value', 'label', $value);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "store"', $options);

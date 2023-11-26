@@ -10,8 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\String\StringHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+
 
 include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/libraries/loader.php';
 
@@ -88,11 +92,12 @@ class MageBridgeElementHelper
         $arguments = ['minimal_price' => 0];
 
         // Fetch any current filters
-        $application = JFactory::getApplication();
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $application = Factory::getApplication();
         $option = $application->input->getCmd('option') . '-element-products';
 
         // Set the limits
-        $default_limit = JFactory::getConfig()->get('list_limit');
+        $default_limit = Factory::getConfig()->get('list_limit');
         if (empty($default_limit)) {
             $default_limit = 20;
         }
@@ -101,7 +106,7 @@ class MageBridgeElementHelper
 
         // Add the search-filter
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
-        $search = Joomla\String\StringHelper::strtolower(trim($search));
+        $search = StringHelper::strtolower(trim($search));
         if (strlen($search) > 0) {
             $arguments['filters'] = [
                 'name' => ['like' => ['%' . $search . '%']],
@@ -132,12 +137,13 @@ class MageBridgeElementHelper
     public static function getCategoryTree($arguments = [])
     {
         // Initialize some important variables
-        $application = JFactory::getApplication();
-        $option = JFactory::getApplication()->input->getCmd('option') . '-element-categories';
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $application = Factory::getApplication();
+        $option = Factory::getApplication()->input->getCmd('option') . '-element-categories';
 
         // Add the search-filter
         $search = $application->getUserStateFromRequest($option . '.search', 'search', '', 'string');
-        $search = Joomla\String\StringHelper::strtolower(trim($search));
+        $search = StringHelper::strtolower(trim($search));
 
         if (strlen($search) > 0) {
             $arguments['filters'] = [

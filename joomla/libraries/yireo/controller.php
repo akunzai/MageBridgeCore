@@ -11,6 +11,14 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Utilities\ArrayHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -105,15 +113,15 @@ class YireoController extends YireoCommonController
 
         // Allow or disallow frontend editing
         if ($this->app->isClient('site') && in_array($this->input->getCmd('task', 'display'), $this->allow_tasks) == false) {
-            throw new Yireo\Exception\Controller\IllegalRequest(JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST') . ' = ' . $this->input->getCmd('task'));
+            throw new \Yireo\Exception\Controller\IllegalRequest(Text::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST') . ' = ' . $this->input->getCmd('task'));
         }
 
         // Check for ACLs in backend
-        if ($this->app->isAdmin()) {
-            $user = JFactory::getUser();
+        if ($this->app->isClient('administrator')) {
+            $user = Factory::getUser();
 
             if ($user->authorise('core.manage', $this->input->getCmd('option')) == false) {
-                $this->app->redirect('index.php', JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
+                $this->app->redirect('index.php', Text::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
             }
         }
     }
@@ -124,7 +132,7 @@ class YireoController extends YireoCommonController
      * @param bool $cachable
      * @param bool $urlparams
      *
-     * @return JControllerLegacy
+     * @return \Joomla\CMS\MVC\Controller\BaseController
      */
     public function display($cachable = false, $urlparams = false)
     {
@@ -192,7 +200,7 @@ class YireoController extends YireoCommonController
     public function store($post = null)
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Fetch the POST-data
         if (empty($post)) {
@@ -221,7 +229,7 @@ class YireoController extends YireoCommonController
         if (in_array('alias', $post)) {
             if (empty($post['alias'])) {
                 $alias         = $this->input->post->getString('title');
-                $alias         = strtolower(JFilterOutput::stringURLSafe($alias));
+                $alias         = strtolower(OutputFilter::stringURLSafe($alias));
                 $post['alias'] = $alias;
             }
         }
@@ -230,19 +238,18 @@ class YireoController extends YireoCommonController
         $model = $this->_loadModel();
 
         // Store these data with the model
-        if ($model->store($post)) {
+        try {
+            $model->store($post);
             $id = $model->getId();
 
             if ($id > 0) {
                 $this->id = $id;
             }
 
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->input->getCmd('view'));
-
-            // If this fails, set the error
-        } else {
-            $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->input->getCmd('view'));
-            $error     = $model->getError();
+            $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->input->getCmd('view'));
+        } catch (Exception $e) {
+            $this->msg = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->input->getCmd('view'));
+            $error     = $e->getMessage();
 
             if (!empty($error)) {
                 $this->msg .= ': ' . $error;
@@ -263,7 +270,7 @@ class YireoController extends YireoCommonController
     public function save()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Store the data
         $this->store();
@@ -287,7 +294,7 @@ class YireoController extends YireoCommonController
     public function apply()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Store the data
         $this->store();
@@ -308,7 +315,7 @@ class YireoController extends YireoCommonController
     public function savenew()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Store the data
         $this->store();
@@ -323,7 +330,7 @@ class YireoController extends YireoCommonController
     public function saveandcopy()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Store these data
         $this->store();
@@ -347,7 +354,7 @@ class YireoController extends YireoCommonController
     public function saveascopy()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Remove the identifier from whereever
         $this->input->set('id', 0);
@@ -367,13 +374,13 @@ class YireoController extends YireoCommonController
     public function remove()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Get the ID-list
         $cid = $this->getIds();
 
         if (count($cid) < 1) {
-            throw new Exception(JText::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_DELETE'));
+            throw new Exception(Text::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_DELETE'));
         }
 
         // Remove all selected items
@@ -382,10 +389,10 @@ class YireoController extends YireoCommonController
 
         if (count($cid) == 1) {
             $singleName = $this->getSingleName($this->input->getCmd('view'));
-            $this->msg  = JText::_('LIB_YIREO_CONTROLLER_' . strtoupper($singleName) . '_DELETED');
+            $this->msg  = Text::_('LIB_YIREO_CONTROLLER_' . strtoupper($singleName) . '_DELETED');
         } else {
             $pluralName = $this->getPluralName($this->input->getCmd('view'));
-            $this->msg  = JText::sprintf('LIB_YIREO_CONTROLLER_' . strtoupper($pluralName) . '_DELETED', count($cid));
+            $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_' . strtoupper($pluralName) . '_DELETED', count($cid));
         }
 
         // Redirect to this same page
@@ -398,28 +405,23 @@ class YireoController extends YireoCommonController
     public function publish()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Get the ID-list
         $cid = $this->getIds();
 
         if (count($cid) < 1) {
-            throw new Exception(JText::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_PUBLISH'));
+            throw new Exception(Text::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_PUBLISH'));
         }
 
         // Use the model to publish this entry
         $model = $this->_loadModel();
 
-        if (!$model->publish($cid, 1)) {
-            echo "<script> alert('" . $model->getError(true) . "'); window.history.go(-1); </script>\n";
-        } else {
-            if (count($cid) == 1) {
-                $singleName = $this->getSingleName($this->input->getCmd('view'));
-                $this->msg  = JText::_('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED');
-            } else {
-                $pluralName = $this->getPluralName($this->input->getCmd('view'));
-                $this->msg  = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED', count($cid));
-            }
+        try {
+            $model->publish($cid, 1);
+            $this->msg = (count($cid) == 1) ? Text::_('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED') : Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED', count($cid));
+        } catch (Exception $e) {
+            echo "<script> alert('" . $e->getMessage() . "'); window.history.go(-1); </script>\n";
         }
 
         // Redirect to this same page
@@ -432,28 +434,29 @@ class YireoController extends YireoCommonController
     public function unpublish()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Get the ID-list
         $cid = $this->getIds();
 
         if (count($cid) < 1) {
-            throw new Exception(JText::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_UNPUBLISH'));
+            throw new Exception(Text::_('LIB_YIREO_CONTROLLER_ITEM_SELECT_UNPUBLISH'));
         }
 
         // Use the model to unpublish this entry
         $model = $this->_loadModel();
 
-        if (!$model->publish($cid, 0)) {
-            echo "<script> alert('" . $model->getError(true) . "'); window.history.go(-1); </script>\n";
-        } else {
+        try {
+            $model->publish($cid, 0);
             if (count($cid) == 1) {
                 $singleName = $this->getSingleName($this->input->getCmd('view'));
-                $this->msg  = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $singleName);
+                $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $singleName);
             } else {
                 $pluralName = $this->getPluralName($this->input->getCmd('view'));
-                $this->msg  = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $pluralName, count($cid));
+                $this->msg  = Text::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', $pluralName, count($cid));
             }
+        } catch (Exception $e) {
+            echo "<script> alert('" . $e->getMessage() . "'); window.history.go(-1); </script>\n";
         }
 
         // Redirect to this same page
@@ -466,7 +469,7 @@ class YireoController extends YireoCommonController
     public function cancel()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Checkin the model
         $model = $this->_loadModel();
@@ -484,7 +487,7 @@ class YireoController extends YireoCommonController
     public function orderup()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Order-up using the model
         $model = $this->_loadModel();
@@ -500,7 +503,7 @@ class YireoController extends YireoCommonController
     public function orderdown()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Order-down using the model
         $model = $this->_loadModel();
@@ -516,14 +519,14 @@ class YireoController extends YireoCommonController
     public function saveorder()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Fetch the current ID-list
         $cid = $this->getIds();
 
         // Fetch the ordering-list
         $order = $this->input->get('order', [], 'post', 'array');
-        Joomla\Utilities\ArrayHelper::toInteger($order);
+        ArrayHelper::toInteger($order);
 
         // Auto-correct ordering with only zeros
         if (!empty($order)) {
@@ -559,7 +562,7 @@ class YireoController extends YireoCommonController
     public function vote()
     {
         // Security check
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken() or exit(Text::_('JINVALID_TOKEN'));
 
         // Fetch base-variables
         $url    = $this->input->get('url', '', 'default', 'string');
@@ -567,21 +570,22 @@ class YireoController extends YireoCommonController
         $id     = $this->input->get('cid', 0, '', 'int');
 
         // Load the current model
+        /** @var MageBridgeModelItem */
         $model = $this->getModel('item');
         $model->setId($id);
 
         // If this vote is made from an external source, make sure we redirect to an internal page
-        if (!JUri::isInternal($url)) {
+        if (!Uri::isInternal($url)) {
             $option = $this->input->getCmd('option');
             $view   = $this->input->getCmd('view');
-            $url    = JRoute::_('index.php?option=' . $option . '&view=' . $view . '&id=' . $id);
+            $url    = Route::_('index.php?option=' . $option . '&view=' . $view . '&id=' . $id);
         }
 
         // Store the vote in this model
         if ($model->storeVote($rating)) {
-            $this->setRedirect($url, JText::_('LIB_YIREO_CONTROLLER_ITEM_VOTE_SUCCESS'));
+            $this->setRedirect($url, Text::_('LIB_YIREO_CONTROLLER_ITEM_VOTE_SUCCESS'));
         } else {
-            $this->setRedirect($url, JText::_('LIB_YIREO_CONTROLLER_ITEM_VOTE_ALREADY'));
+            $this->setRedirect($url, Text::_('LIB_YIREO_CONTROLLER_ITEM_VOTE_ALREADY'));
         }
     }
 
@@ -591,7 +595,7 @@ class YireoController extends YireoCommonController
     public function toggle()
     {
         // Security check
-        JSession::checkToken('get') or jexit(JText::_('JINVALID_TOKEN'));
+        Session::checkToken('get') or exit(Text::_('JINVALID_TOKEN'));
 
         // Fetch the request-parameters
         $id    = $this->input->getInt('id');
@@ -758,7 +762,7 @@ class YireoController extends YireoCommonController
 
         // Set the redirect, including messages if they are set
         if ($this->app->isClient('site')) {
-            $link = JRoute::_($link);
+            $link = Route::_($link);
         }
 
         $this->setRedirect($link, $this->msg, $this->msg_type);
@@ -824,7 +828,7 @@ class YireoController extends YireoCommonController
 
         // Fetch the ID-list and make sure it renders as a list of numbers
         $cid = $this->input->get('cid', [0], 'post', 'array');
-        Joomla\Utilities\ArrayHelper::toInteger($cid);
+        ArrayHelper::toInteger($cid);
 
         return $cid;
     }
@@ -836,7 +840,7 @@ class YireoController extends YireoCommonController
     {
         $phpversion = phpversion();
         if (version_compare($phpversion, self::PHP_SUPPORTED_VERSION, 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP_UNSUPPORTED', $phpversion, self::PHP_SUPPORTED_VERSION);
+            $message = Text::sprintf('LIB_YIREO_PHP_UNSUPPORTED', $phpversion, self::PHP_SUPPORTED_VERSION);
             $this->app->enqueueMessage($message, 'error');
         }
     }

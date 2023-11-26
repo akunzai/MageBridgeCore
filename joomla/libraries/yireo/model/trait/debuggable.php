@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * Yireo Model Trait: Identifiable - allows models to have an ID
  *
@@ -45,7 +47,7 @@ trait YireoModelTraitDebuggable
      */
     public function getDbDebug()
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         return '<pre>' . str_replace('#__', $db->getPrefix(), $db->getQuery()) . '</pre>';
     }

@@ -11,11 +11,14 @@
  * @version   0.6.1
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\Path;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Includes from Joomla! Framework
-jimport('joomla.filter.output');
 
 // Include the loader
 require_once dirname(__FILE__) . '/../loader.php';
@@ -53,29 +56,34 @@ class YireoCommonView extends YireoAbstractView
     protected $_task = null;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var Joomla\CMS\Application\CMSApplication
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * @var Joomla\CMS\Document\HtmlDocument
+     * @var \Joomla\CMS\Document\HtmlDocument
      */
     protected $doc;
 
     /**
-     * @var JUser
+     * @var \Joomla\CMS\User\User
      */
     protected $user;
+
+    /**
+     * @var \Joomla\CMS\Uri\Uri
+     */
+    protected $uri;
 
     /**
      * Main constructor method
@@ -89,12 +97,12 @@ class YireoCommonView extends YireoAbstractView
         // Call the parent constructor
         parent::__construct($config);
 
-        // Import use full variables from JFactory
-        $this->db          = JFactory::getDbo();
-        $this->uri         = JUri::getInstance();
-        $this->doc         = JFactory::getDocument();
-        $this->user        = JFactory::getUser();
-        $this->app         = JFactory::getApplication();
+        // Import use full variables from Factory
+        $this->db          = Factory::getDbo();
+        $this->uri         = Uri::getInstance();
+        $this->doc         = Factory::getDocument();
+        $this->user        = Factory::getUser();
+        $this->app         = Factory::getApplication();
         $this->input       = $this->app->input;
 
         // Create the namespace-variables
@@ -156,7 +164,7 @@ class YireoCommonView extends YireoAbstractView
             if (!empty($views)) {
                 foreach ($views as $view => $view_title) {
                     if ($this->getConfig('view') == $view) {
-                        $title = JText::_($this->input->getCmd('option') . '_VIEW_' . $view);
+                        $title = Text::_($this->input->getCmd('option') . '_VIEW_' . $view);
                         break;
                     }
                 }
@@ -164,12 +172,12 @@ class YireoCommonView extends YireoAbstractView
         }
 
         if ($this->_single) {
-            $pretext = ($this->isEdit()) ? JText::_('LIB_YIREO_VIEW_EDIT') : JText::_('LIB_YIREO_VIEW_NEW');
+            $pretext = ($this->isEdit()) ? Text::_('LIB_YIREO_VIEW_EDIT') : Text::_('LIB_YIREO_VIEW_NEW');
             $title   = $pretext . ' ' . $title;
         }
 
         $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
-        JToolbarHelper::title($component_title . ': ' . $title, $icon);
+        ToolbarHelper::title($component_title . ': ' . $title, $icon);
 
         return;
     }
@@ -213,10 +221,10 @@ class YireoCommonView extends YireoAbstractView
                     if ($layout) {
                         $url .= '&layout=' . $layout;
                     }
-                    JSubMenuHelper::addEntry(JText::_($titleLabel), $url, $active);
+                    JHtmlSidebar::addEntry(Text::_($titleLabel), $url, $active);
                 } else {
                     if (preg_match('/option=/', $view)) {
-                        JSubMenuHelper::addEntry(JText::_($titleLabel), 'index.php?' . $view, false);
+                        JHtmlSidebar::addEntry(Text::_($titleLabel), 'index.php?' . $view, false);
                     }
                 }
             }
@@ -238,31 +246,31 @@ class YireoCommonView extends YireoAbstractView
         $template = $this->app->getTemplate();
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet)) {
-            $this->doc->addStyleSheet(JUri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet);
+            $this->doc->addStyleSheet(Uri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet)) {
-            $this->doc->addStyleSheet(JUri::root() . 'media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet);
+            $this->doc->addStyleSheet(Uri::root() . 'media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet)) {
-            $this->doc->addStyleSheet(JUri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet);
+            $this->doc->addStyleSheet(Uri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/css/' . $stylesheet)) {
-            $this->doc->addStyleSheet(JUri::root() . 'media/' . $this->getConfig('option') . '/css/' . $stylesheet);
+            $this->doc->addStyleSheet(Uri::root() . 'media/' . $this->getConfig('option') . '/css/' . $stylesheet);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/lib_yireo/css/' . $stylesheet)) {
-            $this->doc->addStyleSheet(JUri::root() . 'media/lib_yireo/css/' . $stylesheet);
+            $this->doc->addStyleSheet(Uri::root() . 'media/lib_yireo/css/' . $stylesheet);
 
             return;
         }
@@ -283,31 +291,31 @@ class YireoCommonView extends YireoAbstractView
         $template = $this->app->getTemplate();
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script)) {
-            $this->doc->addScript(JUri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script);
+            $this->doc->addScript(Uri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/js/' . $prefix . $script)) {
-            $this->doc->addScript(JUri::root() . 'media/' . $this->getConfig('option') . '/js/' . $prefix . $script);
+            $this->doc->addScript(Uri::root() . 'media/' . $this->getConfig('option') . '/js/' . $prefix . $script);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script)) {
-            $this->doc->addScript(JUri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script);
+            $this->doc->addScript(Uri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/js/' . $script)) {
-            $this->doc->addScript(JUri::root() . 'media/' . $this->getConfig('option') . '/js/' . $script);
+            $this->doc->addScript(Uri::root() . 'media/' . $this->getConfig('option') . '/js/' . $script);
 
             return;
         }
 
         if (file_exists(JPATH_SITE . '/media/lib_yireo/js/' . $script)) {
-            $this->doc->addScript(JUri::root() . 'media/lib_yireo/js/' . $script);
+            $this->doc->addScript(Uri::root() . 'media/lib_yireo/js/' . $script);
 
             return;
         }
@@ -416,13 +424,12 @@ class YireoCommonView extends YireoAbstractView
             $file = $file . '.php';
         }
 
-        jimport('joomla.filesystem.path');
-        $template = Joomla\Filesystem\Path::find($templatePaths, $file);
+        $template = Path::find($templatePaths, $file);
 
         // If this template is empty, try to use alternatives
         if (empty($template) && $file == 'default.php') {
             $file     = 'form.php';
-            $template = Joomla\Filesystem\Path::find($templatePaths, $file);
+            $template = Path::find($templatePaths, $file);
         }
 
         $output = null;
@@ -439,8 +446,8 @@ class YireoCommonView extends YireoAbstractView
             unset($file);
 
             // Never allow a 'this' property
-            if (isset($this->this)) {
-                unset($this->this);
+            if (isset($this->{'this'})) {
+                unset($this->{'this'});
             }
 
             // Unset variables

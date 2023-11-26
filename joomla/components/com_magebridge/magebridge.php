@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,15 +10,16 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require all the neccessary libraries
+// Require all the necessary libraries
 require_once JPATH_COMPONENT . '/libraries/factory.php';
 require_once JPATH_COMPONENT . '/helpers/loader.php';
 
-$app   = JFactory::getApplication();
-$input = $app->input;
+$input = Factory::getApplication()->input;
 
 // Handle the SSO redirect
 if ($input->getInt('sso') == 1) {

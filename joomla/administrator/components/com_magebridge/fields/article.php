@@ -1,8 +1,14 @@
 <?php
+
 /**
  * @copyright      Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
 
 defined('JPATH_BASE') or die;
 
@@ -12,7 +18,7 @@ defined('JPATH_BASE') or die;
  * @package        Joomla.Administrator
  * @subpackage     com_content
  */
-class MagebridgeFormFieldArticle extends JFormField
+class MagebridgeFormFieldArticle extends \Joomla\CMS\Form\FormField
 {
     /**
      * The form field type.
@@ -38,7 +44,7 @@ class MagebridgeFormFieldArticle extends JFormField
         $this->setArticleTitle();
 
         // Load the modal behavior script.
-        JHtml::_('behavior.modal', 'a.modal');
+        HTMLHelper::_('behavior.modal', 'a.modal');
         $this->addScriptDeclaration();
 
         // Load the article ID
@@ -65,12 +71,12 @@ class MagebridgeFormFieldArticle extends JFormField
     protected function setArticleTitle()
     {
         // Load the article title
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery('SELECT title FROM #__content WHERE id = ' . (int) $this->value);
         $title = $db->loadResult();
 
         if (empty($title)) {
-            $title = JText::_('COM_CONTENT_SELECT_AN_ARTICLE');
+            $title = Text::_('COM_CONTENT_SELECT_AN_ARTICLE');
         }
 
         $title       = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
@@ -91,11 +97,11 @@ class MagebridgeFormFieldArticle extends JFormField
         $script[] = '	}';
         $script[] = '	function jResetArticle_' . $this->id . '(id, title, catid, object) {';
         $script[] = '		document.id("' . $this->id . '_id").value = 0;';
-        $script[] = '		document.id("' . $this->id . '_name").value = "' . JText::_('COM_CONTENT_SELECT_AN_ARTICLE') . '";';
+        $script[] = '		document.id("' . $this->id . '_name").value = "' . Text::_('COM_CONTENT_SELECT_AN_ARTICLE') . '";';
         $script[] = '	}';
 
         // Add the script to the document head.
-        $doc = JFactory::getDocument();
+        $doc = Factory::getDocument();
         $doc->addScriptDeclaration(implode("\n", $script));
     }
 
@@ -107,7 +113,7 @@ class MagebridgeFormFieldArticle extends JFormField
         $title = $this->title;
 
         // Setup variables for display.
-        $sessionToken = JSession::getFormToken();
+        $sessionToken = Session::getFormToken();
         $link         = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=jSelectArticle_' . $this->id;
         $link .= '&amp;' . $sessionToken . '=1';
 
@@ -115,10 +121,10 @@ class MagebridgeFormFieldArticle extends JFormField
         $html[] = '<span class="input-append">';
         $html[] = '<input type="text" class="input-medium" id="' . $this->id . '_name" value="' . $title . '" disabled="disabled" size="35" />';
         $html[] = '<a class="modal btn" href="' . $link . '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}">';
-        $html[] = '<i class="icon-file"></i> ' . JText::_('JSELECT');
+        $html[] = '<i class="icon-file"></i> ' . Text::_('JSELECT');
         $html[] = '</a>';
         $html[] = '<button id="' . $this->id . '_clear" class="btn" onclick="return jResetArticle_' . $this->id . '();">';
-        $html[] = '<span class="icon-remove"></span>' . JText::_('JCLEAR');
+        $html[] = '<span class="icon-remove"></span>' . Text::_('JCLEAR');
         $html[] = '</button>';
         $html[] = '</span>';
 

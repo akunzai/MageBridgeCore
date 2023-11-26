@@ -72,14 +72,6 @@ class Yireo_MageBridge_Block_Menu extends Mage_Core_Block_Template
                 'action' => 'check',
                 'title' => 'System Check',
             ],
-            [
-                'action' => 'updates',
-                'title' => 'Updates',
-            ],
-            [
-                'action' => 'supportkey',
-                'title' => 'Support Key',
-            ],
         ];
     }
 }

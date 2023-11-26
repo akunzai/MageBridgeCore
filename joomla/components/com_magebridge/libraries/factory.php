@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,14 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * Main bridge class
@@ -97,7 +101,7 @@ class MageBridge
      */
     public static function getAPI($resource = null, $id = null)
     {
-        MageBridgeModelDebug::getInstance()->notice('Bridge: getAPI( resource: '.$resource.', id: '.$id.')');
+        MageBridgeModelDebug::getInstance()->notice('Bridge: getAPI( resource: ' . $resource . ', id: ' . $id . ')');
         return MageBridgeModelBridgeSegment::getInstance()->getResponseData('api', $resource);
     }
 
@@ -172,22 +176,22 @@ class MageBridge
     {
         // Basic URL
         $form_key = MageBridgeModelBridge::getInstance()->getSessionData('form_key');
-        $request = 'checkout/cart/add/product/'.$product_id.'/qty/'.$quantity.'/';
+        $request = 'checkout/cart/add/product/' . $product_id . '/qty/' . $quantity . '/';
         if (!empty($form_key)) {
-            $request .= 'form_key/'.$form_key.'/';
+            $request .= 'form_key/' . $form_key . '/';
         }
 
         // Add the return URL
         if (!empty($return_url)) {
-            $uenc = MageBridgeEncryptionHelper::base64_encode(JRoute::_($return_url));
-            $request .= 'uenc/'.$uenc.'/';
+            $uenc = MageBridgeEncryptionHelper::base64_encode(Route::_($return_url));
+            $request .= 'uenc/' . $uenc . '/';
         }
 
         // Add the product-options
         if (!empty($options)) {
             $request .= '?';
             foreach ($options as $name => $value) {
-                $request .= 'options['.$name.']='.$value.'&';
+                $request .= 'options[' . $name . ']=' . $value . '&';
             }
         }
 
@@ -264,13 +268,13 @@ class MageBridge
     public static function isApiPage()
     {
         // Detect the XML-RPC application
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         if ($application->getName() == 'xmlrpc') {
             return true;
         }
 
         // Detect the JSON-RPC application
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_magebridge' && (JFactory::getApplication()->input->getCmd('view') == 'jsonrpc' || JFactory::getApplication()->input->getCmd('controller') == 'jsonrpc')) {
+        if ($application->input->getCmd('option') == 'com_magebridge' && ($application->input->getCmd('view') == 'jsonrpc' || $application->input->getCmd('controller') == 'jsonrpc')) {
             return true;
         }
 

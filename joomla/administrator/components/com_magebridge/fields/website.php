@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,8 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
+
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -42,7 +47,7 @@ class MagebridgeFormFieldWebsite extends MageBridgeFormFieldAbstract
         $access = (string) $this->element['access'];
 
         if (!empty($access)) {
-            $user = JFactory::getUser();
+            $user = Factory::getUser();
 
             if ($user->authorise($access) == false) {
                 return '<input type="text" name="' . $fieldName . '" value="' . $value . '" disabled="disabled" />';
@@ -74,7 +79,7 @@ class MagebridgeFormFieldWebsite extends MageBridgeFormFieldAbstract
                 // Return a dropdown list
                 array_unshift($options, ['value' => '', 'label' => '']);
 
-                return JHtml::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
+                return HTMLHelper::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "website"', $options);

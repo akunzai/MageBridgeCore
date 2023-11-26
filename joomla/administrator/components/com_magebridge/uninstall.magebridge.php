@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Installer\Installer;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -18,11 +22,10 @@ defined('_JEXEC') or die();
 function com_uninstall()
 {
     // Initialize the Joomla! installer
-    jimport('joomla.installer.installer');
-    $installer = JInstaller::getInstance();
+    $installer = Installer::getInstance();
 
     // Select all MageBridge modules and remove them
-    $db = JFactory::getDbo();
+    $db = Factory::getDbo();
     $query = "SELECT `id`,`client_id` FROM #__modules WHERE `module` LIKE 'mod_magebridge%'";
     $db->setQuery($query);
     $rows = $db->loadObjectList();
@@ -33,7 +36,7 @@ function com_uninstall()
     }
 
     // Select all MageBridge plugins and remove them
-    $db = JFactory::getDbo();
+    $db = Factory::getDbo();
     $query = "SELECT `id`,`client_id` FROM #__plugins WHERE `element` LIKE 'magebridge%' OR `folder` = 'magento'";
     $db->setQuery($query);
     $rows = $db->loadObjectList();

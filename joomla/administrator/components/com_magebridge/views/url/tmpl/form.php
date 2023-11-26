@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 
@@ -18,13 +21,13 @@ defined('_JEXEC') or die('Restricted access');
 <tr>
 <td width="50%" valign="top">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE'); ?></legend>
+		<legend><?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE'); ?></legend>
 		<table class="admintable">
 		<tbody>
 		<tr>
 			<td width="100" align="right" class="key">
 				<label for="source">
-					<?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE'); ?>:
+					<?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE'); ?>:
 				</label>
 			</td>
 			<td class="value">
@@ -33,7 +36,7 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td valign="top" align="right" class="key">
-				<?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE_TYPE'); ?>:
+				<?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_SOURCE_TYPE'); ?>:
 			</td>
 			<td class="value">
 				<?php echo $this->lists['source_type']; ?>
@@ -43,13 +46,13 @@ defined('_JEXEC') or die('Restricted access');
 		</table>
 	</fieldset>
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_DESTINATION'); ?></legend>
+		<legend><?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_DESTINATION'); ?></legend>
 		<table class="admintable">
 		<tbody>
 		<tr>
 			<td width="100" align="right" class="key">
 				<label for="destination">
-					<?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_DESTINATION'); ?>:
+					<?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_DESTINATION'); ?>:
 				</label>
 			</td>
 			<td class="value">
@@ -60,13 +63,13 @@ defined('_JEXEC') or die('Restricted access');
 		</table>
 	</fieldset>
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_MAGEBRIDGE_VIEW_URLS_FIELDSET_META'); ?></legend>
+		<legend><?php echo Text::_('COM_MAGEBRIDGE_VIEW_URLS_FIELDSET_META'); ?></legend>
 		<table class="admintable">
 		<tbody>
 		<tr>
 			<td width="100" align="right" class="key">
 				<label for="description">
-					<?php echo JText::_('LIB_YIREO_TABLE_FIELDNAME_DESCRIPTION'); ?>:
+					<?php echo Text::_('LIB_YIREO_TABLE_FIELDNAME_DESCRIPTION'); ?>:
 				</label>
 			</td>
 			<td class="value">
@@ -75,7 +78,7 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td valign="top" align="right" class="key">
-				<?php echo JText::_('LIB_YIREO_TABLE_FIELDNAME_PUBLISHED'); ?>:
+				<?php echo Text::_('LIB_YIREO_TABLE_FIELDNAME_PUBLISHED'); ?>:
 			</td>
 			<td class="value">
 				<?php echo $this->lists['published']; ?>
@@ -92,5 +95,5 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_magebridge" />
 <input type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>" />
 <input type="hidden" name="task" value="" />
-<?php echo JHtml::_('form.token'); ?>
+<?php echo HTMLHelper::_('form.token'); ?>
 </form>

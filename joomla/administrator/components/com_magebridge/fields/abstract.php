@@ -15,15 +15,10 @@ defined('JPATH_BASE') or die();
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
-// Import required libraries
-jimport('joomla.html.html');
-jimport('joomla.access.access');
-jimport('joomla.form.formfield');
-
 /**
  * Generic Form Field-class
  */
-abstract class MageBridgeFormFieldAbstract extends JFormField
+abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
 {
     /** @var MageBridgeModelBridge */
     protected $bridge;

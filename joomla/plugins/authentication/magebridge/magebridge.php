@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - Authentication plugin
  *
@@ -9,11 +10,11 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Authentication\Authentication;
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-jimport('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -21,7 +22,7 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge Authentication Plugin
  */
-class PlgAuthenticationMageBridge extends JPlugin
+class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 {
     // MageBridge constants
     public const MAGEBRIDGE_AUTHENTICATION_FAILURE = 0;
@@ -36,7 +37,7 @@ class PlgAuthenticationMageBridge extends JPlugin
      * @param object $subject
      * @param array  $config
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
@@ -67,7 +68,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate called');
 
-        if (JFactory::getApplication()->isClient('site') == false) {
+        if (Factory::getApplication()->isClient('site') == false) {
             // Check if authentication is enabled for the backend
             if ($this->getParam('enable_auth_backend') != 1) {
                 return false;
@@ -85,7 +86,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         // Lookup the email instead
         if ($this->params->get('lookup_email', 0) == 1) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $db->setQuery("SELECT email FROM #__users WHERE username = " . $db->Quote($credentials['username']));
             $email = $db->loadResult();
 
@@ -101,7 +102,7 @@ class PlgAuthenticationMageBridge extends JPlugin
         // Abort if the result is empty
         if (empty($result)) {
             MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate returns empty');
-            $response->status = (defined('JAuthentication::STATUS_FAILURE')) ? JAuthentication::STATUS_FAILURE : JAUTHENTICATE_STATUS_FAILURE;
+            $response->status = Authentication::STATUS_FAILURE;
             $response->error_message = 'Failed to authenticate';
 
             return false;
@@ -110,7 +111,7 @@ class PlgAuthenticationMageBridge extends JPlugin
         // Abort if the result contains an unknown state
         if (empty($result['state']) || $result['state'] != self::MAGEBRIDGE_AUTHENTICATION_SUCCESS) {
             MageBridgeModelDebug::getInstance()->notice('Authentication plugin: onAuthenticate returns false');
-            $response->status = (defined('JAuthentication::STATUS_FAILURE')) ? JAuthentication::STATUS_FAILURE : JAUTHENTICATE_STATUS_FAILURE;
+            $response->status = Authentication::STATUS_FAILURE;
             $response->error_message = 'Failed to authenticate';
 
             return false;
@@ -121,7 +122,7 @@ class PlgAuthenticationMageBridge extends JPlugin
 
         // Compile the plugin-response
         $response->type = 'MageBridge';
-        $response->status = (defined('JAuthentication::STATUS_SUCCESS')) ? JAuthentication::STATUS_SUCCESS : JAUTHENTICATE_STATUS_SUCCESS;
+        $response->status = Authentication::STATUS_SUCCESS;
         $response->error_message = '';
         $response->email = $result['email'];
         $response->application = $application_name;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * Parent plugin-class
@@ -32,17 +35,22 @@ class MageBridgePluginProfile extends MageBridgePlugin
     protected $pluginName = null;
 
     /**
+     * @var \Joomla\Database\DatabaseDriver
+     */
+    private $db;
+
+    /**
      * Constructor
      *
      * @access	  protected
      * @param	   object  $subject The object to observe
      * @param	   array   $config  An array that holds the plugin configuration
      */
-    public function __construct(& $subject, $config)
+    public function __construct(&$subject, $config)
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = JFactory::getDbo();
+        $this->db = Factory::getDbo();
     }
 
     /**
@@ -96,7 +104,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
     {
         // Determine the conversion-file
         $params = $this->params;
-        $custom = $this->getPath($params->get('file', 'map').'.php');
+        $custom = $this->getPath($params->get('file', 'map') . '.php');
         $default = $this->getPath('map.php');
 
         if ($custom == true) {
@@ -143,7 +151,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
      */
     protected function getPath($filename)
     {
-        $path = JPATH_SITE.'/plugins/magebridgeprofile/'.$this->pluginName.'/'.$filename;
+        $path = JPATH_SITE . '/plugins/magebridgeprofile/' . $this->pluginName . '/' . $filename;
         if (file_exists($path) && is_file($path)) {
             return $path;
         } else {

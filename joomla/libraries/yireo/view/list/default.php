@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,6 +11,9 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -18,6 +22,10 @@ $model       = $this->getModel();
 $table       = $model->getTable();
 $hasState    = ($table->getStateField()) ? true : false;
 $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
+/** @var array */
+$fields = $this->fields;
+/** @var array */
+$lists = $this->lists;
 ?>
 <form method="post" name="adminForm" id="adminForm">
 	<table width="100%">
@@ -33,38 +41,38 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 	<div id="editcell">
 		<table class="adminlist table table-striped" width="100%">
 			<thead>
-			<tr>
-				<th width="5">
-					<?php echo JText::_('LIB_YIREO_VIEW_NUM'); ?>
-				</th>
-				<th width="20">
-						<?php echo JHtml::_('grid.checkall'); ?>
-				</th>
-				<?php echo $this->loadTemplate('thead'); ?>
-				<?php if ($hasState && !empty($this->fields['state_field'])) : ?>
-					<th width="5%" class="title">
-						<?php echo JHtml::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $this->fields['state_field'], $this->lists['order_Dir'], $this->lists['order']); ?>
+				<tr>
+					<th width="5">
+						<?php echo Text::_('LIB_YIREO_VIEW_NUM'); ?>
 					</th>
-				<?php endif; ?>
-				<th width="5">
-					<?php echo JHtml::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ID', $this->fields['primary_field'], $this->lists['order_Dir'], $this->lists['order']); ?>
-				</th>
-			</tr>
+					<th width="20">
+						<?php echo HTMLHelper::_('grid.checkall'); ?>
+					</th>
+					<?php echo $this->loadTemplate('thead'); ?>
+					<?php if ($hasState && !empty($fields['state_field'])) : ?>
+						<th width="5%" class="title">
+							<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $fields['state_field'], $lists['order_Dir'], $lists['order']); ?>
+						</th>
+					<?php endif; ?>
+					<th width="5">
+						<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ID', $fields['primary_field'], $lists['order_Dir'], $lists['order']); ?>
+					</th>
+				</tr>
 			</thead>
 			<?php if ($this->pagination) : ?>
 				<tfoot>
-				<tr>
-					<td colspan="100">
-						<?php echo $this->pagination->getListFooter(); ?>
-						<?php echo $this->loadTemplate('limit'); ?>
-					</td>
-				</tr>
-				<?php echo $this->loadTemplate('legend'); ?>
+					<tr>
+						<td colspan="100">
+							<?php echo $this->pagination->getListFooter(); ?>
+							<?php echo $this->loadTemplate('limit'); ?>
+						</td>
+					</tr>
+					<?php echo $this->loadTemplate('legend'); ?>
 				</tfoot>
 			<?php endif; ?>
 			<tbody>
-			<?php
-            $i = $this->pagination->limitstart;
+				<?php
+                $i = $this->pagination->limitstart;
 if (!empty($this->items)) {
     foreach ($this->items as $item) {
         // Construct the checkbox
@@ -85,47 +93,48 @@ if (!empty($this->items)) {
         if (isset($item->hasOrdering) && $item->hasOrdering == false) {
             $ordering = false;
         } else {
-            $ordering      = ($this->lists['order'] == $this->fields['ordering_field']);
-            $orderingField = $this->fields['ordering_field'];
+            $ordering      = ($lists['order'] == $fields['ordering_field']);
+            $orderingField = $fields['ordering_field'];
         }
 
         // Determine whether to automatically insert common columns or not
         $auto_columns = true;
         ?>
-					<tr class="<?php echo "row" . ($i % 2); ?>">
-						<td>
-							<?php echo $i + 1; ?>
-						</td>
-						<td>
-							<?php echo $checkbox; ?>
-						</td>
+						<tr class="<?php echo "row" . ($i % 2); ?>">
+							<td>
+								<?php echo $i + 1; ?>
+							</td>
+							<td>
+								<?php echo $checkbox; ?>
+							</td>
 
-						<?php echo $this->loadTemplate('tbody', ['item'         => $item,
-                                                          'auto_columns' => $auto_columns,
-                                                          'published'    => $published,
-            ]); ?>
+							<?php echo $this->loadTemplate('tbody', [
+                        'item'         => $item,
+                        'auto_columns' => $auto_columns,
+                        'published'    => $published,
+                    ]); ?>
 
-						<?php if ($auto_columns): ?>
-							<?php if ($hasState) : ?>
+							<?php if ($auto_columns) : ?>
+								<?php if ($hasState) : ?>
+									<td>
+										<?php echo $published; ?>
+									</td>
+								<?php endif; ?>
 								<td>
-									<?php echo $published; ?>
+									<?php echo $item->id; ?>
 								</td>
 							<?php endif; ?>
-							<td>
-								<?php echo $item->id; ?>
-							</td>
-						<?php endif; ?>
-					</tr>
+						</tr>
 					<?php
-        $i++;
+                $i++;
     }
 } else {
     ?>
-				<tr>
-					<td colspan="100">
-						<?php echo JText::_('LIB_YIREO_VIEW_LIST_NO_ITEMS'); ?>
-					</td>
-				</tr>
+					<tr>
+						<td colspan="100">
+							<?php echo Text::_('LIB_YIREO_VIEW_LIST_NO_ITEMS'); ?>
+						</td>
+					</tr>
 				<?php
 }
 ?>

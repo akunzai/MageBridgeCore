@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `#__magebridge_config` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL DEFAULT '',
-    `value` TEXT NOT NULL DEFAULT '',
+    `value` TEXT NOT NULL,
     PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `#__magebridge_log`;
 
 CREATE TABLE IF NOT EXISTS `#__magebridge_log` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `message` TEXT NOT NULL DEFAULT '',
+    `message` TEXT NOT NULL,
     `type` INT(2) NOT NULL DEFAULT 0 COMMENT 'Type that equals debugging level',
     `origin` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'Which application',
     `section` VARCHAR(255) NOT NULL DEFAULT '',

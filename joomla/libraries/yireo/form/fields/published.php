@@ -10,9 +10,13 @@
  */
 
 // Check to ensure this file is included in Joomla!
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('JPATH_BASE') or die();
 
-// @bug: jimport() fails here
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/radio.php';
 
 /*
@@ -96,8 +100,8 @@ class YireoFormFieldPublished extends JFormFieldRadio
     protected function getOptions()
     {
         $options = [
-            JHtml::_('select.option', '0', JText::_('JUNPUBLISHED')),
-            JHtml::_('select.option', '1', JText::_('JPUBLISHED')),];
+            HTMLHelper::_('select.option', '0', Text::_('JUNPUBLISHED')),
+            HTMLHelper::_('select.option', '1', Text::_('JPUBLISHED')),];
 
         return $options;
     }

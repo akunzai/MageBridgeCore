@@ -11,11 +11,16 @@
  * @version   0.6.1
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Includes from Joomla! Framework
-jimport('joomla.filter.output');
 
 // Include the loader
 require_once dirname(__FILE__) . '/loader.php';
@@ -64,6 +69,13 @@ class YireoView extends YireoCommonView
     protected $prepare_display = true;
 
     /**
+     * The pagination object
+     *
+     * @var \Joomla\CMS\Pagination\Pagination
+     */
+    protected $pagination;
+
+    /**
      * @var \Joomla\Registry\Registry
      */
     protected $params;
@@ -74,6 +86,11 @@ class YireoView extends YireoCommonView
     protected $item;
 
     /**
+     * @var array
+     */
+    protected $items;
+
+    /**
      * @var YireoModel
      */
     protected $model;
@@ -82,6 +99,16 @@ class YireoView extends YireoCommonView
      * @var null|YireoTable
      */
     protected $table;
+
+    /**
+     * @var int
+     */
+    protected $total;
+
+    /**
+     * @var null|\Joomla\CMS\Form\Form
+     */
+    protected $form;
 
     /**
      * Main constructor method
@@ -98,9 +125,9 @@ class YireoView extends YireoCommonView
         // Set the parameters
         if (empty($this->params)) {
             if ($this->app->isClient('site') == false) {
-                $this->params = JComponentHelper::getParams($this->getConfig('option'));
+                $this->params = ComponentHelper::getParams($this->getConfig('option'));
             } else {
-                /** @var JApplicationSite */
+                /** @var \Joomla\CMS\Application\SiteApplication */
                 $siteApp = $this->app;
                 $this->params = $siteApp->getParams($this->getConfig('option'));
             }
@@ -146,22 +173,24 @@ class YireoView extends YireoCommonView
             // Add some things to the task-bar
             if ($this->_single && $this->loadToolbar == true) {
                 if ($this->params->get('toolbar_show_savenew', 1)) {
-                    JToolbarHelper::custom('savenew', 'save', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
+                    ToolbarHelper::custom('savenew', 'save', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveandcopy', 1)) {
-                    JToolbarHelper::custom('saveandcopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
+                    ToolbarHelper::custom('saveandcopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
                 }
 
                 if ($this->params->get('toolbar_show_saveascopy', 1)) {
-                    JToolbarHelper::custom('saveascopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
+                    ToolbarHelper::custom('saveascopy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
                 }
 
-                JToolbarHelper::save();
-                JToolbarHelper::apply();
-                JToolbarHelper::cancel('cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE');
+                ToolbarHelper::save();
+                ToolbarHelper::apply();
+                ToolbarHelper::cancel('cancel', $this->isEdit() == false ? 'JTOOLBAR_CANCEL' : 'LIB_YIREO_VIEW_TOOLBAR_CLOSE');
 
-                JHtml::_('behavior.tooltip');
+                if (version_compare(JVERSION, '4.0.0', '<')) {
+                    HTMLHelper::_('behavior.tooltip');
+                }
             }
         }
     }
@@ -171,7 +200,7 @@ class YireoView extends YireoCommonView
      *
      * @param string $tpl
      *
-     * @return  mixed
+     * @return  void
      */
     public function display($tpl = null)
     {
@@ -183,7 +212,7 @@ class YireoView extends YireoCommonView
             $tpl = $this->getLayout();
         }
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**
@@ -286,7 +315,7 @@ class YireoView extends YireoCommonView
             foreach ($this->items as $index => $item) {
                 // Clean data
                 if ($this->autoclean == true) {
-                    JFilterOutput::objectHTMLSafe($item, ENT_QUOTES, 'text');
+                    OutputFilter::objectHTMLSafe($item, ENT_QUOTES, 'text');
 
                     if (isset($item->text)) {
                         $item->text = htmlspecialchars($item->text);
@@ -307,7 +336,7 @@ class YireoView extends YireoCommonView
         $this->lists['search']      = $this->getFilter('search', null, 'string');
         $this->lists['order']       = $this->getFilter('order', null, 'string');
         $this->lists['order_Dir']   = $this->getFilter('order_Dir');
-        $this->lists['state']       = JHtml::_('grid.state', $this->getFilter('state'));
+        $this->lists['state']       = HTMLHelper::_('grid.state', $this->getFilter('state'));
 
         return $this->items;
     }
@@ -316,7 +345,7 @@ class YireoView extends YireoCommonView
      * Helper-method to get a single item from the MVC-model
      *
      * @return object
-     * @throws Yireo\Exception\View\ModelNotFound
+     * @throws \Yireo\Exception\View\ModelNotFound
      */
     protected function fetchItem()
     {
@@ -328,7 +357,7 @@ class YireoView extends YireoCommonView
         $this->model = $this->getModel(null, false);
 
         if (empty($this->model)) {
-            throw new Yireo\Exception\View\ModelNotFound('Unable to find YireoModel');
+            throw new \Yireo\Exception\View\ModelNotFound('Unable to find YireoModel');
         }
 
         // Determine if this is a new item or not
@@ -348,7 +377,7 @@ class YireoView extends YireoCommonView
             if ($this->app->isClient('administrator')) {
                 // Fail if checked-out not by current user
                 if (method_exists($this->model, 'isCheckedOut') && $this->model->isCheckedOut($this->user->get('id'))) {
-                    $msg = JText::sprintf('LIB_YIREO_MODEL_CHECKED_OUT', $this->item->title);
+                    $msg = Text::sprintf('LIB_YIREO_MODEL_CHECKED_OUT', $this->item->title);
                     $this->app->redirect('index.php?option=' . $this->getConfig('option'), $msg);
                 }
 
@@ -382,7 +411,7 @@ class YireoView extends YireoCommonView
             return false;
         }
 
-        JFilterOutput::objectHTMLSafe($this->item, ENT_QUOTES, 'text');
+        OutputFilter::objectHTMLSafe($this->item, ENT_QUOTES, 'text');
 
         if (isset($this->item->title)) {
             $this->item->title = htmlspecialchars($this->item->title);
@@ -421,7 +450,7 @@ class YireoView extends YireoCommonView
             if (class_exists('JHtmlAccess')) {
                 $this->lists['access'] = JHtmlAccess::level('access', $this->item->access);
             } else {
-                $this->lists['access'] = JHtml::_('list.accesslevel', $this->item);
+                $this->lists['access'] = HTMLHelper::_('list.accesslevel', $this->item);
             }
         } else {
             $this->lists['access'] = null;
@@ -435,7 +464,7 @@ class YireoView extends YireoCommonView
         $ordering = (method_exists($this->model, 'getOrderByDefault')) ? $this->model->getOrderByDefault() : null;
 
         if ($this->app->isClient('administrator') && !empty($ordering) && $ordering == 'ordering') {
-            $this->lists['ordering'] = JHtml::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
+            $this->lists['ordering'] = HTMLHelper::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
         } else {
             $this->lists['ordering'] = null;
         }
@@ -459,8 +488,23 @@ class YireoView extends YireoCommonView
      */
     public function getAjaxFunction()
     {
-        $script = "<script type=\"text/javascript\">\n" . "function getAjax(ajax_url, element_id, type) {\n" . "    var MBajax = jQuery.ajax({\n" . "        url: ajax_url, \n" . "        method: 'get', \n" . "        success: function(result){\n" . "            if (result == '') {\n" . "                alert('Empty result');\n" . "            } else {\n" . "                 jQuery('#' + element_id).val(result);\n" . "            }\n" . "        }\n" . "    });\n" . "}\n" . "</script>";
-
+        $script = <<<'EOT'
+            <script type="text/javascript">
+                function getAjax(ajax_url, element_id, type) {
+                    var MBajax = jQuery.ajax({
+                        url: ajax_url,
+                        method: 'get', 
+                        success: function(result){
+                            if (result == '') {
+                                alert('Empty result');
+                            } else {
+                                jQuery('#' + element_id).val(result);
+                            }
+                        }
+                    });
+                }
+            </script>
+            EOT;
         $this->doc->addCustomTag($script);
     }
 
@@ -482,7 +526,7 @@ class YireoView extends YireoCommonView
      *
      * @return mixed
      *
-     * @throws Yireo\Exception\View\ModelNotFound
+     * @throws \Yireo\Exception\View\ModelNotFound
      */
     public function getModel($name = null, $generateFatalError = true)
     {
@@ -497,13 +541,13 @@ class YireoView extends YireoCommonView
         }
 
         if (empty($model)) {
-            JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . '/components/' . $this->getConfig('option') . '/models');
+            BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/' . $this->getConfig('option') . '/models');
 
             $classPrefix = ucfirst(preg_replace('/^com_/', '', $this->getConfig('option'))) . 'Model';
             $classPrefix = preg_replace('/[^A-Z0-9_]/i', '', $classPrefix);
             $classPrefix = str_replace(' ', '', ucwords(str_replace('_', ' ', $classPrefix)));
 
-            $model = JModelLegacy::getInstance($name, $classPrefix, []);
+            $model = BaseDatabaseModel::getInstance($name, $classPrefix, []);
         }
 
         if (empty($model) && $generateFatalError == true) {
@@ -527,8 +571,8 @@ class YireoView extends YireoCommonView
 
         if ($type == 'orderby') {
             $field = $this->get('OrderByDefault');
-            $html  .= JHtml::_('grid.sort', $title, $field, $this->lists['order_Dir'], $this->lists['order']);
-            $html  .= JHtml::_('grid.order', $this->items);
+            $html  .= HTMLHelper::_('grid.sort', $title, $field, $this->lists['order_Dir'], $this->lists['order']);
+            $html  .= HTMLHelper::_('grid.order', $this->items);
         }
 
         return $html;
@@ -561,13 +605,13 @@ class YireoView extends YireoCommonView
         }
 
         if ($type == 'published') {
-            $html .= JHtml::_('jgrid.published', $item->published, $i, 'articles.', false, 'cb', $item->params->get('publish_up'), $item->params->get('publish_down'));
+            $html .= HTMLHelper::_('jgrid.published', $item->published, $i, 'articles.', false, 'cb', $item->params->get('publish_up'), $item->params->get('publish_down'));
 
             return $html;
         }
 
         if ($type == 'checked') {
-            $html .= JHtml::_('grid.checkedout', $item, $i);
+            $html .= HTMLHelper::_('grid.checkedout', $item, $i);
         }
 
         return $html;
@@ -635,7 +679,7 @@ class YireoView extends YireoCommonView
         $variables = array_merge($variables, get_object_vars($this));
 
         $basePath = null;
-        $layout   = new JLayoutFile($name, $basePath);
+        $layout   = new FileLayout($name, $basePath);
 
         echo $layout->render($variables);
     }

@@ -28,3 +28,7 @@ parameters:
     - vendor/openmage/magento-lts/lib
     - vendor/openmage/magento-lts/app/code
   tmpDir: tmp
+  ignoreErrors:
+    - '#Call to an undefined static method Joomla\\CMS\\Language\\Text::_\(\).#'
+    - '#Access to an undefined property object::\$pagination.#'
+    - '#Access to protected property MageBridgeController::\$app.#'

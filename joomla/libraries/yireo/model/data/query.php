@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * Yireo Model Data Query
  *
@@ -42,17 +44,17 @@ class YireoModelDataQuery
     protected $tableAlias;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var JDatabaseQuery
+     * @var \Joomla\Database\DatabaseQuery
      */
     protected $query;
 
@@ -103,17 +105,17 @@ class YireoModelDataQuery
     {
         $this->table      = $table;
         $this->tableAlias = $tableAlias;
-        $this->app        = JFactory::getApplication();
-        $this->db         = JFactory::getDbo();
+        $this->app        = Factory::getApplication();
+        $this->db         = Factory::getDbo();
         $this->query      = $this->db->getQuery(true);
     }
 
     /**
      * Method to build the query
      *
-     * @param null|JDatabaseQuery $query
+     * @param null|\Joomla\Database\DatabaseQuery $query
      *
-     * @return JDatabaseQuery
+     * @return \Joomla\Database\DatabaseQuery
      */
     public function build($query = null)
     {

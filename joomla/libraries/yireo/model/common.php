@@ -11,6 +11,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -36,12 +38,12 @@ class YireoCommonModel extends YireoAbstractModel
     use YireoModelTraitFormable;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var JUser
+     * @var \Joomla\CMS\User\User
      */
     protected $user;
 
@@ -116,8 +118,8 @@ class YireoCommonModel extends YireoAbstractModel
      */
     protected function initCommon()
     {
-        $this->db   = JFactory::getDbo();
-        $this->user = JFactory::getUser();
+        $this->db   = Factory::getDbo();
+        $this->user = Factory::getUser();
     }
 
     /**

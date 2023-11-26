@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,10 +10,13 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
-// @bug: jimport() fails here
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/radio.php';
 
 /**
@@ -43,8 +47,8 @@ class MagebridgeFormFieldBoolean extends JFormFieldRadio
     protected function getOptions()
     {
         $options = [
-            JHtml::_('select.option', '0', JText::_('JNO')),
-            JHtml::_('select.option', '1', JText::_('JYES')),
+            HTMLHelper::_('select.option', '0', Text::_('JNO')),
+            HTMLHelper::_('select.option', '1', Text::_('JYES')),
         ];
 
         return $options;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 /**
  * HTML View class
@@ -45,7 +48,7 @@ class MageBridgeViewRoot extends MageBridgeView
         $bridge = MageBridge::getBridge();
         if ($bridge->isAjax()) {
             print $block;
-            JFactory::getApplication()->close();
+            $this->app->close();
         }
 
         // Add controller information
@@ -56,10 +59,10 @@ class MageBridgeViewRoot extends MageBridgeView
         // Assemble the page class
         $contentClass = ['magebridge-content'];
         if (!empty($mageController)) {
-            $contentClass[] = 'magebridge-'.$mageController;
+            $contentClass[] = 'magebridge-' . $mageController;
         }
         if (!empty($mageAction)) {
-            $contentClass[] = 'magebridge-'.$mageController.'-'.$mageAction;
+            $contentClass[] = 'magebridge-' . $mageController . '-' . $mageAction;
         }
         $this->content_class = $contentClass;
 

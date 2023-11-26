@@ -10,6 +10,12 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Uri\Uri;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -27,17 +33,17 @@ class MageBridgeViewHelper
     public static function initialize($title)
     {
         // Load important variables
-        $document = JFactory::getDocument();
-        $view = JFactory::getApplication()->input->getCmd('view');
+        $document = Factory::getDocument();
+        $view = Factory::getApplication()->input->getCmd('view');
 
         // Add CSS-code
-        $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend.css');
-        $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-view-' . $view . '.css');
-        $document->addStyleSheet(JUri::root() . 'media/com_magebridge/css/backend-j35.css');
+        $document->addStyleSheet(Uri::root() . 'media/com_magebridge/css/backend.css');
+        $document->addStyleSheet(Uri::root() . 'media/com_magebridge/css/backend-view-' . $view . '.css');
+        $document->addStyleSheet(Uri::root() . 'media/com_magebridge/css/backend-j35.css');
 
         // Page title
-        $title = JText::_('COM_MAGEBRIDGE_VIEW_'.strtoupper(str_replace(' ', '_', $title)));
-        JToolbarHelper::title('MageBridge: '.$title, 'logo.png');
+        $title = Text::_('COM_MAGEBRIDGE_VIEW_' . strtoupper(str_replace(' ', '_', $title)));
+        ToolbarHelper::title('MageBridge: ' . $title, 'logo.png');
 
         // Add the menu
         self::addMenuItems();
@@ -51,7 +57,7 @@ class MageBridgeViewHelper
      */
     protected static function addMenuItems()
     {
-        $menu = JToolbar::getInstance('submenu');
+        $menu = Toolbar::getInstance('submenu');
         if (method_exists($menu, 'getItems')) {
             $currentItems = $menu->getItems();
         } else {
@@ -86,9 +92,9 @@ class MageBridgeViewHelper
             }
 
             // Add the view
-            $active = (JFactory::getApplication()->input->getCmd('view') == $view) ? true : false;
+            $active = (Factory::getApplication()->input->getCmd('view') == $view) ? true : false;
             $url = 'index.php?option=com_magebridge&view=' . $view;
-            $title = JText::_('COM_MAGEBRIDGE_VIEW_' . $view);
+            $title = Text::_('COM_MAGEBRIDGE_VIEW_' . $view);
 
             $alreadySet = false;
             foreach ($currentItems as $currentItem) {

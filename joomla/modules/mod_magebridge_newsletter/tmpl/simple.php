@@ -9,17 +9,19 @@
  * @link	  https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 ?>
 <div id="magebridge.newsletter" class="magebridge-module">
 	<form action="<?php echo $form_url; ?>" method="post" id="newsletter-validate-detail">
-		<legend><?php echo JText::_('MOD_MAGEBRIDGE_NEWSLETTER_NEWSLETTER'); ?></legend>
-		<label for="newsletter"><?php echo JText::_('MOD_MAGEBRIDGE_NEWSLETTER_SIGNUP'); ?>:</label>
+		<legend><?php echo Text::_('MOD_MAGEBRIDGE_NEWSLETTER_NEWSLETTER'); ?></legend>
+		<label for="newsletter"><?php echo Text::_('MOD_MAGEBRIDGE_NEWSLETTER_SIGNUP'); ?>:</label>
 		<input name="email" type="text" id="newsletter" class="required-entry validate-email input-text"
 			   value="<?php echo $user->email; ?>"/>
 		<input type="submit" class="form-button-alt"
-			   value="<?php echo JText::_('MOD_MAGEBRIDGE_NEWSLETTER_SUBSCRIBE'); ?>"/>
+			   value="<?php echo Text::_('MOD_MAGEBRIDGE_NEWSLETTER_SUBSCRIBE'); ?>"/>
 		<input type="hidden" name="uenc" value="<?php echo $redirect_url; ?>"/>
 	</form>
 </div>

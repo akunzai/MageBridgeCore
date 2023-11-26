@@ -12,7 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
-// @bug: jimport() fails here
+use Joomla\CMS\Factory;
+
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/text.php';
 
 /*
@@ -35,7 +37,7 @@ class YireoFormFieldText extends JFormFieldText
         $label = (string) $this->element['label'];
 
         if (empty($label)) {
-            $option = JFactory::getApplication()->input->getCmd('option');
+            $option = Factory::getApplication()->input->getCmd('option');
             $prefix = $option;
 
             if ($option == 'com_plugins') {
@@ -61,7 +63,8 @@ class YireoFormFieldText extends JFormFieldText
     protected function getInput()
     {
         $classes = [
-            'inputbox',];
+            'inputbox',
+        ];
 
         $this->class = $this->class . ' ' . implode(' ', $classes);
 

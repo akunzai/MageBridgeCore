@@ -10,6 +10,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -19,6 +22,28 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeDebugHelper
 {
     /**
+     * @var MageBridgeModelBridge
+     */
+    private $bridge;
+
+    /**
+     * @var MageBridgeModelRegister
+     */
+    private $register;
+
+    /**
+     *
+     * @var string
+     */
+    private $request;
+
+    /**
+     *
+     * @var \Joomla\CMS\Application\CMSApplication
+     */
+    private $app;
+
+    /**
      * MageBridgeDebugHelper constructor.
      */
     public function __construct()
@@ -26,7 +51,7 @@ class MageBridgeDebugHelper
         $this->bridge = MageBridgeModelBridge::getInstance();
         $this->register = MageBridgeModelRegister::getInstance();
         $this->request = MageBridgeUrlHelper::getRequest();
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
     }
 
     /**
@@ -98,15 +123,14 @@ class MageBridgeDebugHelper
             $menu_message .= ' (Root Menu-Item)';
         }
 
-        $app = JFactory::getApplication();
-        $app->enqueueMessage($menu_message, 'notice');
-        $app->enqueueMessage(JText::sprintf('Page request: %s', (!empty($request)) ? $request : '[empty]'), 'notice');
-        $app->enqueueMessage(JText::sprintf('Original request: %s', MageBridgeUrlHelper::getOriginalRequest()), 'notice');
-        $app->enqueueMessage(JText::sprintf('Received request: %s', $this->bridge->getSessionData('request')), 'notice');
-        $app->enqueueMessage(JText::sprintf('Received referer: %s', $this->bridge->getSessionData('referer')), 'notice');
-        $app->enqueueMessage(JText::sprintf('Current referer: %s', $this->bridge->getHttpReferer()), 'notice');
-        $app->enqueueMessage(JText::sprintf('Magento request: <a href="%s" target="_new">%s</a>', $url, $url), 'notice');
-        $app->enqueueMessage(JText::sprintf('Magento session: %s', $this->bridge->getMageSession()), 'notice');
+        $this->app->enqueueMessage($menu_message, 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Page request: %s', (!empty($request)) ? $request : '[empty]'), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Original request: %s', MageBridgeUrlHelper::getOriginalRequest()), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Received request: %s', $this->bridge->getSessionData('request')), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Received referer: %s', $this->bridge->getSessionData('referer')), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Current referer: %s', $this->bridge->getHttpReferer()), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Magento request: <a href="%s" target="_new">%s</a>', $url, $url), 'notice');
+        $this->app->enqueueMessage(Text::sprintf('Magento session: %s', $this->bridge->getMageSession()), 'notice');
     }
 
     /**
@@ -123,38 +147,36 @@ class MageBridgeDebugHelper
      */
     public function addPageInformation()
     {
-        $app = JFactory::getApplication();
-
         if (MageBridgeTemplateHelper::isCategoryPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isCategoryPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isCategoryPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isProductPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isProductPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isProductPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isCatalogPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isCatalogPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isCatalogPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isCustomerPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isCustomerPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isCustomerPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isCartPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isCartPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isCartPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isCheckoutPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isCheckoutPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isCheckoutPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isSalesPage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isSalesPage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isSalesPage() == TRUE'), 'notice');
         }
 
         if (MageBridgeTemplateHelper::isHomePage()) {
-            $app->enqueueMessage(JText::_('MageBridgeTemplateHelper::isHomePage() == TRUE'), 'notice');
+            $this->app->enqueueMessage(Text::_('MageBridgeTemplateHelper::isHomePage() == TRUE'), 'notice');
         }
     }
 
@@ -164,7 +186,7 @@ class MageBridgeDebugHelper
     public function addStore()
     {
         if (MageBridgeModelConfig::load('debug_bar_store')) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('Magento store loaded: %s (%s)', $this->bridge->getSessionData('store_name'), $this->bridge->getSessionData('store_code')), 'notice');
+            $this->app->enqueueMessage(Text::sprintf('Magento store loaded: %s (%s)', $this->bridge->getSessionData('store_name'), $this->bridge->getSessionData('store_code')), 'notice');
         }
     }
 
@@ -175,7 +197,7 @@ class MageBridgeDebugHelper
     {
         $category_id = $this->bridge->getSessionData('current_category_id');
         if ($category_id > 0) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('Magento category: %d', $category_id), 'notice');
+            $this->app->enqueueMessage(Text::sprintf('Magento category: %d', $category_id), 'notice');
         }
     }
 
@@ -186,7 +208,7 @@ class MageBridgeDebugHelper
     {
         $product_id = $this->bridge->getSessionData('current_product_id');
         if ($product_id > 0) {
-            JFactory::getApplication()->enqueueMessage(JText::sprintf('Magento product: %d', $product_id), 'notice');
+            $this->app->enqueueMessage(Text::sprintf('Magento product: %d', $product_id), 'notice');
         }
     }
 
@@ -201,7 +223,6 @@ class MageBridgeDebugHelper
 
         $i = 0;
         $segments = $this->register->getRegister();
-        $app = JFactory::getApplication();
         foreach ($segments as $segment) {
             if (!isset($segment['status']) || $segment['status'] != 1) {
                 continue;
@@ -213,18 +234,18 @@ class MageBridgeDebugHelper
                 case 'debug':
                 case 'headers':
                 case 'events':
-                    $app->enqueueMessage(JText::sprintf('Magento [%d]: %s', $i, ucfirst($segment['type'])), 'notice');
+                    $this->app->enqueueMessage(Text::sprintf('Magento [%d]: %s', $i, ucfirst($segment['type'])), 'notice');
                     break;
                 case 'api':
-                    $app->enqueueMessage(JText::sprintf('Magento [%d]: API resource "%s"', $i, $segment['name']), 'notice');
+                    $this->app->enqueueMessage(Text::sprintf('Magento [%d]: API resource "%s"', $i, $segment['name']), 'notice');
                     break;
                 case 'block':
-                    $app->enqueueMessage(JText::sprintf('Magento [%d]: Block "%s"', $i, $segment['name']), 'notice');
+                    $this->app->enqueueMessage(Text::sprintf('Magento [%d]: Block "%s"', $i, $segment['name']), 'notice');
                     break;
                 default:
                     $name = (isset($segment['name'])) ? $segment['name'] : null;
                     $type = (isset($segment['type'])) ? $segment['type'] : null;
-                    $app->enqueueMessage(JText::sprintf('Magento [%d]: type %s, name %s', $i, $type, $name), 'notice');
+                    $this->app->enqueueMessage(Text::sprintf('Magento [%d]: type %s, name %s', $i, $type, $name), 'notice');
                     break;
             }
             $i++;

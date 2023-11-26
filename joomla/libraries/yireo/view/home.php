@@ -11,6 +11,11 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -35,6 +40,11 @@ class YireoViewHome extends YireoView
     protected $backend_feed;
 
     /**
+     * @var string
+     */
+    protected $current_version;
+
+    /**
      * Main constructor method
      *
      * @param $config array
@@ -52,7 +62,7 @@ class YireoViewHome extends YireoView
         // Initialize the toolbar
         if (file_exists(JPATH_COMPONENT . '/config.xml')) {
             if ($this->user->authorise('core.admin')) {
-                JToolbarHelper::preferences($this->getConfig('option'), 600, 800);
+                ToolbarHelper::preferences($this->getConfig('option'), 600, 800);
             }
         }
 
@@ -65,12 +75,12 @@ class YireoViewHome extends YireoView
      *
      * @param string $tpl
      *
-     * @return mixed
+     * @return void
      */
     public function display($tpl = null)
     {
         // Variables
-        $document = JFactory::getDocument();
+        $document = Factory::getDocument();
 
         // Add additional CSS
         $document->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
@@ -79,7 +89,7 @@ class YireoViewHome extends YireoView
         // Get the current version
         $this->current_version = YireoHelper::getCurrentVersion();
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**
@@ -105,8 +115,8 @@ class YireoViewHome extends YireoView
         }
 
         $icon           = [];
-        $icon['link']   = JRoute::_('index.php?option=' . $this->getConfig('option') . '&view=' . $view);
-        $icon['text']   = JText::_($text);
+        $icon['link']   = Route::_('index.php?option=' . $this->getConfig('option') . '&view=' . $view);
+        $icon['text']   = Text::_($text);
         $icon['target'] = $target;
         $icon['icon']   = '<img src="' . $folder . $image . '" title="' . $icon['text'] . '" alt="' . $icon['text'] . '" />';
 
@@ -124,9 +134,9 @@ class YireoViewHome extends YireoView
     public function setTitle($title = null, $class = 'logo')
     {
         $component_title = YireoHelper::getData('title');
-        $title           = JText::_('LIB_YIREO_VIEW_HOME');
+        $title           = Text::_('LIB_YIREO_VIEW_HOME');
         $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
-        JToolbarHelper::title($component_title . ': ' . $title, $icon);
+        ToolbarHelper::title($component_title . ': ' . $title, $icon);
     }
 
     /**

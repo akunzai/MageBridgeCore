@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -49,19 +53,19 @@ class MageBridgeControllerUsers extends MageBridgeController
 
         // Perform preliminary checks
         if (empty($users)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=users', JText::_('No users found'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=users', Text::_('No users found'), 'error');
 
             return false;
         }
 
         if (empty($website_id)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=users', JText::_('Website not configured in export parameters'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=users', Text::_('Website not configured in export parameters'), 'error');
 
             return false;
         }
 
         if (empty($group_id)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=users', JText::_('Customer Group not configured in export parameters'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=users', Text::_('Customer Group not configured in export parameters'), 'error');
 
             return false;
         }
@@ -77,7 +81,7 @@ class MageBridgeControllerUsers extends MageBridgeController
         print $output;
 
         // Close the application
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $application->close();
     }
 
@@ -97,7 +101,7 @@ class MageBridgeControllerUsers extends MageBridgeController
 
         // Check whether this is a valid download
         if (empty($upload) || empty($upload['name']) || empty($upload['tmp_name']) || empty($upload['size'])) {
-            $this->setRedirect('index.php?option=com_magebridge&view=users&task=import', JText::_('File upload failed on system level'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=users&task=import', Text::_('File upload failed on system level'), 'error');
 
             return false;
         }
@@ -105,7 +109,7 @@ class MageBridgeControllerUsers extends MageBridgeController
         // Check for empty content
         $csv = @file_get_contents($upload['tmp_name']);
         if (empty($csv)) {
-            $this->setRedirect('index.php?option=com_magebridge&view=users&task=import', JText::_('Empty file upload'), 'error');
+            $this->setRedirect('index.php?option=com_magebridge&view=users&task=import', Text::_('Empty file upload'), 'error');
 
             return false;
         }
@@ -133,7 +137,8 @@ class MageBridgeControllerUsers extends MageBridgeController
                 $user = [
                     'email' => $fields[$email],
                     'firstname' => $fields[$firstname],
-                    'lastname' => $fields[$lastname],];
+                    'lastname' => $fields[$lastname],
+                ];
                 $user = MageBridgeUserHelper::convert($user);
                 $rt = MageBridgeModelUser::getInstance()->create($user, true);
 
@@ -145,7 +150,7 @@ class MageBridgeControllerUsers extends MageBridgeController
             }
         }
 
-        $this->setRedirect('index.php?option=com_magebridge&view=users', JText::sprintf('Imported %d users succesfully, %d users failed', $user_records_ok, $user_records_fail));
+        $this->setRedirect('index.php?option=com_magebridge&view=users', Text::sprintf('Imported %d users successfully, %d users failed', $user_records_ok, $user_records_fail));
 
         return true;
     }
@@ -159,7 +164,7 @@ class MageBridgeControllerUsers extends MageBridgeController
      */
     private function getUserList()
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery("SELECT u.* FROM #__users AS u");
 
         return $db->loadObjectList();

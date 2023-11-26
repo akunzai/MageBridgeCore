@@ -360,7 +360,7 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         $numberOfItems = (!empty($this->arguments['count'])) ? $this->arguments['count'] : 3;
         $choosenIds = [];
-        $maxKey = count($productIds)-1;
+        $maxKey = count($productIds) - 1;
         while (count($choosenIds) < $numberOfItems) {
             $randomKey = mt_rand(0, $maxKey);
             $choosenIds[$randomKey] = $productIds[$randomKey];

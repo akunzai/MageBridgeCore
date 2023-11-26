@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,6 +10,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -17,6 +21,10 @@ defined('_JEXEC') or die('Restricted access');
  */
 class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
 {
+    /**
+     * @var array
+     */
+    private $_meta_data;
     /**
      * Singleton
      *
@@ -49,12 +57,10 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     {
         // Compile the meta-data
         if (empty($this->_meta_data) || !is_array($this->_meta_data)) {
-            $application = JFactory::getApplication();
-            $input = $application->input;
-            $user = JFactory::getUser();
-            $uri = JUri::getInstance();
-            $session = JFactory::getSession();
-            $config = JFactory::getConfig();
+            $input = $this->app->input;
+            $user = Factory::getUser();
+            $uri = Uri::getInstance();
+            $config = Factory::getConfig();
             $storeHelper = MageBridgeStoreHelper::getInstance();
 
             $bridge = MageBridgeModelBridge::getInstance();
@@ -65,8 +71,8 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'api_session' => $bridge->getApiSession(),
                 'api_user' => MageBridgeEncryptionHelper::encrypt(MageBridgeModelConfig::load('api_user')),
                 'api_key' => MageBridgeEncryptionHelper::encrypt(MageBridgeModelConfig::load('api_key')),
-                'api_url' => JUri::root() . 'component/magebridge/?controller=jsonrpc&task=call',
-                'app' => $application->getClientId(), // 0 = site, 1 = admin
+                'api_url' => Uri::root() . 'component/magebridge/?controller=jsonrpc&task=call',
+                'app' => $this->app->getClientId(), // 0 = site, 1 = admin
                 'app_type' => $app_type,
                 'app_value' => $app_value,
                 'storeview' => MageBridgeModelConfig::load('storeview'),
@@ -76,7 +82,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'joomla_url' => $bridge->getJoomlaBridgeUrl(),
                 'joomla_sef_url' => $bridge->getJoomlaBridgeSefUrl(),
                 'joomla_sef_suffix' => (int) MageBridgeUrlHelper::hasUrlSuffix(),
-                'joomla_user_email' => ($application->isClient('site') && !empty($user->email)) ? $user->email : null,
+                'joomla_user_email' => ($this->app->isClient('site') && !empty($user->email)) ? $user->email : null,
                 'joomla_current_url' => $uri->current(),
                 'modify_url' => MageBridgeModelConfig::load('modify_url'),
                 'enforce_ssl' => MageBridgeModelConfig::load('enforce_ssl'),
@@ -90,13 +96,12 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'magento_persistent_session' => $bridge->getMagentoPersistentSession(),
                 'magento_user_allowed_save_cookie' => (isset($_COOKIE['user_allowed_save_cookie'])) ? $_COOKIE['user_allowed_save_cookie'] : null,
                 'request_uri' => MageBridgeUrlHelper::getRequest(),
-                'request_id' => md5(JUri::current() . serialize($input->get->getArray())),
+                'request_id' => md5(Uri::current() . serialize($input->get->getArray())),
                 'post' => (!empty($_POST)) ? $_POST : null,
                 'http_referer' => $bridge->getHttpReferer(),
                 'http_host' => $uri->toString(['host']),
                 'user_agent' => ((isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : ''),
                 'remote_addr' => ((isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : ''),
-                'supportkey' => MageBridgeModelConfig::load('supportkey'),
                 'debug' => (int) MageBridgeModelDebug::isDebug(),
                 'debug_level' => MageBridgeModelConfig::load('debug_level'),
                 'debug_display_errors' => MageBridgeModelConfig::load('debug_display_errors'),
@@ -104,7 +109,8 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'state' => 'initializing',
                 'ajax' => (int) $bridge->isAjax(),
                 'disable_css' => MageBridgeHelper::getDisableCss(),
-                'disable_js' => MageBridgeHelper::getDisableJs(), ];
+                'disable_js' => MageBridgeHelper::getDisableJs(),
+            ];
 
             if (MageBridgeTemplateHelper::isMobile()) {
                 $arguments['theme'] = MageBridgeModelConfig::load('mobile_magento_theme');

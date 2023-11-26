@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,13 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Crypt\Cipher\SodiumCipher;
+use Joomla\CMS\Crypt\Crypt;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -46,6 +54,11 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      * Allow redirects flag
      */
     protected $allow_redirects = true;
+
+    /**
+     * @var string
+     */
+    protected $redirectUrl;
 
     /**
      * Encode the data for sending through the proxy
@@ -499,7 +512,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             $cookieValue = (isset($_COOKIE[$cookieName])) ? $_COOKIE[$cookieName] : null;
 
             if (empty($cookieValue)) {
-                $cookieValue = JFactory::getSession()
+                $cookieValue = Factory::getSession()
                     ->get('magebridge.cookie.' . $cookieName);
             }
 
@@ -577,7 +590,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         }
 
         // Set SSL options
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
 
         if ($uri->isSSL() == true) {
             $httpHeaders[] = 'FRONT-END-HTTPS: On';
@@ -761,7 +774,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             curl_close($handle);
 
             if ($this->app->isClient('site') && MageBridgeModelConfig::load('enable_notfound') == 1) {
-                throw new Exception(JText::_('Page Not Found'), 404);
+                throw new Exception(Text::_('Page Not Found'), 404);
                 return null;
             } else {
                 header('HTTP/1.0 404 Not Found');
@@ -827,19 +840,19 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                         $expires = 0;
                     }
 
-                    $uri = JUri::getInstance();
+                    $uri = Uri::getInstance();
                     setcookie($cookieName, $cookieValue, $expires, '/', '.' . $uri->toString(['host']));
                     $_COOKIE[$cookieName] = $cookieValue;
                 }
 
-                // Store this cookie also in the default Joomal! session (in case extra cookies are disabled)
-                $session = JFactory::getSession();
+                // Store this cookie also in the default Joomla! session (in case extra cookies are disabled)
+                $session = Factory::getSession();
                 $session->set('magebridge.cookie.' . $cookieName, $cookieValue);
             }
         }
 
         // Handle the extra remember-me cookie
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         if ($user->id > 0 && !empty($_COOKIE['persistent_shopping_cart'])) {
             $password = $user->password_clear;
@@ -856,19 +869,19 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                 $credentials = ['username' => $user->username, 'password' => $password];
 
                 // Create the encryption key, apply extra hardening using the user agent string.
-                $privateKey = JApplicationHelper::getHash(@$_SERVER['HTTP_USER_AGENT']);
+                $privateKey = ApplicationHelper::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
-                $key      = new JCryptKey('simple', $privateKey, $privateKey);
-                $crypt    = new JCrypt(new JCryptCipherSimple(), $key);
+                $key      = class_exists('\Joomla\Crypt\Key') ? new \Joomla\Crypt\Key('sodium', $privateKey, $privateKey) : new \Joomla\CMS\Crypt\Key('sodium', $privateKey, $privateKey);
+                $crypt    = new Crypt(new SodiumCipher(), $key);
                 $rcookie  = $crypt->encrypt(serialize($credentials));
                 $lifetime = time() + 365 * 24 * 60 * 60;
 
                 // Use domain and path set in config for cookie if it exists.
-                $cookie_domain = JFactory::getConfig()
+                $cookie_domain = Factory::getConfig()
                     ->get('cookie_domain', '');
-                $cookie_path   = JFactory::getConfig()
+                $cookie_path   = Factory::getConfig()
                     ->get('cookie_path', '/');
-                setcookie(JApplicationHelper::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
+                setcookie(ApplicationHelper::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
             }
         }
 
@@ -876,7 +889,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         preg_match('/^Location: ([^\s]+)/mi', $this->head['headers'], $matches);
 
         if ($this->allow_redirects && (preg_match('/^3([0-9]+)/', $this->head['http_code']) || !empty($matches))) {
-            $originalLocation = trim(array_pop($matches));
+            $originalLocation = trim((string)array_pop($matches));
             $location         = $originalLocation;
 
             // Check for a location-override
@@ -912,8 +925,8 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
 
             if ($location == $this->bridge->getJoomlaBridgeUrl()) {
                 if (MageBridgeModelConfig::load('use_homepage_for_homepage_redirects') == 1) {
-                    $location = JUri::base();
-                } elseif (MageBridgeModelConfig::load('use_referer_for_homepage_redirects') == 1 && !empty($referer) && $referer != JUri::current()) {
+                    $location = Uri::base();
+                } elseif (MageBridgeModelConfig::load('use_referer_for_homepage_redirects') == 1 && !empty($referer) && $referer != Uri::current()) {
                     $location = $referer;
                 }
             }
@@ -974,7 +987,6 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             // Make the CURL call
             curl_setopt($handle, CURLOPT_HEADER, false);
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, false);
-            curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
             curl_setopt($handle, CURLOPT_FILE, $tmp_body_handle);
             curl_setopt($handle, CURLOPT_WRITEHEADER, $tmp_header_handle);
             curl_setopt($handle, CURLOPT_HTTPHEADER, ['Expect:']);
@@ -991,7 +1003,6 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             curl_setopt($handle, CURLOPT_HEADER, false);
             curl_setopt($handle, CURLOPT_NOBODY, false);
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
             curl_setopt($handle, CURLOPT_HEADERFUNCTION, [$this, 'setRawHeader']);
             curl_setopt($handle, CURLOPT_HTTPHEADER, ['Expect:']);
             $data = curl_exec($handle);
@@ -1304,7 +1315,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
 
         // When the URL doesn't start with HTTP or HTTPS, assume it is still the original Magento request
         if (!preg_match('/^(http|https):\/\//', $redirect)) {
-            $redirect = JUri::base() . 'index.php?option=com_magebridge&view=root&request=' . $redirect;
+            $redirect = Uri::base() . 'index.php?option=com_magebridge&view=root&request=' . $redirect;
         }
 
         // Replace the System URL for the site
@@ -1426,7 +1437,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
      */
     public function getCookieFile()
     {
-        return JFactory::getConfig()
-                ->get('log_path') . '/magento.tmp';
+        return Factory::getConfig()
+            ->get('log_path') . '/magento.tmp';
     }
 }

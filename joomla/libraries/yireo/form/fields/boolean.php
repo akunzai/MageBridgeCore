@@ -10,9 +10,13 @@
  */
 
 // Check to ensure this file is included in Joomla!
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('JPATH_BASE') or die();
 
-// @bug: jimport() fails here
+// FIXME: JLoader::import() fails here
 include_once JPATH_LIBRARIES . '/joomla/form/fields/radio.php';
 
 /*
@@ -72,11 +76,11 @@ class YireoFormFieldBoolean extends JFormFieldRadio
         $options = parent::getOptions();
 
         if ($this->global != 0) {
-            array_unshift($options, JHtml::_('select.option', $this->global, JText::_('JGLOBAL')));
+            array_unshift($options, HTMLHelper::_('select.option', $this->global, Text::_('JGLOBAL')));
         }
 
-        array_unshift($options, JHtml::_('select.option', '1', JText::_('JYES')));
-        array_unshift($options, JHtml::_('select.option', '0', JText::_('JNO')));
+        array_unshift($options, HTMLHelper::_('select.option', '1', Text::_('JYES')));
+        array_unshift($options, HTMLHelper::_('select.option', '0', Text::_('JNO')));
 
         return $options;
     }

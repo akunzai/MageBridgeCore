@@ -11,6 +11,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -169,8 +171,9 @@ class YireoDataModel extends YireoCommonModel
     public function getDbResult($query, $type = 'object')
     {
         if ($this->getConfig('cache') == true) {
-            $cache = JFactory::getCache('lib_yireo_model');
-            $rs    = $cache->call([$this, '_getDbResult'], $query, $type);
+            /** @var CallbackController */
+            $cache = Factory::getCache('lib_yireo_model');
+            $rs    = $cache->get([$this, '_getDbResult'], $query, $type);
         } else {
             $rs = $this->_getDbResult($query, $type);
         }
@@ -208,15 +211,5 @@ class YireoDataModel extends YireoCommonModel
 
         // Return the result
         return $rs;
-    }
-
-    /**
-     * Throw a database exception
-     */
-    protected function throwDbException()
-    {
-        $db = JFactory::getDbo();
-
-        throw new JDatabaseExceptionUnsupported($db->getErrorMsg());
     }
 }

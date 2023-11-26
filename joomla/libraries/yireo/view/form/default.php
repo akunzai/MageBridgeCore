@@ -12,8 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Set the right image directory for JavaScipt
-jimport('joomla.utilities.utility');
 ?>
 <?php echo $this->loadTemplate('script'); ?>
 

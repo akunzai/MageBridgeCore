@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,9 +11,11 @@
  * @version 0.6.0
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 ?>
 <th width="300" class="title">
-    <?php echo JHtml::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_TITLE', 'title', $this->lists['order_Dir'], $this->lists['order']); ?>
+    <?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_TITLE', 'title', $this->lists['order_Dir'], $this->lists['order']); ?>
 </th>

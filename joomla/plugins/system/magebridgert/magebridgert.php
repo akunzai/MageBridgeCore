@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - RocketTheme System plugin
  *
@@ -9,19 +10,19 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the parent class
-jimport('joomla.plugin.plugin');
-
 // Import the MageBridge autoloader
-include_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * MageBridge System Plugin
  */
-class plgSystemMageBridgeRt extends JPlugin
+class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterDispatch
@@ -38,7 +39,8 @@ class plgSystemMageBridgeRt extends JPlugin
         }
 
         // Load the application
-        $application = JFactory::getApplication();
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend
         if ($application->isClient('site') == false) {
@@ -46,41 +48,41 @@ class plgSystemMageBridgeRt extends JPlugin
         }
 
         // Load the blacklist settings
-        $blacklist = JFactory::getConfig()->get('magebridge.script.blacklist');
+        $blacklist = Factory::getConfig()->get('magebridge.script.blacklist');
         if (empty($blacklist)) {
             $blacklist = [];
         }
         $blacklist[] = '/rokbox.js';
         $blacklist[] = 'gantry/js/browser-engines.js';
-        JFactory::getConfig()->set('magebridge.script.blacklist', $blacklist);
+        Factory::getConfig()->set('magebridge.script.blacklist', $blacklist);
 
         // Load the whitelist settings
-        $whitelist = JFactory::getConfig()->get('magebridge.script.whitelist');
+        $whitelist = Factory::getConfig()->get('magebridge.script.whitelist');
         if (empty($whitelist)) {
             $whitelist = [];
         }
-        JFactory::getConfig()->set('magebridge.script.whitelist', $whitelist);
+        Factory::getConfig()->set('magebridge.script.whitelist', $whitelist);
 
         // Read the template-related files
-        $ini = JPATH_THEMES.'/'.$application->getTemplate().'/params.ini';
+        $ini = JPATH_THEMES . '/' . $application->getTemplate() . '/params.ini';
         $ini_content = @file_get_contents($ini);
-        $xml = JPATH_THEMES.'/'.$application->getTemplate().'/templateDetails.xml';
+        $xml = JPATH_THEMES . '/' . $application->getTemplate() . '/templateDetails.xml';
 
         // WARP-usage of "config" file
         if (!empty($ini_content)) {
             // Create the parameters object
-            $params = new JRegistry($ini_content, $xml);
+            $params = new Registry($ini_content, $xml);
 
             // Load a specific stylesheet per color
             $color = $params->get('colorStyle');
             if (!empty($color)) {
-                MageBridgeTemplateHelper::load('css', 'color-'.$color.'.css');
+                MageBridgeTemplateHelper::load('css', 'color-' . $color . '.css');
             }
         }
 
         // Check whether ProtoType is loaded, and add some fixes
         if (MageBridgeTemplateHelper::hasPrototypeJs()) {
-            $document = JFactory::getDocument();
+            $document = Factory::getDocument();
             if ($this->getParams()->get('fix_submenu_wrapper', 1)) {
                 $document->addStyleDeclaration('div.fusion-submenu-wrapper { margin-top: -12px !important; }');
             }
@@ -96,7 +98,7 @@ class plgSystemMageBridgeRt extends JPlugin
      *
      * @access private
      * @param null
-     * @return JRegistry
+     * @return \Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -112,12 +114,12 @@ class plgSystemMageBridgeRt extends JPlugin
      */
     private function isEnabled()
     {
-        $template = JFactory::getApplication()->getTemplate();
+        $template = Factory::getApplication()->getTemplate();
         if (preg_match('/^rt_/', $template) == false) {
             return false;
         }
 
-        if (is_file(JPATH_SITE.'/components/com_magebridge/models/config.php')) {
+        if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {
             return true;
         }
         return false;

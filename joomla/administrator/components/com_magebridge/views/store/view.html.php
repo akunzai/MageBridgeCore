@@ -10,11 +10,14 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Import the needed libraries
-jimport('joomla.filter.output');
 
 /**
  * HTML View class
@@ -22,13 +25,23 @@ jimport('joomla.filter.output');
 class MageBridgeViewStore extends YireoViewForm
 {
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $actions_form;
+
+    /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $params_form;
+
+    /**
      * Main constructor method
      *
      * @param array $config
      */
     public function __construct($config = [])
     {
-        if (JFactory::getApplication()->input->getCmd('task') == 'default') {
+        if (Factory::getApplication()->input->getCmd('task') == 'default') {
             $this->loadToolbar = false;
         }
 
@@ -45,7 +58,7 @@ class MageBridgeViewStore extends YireoViewForm
      */
     public function display($tpl = null)
     {
-        switch ($this->app->input->getCmd('task')) {
+        switch ($this->input->getCmd('task')) {
             case 'default':
                 $this->showDefaultForm($tpl);
                 break;
@@ -64,12 +77,12 @@ class MageBridgeViewStore extends YireoViewForm
     public function showDefaultForm($tpl = null)
     {
         // Initialize the view
-        $this->setTitle(JText::_('COM_MAGEBRIDGE_VIEW_STORE_DEFAULT_STORE'));
+        $this->setTitle(Text::_('COM_MAGEBRIDGE_VIEW_STORE_DEFAULT_STORE'));
 
         // Override the normal toolbar
-        JToolbarHelper::cancel();
-        JToolbarHelper::save();
-        JToolbarHelper::apply();
+        ToolbarHelper::cancel();
+        ToolbarHelper::save();
+        ToolbarHelper::apply();
 
         // Load values from the configuration
         $storegroup = MageBridgeModelConfig::load('storegroup');
@@ -114,24 +127,24 @@ class MageBridgeViewStore extends YireoViewForm
         // Prepare the params-form
         $params      = YireoHelper::toRegistry($this->item->params)
             ->toArray();
-        $params_form = JForm::getInstance('params', $file);
+        $params_form = Form::getInstance('params', $file);
         $params_form->bind(['params' => $params]);
         $this->params_form = $params_form;
 
         // Prepare the actions-form
         $actions      = YireoHelper::toRegistry($this->item->actions)
             ->toArray();
-        $actions_form = JForm::getInstance('actions', $file);
-        JPluginHelper::importPlugin('magebridgestore');
+        $actions_form = Form::getInstance('actions', $file);
+        PluginHelper::importPlugin('magebridgestore');
         $this->app->triggerEvent('onMageBridgeStorePrepareForm', [&$actions_form, (array) $this->item]);
         $actions_form->bind(['actions' => $actions]);
         $this->actions_form = $actions_form;
 
         // Check for a previous connector-value
         if (!empty($this->item->connector)) {
-            $plugin = JPluginHelper::getPlugin('magebridgestore', $this->item->connector);
+            $plugin = PluginHelper::getPlugin('magebridgestore', $this->item->connector);
             if (empty($plugin)) {
-                JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector), 'warning');
+                $this->app->enqueueMessage(Text::sprintf('COM_MAGEBRIDGE_STORE_PLUGIN_WARNING', $this->item->connector), 'warning');
             }
         }
 

@@ -10,6 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -22,6 +26,21 @@ require_once JPATH_COMPONENT . '/view.php';
 class MageBridgeViewUsers extends MageBridgeView
 {
     /**
+     * @var array
+     */
+    protected $lists;
+
+    /**
+     * @var array
+     */
+    protected $items;
+
+    /**
+     * @var \Joomla\CMS\Pagination\Pagination
+     */
+    protected $pagination;
+
+    /**
      * Display method
      *
      * @param string $tpl
@@ -31,18 +50,17 @@ class MageBridgeViewUsers extends MageBridgeView
     public function display($tpl = null)
     {
         // Set toolbar items for the page
-        JToolbarHelper::custom('export', 'download', null, 'Export', false);
-        JToolbarHelper::custom('import', 'upload', null, 'Import', false);
+        ToolbarHelper::custom('export', 'download', null, 'Export', false);
+        ToolbarHelper::custom('import', 'upload', null, 'Import', false);
 
         $this->setMenu();
 
         // Initialize common variables
-        $app    = JFactory::getApplication();
-        $option = $app->input->getCmd('option') . '-users';
+        $option = $this->input->getCmd('option') . '-users';
 
         // Handle the filters
-        $filter_order     = $app->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'p.ordering', 'cmd');
-        $filter_order_Dir = $app->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
+        $filter_order     = $this->app->getUserStateFromRequest($option . 'filter_order', 'filter_order', 'p.ordering', 'cmd');
+        $filter_order_Dir = $this->app->getUserStateFromRequest($option . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
 
         $this->setTitle('MageBridge: Users');
 
@@ -88,12 +106,12 @@ class MageBridgeViewUsers extends MageBridgeView
             }
         }
 
-        $this->user       = JFactory::getUser();
+        $this->user       = Factory::getUser();
         $this->lists      = $lists;
         $this->items      = $items;
         $this->pagination = $pagination;
 
-        $layout = $app->input->getCmd('layout');
+        $layout = $this->input->getCmd('layout');
 
         if ($layout == 'import') {
             $tpl = 'import';
@@ -112,7 +130,7 @@ class MageBridgeViewUsers extends MageBridgeView
      */
     public function checkbox($item, $i)
     {
-        $checkbox = JHtml::_('grid.id', $i, $item->id);
+        $checkbox = HTMLHelper::_('grid.id', $i, $item->id);
 
         return $checkbox;
     }

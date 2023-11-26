@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! Yireo Library
  *
@@ -10,14 +11,14 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Require the parent view
 require_once dirname(dirname(__FILE__)) . '/loader.php';
-
-// Import the needed libraries
-jimport('joomla.filter.output');
 
 /**
  * Form View class
@@ -69,9 +70,9 @@ class YireoViewForm extends YireoView
     public function __construct($config = [])
     {
         // Add the Yireo form fields
-        JForm::addFieldPath(JPATH_LIBRARIES . '/yireo/form/fields');
-        JForm::addFieldPath(JPATH_COMPONENT_ADMINISTRATOR . '/lib/form/fields');
-        JForm::addFieldPath(JPATH_COMPONENT_ADMINISTRATOR . '/fields');
+        Form::addFieldPath(JPATH_LIBRARIES . '/yireo/form/fields');
+        Form::addFieldPath(JPATH_COMPONENT_ADMINISTRATOR . '/lib/form/fields');
+        Form::addFieldPath(JPATH_COMPONENT_ADMINISTRATOR . '/fields');
 
         // Call the parent constructor
         parent::__construct($config);
@@ -102,8 +103,10 @@ class YireoViewForm extends YireoView
         // Hide the menu
         $this->input->set('hidemainmenu', 1);
 
-        // Initialize tooltips
-        JHtml::_('behavior.tooltip');
+        if (version_compare(JVERSION, '4.0.0', '<')) {
+            // Initialize tooltips
+            HTMLHelper::_('behavior.tooltip');
+        }
 
         // Automatically fetch the item and assign it to the layout
         if (!empty($this->table)) {
@@ -114,7 +117,7 @@ class YireoViewForm extends YireoView
             $this->prepareDisplay();
         }
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /*

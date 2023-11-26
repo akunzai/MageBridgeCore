@@ -22,7 +22,7 @@ class ModMageBridgeNewsletterHelper
      * Method to be called as soon as MageBridge is loaded
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function register($params = null)
@@ -41,7 +41,7 @@ class ModMageBridgeNewsletterHelper
      * Fetch the content from the bridge
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return string
      */
     public static function build($params = null)

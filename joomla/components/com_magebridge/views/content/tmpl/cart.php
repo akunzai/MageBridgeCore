@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 ?>
@@ -18,5 +20,5 @@ defined('_JEXEC') or die('Restricted access');
 </div>
 <div style="clear:both"></div>
 <?php } else { ?>
-<?php echo JText::_($this->getOfflineMessage()); ?>
+<?php echo Text::_($this->getOfflineMessage()); ?>
 <?php } ?>

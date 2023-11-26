@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -27,13 +31,13 @@ class MageBridgeAclHelper
     public static function isAuthorized($view = null, $redirect = true)
     {
         // Initialize system variables
-        $application = JFactory::getApplication();
-        $user = JFactory::getUser();
+        $application = Factory::getApplication();
+        $user = Factory::getUser();
         if (empty($view)) {
-            $view = JFactory::getApplication()->input->getCmd('view');
+            $view = $application->input->getCmd('view');
         }
 
-        switch($view) {
+        switch ($view) {
             case 'config':
                 $authorise = 'com_magebridge.config';
                 break;
@@ -71,11 +75,11 @@ class MageBridgeAclHelper
         if ($user->authorise($authorise, 'com_magebridge') == false && $user->authorise('com_magebridge.demo_ro', 'com_magebridge') == false) {
             if ($user->authorise('core.manage', 'com_magebridge')) {
                 if ($redirect) {
-                    $application->redirect('index.php?option=com_magebridge', JText::_('ALERTNOTAUTH'));
+                    $application->redirect('index.php?option=com_magebridge', Text::_('ALERTNOTAUTH'));
                 }
             } else {
                 if ($redirect) {
-                    $application->redirect('index.php', JText::_('ALERTNOTAUTH'));
+                    $application->redirect('index.php', Text::_('ALERTNOTAUTH'));
                 }
             }
             return false;
@@ -90,7 +94,7 @@ class MageBridgeAclHelper
      */
     public static function isDemo()
     {
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
         if ($user->authorise('com_magebridge.demo_ro', 'com_magebridge') == true && $user->authorise('com_magebridge.demo_rw', 'com_magebridge') == false) {
             return true;
         }

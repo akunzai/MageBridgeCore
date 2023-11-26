@@ -11,6 +11,12 @@
  * @version   1.0.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -28,6 +34,11 @@ class YireoViewList extends YireoView
      * @var array
      */
     protected $items;
+
+    /**
+     * @var array
+     */
+    protected $fields;
 
     /**
      * Identifier of the library-view
@@ -53,7 +64,7 @@ class YireoViewList extends YireoView
     /**
      * Pagination
      *
-     * @var JPagination
+     * @var \Joomla\CMS\Pagination\Pagination
      */
     protected $pagination = null;
 
@@ -76,7 +87,7 @@ class YireoViewList extends YireoView
      *
      * @param string $tpl
      *
-     * @return mixed
+     * @return void
      */
     public function display($tpl = null)
     {
@@ -94,7 +105,7 @@ class YireoViewList extends YireoView
 
                 // Set the various links
                 if (empty($item->edit_link)) {
-                    $item->edit_link = JRoute::_($this->getCurrentLink() . '&task=edit&cid[]=' . $item->id);
+                    $item->edit_link = Route::_($this->getCurrentLink() . '&task=edit&cid[]=' . $item->id);
                 }
 
                 // Re-insert the item
@@ -116,7 +127,7 @@ class YireoViewList extends YireoView
         $this->fields = $fields;
         $this->pagination = $this->model->getPagination();
 
-        return parent::display($tpl);
+        parent::display($tpl);
     }
 
     /**
@@ -141,8 +152,8 @@ class YireoViewList extends YireoView
             return $this->getImageTag($img);
         }
 
-        $token  = JSession::getFormToken();
-        $url    = JRoute::_($this->getCurrentLink() . '&task=toggle&id=' . $id . '&name=' . $name . '&value=' . $value . '&' . $token . '=1');
+        $token  = Session::getFormToken();
+        $url    = Route::_($this->getCurrentLink() . '&task=toggle&id=' . $id . '&name=' . $name . '&value=' . $value . '&' . $token . '=1');
 
         return '<a href="' . $url . '">' . $this->getImageTag($img) . '</a>';
     }
@@ -156,20 +167,20 @@ class YireoViewList extends YireoView
     {
         // Initialize the toolbar
         if ($this->table && $this->table->getStateField() != '') {
-            JToolbarHelper::publishList();
-            JToolbarHelper::unpublishList();
+            ToolbarHelper::publishList();
+            ToolbarHelper::unpublishList();
         }
 
         // Add the delete-button
         if ($this->loadToolbarDelete == true) {
-            JToolbarHelper::deleteList();
+            ToolbarHelper::deleteList();
         }
 
         // Load the toolbar edit-buttons
         if ($this->loadToolbarEdit == true) {
-            JToolbarHelper::editList();
-            JToolbarHelper::custom('copy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
-            JToolbarHelper::addNew();
+            ToolbarHelper::editList();
+            ToolbarHelper::custom('copy', 'copy', null, 'LIB_YIREO_VIEW_TOOLBAR_COPY', true);
+            ToolbarHelper::addNew();
         }
 
         return true;
@@ -185,7 +196,7 @@ class YireoViewList extends YireoView
      */
     public function checkedout($item, $i)
     {
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         if (!isset($item->editor)) {
             $item->editor = $user->get('id');
@@ -200,7 +211,7 @@ class YireoViewList extends YireoView
         }
 
         $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
-        $checked    = JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, '', $canCheckin);
+        $checked    = HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, '', $canCheckin);
 
         return $checked;
     }
@@ -215,7 +226,7 @@ class YireoViewList extends YireoView
      */
     public function checkbox($item, $i)
     {
-        $checkbox = JHtml::_('grid.id', $i, $item->id);
+        $checkbox = HTMLHelper::_('grid.id', $i, $item->id);
 
         return $checkbox;
     }
@@ -234,7 +245,7 @@ class YireoViewList extends YireoView
         $published = null;
 
         // Import variables
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         // Create dummy publish_up and publish_down variables if not set
         if (!isset($item->publish_up)) {
@@ -252,7 +263,7 @@ class YireoViewList extends YireoView
 
         if (!empty($stateField)) {
             $canChange = $user->authorise('core.edit.state', $this->getConfig('option') . '.item.' . $item->id);
-            $published = JHtml::_('jgrid.published', $item->$stateField, $i, '', $canChange, 'cb', $item->publish_up, $item->publish_down);
+            $published = HTMLHelper::_('jgrid.published', $item->$stateField, $i, '', $canChange, 'cb', $item->publish_up, $item->publish_down);
         }
 
         return $published;
@@ -277,7 +288,7 @@ class YireoViewList extends YireoView
         }
 
         // Import variables
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         return $this->table->isCheckedOut($user->get('id'), $item->checked_out);
     }

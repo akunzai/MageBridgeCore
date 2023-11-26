@@ -105,8 +105,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     {
         $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
 
-        $this->addValidSupportKeyCheck();
-
         $api_url = Mage::getStoreConfig('magebridge/joomla/api_url');
         $result = (!empty($api_url)) ? self::CHECK_OK : self::CHECK_WARNING;
         $this->addResult('conf', 'Joomla! API', $result, 'Once Joomla! accesses MageBridge, the API URL is automatically configured');
@@ -154,22 +152,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check for a valid support key
-     */
-    protected function addValidSupportKeyCheck()
-    {
-        $license = Mage::helper('magebridge')->getLicenseKey();
-        if (empty($license) || strlen($license) < 20) {
-            $result = self::CHECK_ERROR;
-            $description = "You don't have a valid support-key to communicate with Joomla! yet";
-        } else {
-            $result = self::CHECK_OK;
-            $description = "Your support-key is configured to communicate with Joomla!";
-        }
-        $this->addResult('conf', 'Support key', $result, $description);
-    }
-
-    /**
      * @return bool
      */
     protected function hasValidHomepage()
@@ -195,7 +177,11 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     protected function hasJsFileValidPermissions()
     {
-        return $this->hasFileValidPermissions(Mage::getBaseDir() . DS . 'js' . DS . 'index.php');
+        $file = Mage::getBaseDir() . DS . 'js' . DS . 'index.php';
+        if (file_exists($file)) {
+            return $this->hasFileValidPermissions($file);
+        }
+        return true;
     }
 
     /**
@@ -239,8 +225,8 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     protected function addSystemChecks()
     {
-        $result = (version_compare(phpversion(), '5.6.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('system', 'PHP version', $result, "PHP version 5.6.0 or higher is needed. A latest PHP version is always recommended.");
+        $result = (version_compare(phpversion(), '8.1.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('system', 'PHP version', $result, "PHP version 8.1.0 or higher is needed. A latest PHP version is always recommended.");
 
         $current = $this->getCurrentMemoryLimit();
         $result = ($this->hasValidMemoryLimit()) ? self::CHECK_OK : self::CHECK_ERROR;
@@ -273,12 +259,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
 
         $result = (@class_exists('ZipArchive')) ? self::CHECK_OK : self::CHECK_ERROR;
         $this->addResult('system', 'ZipArchive', $result, 'ZipArchive in PHP is needed for one-click upgrades. This bundles with PECL-zip 1.1.0 or higher.');
-
-        $result = (ini_get('safe_mode')) ? self::CHECK_ERROR : self::CHECK_OK;
-        $this->addResult('system', 'Safe Mode', $result, 'PHP Safe Mode is strongly outdated and not supported by either Joomla! or Magento');
-
-        $result = (ini_get('magic_quotes_gpc')) ? self::CHECK_ERROR : self::CHECK_OK;
-        $this->addResult('system', 'Magic Quotes GPC', $result, 'Magic Quotes GPC is outdated and should be disabled');
 
         $cacheBackend = (string)Mage::getConfig()->getNode('global/cache/backend');
         $result = (in_array($cacheBackend, ['files', 'db'])) ? self::CHECK_ERROR : self::CHECK_OK;

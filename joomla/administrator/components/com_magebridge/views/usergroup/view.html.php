@@ -9,20 +9,35 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Require the parent view
 require_once JPATH_COMPONENT . '/view.php';
 
-// Import the needed libraries
-jimport('joomla.filter.output');
-
 /**
  * HTML View class
  */
 class MageBridgeViewUsergroup extends YireoViewItem
 {
+    /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $params_form;
+
+    /**
+     * @var array
+     */
+    protected $fields;
+
     /**
      * Display method
      *
@@ -43,11 +58,11 @@ class MageBridgeViewUsergroup extends YireoViewItem
         $fields['joomla_group']  = $this->getFieldJoomlaGroup($this->item->joomla_group);
         $fields['magento_group'] = $this->getFieldMagentoGroup($this->item->magento_group);
         $fields['ordering']      = $this->getFieldOrdering($this->item);
-        $fields['published']     = JHtml::_('select.booleanlist', 'published', 'class="inputbox"', $this->item->published);
+        $fields['published']     = HTMLHelper::_('select.booleanlist', 'published', 'class="inputbox"', $this->item->published);
 
         // Initialize parameters
         $file   = JPATH_ADMINISTRATOR . '/components/com_magebridge/models/usergroup.xml';
-        $form   = JForm::getInstance('params', $file);
+        $form   = Form::getInstance('params', $file);
         $params = YireoHelper::toRegistry($this->item->params);
         $form->bind(['params' => $params->toArray()]);
         $this->params_form = $form;
@@ -80,7 +95,7 @@ class MageBridgeViewUsergroup extends YireoViewItem
     {
         $usergroups = MageBridgeFormHelper::getUsergroupOptions();
 
-        return JHtml::_('select.genericlist', $usergroups, 'joomla_group', null, 'value', 'text', $value);
+        return HTMLHelper::_('select.genericlist', $usergroups, 'joomla_group', null, 'value', 'text', $value);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license   GNU Public License
  * @link	  https://www.yireo.com
  */
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\Utilities\ArrayHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -32,7 +37,7 @@ class MageBridgeUserHelper
             return $usergroup;
         }
 
-        $params = JComponentHelper::getParams('com_users');
+        $params = ComponentHelper::getParams('com_users');
         $group_id = $params->get('new_usertype');
 
         return $group_id;
@@ -53,7 +58,7 @@ class MageBridgeUserHelper
         }
 
         // Get the right instance
-        if ($user instanceof JUser == false) {
+        if ($user instanceof \Joomla\CMS\User\User == false) {
             if ($type == 'email') {
                 $user = MageBridge::getUser()->loadByEmail($user);
             }
@@ -87,7 +92,7 @@ class MageBridgeUserHelper
         static $rows = null;
 
         if (!is_array($rows)) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $db->setQuery('SELECT * FROM #__magebridge_usergroups WHERE `published`=1 ORDER BY `ordering`');
             $rows = $db->loadObjectList();
         }
@@ -133,7 +138,7 @@ class MageBridgeUserHelper
         static $rows = null;
 
         if (!is_array($rows)) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = 'SELECT `magento_group`,`joomla_group`,`params` ' . ' FROM #__magebridge_usergroups WHERE `published`=1 ORDER BY `ordering`';
             $db->setQuery($query);
             $rows = $db->loadObjectList();
@@ -179,8 +184,6 @@ class MageBridgeUserHelper
      */
     public static function convert($user)
     {
-        jimport('joomla.utilities.arrayhelper');
-
         $rt = 'object';
 
         if (is_array($user)) {
@@ -192,7 +195,7 @@ class MageBridgeUserHelper
                 }
             }
 
-            $user = Joomla\Utilities\ArrayHelper::toObject($user);
+            $user = ArrayHelper::toObject($user);
         }
 
         $name = (isset($user->name)) ? $user->name : null;
@@ -234,7 +237,7 @@ class MageBridgeUserHelper
 
         // Return either an array or an object
         if ($rt == 'array') {
-            return Joomla\Utilities\ArrayHelper::fromObject($user);
+            return ArrayHelper::fromObject($user);
         }
 
         return $user;

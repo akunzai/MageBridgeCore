@@ -10,6 +10,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -22,6 +24,6 @@ defined('_JEXEC') or die();
 		<span class="checked_out"><?php echo $item->title; ?></span>
 	<?php else: ?>
 		<a href="<?php echo $item->edit_link; ?>"
-		   title="<?php echo JText::_('Edit Item'); ?>"><?php echo $item->title; ?></a>
+		   title="<?php echo Text::_('Edit Item'); ?>"><?php echo $item->title; ?></a>
 	<?php endif; ?>
 </td>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -79,8 +83,8 @@ class MageBridgeConnectorStore extends MageBridgeConnector
         }
 
         // Import the plugins
-        JPluginHelper::importPlugin('magebridgestore');
-        $plugins = JPluginHelper::getPlugin('magebridgestore');
+        PluginHelper::importPlugin('magebridgestore');
+        $plugins = PluginHelper::getPlugin('magebridgestore');
 
         // Try to match a condition with one of the connectors
         foreach ($conditions as $condition) {
@@ -90,7 +94,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                JFactory::getApplication()
+                $this->app
                     ->triggerEvent('onMageBridgeStoreConvertField', [$condition, &$actions]);
             }
 
@@ -150,7 +154,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     protected function getStoreRelations()
     {
         // Get the conditions
-        $db    = JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__magebridge_stores'));
@@ -170,7 +174,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
      */
     public function attach($observer)
     {
-        // Dummy method to allow for calling JPluginHelper::getPlugin()
+        // Dummy method to allow for calling PluginHelper::getPlugin()
     }
 
     /**

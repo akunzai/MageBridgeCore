@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -51,9 +53,10 @@ class MageBridgeWidgetHelper
                 return null;
         }
 
-        $cache = JFactory::getCache('com_magebridge.admin');
+        /** @var CallbackController */
+        $cache = Factory::getCache('com_magebridge.admin');
         $cache->setCaching(0);
-        $result = $cache->call(['MageBridgeWidgetHelper', $function]);
+        $result = $cache->get(['MageBridgeWidgetHelper', $function]);
 
         return $result;
     }

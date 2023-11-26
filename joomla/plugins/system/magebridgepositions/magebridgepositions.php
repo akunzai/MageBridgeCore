@@ -10,16 +10,15 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-jimport('joomla.plugin.plugin');
 
 /**
  * MageBridge Positions System Plugin
  */
-class plgSystemMageBridgePositions extends JPlugin
+class plgSystemMageBridgePositions extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterInitialise
@@ -38,7 +37,7 @@ class plgSystemMageBridgePositions extends JPlugin
         }
 
         // Perform actions on the frontend
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
 
         if ($application->isClient('site')) {
             $this->overrideModuleHelper();
@@ -173,7 +172,7 @@ class plgSystemMageBridgePositions extends JPlugin
      */
     private function isEnabled()
     {
-        if (!JFactory::getApplication()->isClient('site')) {
+        if (!Factory::getApplication()->isClient('site')) {
             return false;
         }
 

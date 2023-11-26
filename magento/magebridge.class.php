@@ -194,7 +194,7 @@ class MageBridge
             $_SERVER['HTTP_X_ORIGINAL_URL'] = $request_uri;
 
 
-            // Set defaults otherwise
+        // Set defaults otherwise
         } else {
             $_SERVER['REQUEST_URI'] = '/';
             $_SERVER['HTTP_X_REWRITE_URL'] = '/';
@@ -251,14 +251,14 @@ class MageBridge
             setcookie('frontend', $_GET['SID']);
             $_COOKIE['frontend'] = $_GET['SID'];
 
-            // Initialize the Magento session by the session-ID tracked by MageBridge
+        // Initialize the Magento session by the session-ID tracked by MageBridge
         } elseif (!empty($data['magento_session']) && self::isValidSessionId($data['magento_session'])) {
             session_name('frontend');
             session_id($data['magento_session']);
             setcookie('frontend', $data['magento_session']);
             $_COOKIE['frontend'] = $data['magento_session'];
 
-            // Initialize Single Sign On
+        // Initialize Single Sign On
         } elseif (!empty($_GET['sso']) && !empty($_GET['app'])) {
             if ($_GET['app'] == 'admin' && isset($_COOKIE['adminhtml']) && self::isValidSessionId($_COOKIE['adminhtml'])) {
                 session_name('adminhtml');
@@ -367,15 +367,6 @@ class MageBridge
         // Check for the meta-data
         if (!count($this->getMeta()) > 0) {
             $bridge->setMetaData('state', 'empty metadata');
-            print $bridge->output(false);
-            exit;
-        }
-
-        // Match the supportkey
-        if ($this->getMeta('supportkey') != $bridge->getLicenseKey() && $this->getMeta('license') != $bridge->getLicenseKey()) {
-            yireo_benchmark('MageBridge supportkey failed');
-            $bridge->setMetaData('state', 'supportkey failed');
-            $bridge->setMetaData('extra', $bridge->getLicenseKey());
             print $bridge->output(false);
             exit;
         }
@@ -501,7 +492,7 @@ class MageBridge
         foreach ($data as $index => $segment) {
             switch ($segment['type']) {
                 case 'version':
-                    $segment['data'] = Mage::getSingleton('magebridge/update')->getCurrentVersion();
+                    $segment['data'] = Mage::getSingleton('magebridge/core')->getCurrentVersion();
                     break;
 
                 case 'authenticate':
@@ -567,7 +558,9 @@ class MageBridge
             $profiler['data'] = Mage::getSingleton('magebridge/block')->getOutput($profiler['name'], $profiler['arguments']);
             $profiler['meta'] = Mage::getSingleton('magebridge/block')->getMeta($profiler['name']);
             //echo Mage::helper('magebridge/encryption')->base64_decode($profiler['data']);exit;
-            $data[$profilerId] = $profiler;
+            if (isset($profilerId)) {
+                $data[$profilerId] = $profiler;
+            }
         }
 
         return $data;

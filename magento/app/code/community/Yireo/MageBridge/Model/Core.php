@@ -50,6 +50,11 @@ class Yireo_MageBridge_Model_Core
      */
     protected $_force_preoutput = false;
 
+    /*
+     * Current MageBridge-version
+     */
+    private $_current_version = null;
+
     /**
      * Initialize the bridge-core
      *
@@ -481,8 +486,8 @@ class Yireo_MageBridge_Model_Core
             $config_values['customer/create_account/default_group'] = $this->getMetaData('customer_group');
         }
 
-        if (strlen($this->getMetaData('theme')) > 0) {
-            $theme = $this->getMetaData('theme');
+        $theme = $this->getMetaData('theme');
+        if (!empty($theme)) {
             if (preg_match('/([a-zA-Z0-9\-\_]+)\/([a-zA-Z0-9\-\_]+)/', $theme, $match)) {
                 $config_values['design/package/name'] = $match[1];
                 $config_values['design/theme/default'] = $match[2];
@@ -767,13 +772,15 @@ class Yireo_MageBridge_Model_Core
 
         // Check for URLs that look like AJAX URLs
         $request = Mage::app()->getRequest();
-        if (stristr($request->getControllerName(), 'ajax') || stristr($request->getActionName(), 'ajax') || stristr($this->getRequestUrl(), 'ajax')) {
+        if ((!empty($request->getControllerName()) && stristr($request->getControllerName(), 'ajax'))
+        || (!empty($request->getActionName()) && stristr($request->getActionName(), 'ajax'))
+        || (!empty($this->getRequestUrl()) && stristr($this->getRequestUrl(), 'ajax'))) {
             Mage::getSingleton('magebridge/core')->getController(false);
             return true;
         }
 
         // Check if preoutput is forced manually
-        if (stristr($this->getRequestUrl(), 'getAdditional')) {
+        if (!empty($this->getRequestUrl()) && stristr($this->getRequestUrl(), 'getAdditional')) {
             Mage::app()->getFrontController()->dispatch();
             return true;
         }
@@ -1044,7 +1051,7 @@ class Yireo_MageBridge_Model_Core
                 $url = Mage::getModel('catalog/product')->setStoreId($store->getId())->load($currentProductId)->getUrlPath();
                 $data['store_urls'][$code] = $url;
 
-                // Category URL
+            // Category URL
             } elseif ($currentCategoryId > 0) {
                 $url = Mage::getModel('catalog/category')->setStoreId($store->getId())->load($currentCategoryId)->getUrlPath();
                 $data['store_urls'][$code] = $url;
@@ -1412,16 +1419,6 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the configured license key
-     *
-     * @return string
-     */
-    public function getLicenseKey()
-    {
-        return Mage::getStoreConfig('magebridge/hidden/support_key');
-    }
-
-    /**
      * Return the current session ID
      *
      * @return string
@@ -1478,5 +1475,21 @@ class Yireo_MageBridge_Model_Core
     {
         $this->_enable_events = false;
         return $this->_enable_events;
+    }
+
+    /*
+     * Method to get the current MageBridge-version
+     *
+     * @access public
+     * @param null
+     * @return string
+     */
+    public function getCurrentVersion()
+    {
+        if (empty($this->_current_version)) {
+            $config = Mage::app()->getConfig()->getModuleConfig('Yireo_MageBridge');
+            $this->_current_version = (string)$config->version;
+        }
+        return $this->_current_version;
     }
 }

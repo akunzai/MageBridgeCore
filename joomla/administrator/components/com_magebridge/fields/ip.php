@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -38,7 +40,7 @@ class MagebridgeFormFieldIp extends MageBridgeFormFieldAbstract
 
         $html = null;
         $html .= '<textarea type="text" id="' . $id . '" name="' . $name . '" ' . 'rows="5" cols="40" maxlength="255">' . $value . '</textarea>';
-        $html .= '<button class="btn" onclick="insertIp(\'' . $_SERVER['REMOTE_ADDR'] . '\'); return false;">' . JText::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_DEBUG_IP') . '</button>';
+        $html .= '<button class="btn" onclick="insertIp(\'' . $_SERVER['REMOTE_ADDR'] . '\'); return false;">' . Text::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_DEBUG_IP') . '</button>';
         $html .= '<script>function insertIp(ip) {' . ' jQuery(\'#' . $id . '\').val(ip);' . '}</script>';
 
         return $html;

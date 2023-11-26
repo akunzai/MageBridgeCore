@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge
  *
@@ -16,6 +17,11 @@ namespace Yireo\MageBridge\Utilities;
  */
 class StringValue
 {
+    /**
+     * @var string
+     */
+    private $string;
+
     /**
      * StringValue constructor.
      *

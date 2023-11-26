@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -23,10 +26,10 @@ class MageBridgeModelBridgeSegment
     /** @var MageBridgeModelBridge */
     protected $bridge;
 
-    /** @var  Joomla\CMS\Application\CMSApplication */
+    /** @var  \Joomla\CMS\Application\CMSApplication */
     protected $app;
 
-    /** @var  Joomla\CMS\Document\HtmlDocument */
+    /** @var  \Joomla\CMS\Document\HtmlDocument */
     protected $doc;
 
     /**
@@ -43,8 +46,6 @@ class MageBridgeModelBridgeSegment
      */
     public static function getInstance($name = null)
     {
-        static $_instances = [];
-
         if ($name == null) {
             $name = 'MageBridgeModelBridgeSegment';
         }
@@ -63,8 +64,8 @@ class MageBridgeModelBridgeSegment
     {
         $this->register = MageBridge::getRegister();
         $this->bridge = MageBridge::getBridge();
-        $this->app = JFactory::getApplication();
-        $this->doc = JFactory::getDocument();
+        $this->app = Factory::getApplication();
+        $this->doc = Factory::getDocument();
     }
 
     /**

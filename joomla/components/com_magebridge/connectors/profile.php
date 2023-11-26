@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -49,7 +53,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
     /**
      * Method to do something when changing the profile from Magento
      *
-     * @param JUser $user
+     * @param \Joomla\CMS\User\User $user
      * @param array $customer
      * @param array $address
      *
@@ -66,7 +70,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         }
 
         // Import the plugins
-        JPluginHelper::importPlugin('magebridgeprofile');
+        PluginHelper::importPlugin('magebridgeprofile');
         $this->app->triggerEvent('onMageBridgeProfileSave', [$user, $customer]);
     }
 
@@ -94,7 +98,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         }
 
         // Import the plugins
-        JPluginHelper::importPlugin('magebridgeprofile');
+        PluginHelper::importPlugin('magebridgeprofile');
         $this->app->triggerEvent('onMageBridgeProfileModifyFields', [$user_id, &$user]);
 
         return $user;
@@ -115,7 +119,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         }
 
         // Get a general user-array from Joomla! itself
-        $db    = JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = "SELECT `name`,`username`,`email` FROM `#__users` WHERE `id`=" . (int) $user_id;
         $db->setQuery($query);
         $user = $db->loadAssoc();
@@ -131,7 +135,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         MageBridge::getUser()
             ->synchronize($user);
 
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $session->set('com_magebridge.task_queue', []);
 
         return true;

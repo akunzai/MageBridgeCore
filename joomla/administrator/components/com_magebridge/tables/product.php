@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\Registry\Registry;
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -20,9 +22,9 @@ class MagebridgeTableProduct extends YireoTable
     /**
      * Constructor
      *
-     * @param JDatabase $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
-    public function __construct(& $db)
+    public function __construct(&$db)
     {
         $this->_required = ['sku'];
         parent::__construct('#__magebridge_products', 'id', $db);
@@ -42,7 +44,7 @@ class MagebridgeTableProduct extends YireoTable
     {
         // Convert the actions array to a flat string
         if (key_exists('actions', $array) && is_array($array['actions'])) {
-            $registry = new JRegistry();
+            $registry = new Registry();
             $registry->loadArray($array['actions']);
             $array['actions'] = $registry->toString();
         }

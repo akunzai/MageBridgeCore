@@ -46,7 +46,7 @@ trait YireoModelTraitIdentifiable
     {
         $this->id = $id;
 
-        if ($reInitialize) {
+        if ($reInitialize && isset($this->data)) {
             $this->data = null;
         }
 

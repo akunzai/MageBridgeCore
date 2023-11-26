@@ -119,7 +119,7 @@ class Zend_Json_Encoder
         if ($this->_cycleCheck) {
             if ($this->_wasVisited($value)) {
                 if (isset($this->_options['silenceCyclicalExceptions'])
-                    && $this->_options['silenceCyclicalExceptions']===true) {
+                    && $this->_options['silenceCyclicalExceptions'] === true) {
                     return '"* RECURSION (' . get_class($value) . ') *"';
                 } else {
                     require_once 'Zend/Json/Exception.php';
@@ -305,7 +305,7 @@ class Zend_Json_Encoder
 
         $started = false;
         foreach ($methods as $method) {
-            if (! $method->isPublic() || !$method->isUserDefined()) {
+            if (!$method->isPublic() || !$method->isUserDefined()) {
                 continue;
             }
 
@@ -371,7 +371,7 @@ class Zend_Json_Encoder
 
         $tmpArray = [];
         foreach ($properties as $prop) {
-            if (! $prop->isPublic()) {
+            if (!$prop->isPublic()) {
                 continue;
             }
 
@@ -400,7 +400,7 @@ class Zend_Json_Encoder
     public static function encodeClass($className, $package = '')
     {
         $cls = new ReflectionClass($className);
-        if (! $cls->isInstantiable()) {
+        if (!$cls->isInstantiable()) {
             require_once 'Zend/Json/Exception.php';
             throw new Zend_Json_Exception("$className must be instantiable");
         }

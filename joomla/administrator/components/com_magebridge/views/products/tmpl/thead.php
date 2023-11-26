@@ -9,14 +9,17 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 defined('_JEXEC') or die('Restricted access');
 ?>
 <th class="title">
-	<?php echo JHtml::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_LABEL', 's.label', $this->lists['order_Dir'], $this->lists['order']); ?>
+	<?php echo HTMLHelper::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_LABEL', 's.label', $this->lists['order_Dir'], $this->lists['order']); ?>
 </th>
 <th width="200" class="title">
-	<?php echo JHtml::_('grid.sort', 'COM_MAGEBRIDGE_VIEW_PRODUCT_FIELD_SKU', 's.sku', $this->lists['order_Dir'], $this->lists['order']); ?>
+	<?php echo HTMLHelper::_('grid.sort', 'COM_MAGEBRIDGE_VIEW_PRODUCT_FIELD_SKU', 's.sku', $this->lists['order_Dir'], $this->lists['order']); ?>
 </th>
 <th width="100" class="title">
-	<?php echo JText::_('COM_MAGEBRIDGE_PRODUCT_PARAM_ALLOWED_STATUS'); ?>
+	<?php echo Text::_('COM_MAGEBRIDGE_PRODUCT_PARAM_ALLOWED_STATUS'); ?>
 </th>

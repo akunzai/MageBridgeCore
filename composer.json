@@ -15,7 +15,8 @@
     ],
     "config": {
         "allow-plugins": {
-            "magento-hackathon/magento-composer-installer": true
+            "magento-hackathon/magento-composer-installer": true,
+            "cweagans/composer-patches": true
         },
         "preferred-install": "dist",
         "sort-packages": true
@@ -25,15 +26,15 @@
             "type": "package",
             "package": {
                 "name": "joomla/joomla-cms",
-                "version": "3.10.12",
+                "version": "4.4.0",
                 "dist": {
-                    "url": "https://github.com/joomla/joomla-cms/releases/download/3.10.12/Joomla_3.10.12-Stable-Full_Package.zip",
+                    "url": "https://github.com/joomla/joomla-cms/releases/download/4.4.0/Joomla_4.4.0-Stable-Full_Package.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/joomla/joomla-cms.git",
                     "type": "git",
-                    "reference": "tags/3.10.12"
+                    "reference": "tags/4.4.0"
                 }
             }
         },
@@ -52,14 +53,14 @@
     ],
     "require": {
         "php": ">=8.1",
-        "magento-hackathon/magento-composer-installer": "^4.0"
+        "magento-hackathon/magento-composer-installer": "^4.0.2"
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^v3.21.2",
-        "joomla/joomla-cms": "3.10.12",
-        "openmage/magento-lts": "^v20.0.20",
-        "phpstan/phpstan": "^1.10.25"
+        "friendsofphp/php-cs-fixer": "v3.40.0",
+        "joomla/joomla-cms": "4.4.0",
+        "openmage/magento-lts": "v20.2.0",
+        "phpstan/phpstan": "^1.10.44"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts"
@@ -79,44 +80,7 @@
             "phpstan analyse --generate-baseline"
         ],
         "build": [
-            "php ./bundle.php ./joomla/libraries/yireo/yireo.xml ./joomla/packages/lib_yireo.zip",
-            "php ./bundle.php ./joomla/com_magebridge.xml ./joomla/packages/com_magebridge.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_block/mod_magebridge_block.xml ./joomla/packages/mod_magebridge_block.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_cart/mod_magebridge_cart.xml ./joomla/packages/mod_magebridge_cart.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_cms/mod_magebridge_cms.xml ./joomla/packages/mod_magebridge_cms.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_login/mod_magebridge_login.xml ./joomla/packages/mod_magebridge_login.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_menu/mod_magebridge_menu.xml ./joomla/packages/mod_magebridge_menu.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_newsletter/mod_magebridge_newsletter.xml ./joomla/packages/mod_magebridge_newsletter.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_progress/mod_magebridge_progress.xml ./joomla/packages/mod_magebridge_progress.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_switcher/mod_magebridge_switcher.xml ./joomla/packages/mod_magebridge_switcher.zip",
-            "php ./bundle.php ./joomla/modules/mod_magebridge_widget/mod_magebridge_widget.xml ./joomla/packages/mod_magebridge_widget.zip",
-            "php ./bundle.php ./joomla/plugins/authentication/magebridge/magebridge.xml ./joomla/packages/plg_authentication_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/community/magebridge/magebridge.xml ./joomla/packages/plg_community_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/content/magebridge/magebridge.xml ./joomla/packages/plg_content_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/finder/magebridge/magebridge.xml ./joomla/packages/plg_finder_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/magebridge/magebridge/magebridge.xml ./joomla/packages/plg_magebridge_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgenewsletter/example/example.xml ./joomla/packages/plg_magebridgenewsletter_example.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgeproduct/example/example.xml ./joomla/packages/plg_magebridgeproduct_example.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgestore/example/example.xml ./joomla/packages/plg_magebridgestore_example.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgestore/falang/falang.xml ./joomla/packages/plg_magebridgestore_falang.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgestore/joomfish/joomfish.xml ./joomla/packages/plg_magebridgestore_joomfish.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgestore/joomla/joomla.xml ./joomla/packages/plg_magebridgestore_joomla.zip",
-            "php ./bundle.php ./joomla/plugins/magebridgestore/nooku/nooku.xml ./joomla/packages/plg_magebridgestore_nooku.zip",
-            "php ./bundle.php ./joomla/plugins/magento/magebridge/magebridge.xml ./joomla/packages/plg_magento_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/search/magebridge/magebridge.xml ./joomla/packages/plg_search_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridge/magebridge.xml ./joomla/packages/plg_system_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgepositions/magebridgepositions.xml ./joomla/packages/plg_system_magebridgepositions.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgepre/magebridgepre.xml ./joomla/packages/plg_system_magebridgepre.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgert/magebridgert.xml ./joomla/packages/plg_system_magebridgert.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgesample/magebridgesample.xml ./joomla/packages/plg_system_magebridgesample.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridget3/magebridget3.xml ./joomla/packages/plg_system_magebridget3.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgeyoo/magebridgeyoo.xml ./joomla/packages/plg_system_magebridgeyoo.zip",
-            "php ./bundle.php ./joomla/plugins/system/magebridgezoo/magebridgezoo.xml ./joomla/packages/plg_system_magebridgezoo.zip",
-            "php ./bundle.php ./joomla/plugins/user/magebridge/magebridge.xml ./joomla/packages/plg_user_magebridge.zip",
-            "php ./bundle.php ./joomla/plugins/user/magebridgefirstlast/magebridgefirstlast.xml ./joomla/packages/plg_user_magebridgefirstlast.zip",
-            "php ./bundle.php ./joomla/templates/magebridge_root/templateDetails.xml ./joomla/packages/tpl_magebridge_root.zip",
-            "php ./bundle.php ./joomla/pkg_magebridge.xml ./build/pkg_magebridge.zip",
-            "rm -rf ./joomla/packages"
+            "./build.sh"
         ]
     }
 }

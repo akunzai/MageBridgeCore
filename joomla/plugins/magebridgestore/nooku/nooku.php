@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Store plugin - Nooku
  *
@@ -11,6 +12,8 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Factory;
 
 /**
  * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! nooku
@@ -45,7 +48,7 @@ class plgMageBridgeStoreNooku extends MageBridgePluginStore
         }
 
         // Check if the condition applies
-        if ($actions['nooku_language'] == JFactory::getApplication()->input->getCmd('lang')) {
+        if ($actions['nooku_language'] == Factory::getApplication()->input->getCmd('lang')) {
             return true;
         }
 
@@ -61,7 +64,7 @@ class plgMageBridgeStoreNooku extends MageBridgePluginStore
      */
     public function isEnabled()
     {
-        if (is_dir(JPATH_SITE.'/components/com_nooku')) {
+        if (is_dir(JPATH_SITE . '/components/com_nooku')) {
             return true;
         } else {
             return false;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -50,13 +55,12 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
         }
 
         // Only run this for root-views
-        if (JFactory::getApplication()->input->getCmd('view') != 'root') {
+        if ($this->app->input->getCmd('view') != 'root') {
             return true;
         }
 
         // Get variables
-        $application = JFactory::getApplication();
-        $pathway = $application->getPathway();
+        $pathway = $this->app->getPathway();
         $data = $this->getResponseData();
 
         // Define empty data
@@ -66,12 +70,12 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
 
         // Add the shopping-cart to this pathway
         if (MageBridgeTemplateHelper::isCartPage()) {
-            $pathway->addItem(JText::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
+            $pathway->addItem(Text::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
 
-            // Add the checkout to this pathway
+        // Add the checkout to this pathway
         } elseif (MageBridgeTemplateHelper::isCheckoutPage()) {
-            $pathway->addItem(JText::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
-            $pathway->addItem(JText::_('COM_MAGEBRIDGE_CHECKOUT'), MageBridgeUrlHelper::route('checkout'));
+            $pathway->addItem(Text::_('COM_MAGEBRIDGE_SHOPPING_CART'), MageBridgeUrlHelper::route('checkout/cart'));
+            $pathway->addItem(Text::_('COM_MAGEBRIDGE_CHECKOUT'), MageBridgeUrlHelper::route('checkout'));
         }
 
         // Remove the first entry which always the homepage
@@ -84,7 +88,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
         $pathway_items = [];
         foreach ($pathway->getPathway() as $pathway_item) {
             if (!preg_match('/^(http|https):/', $pathway_item->link)) {
-                $pathway_item->link = preg_replace('/\/$/', '', JUri::root()).JRoute::_($pathway_item->link);
+                $pathway_item->link = preg_replace('/\/$/', '', Uri::root()) . Route::_($pathway_item->link);
             }
             $pathway_items[] = $pathway_item;
         }
@@ -98,11 +102,11 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
             // Construct the root-item to this pathway
             $root_pathway_item = (object)null;
             if (isset($rootItem->name)) {
-                $root_pathway_item->name = JText::_($rootItem->name);
+                $root_pathway_item->name = Text::_($rootItem->name);
             } else {
-                $root_pathway_item->name = JText::_($rootItem->title);
+                $root_pathway_item->name = Text::_($rootItem->title);
             }
-            $root_pathway_item->link = preg_replace('/\/$/', '', JUri::base()).JRoute::_($rootItem->link);
+            $root_pathway_item->link = preg_replace('/\/$/', '', Uri::base()) . Route::_($rootItem->link);
 
             // Scan the current items to see whether there is a match or not
             $homeMatch = false;
@@ -123,7 +127,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
                 $pathway_items[] = $root_pathway_item;
             }
 
-            // Actions when we do not have a root-item
+        // Actions when we do not have a root-item
         } else {
             // Remove the first entry because it always is inaccurate
             @array_shift($data);
@@ -134,7 +138,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
             // Do not add the current link
             //if (MageBridgeUrlHelper::current() == $item['link']) continue;
             if (empty($item['link'])) {
-                $item['link'] = JUri::current();
+                $item['link'] = Uri::current();
             }
 
             // Loop through the current pathway-items to prevent double links
@@ -154,7 +158,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
             }
 
             $pathway_item = (object)null;
-            $pathway_item->name = JText::_($item['label']);
+            $pathway_item->name = Text::_($item['label']);
             $pathway_item->link = $item['link'];
             $pathway_item->magento = 1;
             $pathway_items[] = $pathway_item;

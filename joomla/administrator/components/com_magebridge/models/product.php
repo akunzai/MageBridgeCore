@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -11,9 +12,6 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Import Joomla! libraries
-jimport('joomla.utilities.date');
 
 /**
  * MageBridge Product model

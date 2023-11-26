@@ -14,6 +14,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 // Import the loader
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
@@ -31,12 +33,12 @@ class YireoAbstractModel extends JModelLegacy
     use YireoModelTraitConfigurable;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
@@ -52,7 +54,7 @@ class YireoAbstractModel extends JModelLegacy
         parent::__construct($config);
 
         $this->config = $config;
-        $this->app    = JFactory::getApplication();
+        $this->app    = Factory::getApplication();
         $this->input  = $this->app->input;
 
         $this->handleAbstractDeprecated();
@@ -66,7 +68,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @return JApplicationCms
+     * @return \Joomla\CMS\Application\CMSApplication
      */
     public function getApp()
     {
@@ -74,7 +76,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param JApplicationCms $app
+     * @param \Joomla\CMS\Application\CMSApplication $app
      */
     public function setApp($app)
     {
@@ -82,7 +84,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @return JInput
+     * @return \Joomla\CMS\Input\Input
      */
     public function getInput()
     {
@@ -90,7 +92,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param JInput $input
+     * @param \Joomla\CMS\Input\Input $input
      */
     public function setInput($input)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -47,13 +48,12 @@ class MageBridgeModelBridgeMessages extends MageBridgeModelBridgeSegment
 
         $messages = $this->getResponseData();
         if (!empty($messages) && is_array($messages)) {
-            $application = JFactory::getApplication();
             foreach ($messages as $message) {
                 if (!is_array($message)) {
                     continue;
                 }
 
-                switch($message['type']) {
+                switch ($message['type']) {
                     case 'warning':
                         $type = 'warning';
                         break;
@@ -65,7 +65,7 @@ class MageBridgeModelBridgeMessages extends MageBridgeModelBridgeSegment
                         break;
                 }
 
-                $application->enqueueMessage($message['message'], $type);
+                $this->app->enqueueMessage($message['message'], $type);
             }
         }
 

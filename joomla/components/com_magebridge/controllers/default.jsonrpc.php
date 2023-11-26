@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -21,6 +24,11 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeControllerJsonrpc extends YireoAbstractController
 {
     /**
+     * @var MageBridgeModelDebug
+     */
+    protected $debug;
+
+    /**
      * @var object Zend_Json_Server
      */
     private $server = null;
@@ -31,7 +39,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
 
         MageBridgeModelDebug::getDebugOrigin(MageBridgeModelDebug::MAGEBRIDGE_DEBUG_ORIGIN_JOOMLA_JSONRPC);
         $this->debug = MageBridgeModelDebug::getInstance();
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
     }
 
     /**

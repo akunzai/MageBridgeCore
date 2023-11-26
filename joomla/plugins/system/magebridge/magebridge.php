@@ -13,11 +13,13 @@
  * @todo      : plgSystemMageBridgeHelperSsl
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-jimport('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -28,17 +30,17 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgSystemMageBridge extends MageBridgePlugin
 {
     /**
-     * @var Joomla\CMS\Application\CMSApplication
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var Joomla\CMS\Document\Document
+     * @var \Joomla\CMS\Document\Document
      */
     protected $doc;
 
     /**
-     * @var JInput
+     * @var \Joomla\CMS\Input\Input
      */
     protected $input;
 
@@ -52,7 +54,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     public function initialize()
     {
-        $this->doc = JFactory::getDocument();
+        $this->doc = Factory::getDocument();
         $this->input = $this->app->input;
         $this->replaceClasses();
         $this->loadLanguage();
@@ -92,7 +94,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $current_url = preg_replace('/\.html$/', '', $_SERVER['REQUEST_URI']);
                 $root_item = MageBridgeUrlHelper::getRootItem();
                 $root_item_id = ($root_item) ? $root_item->id : null;
-                $bridge_url = JRoute::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
+                $bridge_url = Route::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
 
                 if (substr($current_url, 0, strlen($bridge_url)) == $bridge_url) {
                     $request = substr_replace($current_url, '', 0, strlen($bridge_url));
@@ -132,7 +134,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return;
         }
 
-        /** @var Joomla\CMS\Application\SiteApplication $app */
+        /** @var \Joomla\CMS\Application\SiteApplication $app */
         $app = $this->app;
         if ($app->isClient('site')) {
             // Check for a different template
@@ -172,7 +174,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 }
             }
 
-            // Backend actions
+        // Backend actions
         } else {
             if ($this->app->isClient('administrator')) {
                 // Handle SSO checks
@@ -300,9 +302,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         if ($this->app->isClient('site')) {
             return;
         }
-
-        jimport('joomla.form.form');
-        JForm::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
+        Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
     }
 
     /**
@@ -333,13 +333,13 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function redirectNonSef()
     {
         // Initialize variables
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
         $post = $this->input->post->getArray();
         $enabled = $this->getParam('enable_nonsef_redirect', 1);
 
         // Redirect non-SEF URLs to their SEF-equivalent
         if (
-            $enabled == 1 && empty($post) && JFactory::getConfig()
+            $enabled == 1 && empty($post) && Factory::getConfig()
             ->get('sef') == 1 && $this->input->getCmd('option') == 'com_magebridge'
         ) {
             $request = str_replace($uri->base(), '', $uri->toString());
@@ -350,7 +350,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $controller = $this->app->input->getCmd('controller');
                 $task = $this->app->input->getCmd('task');
 
-                if ($request != JRoute::_($request) && $view != 'ajax' && $view != 'jsonrpc' && $view != 'block' && $controller != 'jsonrpc' && $task != 'login') {
+                if ($request != Route::_($request) && $view != 'ajax' && $view != 'jsonrpc' && $view != 'block' && $controller != 'jsonrpc' && $task != 'login') {
                     $request = MageBridgeUrlHelper::getSefUrl($request);
                     $this->app->redirect($request);
                     $this->app->close();
@@ -411,19 +411,19 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
                 // Prepare the destination URL
                 if (preg_match('/^index\.php\?option=/', $destination)) {
-                    $destination = JRoute::_($destination);
+                    $destination = Route::_($destination);
                 }
 
                 // Fix the destination URL to be a FQDN
                 if (!preg_match('/^(http|https)\:\/\//', $destination)) {
-                    $destination = JUri::base() . $destination;
+                    $destination = Uri::base() . $destination;
                 }
 
-                if ($replacement_url->source_type == 1 && preg_match('/' . $source . '/', JUri::current())) {
+                if ($replacement_url->source_type == 1 && preg_match('/' . $source . '/', Uri::current())) {
                     header('Location: ' . $destination);
                     exit;
                 } else {
-                    if ($replacement_url->source_type == 0 && preg_match('/' . $source . '$/', JUri::current())) {
+                    if ($replacement_url->source_type == 0 && preg_match('/' . $source . '$/', Uri::current())) {
                         header('Location: ' . $destination);
                         exit;
                     }
@@ -508,7 +508,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
      */
     private function handleJavaScript()
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         // Get MageBridge variables
         $disableJsMootools = $this->loadConfig('disable_js_mootools');
         $disableJsFootools = $this->loadConfig('disable_js_footools');
@@ -520,10 +520,10 @@ class PlgSystemMageBridge extends MageBridgePlugin
         $magento_js = MageBridgeModelBridgeHeaders::getInstance()
             ->getScripts();
 
-        $uri = JUri::getInstance();
-        $foo_script = JUri::root(true) . '/media/com_magebridge/js/foo.js';
-        $footools_script = JUri::root(true) . '/media/com_magebridge/js/footools.min.js';
-        $frototype_script = JUri::root(true) . '/media/com_magebridge/js/frototype.min.js';
+        $uri = Uri::getInstance();
+        $foo_script = Uri::root(true) . '/media/com_magebridge/js/foo.js';
+        $footools_script = Uri::root(true) . '/media/com_magebridge/js/footools.min.js';
+        $frototype_script = Uri::root(true) . '/media/com_magebridge/js/frototype.min.js';
         $base_url = $this->getBaseUrl();
         $base_js_url = $this->getBaseJsUrl();
 
@@ -539,7 +539,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Fetch the body
-        $body = $app->getBody();
+        $body = $app->get('Body');
 
         // Determine whether ProtoType is loaded
         $has_prototype = MageBridgeTemplateHelper::hasPrototypeJs();
@@ -551,7 +551,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Load the whitelist
-        $whitelist = JFactory::getConfig()
+        $whitelist = Factory::getConfig()
             ->get('magebridge.script.whitelist');
 
         if (!is_array($whitelist)) {
@@ -572,7 +572,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         }
 
         // Load the blacklist
-        $blacklist = JFactory::getConfig()
+        $blacklist = Factory::getConfig()
             ->get('magebridge.script.blacklist');
 
         // Only parse the body, if MageBridge has loaded the ProtoType library and only if configured
@@ -635,7 +635,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                     if (!empty($base_js_url) && (strstr($script, 'http://' . $base_js_url) || strstr($script, 'https://' . $base_js_url))) {
                         continue;
 
-                        // Skip Magento frontend scripts
+                    // Skip Magento frontend scripts
                     } else {
                         if (preg_match('/\/skin\/frontend\//', $script)) {
                             continue;
@@ -698,7 +698,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                         }
                     }
 
-                    // Disable MooTools
+                // Disable MooTools
                 } else {
                     if ($disableJsMootools == 1) {
                         $mootools_scripts = [
@@ -730,7 +730,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                         $body = str_replace($tag . "\n", '', $body);
                         $body = str_replace($tag, '', $body);
 
-                        // Comment the tag
+                    // Comment the tag
                     } else {
                         if ($filter == 'comment') {
                             if (!in_array($tag, $commented)) {
@@ -738,7 +738,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                                 $body = str_replace($tag, '<!-- MB: ' . $tag . ' -->', $body);
                             }
 
-                            // Replace the script with the foo-script
+                        // Replace the script with the foo-script
                         } else {
                             $this->console[] = 'MageBridge removed ' . $script;
                             $body = str_replace($script, $foo_script, $body);
@@ -758,16 +758,16 @@ class PlgSystemMageBridge extends MageBridgePlugin
             }
 
             // Set the body
-            $app->setBody($body);
+            $app->set('Body', $body);
         } else {
             // Add FrotoType to the page
             if ($disableJsFrototype == 0) {
-                $body = $app->getBody();
+                $body = $app->get('Body');
 
                 $frototype_tag = '<script type="text/javascript" src="' . $frototype_script . '"></script>';
                 $body = preg_replace('/\<script/', $frototype_tag . "\n" . '<script ', $body, 1);
 
-                $app->setBody($body);
+                $app->set('Body', $body);
             }
         }
     }
@@ -786,7 +786,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
         return;
 
         if ($this->input->getCmd('task') == 'login') {
-            $user = JFactory::getUser();
+            $user = Factory::getUser();
 
             if (!$user->guest) {
                 MageBridgeModelUserSSO::getInstance()->checkSSOLogin();
@@ -807,52 +807,10 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function handleQueue()
     {
         // Get the current session
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         // Check whether some request is in the queue
         $tasks = $session->get('com_magebridge.task_queue');
-
-        /*
-        // @todo: Remove deprecated code
-        if (!empty($tasks) && is_array($tasks)) {
-            foreach ($tasks as $task) {
-
-                if ($task == 'cbsync' || $task == 'jomsocialsync') {
-                    $cb = MageBridgeConnectorProfile::getInstance()->getConnector('cb');
-                    $cb->synchronize(JFactory::getUser()->id);
-                }
-
-                if ($task == 'jomsocialsync') {
-                    $jomsocial = MageBridgeConnectorProfile::getInstance()->getConnector('jomsocial');
-                    $jomsocial->synchronize(JFactory::getUser()->id);
-                }
-            }
-        }
-
-        // Add things to the queue, because some bastard extensions do not use events properly
-        $tasks = array();
-
-        // Add a CB profile-sync
-        if ($this->getParam('spoof_cb_events')) {
-            if ($this->input->getCmd('option') == 'com_comprofiler'
-                && $this->input->getCmd('task') == 'saveUserEdit'
-                && JFactory::getUser()->id == $this->input->getInt('id', 0, 'post')) {
-
-                $tasks[] = 'cnsync';
-            }
-        }
-
-        // Add a JomSocial profile-sync
-        if ($this->getParam('spoof_jomsocial_events')) {
-            if ($this->input->getCmd('option') == 'com_community'
-                && $this->input->getCmd('view') == 'profile'
-                && in_array($this->input->getCmd('task'), array('edit', 'editDetails'))
-                && $this->input->getCmd('action', null, 'post') == 'save') {
-
-                $tasks[] = 'jomsocialsync';
-            }
-        }
-        */
 
         // Save the task queue in the session
         $session->set('com_magebridge.task_queue', $tasks);
@@ -870,10 +828,8 @@ class PlgSystemMageBridge extends MageBridgePlugin
     private function redirectSSL()
     {
         // Get system variables
-        $uri = JUri::getInstance();
+        $uri = Uri::getInstance();
         $enforce_ssl = $this->loadConfig('enforce_ssl');
-        $from_http_to_https = $this->getParam('enable_ssl_redirect', 1);
-        $from_https_to_http = $this->getParam('enable_nonssl_redirect', 1);
         $post = $this->input->post->getArray();
 
         // Match situation where we don't want to redirect
@@ -895,10 +851,11 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
         // Check the Menu-Item settings
         $menu = $this->app->getMenu();
+        /** @var Joomla\CMS\Menu\MenuItem */
         $active = $menu->getActive();
 
         if (!empty($active)) {
-            $secureMenuItem = ($active->params->get('secure', 0) == 1) ? true : false;
+            $secureMenuItem = ($active->getParams()->get('secure', 0) == 1) ? true : false;
         } else {
             $secureMenuItem = false;
         }
@@ -912,12 +869,12 @@ class PlgSystemMageBridge extends MageBridgePlugin
             if ($enforce_ssl == 0) {
                 $redirect = false;
 
-                // Set the redirect for the entire Joomla! site
+            // Set the redirect for the entire Joomla! site
             } else {
                 if ($enforce_ssl == 1) {
                     $redirect = true;
 
-                    // Set the redirect for MageBridge only
+                // Set the redirect for MageBridge only
                 } else {
                     if ($enforce_ssl == 2) {
                         // MageBridge links
@@ -952,7 +909,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 $this->app->close();
             }
 
-            // Check if non-SSL should be forced
+        // Check if non-SSL should be forced
         } else {
             if ($uri->isSSL() == true && $this->getParam('enable_nonssl_redirect', 1) == 1) {
                 // Determine whether to do a redirect
@@ -963,12 +920,12 @@ class PlgSystemMageBridge extends MageBridgePlugin
                 if ($enforce_ssl == 0) {
                     $redirect = true;
 
-                    // Do not redirect if SSL is set for the entire site
+                // Do not redirect if SSL is set for the entire site
                 } else {
                     if ($enforce_ssl == 1) {
                         $redirect = false;
 
-                        // Do redirect if SSL is set for the shop only
+                    // Do redirect if SSL is set for the shop only
                     } else {
                         if ($enforce_ssl == 2) {
                             if (!in_array($this->input->getCmd('option'), $components)) {
@@ -978,7 +935,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
                                 }
                             }
 
-                            // Set the redirect if SSL is only enabled for MageBridge
+                        // Set the redirect if SSL is only enabled for MageBridge
                         } else {
                             if ($enforce_ssl == 3) {
                                 if ($this->input->getCmd('option') == 'com_magebridge') {
@@ -1029,7 +986,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             // Try to login into the Joomla! application
             $rt = $this->app->login($credentials);
 
-            // If the login is succesfull, we do not submit build the bridge any further, but redirect right away
+            // If the login is successful, we do not submit build the bridge any further, but redirect right away
             if ($rt == true) {
                 $url = MageBridgeUrlHelper::route('customer/account');
                 $this->app->redirect($url);

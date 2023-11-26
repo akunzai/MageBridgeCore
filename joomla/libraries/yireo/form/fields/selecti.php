@@ -10,6 +10,9 @@
  */
 
 // Check to ensure this file is included in Joomla!
+
+use Joomla\CMS\Language\Text;
+
 defined('JPATH_BASE') or die();
 
 // Require the parent
@@ -44,7 +47,7 @@ class YireoFormFieldSelecti extends YireoFormFieldAbstract
         $show_empty = (bool) $this->getAttribute('show_empty');
         $show_empty_below = (bool) $this->getAttribute('show_empty_below');
         $empty_label = $this->getAttribute('empty_label');
-        $description = (!empty($this->element['description'])) ? JText::_($this->element['description']) : null;
+        $description = (!empty($this->element['description'])) ? Text::_($this->element['description']) : null;
         $size = (!empty($this->element['size'])) ? $this->element['size'] : null;
         $required = (!empty($this->element['required'])) ? $this->element['required'] : null;
         $inputInfo = $this->getAttribute('inputinfo');

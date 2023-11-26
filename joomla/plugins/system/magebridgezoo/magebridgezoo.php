@@ -10,11 +10,10 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-jimport('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -22,7 +21,7 @@ include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
  * MageBridge ZOO System Plugin
  */
-class plgSystemMageBridgeZoo extends JPlugin
+class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Event onAfterRender
@@ -37,9 +36,9 @@ class plgSystemMageBridgeZoo extends JPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         if ($app->input->getCmd('option') == 'com_zoo') {
-            $body = $app->getBody();
+            $body = $app->get('Body');
 
             // Check for Magento CMS-tags
             if (preg_match('/\{\{([^}]+)\}\}/', $body) || preg_match('/\{mb([^}]+)\}/', $body)) {
@@ -65,7 +64,7 @@ class plgSystemMageBridgeZoo extends JPlugin
                 }
 
                 // Include the MageBridge register
-                $key = md5(var_export($body, true)) . ':' . JFactory::getApplication()->input->getCmd('option');
+                $key = md5(var_export($body, true)) . ':' . $app->input->getCmd('option');
                 $text = MageBridgeEncryptionHelper::base64_encode($body);
 
                 // Conditionally load CSS
@@ -107,7 +106,7 @@ class plgSystemMageBridgeZoo extends JPlugin
             }
 
             if (!empty($body)) {
-                $app->setBody($body);
+                $app->set('Body', $body);
             }
         }
     }
@@ -121,7 +120,7 @@ class plgSystemMageBridgeZoo extends JPlugin
      */
     private function isEnabled()
     {
-        if (JFactory::getApplication()->isClient('site') == false) {
+        if (Factory::getApplication()->isClient('site') == false) {
             return false;
         }
         if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {

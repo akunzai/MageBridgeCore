@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge Login
  *
@@ -12,11 +13,15 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 // Decide whether to show a login-link or logout-link
-$user = JFactory::getUser();
+$user = Factory::getUser();
 $type = (!$user->get('guest')) ? 'logout_link' : 'login_link';
 
 // Read the parameters
@@ -24,12 +29,12 @@ $layout = $params->get('layout', 'default');
 
 switch ($params->get($type)) {
     case 'current':
-        $return_url = JUri::getInstance()->toString();
+        $return_url = Uri::getInstance()->toString();
         break;
 
     case 'home':
-        $default = JFactory::getApplication()->getMenu('site')->getDefault();
-        $return_url = JRoute::_('index.php?Itemid=' . $default->id);
+        $default = Factory::getApplication()->getMenu('site')->getDefault();
+        $return_url = Route::_('index.php?Itemid=' . $default->id);
         break;
 
     case 'mbhome':
@@ -65,8 +70,8 @@ $task_login = 'user.login';
 $task_logout = 'user.logout';
 
 // Construct the component URL
-$component_url = JRoute::_('index.php');
-//$component_url = JRoute::_('index.php?option='.$component);
+$component_url = Route::_('index.php');
+//$component_url = Route::_('index.php?option='.$component);
 
 // Include the template-helper
 $magebridge = new MageBridgeTemplateHelper();

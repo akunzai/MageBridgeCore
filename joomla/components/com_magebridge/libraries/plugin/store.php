@@ -10,6 +10,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -27,6 +29,11 @@ class MageBridgePluginStore extends MageBridgePlugin
     protected $connector_field = null;
 
     /**
+     * @var \Joomla\Database\DatabaseDriver
+     */
+    private $db;
+
+    /**
      * Constructor
      *
      * @access	  protected
@@ -37,7 +44,7 @@ class MageBridgePluginStore extends MageBridgePlugin
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = JFactory::getDbo();
+        $this->db = Factory::getDbo();
     }
 
     /**
@@ -54,8 +61,8 @@ class MageBridgePluginStore extends MageBridgePlugin
     /**
      * Method to manipulate the MageBridge Store Relation backend-form
      *
-     * @param JForm $form The form to be altered
-     * @param JForm $data The associated data for the form
+     * @param \Joomla\CMS\Form\Form $form The form to be altered
+     * @param \Joomla\CMS\Form\Form $data The associated data for the form
      * @return bool
      */
     public function onMageBridgeStorePrepareForm($form, $data)

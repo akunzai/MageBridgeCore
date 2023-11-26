@@ -9,6 +9,8 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -28,11 +30,8 @@ class MageBridgeViewRoot extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        // Get useful variables
-        $application = JFactory::getApplication();
-
         // Set the admin-request
-        MageBridgeUrlHelper::setRequest(JFactory::getApplication()->input->get('request', 'admin'));
+        MageBridgeUrlHelper::setRequest($this->input->get('request', 'admin'));
 
         // Set which block to display
         $this->setBlock('root');
@@ -41,7 +40,7 @@ class MageBridgeViewRoot extends MageBridgeView
         $block = $this->build();
 
         echo $block;
-        $application->close();
+        $this->app->close();
         exit;
     }
 }

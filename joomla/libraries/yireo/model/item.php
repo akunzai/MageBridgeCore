@@ -11,6 +11,12 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Date\Date;
+use Joomla\CMS\Language\Text;
+use Joomla\Database\Exception\UnsupportedAdapterException;
+use Joomla\Utilities\ArrayHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -75,7 +81,7 @@ class YireoModelItem extends YireoDataModel
         }
 
         if ($this->app->isClient('site') == false) {
-            $this->params = JComponentHelper::getParams($this->getConfig('option'));
+            $this->params = ComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
         }
@@ -162,7 +168,7 @@ class YireoModelItem extends YireoDataModel
             $stateField = $this->table->getStateField();
 
             if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
-                throw new \Yireo\Exception\Model\NotFound(JText::_('LIB_YIREO_MODEL_NOT_FOUND'));
+                throw new \Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
             }
 
             // Fill in non-existing fields
@@ -198,8 +204,7 @@ class YireoModelItem extends YireoDataModel
         }
 
         // Get the user metadata
-        jimport('joomla.utilities.date');
-        $now = new JDate('now');
+        $now = new Date('now');
         $uid = $this->user->get('id');
 
         // Convert the JForm array into the default data-set
@@ -300,29 +305,25 @@ class YireoModelItem extends YireoDataModel
             }
         }
 
-        // Bind the fields to the table
-        if (!$this->table->bind($data)) {
+
+
+        try {
+            // Bind the fields to the table
+            $this->table->bind($data);
+
+            // Fix primary key for copying
+            $key = $this->getPrimaryKey();
+
+            if (empty($data[$key]) && empty($data['id'])) {
+                $this->table->$key = 0;
+            }
+            // Make sure the table is valid
+            $this->table->check();
+            // Store the table to the database
+            $this->table->store();
+        } catch (Exception $e) {
             $this->saveTmpSession($data);
-            $this->throwDbException();
-        }
-
-        // Fix primary key for copying
-        $key = $this->getPrimaryKey();
-
-        if (empty($data[$key]) && empty($data['id'])) {
-            $this->table->$key = 0;
-        }
-
-        // Make sure the table is valid
-        if (!$this->table->check()) {
-            $this->saveTmpSession($data);
-            $this->throwDbException();
-        }
-
-        // Store the table to the database
-        if (!$this->table->store()) {
-            $this->saveTmpSession($data);
-            $this->throwDbException();
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         // Try to fetch the last ID from the table
@@ -352,14 +353,14 @@ class YireoModelItem extends YireoDataModel
         $primaryKey = $this->table->getKeyName();
 
         if (empty($tableName)) {
-            throw new RuntimeException(JText::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_NAME'));
+            throw new RuntimeException(Text::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_NAME'));
         }
 
         if (empty($primaryKey)) {
-            throw new RuntimeException(JText::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_KEY'));
+            throw new RuntimeException(Text::_('LIB_YIREO_MODEL_ITEM_NO_TABLE_KEY'));
         }
 
-        \Joomla\Utilities\ArrayHelper::toInteger($cid);
+        ArrayHelper::toInteger($cid);
         $cids = implode(',', $cid);
 
         $query = $this->_db->getQuery(true);
@@ -368,8 +369,10 @@ class YireoModelItem extends YireoDataModel
 
         $this->_db->setQuery($query);
 
-        if (!$this->_db->execute()) {
-            $this->throwDbException();
+        try {
+            $this->_db->execute();
+        } catch (Exception $e) {
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -405,18 +408,15 @@ class YireoModelItem extends YireoDataModel
      */
     public function move($direction, $field_name = null, $field_id = null)
     {
-        if (!$this->table->load($this->id)) {
-            $this->throwDbException();
-        }
-
-        if (!empty($field_name) && !empty($field_id)) {
-            $rt = $this->table->move($direction, ' ' . $field_name . ' = ' . $field_id);
-        } else {
-            $rt = $this->table->move($direction);
-        }
-
-        if ($rt == false) {
-            $this->throwDbException();
+        try {
+            $this->table->load($this->id);
+            if (!empty($field_name) && !empty($field_id)) {
+                $this->table->move($direction, ' ' . $field_name . ' = ' . $field_id);
+                return true;
+            }
+            $this->table->move($direction);
+        } catch (Exception $e) {
+            throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -454,8 +454,10 @@ class YireoModelItem extends YireoDataModel
             if ($this->table->$ordering != $order[$i]) {
                 $this->table->$ordering = $order[$i];
 
-                if (!$this->table->store()) {
-                    $this->throwDbException();
+                try {
+                    $this->table->store();
+                } catch (Exception $e) {
+                    throw new UnsupportedAdapterException($e->getMessage(), $e->getCode(), $e);
                 }
             }
         }

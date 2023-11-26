@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>2.0.0-dev</version>
+    <version>2.0.0-beta1</version>
     <description>PLG_AUTHENTICATION_MAGEBRIDGE_DESC</description>
 
     <files>
@@ -16,8 +16,8 @@
     </files>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.plg_authentication_magebridge.ini</language>
-        <language tag="en-GB">en-GB.plg_authentication_magebridge.sys.ini</language>
+        <language tag="en-GB">plg_authentication_magebridge.ini</language>
+        <language tag="en-GB">plg_authentication_magebridge.sys.ini</language>
     </languages>
 
     <config>

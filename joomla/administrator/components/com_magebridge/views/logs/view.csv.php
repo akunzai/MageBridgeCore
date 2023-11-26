@@ -9,6 +9,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -31,7 +34,7 @@ class MageBridgeViewLogs extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        $filename = 'magebridge-debug-'.MageBridgeModelConfig::load('supportkey').'.csv';
+        $filename = 'magebridge-debug.csv';
 
         header('Expires: 0');
         header('Cache-control: private');
@@ -40,7 +43,7 @@ class MageBridgeViewLogs extends MageBridgeView
         header('Content-Type: application/octet-stream');
         header('Content-disposition: attachment; filename='.$filename);
 
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $db->setQuery('SELECT * FROM #__magebridge_log WHERE 1=1');
         $rows = $db->loadObjectList();
 
@@ -92,7 +95,7 @@ class MageBridgeViewLogs extends MageBridgeView
         $types = $this->getTypes();
         foreach ($types as $name => $value) {
             if ($type == $value) {
-                return JText::_($name);
+                return Text::_($name);
             }
         }
         return '';

@@ -9,6 +9,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -41,8 +44,8 @@ class MagebridgeFormFieldWidget extends MageBridgeFormFieldAbstract
         // Are the API widgets enabled?
         if ($this->getConfig('api_widgets') == true) {
             // Load the javascript
-            JHtml::script('media/com_magebridge/js/backend-elements.js');
-            JHtml::_('behavior.modal', 'a.modal');
+            HTMLHelper::script('media/com_magebridge/js/backend-elements.js');
+            HTMLHelper::_('behavior.modal', 'a.modal');
 
             $title = $value;
             $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
@@ -52,7 +55,7 @@ class MagebridgeFormFieldWidget extends MageBridgeFormFieldAbstract
             $html .= '<input type="text" id="' . $id . '" name="' . $name . '" value="' . $title . '" />';
             $html .= '</div>';
             $html .= '<div class="button2-left"><div class="blank">';
-            $html .= '<a class="modal btn" title="' . JText::_('Select a Widget') . '"  href="' . $link . '" rel="{handler: \'iframe\', size: {x:800, y:450}}">' . JText::_('Select') . '</a>';
+            $html .= '<a class="modal btn" title="' . Text::_('Select a Widget') . '"  href="' . $link . '" rel="{handler: \'iframe\', size: {x:800, y:450}}">' . Text::_('Select') . '</a>';
             $html .= '</div></div>' . "\n";
 
             return $html;

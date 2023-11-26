@@ -9,6 +9,8 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -44,7 +46,7 @@ class MagebridgeFormFieldTemplate extends MageBridgeFormFieldAbstract
         if (!empty($options) && is_array($options)) {
             array_unshift($options, ['value' => '', 'text' => '']);
 
-            return JHtml::_('select.genericlist', $options, $fieldName, null, 'value', 'text', $this->getConfig($fieldName));
+            return HTMLHelper::_('select.genericlist', $options, $fieldName, null, 'value', 'text', $this->getConfig($fieldName));
         }
 
         return '<input type="text" name="' . $name . '" value="' . $value . '" />';

@@ -62,13 +62,8 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
      */
     public function indexAction()
     {
-        if (strlen(Mage::helper('magebridge')->getLicenseKey()) == '') {
-            $block = 'license';
-        } else {
-            $block = 'settings';
-        }
         $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('magebridge/'.$block))
+            ->_addContent($this->getLayout()->createBlock('magebridge/settings'))
             ->renderLayout();
     }
 
@@ -83,20 +78,6 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('magebridge/settings'))
-            ->renderLayout();
-    }
-
-    /**
-     * Support Key page
-     *
-     * @access public
-     * @param null
-     * @return null
-     */
-    public function supportkeyAction()
-    {
-        $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('magebridge/license'))
             ->renderLayout();
     }
 
@@ -171,28 +152,6 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Updates page (which calls for AJAX)
-     *
-     * @access public
-     * @param null
-     * @return null
-     */
-    public function updatesAction()
-    {
-        if (defined('COMPILER_INCLUDE_PATH')) {
-            Mage::getModel('adminhtml/session')->addError('Magento Compiler is enabled. Disable it before making any changes to your site');
-        }
-
-        Mage::getModel('magebridge/update')->setFilesUmask();
-        Mage::helper('magebridge/update')->renameConfigPaths();
-        Mage::getConfig()->removeCache();
-
-        $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('magebridge/updates'))
-            ->renderLayout();
-    }
-
-    /**
      * Credits page
      *
      * @access public
@@ -207,28 +166,6 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Perform an update through AJAX
-     *
-     * @access public
-     * @param null
-     * @return null
-     */
-    public function doupdateAction()
-    {
-        $update = Mage::getSingleton('magebridge/update');
-        if ($update->upgradeNeeded() == true) {
-            $status = $update->doUpgrade();
-        } else {
-            $status = 'No upgrade needed';
-        }
-
-        $response = new Varien_Object();
-        $response->setError(0);
-        $response->setMessage($status);
-        $this->getResponse()->setBody($response->toJson());
-    }
-
-    /**
      * Save all the MageBridge settings
      *
      * @access public
@@ -239,11 +176,6 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
         if ($data = $this->getRequest()->getPost()) {
-            if (isset($data['license_key'])) {
-                Mage::getConfig()->saveConfig('magebridge/hidden/support_key', trim($data['license_key']));
-                $page = 'adminhtml/magebridge/supportkey';
-            }
-
             if (!empty($data['event_forwarding'])) {
                 foreach ($data['event_forwarding'] as $name => $value) {
                     Mage::getConfig()->saveConfig('magebridge/settings/event_forwarding/'.$name, $value);
@@ -318,7 +250,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
 
-        $events = Mage::getModel('magebridge/listener')->getEvents();
+        $events = Mage::getModel('magebridge/observer')->getEvents();
         foreach ($events as $event) {
             Mage::getConfig()->saveConfig('magebridge/settings/event_forwarding/'.$event[0], $event[1]);
         }

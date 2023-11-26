@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
@@ -38,8 +42,9 @@ class MagebridgeFormFieldStoregroup extends MageBridgeFormFieldAbstract
 
         // Are the API widgets enabled?
         if ($this->getConfig('api_widgets') == true) {
-            $cache   = JFactory::getCache('com_magebridge.admin');
-            $options = $cache->call(['JFormFieldStoregroup', 'getResult']);
+            /** @var CallbackController */
+            $cache   = Factory::getCache('com_magebridge.admin');
+            $options = $cache->get(['JFormFieldStoregroup', 'getResult']);
 
             // Parse the result into an HTML form-field
             if (!empty($options) && is_array($options)) {
@@ -50,7 +55,7 @@ class MagebridgeFormFieldStoregroup extends MageBridgeFormFieldAbstract
 
                 array_unshift($options, ['value' => '', 'label' => '']);
 
-                return JHtml::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
+                return HTMLHelper::_('select.genericlist', $options, $fieldName, null, 'value', 'label', $value);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "storegroup"', $options);

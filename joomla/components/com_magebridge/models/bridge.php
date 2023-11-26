@@ -10,6 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -63,8 +69,8 @@ class MageBridgeModelBridge
     public function getJoomlaBridgeUrl($request = null, $forceSsl = null)
     {
         // Get important variables
-        $application = JFactory::getApplication();
-        $uri = JUri::getInstance();
+        $application = Factory::getApplication();
+        $uri = Uri::getInstance();
 
         // Catch the backend URLs
         if ($application->isClient('administrator')) {
@@ -79,13 +85,13 @@ class MageBridgeModelBridge
             // Return the MageBridge Root if the request is empty
             if (empty($request)) {
                 $root_item = MageBridgeUrlHelper::getRootItem();
-                $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : JFactory::getApplication()->input->getInt('Itemid');
+                $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : $application->input->getInt('Itemid');
 
                 // Allow for experimental support for MijoSEF and sh404SEF
                 if (self::sh404sef() || self::mijosef()) {
                     $route = 'index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id . '&request=';
                 } else {
-                    $route = JRoute::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
+                    $route = Route::_('index.php?option=com_magebridge&view=root&Itemid=' . $root_item_id, false);
                 }
             } else {
                 $route = MageBridgeUrlHelper::route($request, false);
@@ -101,7 +107,7 @@ class MageBridgeModelBridge
 
             // Prepend the hostname
             if (!preg_match('/^(http|https):\/\//', $route)) {
-                $url = JUri::getInstance()
+                $url = Uri::getInstance()
                     ->toString(['scheme', 'host', 'port']);
                 if (!preg_match('/^\//', $route) && !preg_match('/\/$/', $url)) {
                     $route = $url . '/' . $route;
@@ -351,7 +357,7 @@ class MageBridgeModelBridge
      */
     public function build()
     {
-        $application = JFactory::getApplication();
+        $application = Factory::getApplication();
         $register = MageBridgeModelRegister::getInstance();
         $proxy = MageBridgeModelProxy::getInstance();
         $proxy->reset();
@@ -432,10 +438,10 @@ class MageBridgeModelBridge
             }
 
             // Initialize proxy-settings
-            if ($application->isClient('site') && JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+            if ($application->isClient('site') && $application->input->getCmd('option') != 'com_magebridge') {
                 $proxy->setAllowRedirects(false);
             } else {
-                if ($application->isClient('administrator') && (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge' || JFactory::getApplication()->input->getCmd('view') != 'root')) {
+                if ($application->isClient('administrator') && ($application->input->getCmd('option') != 'com_magebridge' || $application->input->getCmd('view') != 'root')) {
                     $proxy->setAllowRedirects(false);
                 }
             }
@@ -500,9 +506,8 @@ class MageBridgeModelBridge
      */
     public function beforeBuild()
     {
-        jimport('joomla.plugin.helper');
-        JPluginHelper::importPlugin('magebridge');
-        $application = JFactory::getApplication();
+        PluginHelper::importPlugin('magebridge');
+        $application = Factory::getApplication();
         $application->triggerEvent('onBeforeBuildMageBridge');
     }
 
@@ -511,9 +516,8 @@ class MageBridgeModelBridge
      */
     public function afterBuild()
     {
-        jimport('joomla.plugin.helper');
-        JPluginHelper::importPlugin('magebridge');
-        $application = JFactory::getApplication();
+        PluginHelper::importPlugin('magebridge');
+        $application = Factory::getApplication();
         $application->triggerEvent('onAfterBuildMageBridge');
     }
 
@@ -534,7 +538,7 @@ class MageBridgeModelBridge
         // Fetch the current referer
         $referer = $this->getHttpReferer();
         if (!empty($referer)) {
-            $session = JFactory::getSession();
+            $session = Factory::getSession();
             $session->set('magebridge.http_referer', $referer);
 
             $this->_http_referer = $referer;
@@ -551,23 +555,23 @@ class MageBridgeModelBridge
     public function getHttpReferer()
     {
         // If this is a non-MageBridge page, use it
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
-            $referer = JUri::getInstance()
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+            $referer = Uri::getInstance()
                 ->toString();
 
-            // If the referer is set on the URL, use it also
-        } elseif (preg_match('/\/(uenc|referer)\/([a-zA-Z0-9\,\_\-]+)/', JUri::current(), $match)) {
+        // If the referer is set on the URL, use it also
+        } elseif (preg_match('/\/(uenc|referer)\/([a-zA-Z0-9\,\_\-]+)/', Uri::current(), $match)) {
             $referer = MageBridgeEncryptionHelper::base64_decode($match[2]);
 
-            // If this is the MageBridge page checkout/cart/updatePost, return to the checkout
+        // If this is the MageBridge page checkout/cart/updatePost, return to the checkout
         } else {
-            if (preg_match('/\/checkout\/cart\/([a-zA-Z0-9]+)Post/', JUri::current()) == true) {
+            if (preg_match('/\/checkout\/cart\/([a-zA-Z0-9]+)Post/', Uri::current()) == true) {
                 $referer = MageBridgeUrlHelper::route('checkout/cart');
 
-                // If this is a MageBridge page, use it only if its not a customer-page, or homepage
+            // If this is a MageBridge page, use it only if its not a customer-page, or homepage
             } else {
-                if (preg_match('/\/customer\/account\//', JUri::current()) == false && preg_match('/\/persistent\/index/', JUri::current()) == false && preg_match('/\/review\/product\/post/', JUri::current()) == false && preg_match('/\/remove\/item/', JUri::current()) == false && preg_match('/\/newsletter\/subscriber/', JUri::current()) == false && preg_match('/\/checkout\/cart/', JUri::current()) == false && $this->isAjax() == false && JUri::current() != $this->getJoomlaBridgeUrl()) {
-                    $referer = JUri::getInstance()
+                if (preg_match('/\/customer\/account\//', Uri::current()) == false && preg_match('/\/persistent\/index/', Uri::current()) == false && preg_match('/\/review\/product\/post/', Uri::current()) == false && preg_match('/\/remove\/item/', Uri::current()) == false && preg_match('/\/newsletter\/subscriber/', Uri::current()) == false && preg_match('/\/checkout\/cart/', Uri::current()) == false && $this->isAjax() == false && Uri::current() != $this->getJoomlaBridgeUrl()) {
+                    $referer = Uri::getInstance()
                         ->toString();
                 }
             }
@@ -575,13 +579,13 @@ class MageBridgeModelBridge
 
         // Load the stored referer from the session
         if (empty($referer)) {
-            $session = JFactory::getSession();
+            $session = Factory::getSession();
             $referer = $session->get('magebridge.http_referer');
         }
 
         // Use the default referer
         if (empty($this->_http_referer)) {
-            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != JUri::current()) {
+            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != Uri::current()) {
                 $referer = $_SERVER['HTTP_REFERER'];
             }
         }
@@ -660,7 +664,7 @@ class MageBridgeModelBridge
      */
     public function getApiSession()
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         return $session->get('api_session');
     }
@@ -674,7 +678,7 @@ class MageBridgeModelBridge
      */
     public function setApiSession($api_session = null)
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         if (!empty($api_session) && preg_match('/^([a-zA-Z0-9]{12,46})$/', $api_session)) {
             $session->set('api_session', $api_session);
         }
@@ -693,7 +697,7 @@ class MageBridgeModelBridge
     public function getSessionData($name = null, $allow_cache = true)
     {
         // Do not use this function, when Joomla! has not routed the request yet
-        $option = JFactory::getApplication()->input->getCmd('option');
+        $option = Factory::getApplication()->input->getCmd('option');
         if (empty($option)) {
             return null;
         }
@@ -709,7 +713,7 @@ class MageBridgeModelBridge
             return null;
         }
 
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $data = $session->get('magento_config');
         if (!empty($name)) {
             if (isset($data[$name])) {
@@ -732,7 +736,7 @@ class MageBridgeModelBridge
      */
     public function addSessionData($name, $value)
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $data = $session->get('magento_config');
 
         if (!is_array($data)) {
@@ -752,7 +756,7 @@ class MageBridgeModelBridge
      */
     public function setSessionData($data = [])
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         if (!empty($data) && is_array($data)) {
             $session->set('magento_config', $data);
@@ -768,10 +772,10 @@ class MageBridgeModelBridge
      */
     public function getMageSession()
     {
-        $session_value = JFactory::getApplication()->input->cookie->getCmd('frontend');
+        $session_value = Factory::getApplication()->input->cookie->getCmd('frontend');
 
         if (empty($session_value)) {
-            $session_value = JFactory::getSession()
+            $session_value = Factory::getSession()
                 ->get('magebridge.cookie.frontend');
         }
 
@@ -785,7 +789,7 @@ class MageBridgeModelBridge
      */
     public function getMagentoPersistentSession()
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         return $session->get('magento_persistent_session');
     }
@@ -800,13 +804,13 @@ class MageBridgeModelBridge
     public function setMageSession($mage_session = null)
     {
         if (!headers_sent()) {
-            setcookie('frontend', $mage_session, 0, '/', '.' . JUri::getInstance()
+            setcookie('frontend', $mage_session, 0, '/', '.' . Uri::getInstance()
                 ->toString(['host']));
         }
-        JFactory::getSession()
+        Factory::getSession()
             ->set('magebridge.cookie.frontend', $mage_session);
 
-        return JFactory::getApplication()->input->cookie->getCmd('frontend');
+        return Factory::getApplication()->input->cookie->getCmd('frontend');
     }
 
     /**
@@ -827,25 +831,25 @@ class MageBridgeModelBridge
      */
     public static function sh404sef()
     {
-        $class = JPATH_ADMINISTRATOR . '/components/com_sh404sef/sh404sef.class.php';
+        $classPath = JPATH_ADMINISTRATOR . '/components/com_sh404sef/sh404sef.class.php';
 
-        if (!is_file($class) || !is_readable($class)) {
+        if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }
 
-        jimport('joomla.application.component.helper');
-
-        if (JComponentHelper::isEnabled('com_sh404sef') == false) {
+        if (ComponentHelper::isEnabled('com_sh404sef') == false) {
             return false;
         }
 
-        include_once($class);
+        include_once($classPath);
 
-        if (!class_exists('SEFConfig')) {
+        $class = 'SEFConfig';
+
+        if (!class_exists($class)) {
             return false;
         }
 
-        $sefConfig = new SEFConfig();
+        $sefConfig = new $class();
         if ($sefConfig->Enabled == 0) {
             return false;
         }
@@ -860,27 +864,24 @@ class MageBridgeModelBridge
      */
     public static function mijosef()
     {
-        $class = JPATH_ADMINISTRATOR . '/components/com_mijosef/library/mijosef.php';
-        if (!is_file($class) || !is_readable($class)) {
+        $classPath = JPATH_ADMINISTRATOR . '/components/com_mijosef/library/mijosef.php';
+        if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }
 
-        jimport('joomla.application.component.helper');
-
-        if (JComponentHelper::isEnabled('com_mijosef') == false) {
+        if (ComponentHelper::isEnabled('com_mijosef') == false) {
             return false;
         }
 
-        include_once($class);
+        include_once($classPath);
 
         if (!class_exists('Mijosef')) {
             return false;
         }
 
-        $app = JFactory::getApplication();
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
-        if ($app->isClient('administrator')) {
+        if (Factory::getApplication()->isClient('administrator')) {
             return false;
         }
 
@@ -888,13 +889,13 @@ class MageBridgeModelBridge
             return false;
         }
 
-        $MijosefConfig = Mijosef::getConfig();
+        $MijosefConfig = call_user_func('Mijosef::getConfig()');
 
         if ($MijosefConfig->mode == 0) {
             return false;
         }
 
-        if (!JPluginHelper::isEnabled('system', 'mijosef')) {
+        if (!PluginHelper::isEnabled('system', 'mijosef')) {
             return false;
         }
 
@@ -908,10 +909,11 @@ class MageBridgeModelBridge
      */
     public function sef()
     {
-        $application = JFactory::getApplication();
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $application = Factory::getApplication();
         $router = $application->getRouter();
 
-        if ($router->getMode() == JROUTER_MODE_RAW) {
+        if ($router->getMode() == RouteR_MODE_RAW) {
             return false;
         } else {
             return true;
@@ -927,7 +929,7 @@ class MageBridgeModelBridge
     {
         $enforce_ssl = MageBridgeModelConfig::load('enforce_ssl');
 
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_magebridge' && $enforce_ssl > 0) {
+        if (Factory::getApplication()->input->getCmd('option') == 'com_magebridge' && $enforce_ssl > 0) {
             return true;
         }
 
@@ -941,7 +943,7 @@ class MageBridgeModelBridge
      */
     public function isShopPage()
     {
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') == 'com_magebridge') {
             return true;
         }
 
@@ -955,13 +957,14 @@ class MageBridgeModelBridge
      */
     public function isOffline()
     {
+        $app = Factory::getApplication();
         // Set the bridge offline by using a flag
-        if (JFactory::getApplication()->input->getInt('offline', 0) == 2) {
+        if ($app->input->getInt('offline', 0) == 2) {
             return false;
         }
 
         // Set the bridge offline by using a flag
-        if (JFactory::getApplication()->input->getInt('offline', 0) == 1) {
+        if ($app->input->getInt('offline', 0) == 1) {
             return true;
         }
 
@@ -981,9 +984,9 @@ class MageBridgeModelBridge
         }
 
         // Set the bridge when editing an article in the frontend
-        $option = JFactory::getApplication()->input->getCmd('option');
-        $view = JFactory::getApplication()->input->getCmd('view');
-        $layout = JFactory::getApplication()->input->getCmd('layout');
+        $option = $app->input->getCmd('option');
+        $view = $app->input->getCmd('view');
+        $layout = $app->input->getCmd('layout');
 
         if ($option == 'com_content' && $view == 'form' && $layout == 'edit') {
             return true;
@@ -1001,7 +1004,8 @@ class MageBridgeModelBridge
      */
     public function isAjax()
     {
-        if (in_array(JFactory::getApplication()->input->getCmd('format'), ['xml', 'json', 'ajax'])) {
+        $app = Factory::getApplication();
+        if (in_array($app->input->getCmd('format'), ['xml', 'json', 'ajax'])) {
             return true;
         }
 
@@ -1009,11 +1013,11 @@ class MageBridgeModelBridge
         $check_xrequestedwith = true;
 
         if (
-            JFactory::getApplication()->isClient('site') == false
+            $app->isClient('site') == false
         ) {
             $check_xrequestedwith = false;
         } else {
-            if (JFactory::getApplication()->input->getCmd('view') == 'ajax') {
+            if ($app->input->getCmd('view') == 'ajax') {
                 $check_xrequestedwith = false;
             }
         }

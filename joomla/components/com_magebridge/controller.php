@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -25,7 +30,7 @@ class MageBridgeController extends YireoAbstractController
     protected $bridge;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -42,7 +47,7 @@ class MageBridgeController extends YireoAbstractController
 
         $this->bridge = MageBridgeModelBridge::getInstance();
 
-        $this->app   = JFactory::getApplication();
+        $this->app   = Factory::getApplication();
         $input       = $this->app->input;
         $post        = $input->post->getArray();
         $doCheckPost = $this->doCheckPost();
@@ -51,7 +56,7 @@ class MageBridgeController extends YireoAbstractController
         $httpHost    = $this->getHttpHost();
 
         if ($doCheckPost && !empty($post)) {
-            JSession::checkToken() or $this->forbidden('Invalid token');
+            Session::checkToken() or $this->forbidden('Invalid token');
 
             if (empty($httpReferer)) {
                 $this->returnToRequestUri();
@@ -70,7 +75,7 @@ class MageBridgeController extends YireoAbstractController
      */
     protected function handleCustomerAddressDelete()
     {
-        $uri         = JUri::current();
+        $uri         = Uri::current();
         $httpReferer = $this->getHttpReferer();
 
         if (stristr($uri, '/customer/address/delete')) {
@@ -105,7 +110,7 @@ class MageBridgeController extends YireoAbstractController
      */
     protected function doCheckPost()
     {
-        $uri        = JUri::current();
+        $uri        = Uri::current();
         $checkPaths = ['customer', 'address', 'cart'];
 
         foreach ($checkPaths as $checkPath) {
@@ -162,7 +167,7 @@ class MageBridgeController extends YireoAbstractController
         $request = MageBridgeUrlHelper::getRequest();
 
         if ($request == 'customer/account/logout') {
-            $session = JFactory::getSession();
+            $session = Factory::getSession();
             $session->destroy();
         }
 
@@ -179,7 +184,8 @@ class MageBridgeController extends YireoAbstractController
         }
 
         // Redirect if the layout is not supported by the view
-        if ($this->app->input->get('view') == 'catalog' && !in_array($this->app->input->get('layout'), [
+        if (
+            $this->app->input->get('view') == 'catalog' && !in_array($this->app->input->get('layout'), [
                 'product',
                 'category',
                 'addtocart',
@@ -201,14 +207,14 @@ class MageBridgeController extends YireoAbstractController
      */
     public function ssoCheck()
     {
-        $user = JFactory::getUser();
+        $user = Factory::getUser();
 
         if (!$user->guest) {
             MageBridgeModelUserSSO::getInstance()
                 ->checkSSOLogin();
             $this->app->close();
         } else {
-            $this->setRedirect(JUri::base());
+            $this->setRedirect(Uri::base());
         }
     }
 

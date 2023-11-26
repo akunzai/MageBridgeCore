@@ -7,7 +7,7 @@
     <creationDate>August 2017</creationDate>
     <copyright>Copyright (C) 2017 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>2.0.0-dev</version>
+    <version>2.0.0-beta1</version>
     <description>COM_MAGEBRIDGE_DESC</description>
 
     <!-- installation part -->
@@ -47,7 +47,7 @@
     </media>
 
     <languages folder="language/en-GB">
-        <language tag="en-GB">en-GB.com_magebridge.ini</language>
+        <language tag="en-GB">com_magebridge.ini</language>
     </languages>
 
     <!-- administration part -->
@@ -85,9 +85,9 @@
         </files>
 
         <languages folder="administrator/language/en-GB">
-            <language tag="en-GB">en-GB.com_magebridge.ini</language>
-            <language tag="en-GB">en-GB.com_magebridge.sys.ini</language>
-            <language tag="en-GB">en-GB.lib_yireo.ini</language>
+            <language tag="en-GB">com_magebridge.ini</language>
+            <language tag="en-GB">com_magebridge.sys.ini</language>
+            <language tag="en-GB">lib_yireo.ini</language>
         </languages>
 
     </administration>

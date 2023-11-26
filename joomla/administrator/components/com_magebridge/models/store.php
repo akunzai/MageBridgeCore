@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Import Joomla! libraries
-jimport('joomla.utilities.date');
 
 /**
  * MageBridge Store model
@@ -63,28 +63,23 @@ class MagebridgeModelStore extends YireoModel
      */
     public function store($data)
     {
-        if (!empty($data['store'])) {
-            $values        = explode(':', $data['store']);
-            $data['type']  = ($values[0] == 'g') ? 'storegroup' : 'storeview';
-            $data['name']  = $values[1];
-            $data['title'] = $values[2];
-            unset($data['store']);
-        } else {
-            $this->setError(JText::_('COM_MAGEBRIDGE_MODEL_STORE_NO_STORE_SELECTED'));
-
-            return false;
+        if (empty($data['store'])) {
+            throw new Exception(Text::_('COM_MAGEBRIDGE_MODEL_STORE_NO_STORE_SELECTED'));
         }
+
+        $values        = explode(':', $data['store']);
+        $data['type']  = ($values[0] == 'g') ? 'storegroup' : 'storeview';
+        $data['name']  = $values[1];
+        $data['title'] = $values[2];
+        unset($data['store']);
 
         if (!empty($data['default']) && $data['default']) {
             $this->storeDefault($data['type'], $data['name']);
-
             return true;
         }
 
         if (empty($data['name']) || empty($data['title'])) {
-            $this->setError(JText::_('COM_MAGEBRIDGE_MODEL_STORE_INVALID_STORE'));
-
-            return false;
+            throw new Exception(Text::_('COM_MAGEBRIDGE_MODEL_STORE_INVALID_STORE'));
         }
 
         if (empty($data['label'])) {

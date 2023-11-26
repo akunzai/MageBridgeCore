@@ -10,6 +10,9 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -32,6 +35,21 @@ class MageBridgeViewCheck extends YireoCommonView
     public $checks = [];
 
     /**
+     * @var \Joomla\CMS\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $host;
+
+    /**
      * Display method
      *
      * @param string $tpl
@@ -42,21 +60,19 @@ class MageBridgeViewCheck extends YireoCommonView
     {
         $this->setMenu();
 
-        $input = JFactory::getApplication()->input;
-
-        if ($input->getCmd('layout') == 'browser') {
+        if ($this->input->getCmd('layout') == 'browser') {
             $this->displayBrowser($tpl);
 
             return;
         }
 
-        if ($input->getCmd('layout') == 'product') {
+        if ($this->input->getCmd('layout') == 'product') {
             $this->displayProduct($tpl);
 
             return;
         }
 
-        if ($input->getCmd('layout') == 'result') {
+        if ($this->input->getCmd('layout') == 'result') {
             $this->displayResult($tpl);
 
             return;
@@ -78,8 +94,10 @@ class MageBridgeViewCheck extends YireoCommonView
         MageBridgeViewHelper::initialize('Check');
 
         // Load libraries
-        JHtml::_('behavior.tooltip');
-        JToolbarHelper::custom('refresh', 'refresh', null, 'Refresh', false);
+        if (version_compare(JVERSION, '4.0.0', '<')) {
+            HTMLHelper::_('behavior.tooltip');
+        }
+        ToolbarHelper::custom('refresh', 'refresh', null, 'Refresh', false);
 
         $this->checks = $this->get('checks');
 
@@ -94,8 +112,9 @@ class MageBridgeViewCheck extends YireoCommonView
     public function displayProduct($tpl)
     {
         // Load the form if it's there
-        $this->getModel()
-            ->setFormName('check_product');
+        /** @var MagebridgeModelCheck */
+        $model = $this->getModel();
+        $model->setConfig('form_name', 'check_product');
 
         $this->_viewParent = 'form';
         $this->form        = $this->get('Form');
@@ -103,7 +122,7 @@ class MageBridgeViewCheck extends YireoCommonView
         // Initialize common elements
         MageBridgeViewHelper::initialize('PRODUCT_RELATION_TEST');
 
-        JToolbarHelper::custom('check_product', 'refresh', null, 'Run', false);
+        ToolbarHelper::custom('check_product', 'refresh', null, 'Run', false);
 
         parent::display('product');
     }
@@ -118,7 +137,7 @@ class MageBridgeViewCheck extends YireoCommonView
         // Initialize common elements
         MageBridgeViewHelper::initialize('Internal Browse Test');
 
-        JToolbarHelper::custom('refresh', 'refresh', null, 'Browse', false);
+        ToolbarHelper::custom('refresh', 'refresh', null, 'Browse', false);
 
         $this->url  = MageBridgeModelConfig::load('url') . 'magebridge.php';
         $this->host = MageBridgeModelConfig::load('host');

@@ -9,10 +9,14 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
 defined('_JEXEC') or die('Restricted access');
 
-$enabled_img = JHtml::image(JUri::base().'/images/disabled.png', JText::_('Disabled'));
-$disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled'));
+$enabled_img = HTMLHelper::image(Uri::base().'/images/disabled.png', Text::_('Disabled'));
+$disabled_img = HTMLHelper::image(Uri::base().'/images/check.png', Text::_('Enabled'));
 ?>
 <form method="post" name="adminForm" id="adminForm">
 <table>
@@ -26,34 +30,34 @@ $disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled
 	<thead>
 		<tr>
 			<th width="5">
-				<?php echo JText::_('NUM'); ?>
+				<?php echo Text::_('NUM'); ?>
 			</th>
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" />
 			</th>
 			<th width="150" class="title">
-				<?php echo JHtml::_('grid.sort', 'Name', 'u.name', $this->lists['order_Dir'], $this->lists['order']); ?>
+				<?php echo HTMLHelper::_('grid.sort', 'Name', 'u.name', $this->lists['order_Dir'], $this->lists['order']); ?>
 			</th>
 			<th width="150" class="title">
-				<?php echo JHtml::_('grid.sort', 'Username', 'u.username', $this->lists['order_Dir'], $this->lists['order']); ?>
+				<?php echo HTMLHelper::_('grid.sort', 'Username', 'u.username', $this->lists['order_Dir'], $this->lists['order']); ?>
 			</th>
 			<th width="150" class="title">
-				<?php echo JHtml::_('grid.sort', 'Email', 'u.email', $this->lists['order_Dir'], $this->lists['order']); ?>
+				<?php echo HTMLHelper::_('grid.sort', 'Email', 'u.email', $this->lists['order_Dir'], $this->lists['order']); ?>
 			</th>
 			<th width="150" class="title">
-				<?php echo JText::_('Magento Name'); ?>
+				<?php echo Text::_('Magento Name'); ?>
 			</th>
 			<th width="100" class="title">
-				<?php echo JText::_('User Type'); ?>
+				<?php echo Text::_('User Type'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Password'); ?>
+				<?php echo Text::_('Password'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Magento ID'); ?>
+				<?php echo Text::_('Magento ID'); ?>
 			</th>
 			<th width="40" class="title">
-				<?php echo JText::_('Joomla! ID'); ?>
+				<?php echo Text::_('Joomla! ID'); ?>
 			</th>
 		</tr>
 	</thead>
@@ -68,7 +72,7 @@ $disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled
 	<?php
     $k = 0;
 if (count($this->items) > 0) {
-    for ($i=0, $n=count($this->items); $i < $n; $i++) {
+    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
         $item = $this->items[$i];
         $migration_enabled = true;
         $item->checked_out = 0;
@@ -115,7 +119,7 @@ if (count($this->items) > 0) {
     ?>
 		<tr>
 		<td colspan="11">
-			<?php echo JText::_('No items'); ?>
+			<?php echo Text::_('No items'); ?>
 		</td>
 		</tr>
 		<?php
@@ -130,5 +134,5 @@ if (count($this->items) > 0) {
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
-<?php echo JHtml::_('form.token'); ?>
+<?php echo HTMLHelper::_('form.token'); ?>
 </form>

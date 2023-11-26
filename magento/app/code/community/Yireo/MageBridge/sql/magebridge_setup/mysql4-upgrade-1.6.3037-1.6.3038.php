@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge
  *
@@ -11,15 +12,18 @@
 
 $installer = $this;
 Mage::log('Running MageBridge cleanup');
-
-// Remove obsolete files
-$base = BP.DS.'app'.DS.'code'.DS.'community'.DS.'Yireo'.DS.'MageBridge'.DS;
-$files = [
-    $base.'Block'.DS.'Credits.php',
-    $base.'Model'.DS.'Email.php',
-];
-foreach ($files as $file) {
-    if (file_exists($file)) {
-        @unlink($file);
+function _remove_obsolete_files($files)
+{
+    foreach ($files as $file) {
+        if (file_exists($file)) {
+            @unlink($file);
+        }
     }
 }
+
+// Remove obsolete files
+$_base = BP . DS . 'app' . DS . 'code' . DS . 'community' . DS . 'Yireo' . DS . 'MageBridge' . DS;
+_remove_obsolete_files([
+    $_base . 'Block' . DS . 'Credits.php',
+    $_base . 'Model' . DS . 'Email.php',
+]);

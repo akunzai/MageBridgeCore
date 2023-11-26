@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,8 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -44,7 +47,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
      * Method to do something on purchase
      *
      * @param string $sku
-     * @param JUser  $user
+     * @param \Joomla\CMS\User\User  $user
      * @param string $status
      *
      * @return mixed
@@ -59,7 +62,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         }
 
         // Import the plugins
-        JPluginHelper::importPlugin('magebridgeproduct');
+        PluginHelper::importPlugin('magebridgeproduct');
 
         // Foreach of these conditions, run the product-plugins
         foreach ($conditions as $condition) {

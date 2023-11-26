@@ -10,6 +10,13 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Environment\Browser;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -79,7 +86,8 @@ class MageBridgeTemplateHelper
     public static function removeMagentoScripts()
     {
         $bridge = MageBridgeModelBridge::getInstance();
-        $document = JFactory::getDocument();
+        /** @var \Joomla\CMS\Document\HtmlDocument */
+        $document = Factory::getDocument();
 
         $bridge->build();
         $headers = $document->getHeadData();
@@ -191,7 +199,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasLeftColumn()
     {
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return true;
         }
 
@@ -213,7 +221,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasRightColumn()
     {
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return true;
         }
 
@@ -235,7 +243,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasAllColumns()
     {
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return true;
         }
 
@@ -257,7 +265,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasTwoColumns()
     {
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return true;
         }
 
@@ -279,7 +287,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasOneColumn()
     {
-        if (JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return true;
         }
 
@@ -329,7 +337,7 @@ class MageBridgeTemplateHelper
         $request = self::getRequest();
         $request = preg_replace('/\?(.*)/', '', $request); // Strip out GET-arguments
 
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_magebridge' && empty($request)) {
+        if (Factory::getApplication()->input->getCmd('option') == 'com_magebridge' && empty($request)) {
             return true;
         }
 
@@ -345,7 +353,7 @@ class MageBridgeTemplateHelper
      */
     public static function isPage($pages = null, $request = null)
     {
-        if (empty($request) && JFactory::getApplication()->input->getCmd('option') != 'com_magebridge') {
+        if (empty($request) && Factory::getApplication()->input->getCmd('option') != 'com_magebridge') {
             return false;
         }
 
@@ -592,12 +600,10 @@ class MageBridgeTemplateHelper
      */
     public static function isLoaded()
     {
-        if (JFactory::getApplication()->input->getCmd('option') == 'com_magebridge') {
+        if (Factory::getApplication()->input->getCmd('option') == 'com_magebridge') {
             return true;
         } else {
-            $document = JFactory::getDocument();
             $modules = MageBridgeModuleHelper::loadMageBridgeModules();
-            $buffer = $document->getBuffer();
 
             foreach ($modules as $module) {
                 if (preg_match('/^mod_magebridge_/', $module->module)) {
@@ -619,16 +625,15 @@ class MageBridgeTemplateHelper
     public static function isMobile()
     {
         if (class_exists('MobileDetector')) {
-            return MobileDetector::isMobile();
+            return call_user_func('MobileDetector::isMobile()');
         }
 
-        jimport('joomla.environment.browser');
-        $browser = JBrowser::getInstance();
+        $browser = Browser::getInstance();
 
         if (method_exists($browser, 'isMobile')) {
             return (bool) $browser->isMobile();
         } elseif (method_exists($browser, 'get')) {
-            return (bool) $browser->get('mobile');
+            return (bool) $browser->{'get'}('mobile');
         }
 
         return false;
@@ -646,10 +651,7 @@ class MageBridgeTemplateHelper
      */
     public static function hasModule($name = '')
     {
-        // Import the module helper
-        jimport('joomla.application.module.helper');
-
-        $instance = JModuleHelper::getModule($name);
+        $instance = ModuleHelper::getModule($name);
 
         if (is_object($instance)) {
             return true;
@@ -667,8 +669,7 @@ class MageBridgeTemplateHelper
      */
     public static function countModules($condition)
     {
-        $result = '';
-        $document = JFactory::getDocument();
+        $document = Factory::getDocument();
 
         $words = explode(' ', $condition);
 
@@ -680,7 +681,7 @@ class MageBridgeTemplateHelper
             if (!isset($buffer) || $buffer === false || empty($buffer)) {
                 $words[$i] = 0;
             } else {
-                $words[$i] = count(JModuleHelper::getModules($name));
+                $words[$i] = count(ModuleHelper::getModules($name));
             }
         }
 
@@ -713,7 +714,7 @@ class MageBridgeTemplateHelper
 
         // Check for flushing of positions within the MageBridge configuration
         $globalArray = explode(',', MageBridgeModelConfig::load($setting));
-        $plugin = JPluginHelper::getPlugin('system', 'magebridgepositions');
+        $plugin = PluginHelper::getPlugin('system', 'magebridgepositions');
         $pluginParams = json_decode($plugin->params, true);
         $pluginArray = (isset($pluginParams[$setting])) ? explode(',', $pluginParams[$setting]) : [];
 
@@ -776,7 +777,7 @@ class MageBridgeTemplateHelper
                 ->getMagentoUrl() . 'skin/frontend/' . $interface . '/' . $theme . '/css/' . $file;
         }
 
-        $document = JFactory::getDocument();
+        $document = Factory::getDocument();
         $document->addStylesheet($file, 'text/css', null, $attribs);
     }
 
@@ -791,11 +792,9 @@ class MageBridgeTemplateHelper
     public static function load($type, $file = null)
     {
         // Fetch system-variables
-        $template = JFactory::getApplication()
-            ->getTemplate();
-        /** @var Joomla\CMS\Document\HtmlDocument */
-        $document = JFactory::getDocument();
-        $application = JFactory::getApplication();
+        /** @var \Joomla\CMS\Document\HtmlDocument */
+        $document = Factory::getDocument();
+        $application = Factory::getApplication();
 
         // Handle shortcuts to specific scripts or stylesheets
         switch ($type) {
@@ -803,7 +802,7 @@ class MageBridgeTemplateHelper
 
                 // Load jQuery through the Google API
                 if (MageBridgeModelConfig::load('use_google_api') == 1) {
-                    $prefix = (JUri::getInstance()
+                    $prefix = (Uri::getInstance()
                         ->isSSL()) ? 'https' : 'http';
                     $document->addScript($prefix . '://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js');
                 } else {
@@ -883,7 +882,7 @@ class MageBridgeTemplateHelper
     public static function getPath($type, $file)
     {
         // Get system variables
-        $template = JFactory::getApplication()
+        $template = Factory::getApplication()
             ->getTemplate();
 
         // Check whether a file of a certain type exists - either as a template override, or as original file
@@ -905,17 +904,17 @@ class MageBridgeTemplateHelper
             }
         }
 
-        $root = JUri::root();
+        $root = Uri::root();
 
         if (
-            JUri::getInstance()
+            Uri::getInstance()
             ->isSSL() == true
         ) {
             $root = preg_replace('/^http:\/\//', 'https://', $root);
         }
 
         if (
-            JUri::getInstance()
+            Uri::getInstance()
             ->isSSL() == false
         ) {
             $root = preg_replace('/^https:\/\//', 'http://', $root);
@@ -957,9 +956,9 @@ class MageBridgeTemplateHelper
     public static function debug()
     {
         $prototype_loaded = (MageBridgeTemplateHelper::hasPrototypeJs()) ? 'Yes' : 'No';
-        $app = JFactory::getApplication();
-        $app->enqueueMessage(JText::sprintf('View: %s', JFactory::getApplication()->input->getCmd('view')), 'notice');
-        $app->enqueueMessage(JText::sprintf('Page layout: %s', MageBridgeTemplateHelper::getPageLayout()), 'notice');
-        $app->enqueueMessage(JText::sprintf('Prototype JavaScript loaded: %s', $prototype_loaded), 'notice');
+        $app = Factory::getApplication();
+        $app->enqueueMessage(Text::sprintf('View: %s', $app->input->getCmd('view')), 'notice');
+        $app->enqueueMessage(Text::sprintf('Page layout: %s', MageBridgeTemplateHelper::getPageLayout()), 'notice');
+        $app->enqueueMessage(Text::sprintf('Prototype JavaScript loaded: %s', $prototype_loaded), 'notice');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,12 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -72,7 +79,7 @@ class MageBridgeUrlHelper
      */
     public static function getRequest()
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
         $input = $app->input;
         $bridge = MageBridgeModelBridge::getInstance();
 
@@ -100,7 +107,7 @@ class MageBridgeUrlHelper
                     $currentVars = ['option', 'view', 'layout', 'format', 'request', 'Itemid', 'lang', 'tmpl'];
 
                     // Add the form token to current variables
-                    $currentsVars[] = JSession::getFormToken();
+                    $currentsVars[] = Session::getFormToken();
 
                     // If the request is set, filter all rubbish
                     if (!empty($request)) {
@@ -188,7 +195,7 @@ class MageBridgeUrlHelper
         if ($urls == null) {
             if (MageBridgeModelConfig::load('load_urls') == 1) {
                 $query = "SELECT `id`,`source`,`source_type`,`destination`,`access` FROM #__magebridge_urls WHERE `published` = 1 ORDER BY `ordering`";
-                $db = JFactory::getDbo();
+                $db = Factory::getDbo();
                 $db->setQuery($query);
                 $urls = $db->loadObjectList();
             } else {
@@ -214,8 +221,9 @@ class MageBridgeUrlHelper
             return $items;
         }
 
-        $app = JFactory::getApplication();
-        $component = JComponentHelper::getComponent('com_magebridge');
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+        $component = ComponentHelper::getComponent('com_magebridge');
         $menu = $app->getMenu('site');
 
         if (empty($menu)) {
@@ -279,7 +287,9 @@ class MageBridgeUrlHelper
      */
     public static function isDefault()
     {
-        $default = JFactory::getApplication()
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
+        $default = $app
             ->getMenu('site')
             ->getDefault();
 
@@ -347,7 +357,7 @@ class MageBridgeUrlHelper
                 return $rootItem;
             }
 
-            if ($rootItem->id == JFactory::getApplication()->input->getInt('Itemid')) {
+            if ($rootItem->id == Factory::getApplication()->input->getInt('Itemid')) {
                 return $rootItem;
             }
 
@@ -370,10 +380,11 @@ class MageBridgeUrlHelper
     public static function getCurrentItem()
     {
         static $currentItem = null;
+        /** @var \Joomla\CMS\Application\CMSApplication */
+        $app = Factory::getApplication();
 
         if (empty($currentItem)) {
-            $menu = JFactory::getApplication()
-                ->getMenu('site');
+            $menu = $app->getMenu('site');
             $currentItem = $menu->getActive();
 
             if (empty($currentItem) || $currentItem->component != 'com_magebridge') {
@@ -381,7 +392,7 @@ class MageBridgeUrlHelper
 
                 if (!empty($items)) {
                     foreach ($items as $item) {
-                        if ($item->id == JFactory::getApplication()->input->getInt('Itemid')) {
+                        if ($item->id == $app->input->getInt('Itemid')) {
                             $currentItem = $item;
                             break;
                         }
@@ -455,7 +466,7 @@ class MageBridgeUrlHelper
      */
     public static function current()
     {
-        return JUri::getInstance()
+        return Uri::getInstance()
             ->toString();
     }
 
@@ -475,7 +486,7 @@ class MageBridgeUrlHelper
         $url = preg_replace('/^(http|https):\/\/([a-zA-Z0-9\.\-\_]+)/', '', $url); // Strip all domain-information
 
         // Extra workaround if Magento hostname is same as current hostname
-        $hostname = JUri::getInstance()
+        $hostname = Uri::getInstance()
             ->toString(['host']);
 
         if ($hostname == MageBridgeModelConfig::load('host')) {
@@ -496,7 +507,7 @@ class MageBridgeUrlHelper
     {
         if (MageBridgeModelBridge::sh404sef() == true) {
             $oldUrl = $url;
-            $newUrl = JRoute::_($oldUrl);
+            $newUrl = Route::_($oldUrl);
 
             if (!empty($url)) {
                 $url = $newUrl;
@@ -507,9 +518,9 @@ class MageBridgeUrlHelper
                 }
             }
 
-            // Regular Joomla! SEF
+        // Regular Joomla! SEF
         } else {
-            $url = JRoute::_($url);
+            $url = Route::_($url);
         }
 
         return $url;
@@ -524,7 +535,7 @@ class MageBridgeUrlHelper
      */
     public static function hasUrlSuffix()
     {
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
         if ($config->get('sef') == 1) {
             return (bool) $config->get('sef_suffix');
@@ -612,7 +623,7 @@ class MageBridgeUrlHelper
      */
     public static function getForwardSef()
     {
-        $config = JFactory::getConfig();
+        $config = Factory::getConfig();
 
         if ($config->get('sef') == 1) {
             return 1;
@@ -634,7 +645,7 @@ class MageBridgeUrlHelper
             return $rootItem->id;
         }
 
-        return JFactory::getApplication()->input->getInt('Itemid');
+        return Factory::getApplication()->input->getInt('Itemid');
     }
 
     /**
@@ -650,7 +661,7 @@ class MageBridgeUrlHelper
     {
         if (preg_match('/^(http|https):\/\//', $request)) {
             // Try to strip domain part
-            $url = JUri::base();
+            $url = Uri::base();
             $request = str_replace($url, '', $request);
             $request = str_replace(str_replace('https://', 'http://', $url), '', $request);
             $request = str_replace(str_replace('http://', 'https://', $url), '', $request);
@@ -662,7 +673,7 @@ class MageBridgeUrlHelper
 
         if ($link_to_magento == 1) {
             $bridge = MageBridge::getBridge();
-            $config = JFactory::getConfig();
+            $config = Factory::getConfig();
 
             if ((bool) $config->get('sef_suffix') == true) {
                 if (preg_match('/\/$/', $request) == false) {
@@ -692,7 +703,7 @@ class MageBridgeUrlHelper
             $url .= '&' . http_build_query($arguments);
         }
 
-        return JRoute::_($url, $xhtml, $ssl);
+        return Route::_($url, $xhtml, $ssl);
     }
 
     /**
@@ -704,7 +715,7 @@ class MageBridgeUrlHelper
      */
     public static function isSSLPage($request = null)
     {
-        $app = JFactory::getApplication();
+        $app = Factory::getApplication();
 
         // Check current page
         if ($app->input->getCmd('option') == 'com_magebridge' && $app->input->getCmd('view') == 'content') {

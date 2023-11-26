@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -60,10 +64,10 @@ class MageBridgeModelBridgeEvents extends MageBridgeModelBridgeSegment
                     if (!is_array($event['arguments'])) {
                         $event['arguments'] = [];
                     }
-                    MageBridgeModelDebug::getInstance()->notice('Bridge feedback: firing mageEvent '.$event['event'].' of group '.$event['group']);
+                    MageBridgeModelDebug::getInstance()->notice('Bridge feedback: firing mageEvent ' . $event['event'] . ' of group ' . $event['group']);
 
-                    JPluginHelper::importPlugin($event['group']);
-                    JFactory::getApplication()->triggerEvent($event['event'], [$event['arguments']]);
+                    PluginHelper::importPlugin($event['group']);
+                    $this->app->triggerEvent($event['event'], [$event['arguments']]);
                 }
             }
         }

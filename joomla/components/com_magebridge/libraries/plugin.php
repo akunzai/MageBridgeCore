@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,19 +10,18 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
-// Import the parent class
-jimport('joomla.plugin.plugin');
-
 /**
  * Parent plugin-class
  */
-class MageBridgePlugin extends JPlugin
+class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * @var MageBridgeModelDebug
@@ -69,7 +69,7 @@ class MageBridgePlugin extends JPlugin
      */
     protected function checkComponent($component)
     {
-        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && JComponentHelper::isEnabled($component) == true) {
+        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
             return true;
         }
 

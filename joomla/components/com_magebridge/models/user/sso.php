@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,12 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\User\User;
+use Joomla\Utilities\ArrayHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -23,7 +30,7 @@ class MageBridgeModelUserSSO
     protected static $_instance = null;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -56,7 +63,7 @@ class MageBridgeModelUserSSO
      */
     public function __construct()
     {
-        $this->app    = JFactory::getApplication();
+        $this->app    = Factory::getApplication();
         $this->bridge = MageBridgeModelBridge::getInstance();
         $this->debug  = MageBridgeModelDebug::getInstance();
     }
@@ -70,8 +77,8 @@ class MageBridgeModelUserSSO
      */
     public function doSSOLogin($user = null)
     {
-        if ($user instanceof JUser) {
-            $user = \Joomla\Utilities\ArrayHelper::fromObject($user);
+        if ($user instanceof User) {
+            $user = ArrayHelper::fromObject($user);
         }
 
         // Abort if the input is not valid
@@ -80,7 +87,7 @@ class MageBridgeModelUserSSO
         }
 
         // Get system variables
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         // Store the current page, so we can redirect to it after SSO is done
         if ($return = $this->app->input->get('return', '', 'base64')) {
@@ -105,13 +112,13 @@ class MageBridgeModelUserSSO
         }
 
         // Get the security token
-        $token = JSession::getFormToken();
+        $token = Session::getFormToken();
 
         // Construct the URL
         $arguments = [
             'sso=login',
             'app=' . $appName,
-            'base=' . base64_encode(JUri::base()),
+            'base=' . base64_encode(Uri::base()),
             'userhash=' . MageBridgeEncryptionHelper::encrypt($username),
             'token=' . $token,
         ];
@@ -143,7 +150,7 @@ class MageBridgeModelUserSSO
         $appName = $this->getCurrentApp();
 
         // Get the security token
-        $token = JSession::getFormToken();
+        $token = Session::getFormToken();
 
         // Get the redirection URL
         $redirect = $this->getCurrentUrl();
@@ -176,10 +183,10 @@ class MageBridgeModelUserSSO
     public function checkSSOLogin()
     {
         // Check the security token
-        JSession::checkToken('get') or die('SSO redirect failed due to wrong token');
+        Session::checkToken('get') or die('SSO redirect failed due to wrong token');
 
         // Get system variables
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
 
         // Get the current Magento session
         $magento_session = $this->app->input->getCmd('session');
@@ -190,7 +197,7 @@ class MageBridgeModelUserSSO
         }
 
         // Redirect back to the original URL
-        $redirect = $session->get('magento_redirect', JUri::base());
+        $redirect = $session->get('magento_redirect', Uri::base());
 
         if (empty($redirect)) {
             $redirect = MageBridgeUrlHelper::route('customer/account');
@@ -217,7 +224,7 @@ class MageBridgeModelUserSSO
     {
         // Set the redirection URL
         if ($this->getCurrentApp() == 'admin') {
-            return JUri::current();
+            return Uri::current();
         }
 
         return MageBridgeUrlHelper::current();

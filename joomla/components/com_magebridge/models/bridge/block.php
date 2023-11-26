@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -110,19 +115,18 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 
             if (!empty($plugins)) {
                 foreach ($plugins as $plugin) {
-                    JPluginHelper::importPlugin('content', $plugin);
+                    PluginHelper::importPlugin('content', $plugin);
                 }
             }
 
             // Once the plugins are imported, trigger the content-event
-            $dispatcher = JEventDispatcher::getInstance();
-
             $item->params = YireoHelper::toRegistry();
-            $result = $dispatcher->trigger('onContentPrepare', [
+            $this->app->triggerEvent('onContentPrepare', [
                 'com_magebridge.block',
                 &$item,
                 &$item->params,
-                0, ]);
+                0,
+            ]);
 
             // Move the modified contents into $block_data
             $block_data = $item->text;
@@ -131,9 +135,8 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 
         // Filter the block throw the "magebridge" plugin group
         if (MageBridgeModelConfig::load('enable_block_rendering') == 1) {
-            JPluginHelper::importPlugin('magebridge');
-            JFactory::getApplication()
-                ->triggerEvent('onBeforeDisplayBlock', [&$block_name, $arguments, &$block_data]);
+            PluginHelper::importPlugin('magebridge');
+            $this->app->triggerEvent('onBeforeDisplayBlock', [&$block_name, $arguments, &$block_data]);
         }
 
         return $block_data;
@@ -182,7 +185,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 
                 // Prepare the destination URL
                 if (preg_match('/^index\.php\?option=/', $destination)) {
-                    $destination = JRoute::_($destination);
+                    $destination = Route::_($destination);
                 }
 
                 // Replace the actual URLs
@@ -214,7 +217,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
         }
 
         // Get system variables
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         $query = 'SELECT `element` FROM `#__extensions`' . ' WHERE `type` = "plugin" AND `enabled` = 1 AND `element` NOT LIKE "magebridge%" AND `element` != "emailcloak"' . ' ORDER BY `ordering`';
 

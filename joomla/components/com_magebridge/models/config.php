@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,12 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Uri\Uri;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -154,8 +161,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
 
         // Determine the right update format
         if ($this->config['update_format']['value'] == '') {
-            jimport('joomla.application.component.helper');
-            $component = JComponentHelper::getComponent('com_magebridge');
+            $component = ComponentHelper::getComponent('com_magebridge');
             $params    = YireoHelper::toRegistry($component->params);
             $value     = $params->get('update_format', 'tar.gz');
 
@@ -264,7 +270,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to check a specific configuratione-element
+     * Method to check a specific configuration-element
      *
      * @param string $element
      * @param string $value
@@ -281,17 +287,17 @@ class MageBridgeModelConfig extends YireoAbstractModel
         // Check for settings that should not be kept empty
         $nonempty = ['host', 'website', 'api_user', 'api_key'];
         if (MageBridgeModelConfig::allEmpty() == false && in_array($element, $nonempty) && empty($value)) {
-            return JText::sprintf('Setting "%s" is empty - Please configure it below', JText::_($element));
+            return Text::sprintf('Setting "%s" is empty - Please configure it below', Text::_($element));
         }
 
         // Check host
         if ($element == 'host') {
             if (preg_match('/([^a-zA-Z0-9\.\-\_\:]+)/', $value) == true) {
-                return JText::_('Hostname contains illegal characters. Note that a hostname is not an URL, but only a fully qualified domainname.');
+                return Text::_('Hostname contains illegal characters. Note that a hostname is not an URL, but only a fully qualified domainname.');
             }
 
             if (gethostbyname($value) == $value && !preg_match('/([0-9\.]+)/', $value)) {
-                return JText::sprintf('DNS lookup of hostname %s failed', $value);
+                return Text::sprintf('DNS lookup of hostname %s failed', $value);
             }
 
             if (MageBridgeModelConfig::load('api_widgets') == true) {
@@ -301,30 +307,25 @@ class MageBridgeModelConfig extends YireoAbstractModel
                 if (empty($data)) {
                     $url = $bridge->getMagentoBridgeUrl();
 
-                    return JText::sprintf('Unable to open a connection to <a href="%s" target="_new">%s</a>', $url, $url);
+                    return Text::sprintf('Unable to open a connection to <a href="%s" target="_new">%s</a>', $url, $url);
                 }
             }
         }
 
-        // Check supportkey
-        if ($element == 'supportkey' && empty($value)) {
-            return JText::sprintf('Please configure your support-key. Your support-key can be obtained from %s', MageBridgeHelper::getHelpText('subscriptions'));
-        }
-
         // Check API widgets
         if ($element == 'api_widgets' && $value != 1) {
-            return JText::_('API widgets are disabled');
+            return Text::_('API widgets are disabled');
         }
 
         // Check offline
         if ($element == 'offline' && $value == 1) {
-            return JText::_('Bridge is disabled through settings');
+            return Text::_('Bridge is disabled through settings');
         }
 
         // Check website
         if ($element == 'website' && !empty($value)) {
             if (is_numeric($value) == false) {
-                return JText::sprintf('Website ID needs to be a numeric value. Current value is "%s"', $value);
+                return Text::sprintf('Website ID needs to be a numeric value. Current value is "%s"', $value);
             }
         }
 
@@ -338,17 +339,17 @@ class MageBridgeModelConfig extends YireoAbstractModel
         }
 
         if (preg_match('/([a-zA-Z0-9\.\-\_]+)/', $value) == false) {
-            return JText::_('Basedir contains illegal characters');
+            return Text::_('Basedir contains illegal characters');
         }
 
         $root         = MageBridgeUrlHelper::getRootItem();
-        $joomla_host  = JUri::getInstance()
+        $joomla_host  = Uri::getInstance()
             ->toString(['host']);
         $magento_host = MageBridgeModelConfig::load('host');
 
         // Check whether the Magento basedir conflicts with the MageBridge alias
         if (!empty($root) && !empty($root->route) && $root->route == $value && $joomla_host == $magento_host) {
-            return JText::_('Magento basedir is same as MageBridge alias, which is not possible');
+            return Text::_('Magento basedir is same as MageBridge alias, which is not possible');
         }
     }
 
@@ -398,7 +399,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        // Convert "disable_css_mage" array into comma-seperated string
+        // Convert "disable_css_mage" array into comma-separated string
         if (isset($post['disable_css_mage']) && is_array($post['disable_css_mage'])) {
             if (empty($post['disable_css_mage'][0])) {
                 array_shift($post['disable_css_mage']);
@@ -411,7 +412,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
             }
         }
 
-        // Convert "disable_js_mage" array into comma-seperated string
+        // Convert "disable_js_mage" array into comma-separated string
         if (isset($post['disable_js_mage']) && is_array($post['disable_js_mage'])) {
             if (empty($post['disable_js_mage'][0])) {
                 array_shift($post['disable_js_mage']);
@@ -431,7 +432,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
         }
 
         // Check whether the URL-table contains entries
-        $db    = JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__magebridge_urls'));
@@ -445,7 +446,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
         }
 
         // Check whether the stores-table contains entries
-        $db    = JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__magebridge_stores'));
@@ -480,18 +481,17 @@ class MageBridgeModelConfig extends YireoAbstractModel
 
         // Clean the cache if changes are detected
         if ($changeDetected) {
-            /** @var JCache $cache */
-            $cache = JFactory::getCache('com_magebridge.admin');
+            $cache = Factory::getCache('com_magebridge.admin');
             $cache->clean();
         }
 
         // Store the values row-by-row
         foreach ($config as $name => $data) {
-            if (!isset($data['name']) || empty($data['name'])) {
+            if (!isset($data['name']) || empty($data['name']) || is_null($data['value'])) {
                 continue;
             }
 
-            $table = JTable::getInstance('config', 'MagebridgeTable');
+            $table = Table::getInstance('config', 'MagebridgeTable');
 
             if (!$table->bind($data)) {
                 throw new Exception('Unable to bind configuration to component');
@@ -527,7 +527,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
             $data['id'] = $config[$name]['id'];
         }
 
-        $table = JTable::getInstance('config', 'MagebridgeTable');
+        $table = Table::getInstance('config', 'MagebridgeTable');
 
         if ($table === false) {
             throw new Exception('No table found');

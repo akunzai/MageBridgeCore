@@ -9,11 +9,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Date\Date;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
-
-// Import Joomla! libraries
-jimport('joomla.utilities.date');
 
 /**
  * MageBridge Logs model
@@ -56,7 +55,7 @@ class MagebridgeModelLog extends YireoModel
     public function store($data)
     {
         // Prepare the data
-        $now = new JDate('now');
+        $now = new Date('now');
 
         // Build the data
         $data['remote_addr'] = $_SERVER['REMOTE_ADDR'];

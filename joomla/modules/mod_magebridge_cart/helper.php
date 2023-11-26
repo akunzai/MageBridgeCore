@@ -22,7 +22,7 @@ class ModMageBridgeCartHelper
      * Method to be called once the MageBridge is loaded
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return array
      */
     public static function register($params = null)
@@ -50,7 +50,7 @@ class ModMageBridgeCartHelper
      * Fetch the content from the bridge
      *
      * @access public
-     * @param JRegistry $params
+     * @param \Joomla\Registry\Registry $params
      * @return string
      */
     public static function build($params = null)

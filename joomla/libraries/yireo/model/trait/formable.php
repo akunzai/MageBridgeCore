@@ -11,6 +11,9 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -63,12 +66,12 @@ trait YireoModelTraitFormable
     /**
      * Allow usage of this form
      *
-     * @return false|JForm
+     * @return false|\Joomla\CMS\Form\Form
      */
     protected function loadForm()
     {
         // Do not continue if this is not the right backend
-        if ($this->app->isAdmin() == false && $this->getConfig('frontend_form') == false) {
+        if ($this->app->isClient('administrator') == false && $this->getConfig('frontend_form') == false) {
             return false;
         }
 
@@ -132,13 +135,11 @@ trait YireoModelTraitFormable
      *
      * @param $xmlFile
      *
-     * @return JForm
+     * @return \Joomla\CMS\Form\Form
      */
     protected function getFormFromXml($xmlFile)
     {
-        jimport('joomla.form.form');
-
-        return JForm::getInstance('item', $xmlFile);
+        return Form::getInstance('item', $xmlFile);
     }
 
     /**
@@ -148,7 +149,7 @@ trait YireoModelTraitFormable
      */
     public function saveTmpSession($data)
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $session->set($this->getConfig('option_id'), $data);
     }
 
@@ -157,7 +158,7 @@ trait YireoModelTraitFormable
      */
     public function loadTmpSession()
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $data    = $session->get($this->getConfig('option_id'));
 
         if (empty($data)) {
@@ -178,7 +179,7 @@ trait YireoModelTraitFormable
      */
     public function resetTmpSession()
     {
-        $session = JFactory::getSession();
+        $session = Factory::getSession();
         $session->clear($this->getConfig('option_id'));
     }
 }

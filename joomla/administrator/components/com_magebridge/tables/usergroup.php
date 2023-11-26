@@ -20,11 +20,16 @@ defined('_JEXEC') or die('Restricted access');
 class MagebridgeTableUsergroup extends YireoTable
 {
     /**
+     * @var string[]
+     */
+    protected $required;
+
+    /**
      * Constructor
      *
-     * @param JDatabase $db
+     * @param \Joomla\Database\DatabaseDriver $db
      */
-    public function __construct(& $db)
+    public function __construct(&$db)
     {
         // List of required fields that can not be left empty
         $this->required = ['joomla_group', 'magento_group'];

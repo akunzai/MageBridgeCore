@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -9,11 +10,13 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 /**
  * HTML View class
@@ -34,7 +37,7 @@ class MageBridgeViewCms extends MageBridgeView
         // Load the request
         $request = $params->get('request');
         if (empty($request)) {
-            $request = JFactory::getApplication()->input->getString('request');
+            $request = Factory::getApplication()->input->getString('request');
         }
 
         // Remove the dummy ID from the request
@@ -46,7 +49,7 @@ class MageBridgeViewCms extends MageBridgeView
         // Reuse this request to set the Canonical URL
         if (MageBridgeModelConfig::load('enable_canonical') == 1) {
             $uri = MageBridgeUrlHelper::route($request);
-            $document = JFactory::getDocument();
+            $document = Factory::getDocument();
             $document->setMetaData('canonical', $uri);
         }
 

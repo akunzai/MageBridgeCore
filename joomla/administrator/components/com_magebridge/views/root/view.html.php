@@ -10,6 +10,9 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -29,7 +32,7 @@ class MageBridgeViewRoot extends MageBridgeView
      */
     public function display($tpl = null)
     {
-        JToolbarHelper::title(JText::_('MageBridge') . ': ' . JText::_('Magento Admin Panel'), 'yireo');
+        ToolbarHelper::title(Text::_('MageBridge') . ': ' . Text::_('Magento Admin Panel'), 'yireo');
         parent::display($tpl);
     }
 }

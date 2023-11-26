@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -32,22 +36,27 @@ class MageBridgeConnector
     protected $name;
 
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var JDatabaseDriver
+     * @var \Joomla\Database\DatabaseDriver
      */
     protected $db;
+
+    /**
+     * @var \Joomla\Registry\Registry
+     */
+    private $params;
 
     /**
      * MageBridgeConnector constructor.
      */
     public function __construct()
     {
-        $this->app = JFactory::getApplication();
-        $this->db  = JFactory::getDbo();
+        $this->app = Factory::getApplication();
+        $this->db  = Factory::getDbo();
     }
 
     /**
@@ -91,7 +100,7 @@ class MageBridgeConnector
      * Method to get a specific connector-object
      *
      * @param string $type
-     * @param string $connector
+     * @param object $connector
      *
      * @return object|false
      */
@@ -193,9 +202,7 @@ class MageBridgeConnector
      */
     protected function checkComponent($component)
     {
-        jimport('joomla.application.component.helper');
-
-        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && JComponentHelper::isEnabled($component) == true) {
+        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
             return true;
         }
 

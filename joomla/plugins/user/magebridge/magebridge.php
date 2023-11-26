@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - User plugin
  *
@@ -9,11 +10,11 @@
  * @link      https://www.yireo.com/
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the parent class
-jimport('joomla.plugin.plugin');
 
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
@@ -24,7 +25,7 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 class PlgUserMageBridge extends MageBridgePlugin
 {
     /**
-     * @var JApplicationCms
+     * @var \Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -130,9 +131,9 @@ class PlgUserMageBridge extends MageBridgePlugin
         if ($this->app->isClient('site') == true && $this->getConfigValue('username_from_email') == 1 && $user['username'] != $user['email']) {
             $this->debug->notice("onUserAfterSave::bind on user " . $user['username']);
 
-            // Load the right JUser object
+            // Load the right user object
             $data   = ['username' => $user['email']];
-            $object = JFactory::getUser($user['id']);
+            $object = Factory::getUser($user['id']);
 
             // Check whether user-syncing is allowed for this user
             if ($this->userModel->allowSynchronization($object, 'save') == true) {
@@ -141,7 +142,7 @@ class PlgUserMageBridge extends MageBridgePlugin
                 $object->save();
 
                 // Bind this new user-object into the session
-                $session      = JFactory::getSession();
+                $session      = Factory::getSession();
                 $session_user = $session->get('user');
 
                 if ($session_user->id == $user['id']) {
@@ -178,7 +179,7 @@ class PlgUserMageBridge extends MageBridgePlugin
 
         // Synchronize this user-record with Magento
         if ($this->getConfigValue('enable_usersync') == 1 && $this->app->isClient('site')) {
-            $user['id'] = JFactory::getUser()->id;
+            $user['id'] = Factory::getUser()->id;
             $user       = $this->userModel->synchronize($user);
         }
 
@@ -236,8 +237,8 @@ class PlgUserMageBridge extends MageBridgePlugin
         }
 
         // Get system variables
-        $session = JFactory::getSession();
-        $uri     = JUri::getInstance();
+        $session = Factory::getSession();
+        $uri     = Uri::getInstance();
 
         $bridge   = MageBridgeModelBridge::getInstance();
         $register = MageBridgeModelRegister::getInstance();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,9 @@
  * @license   GNU Public License
  * @link      https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -40,7 +44,12 @@ class MagebridgeModelConfigValue
     /**
      * @var string
      */
-    private $desciption = '';
+    private $description = '';
+
+    /**
+     * @var \Joomla\CMS\Application\CMSApplication
+     */
+    private $app;
 
     /**
      * MagebridgeModelConfigValue constructor.
@@ -49,7 +58,7 @@ class MagebridgeModelConfigValue
      */
     public function __construct($data = [])
     {
-        $this->app = JFactory::getApplication();
+        $this->app = Factory::getApplication();
 
         foreach ($data as $name => $value) {
             if (property_exists($this, $name)) {
@@ -64,11 +73,11 @@ class MagebridgeModelConfigValue
     private function getDescription()
     {
         if (!empty($this->description)) {
-            return $this->desciption;
+            return $this->description;
         }
 
-        if ($this->app->isAdmin() && !empty($this->name)) {
-            return JText::_(strtoupper($this->name) . '_DESCRIPTION');
+        if ($this->app->isClient('administrator') && !empty($this->name)) {
+            return Text::_(strtoupper($this->name) . '_DESCRIPTION');
         }
 
         return '';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -13,7 +14,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-require_once JPATH_COMPONENT.'/view.php';
+require_once JPATH_COMPONENT . '/view.php';
 
 /**
  * HTML View class
@@ -23,6 +24,11 @@ require_once JPATH_COMPONENT.'/view.php';
  */
 class MageBridgeViewOffline extends MageBridgeView
 {
+    /**
+     * @var string
+     */
+    protected $offline_message;
+
     /**
      * Method to display the requested view
      */

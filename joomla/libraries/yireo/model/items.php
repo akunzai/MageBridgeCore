@@ -11,6 +11,8 @@
  * @version   0.6.0
  */
 
+use Joomla\CMS\Component\ComponentHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -65,7 +67,7 @@ class YireoModelItems extends YireoDataModel
     protected $search = [];
 
     /**
-     * List of fields to autoconvert into column-seperated fields
+     * List of fields to autoconvert into column-separated fields
      *
      * @var array
      */
@@ -172,11 +174,11 @@ class YireoModelItems extends YireoDataModel
         }
 
         if ($this->app->isClient('site') == false) {
-            $this->params = JComponentHelper::getParams($this->getConfig('option'));
+            $this->params = ComponentHelper::getParams($this->getConfig('option'));
 
             return $this->params;
         }
-        /** @var Joomla\CMS\Application\SiteApplication */
+        /** @var \Joomla\CMS\Application\SiteApplication */
         $siteApp = $this->app;
         $this->params = $siteApp->getParams($this->getConfig('option'));
 
@@ -204,7 +206,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * @return JDatabaseQuery
+     * @return \Joomla\Database\DatabaseQuery
      */
     public function buildQueryObject()
     {
@@ -393,7 +395,7 @@ class YireoModelItems extends YireoDataModel
             return false;
         }
 
-        /** @var JDatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseDriver $db */
         $db = $this->db;
 
         $query = $db->getQuery(true);

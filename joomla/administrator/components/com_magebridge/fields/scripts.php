@@ -9,6 +9,10 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 // Check to ensure this file is included in Joomla!
 defined('JPATH_BASE') or die();
 
@@ -36,17 +40,18 @@ class MagebridgeFormFieldScripts extends MageBridgeFormFieldAbstract
         $value     = $this->value;
 
         if ($this->getConfig('api_widgets') == true) {
-            $cache   = JFactory::getCache('com_magebridge.admin');
-            $options = $cache->call(['MagebridgeFormFieldScripts', 'getResult']);
+            /** @var CallbackController */
+            $cache   = Factory::getCache('com_magebridge.admin');
+            $options = $cache->get(['MagebridgeFormFieldScripts', 'getResult']);
 
             // Parse the result into an HTML form-field
             if (!empty($options) && is_array($options)) {
                 $current_options = MageBridgeHelper::getDisableJs();
                 $size            = (count($options) > 10) ? 10 : count($options);
-                array_unshift($options, ['value' => '', 'label' => '- ' . JText::_('None') . ' -']);
-                array_unshift($options, ['value' => 'ALL', 'label' => '- ' . JText::_('JALL') . ' -']);
+                array_unshift($options, ['value' => '', 'label' => '- ' . Text::_('None') . ' -']);
+                array_unshift($options, ['value' => 'ALL', 'label' => '- ' . Text::_('JALL') . ' -']);
 
-                return JHtml::_('select.genericlist', $options, $name . '[]', 'multiple="multiple" size="' . $size . '"', 'value', 'label', $current_options);
+                return HTMLHelper::_('select.genericlist', $options, $name . '[]', 'multiple="multiple" size="' . $size . '"', 'value', 'label', $current_options);
             }
 
             $this->debugger->warning('Unable to obtain MageBridge API Widget "scripts"', $options);

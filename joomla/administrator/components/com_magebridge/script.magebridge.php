@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -8,6 +9,10 @@
  * @license GNU Public License
  * @link https://www.yireo.com
  */
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Version;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -23,7 +28,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
          */
         public function postflight($action, $installer)
         {
-            switch($action) {
+            switch ($action) {
                 case 'install':
                     return self::doInstall();
 
@@ -41,11 +46,10 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         public function doUpdate()
         {
             // Initialize important variables
-            $application = JFactory::getApplication();
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
 
             // Perform
-            $sql = dirname(__FILE__).'/administrator/components/com_magebridge/sql/install.mysql.utf8.sql';
+            $sql = dirname(__FILE__) . '/administrator/components/com_magebridge/sql/install.mysql.utf8.sql';
             if (is_file($sql)) {
                 $sqlcontent = file_get_contents($sql);
                 $queries = $db->splitSql($sqlcontent);
@@ -57,7 +61,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
                             $db->setQuery($query);
                             try {
                                 $db->execute();
-                            } catch(Exception $e) {
+                            } catch (Exception $e) {
                             }
                         }
                     }
@@ -75,10 +79,10 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         {
             // Try to include the file
             $file = 'administrator/components/com_magebridge/helpers/install.php';
-            if (is_file(JPATH_ROOT.'/'.$file)) {
-                require_once JPATH_ROOT.'/'.$file;
-            } elseif (is_file(dirname(__FILE__).'/'.$file)) {
-                require_once dirname(__FILE__).'/'.$file;
+            if (is_file(JPATH_ROOT . '/' . $file)) {
+                require_once JPATH_ROOT . '/' . $file;
+            } elseif (is_file(dirname(__FILE__) . '/' . $file)) {
+                require_once dirname(__FILE__) . '/' . $file;
             } else {
                 return true;
             }
@@ -89,8 +93,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
             }
 
             // Check for Joomla version
-            JLoader::import('joomla.version');
-            $jversion = new JVersion();
+            $jversion = new Version();
             if (version_compare($jversion->RELEASE, '3.0.0', '<')) {
                 return false;
             }
@@ -105,11 +108,10 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         public function doUninstall()
         {
             // Initialize the Joomla! installer
-            jimport('joomla.installer.installer');
-            $installer = JInstaller::getInstance();
+            $installer = Installer::getInstance();
 
             // Select all MageBridge modules and remove them
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = "SELECT `id`,`client_id` FROM #__modules WHERE `module` LIKE 'mod_magebridge%'";
             $db->setQuery($query);
             $rows = $db->loadObjectList();
@@ -120,7 +122,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
             }
 
             // Select all MageBridge plugins and remove them
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = "SELECT `id`,`client_id` FROM #__plugins WHERE `element` LIKE 'magebridge%' OR `folder` = 'magento'";
             $db->setQuery($query);
             $rows = $db->loadObjectList();
