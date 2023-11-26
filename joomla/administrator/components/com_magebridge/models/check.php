@@ -178,8 +178,8 @@ class MagebridgeModelCheck extends YireoCommonModel
         $server_software = (isset($_SERVER['software'])) ? $_SERVER['software'] : null;
 
         // System Compatibility
-        $result = (version_compare(phpversion(), '7.4.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('compatibility', 'PHP version', $result, Text::sprintf('COM_MAGEBRIDGE_CHECK_PHP_VERSION', '7.4.0'));
+        $result = (version_compare(phpversion(), '8.1.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('compatibility', 'PHP version', $result, Text::sprintf('COM_MAGEBRIDGE_CHECK_PHP_VERSION', '8.1.0'));
 
         $memoryLimit = $this->getBytesFromValue(ini_get('memory_limit'));
         $result      = ($memoryLimit >= (32 * 1024 * 1024)) ? self::CHECK_OK : self::CHECK_ERROR;
