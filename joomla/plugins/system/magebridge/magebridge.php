@@ -851,10 +851,11 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
         // Check the Menu-Item settings
         $menu = $this->app->getMenu();
+        /** @var Joomla\CMS\Menu\MenuItem */
         $active = $menu->getActive();
 
         if (!empty($active)) {
-            $secureMenuItem = ($active->params->get('secure', 0) == 1) ? true : false;
+            $secureMenuItem = ($active->getParams()->get('secure', 0) == 1) ? true : false;
         } else {
             $secureMenuItem = false;
         }
