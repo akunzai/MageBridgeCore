@@ -487,7 +487,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
 
         // Store the values row-by-row
         foreach ($config as $name => $data) {
-            if (!isset($data['name']) || empty($data['name'])) {
+            if (!isset($data['name']) || empty($data['name']) || is_null($data['value'])) {
                 continue;
             }
 
