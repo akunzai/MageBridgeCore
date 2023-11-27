@@ -41,7 +41,7 @@ if [ "${INSTALL_SAMPLE_DATA}" = "true" ]; then
 fi
 
 echo "Installing OpenMage ..."
-docker exec -it --user www-data  magebridge-openmage php install.php \
+docker compose exec --user www-data openmage php install.php \
   --admin_firstname OpenMage  \
   --admin_lastname Admin \
   --admin_username "${ADMIN_USERNAME:-admin}" \
