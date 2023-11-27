@@ -1,8 +1,7 @@
 version: '2'
-
+name: magebridgecore_devcontainer
 services:
   joomla:
-    container_name: magebridge-joomla
     build:
       context: ./joomla
       args:
@@ -31,7 +30,6 @@ services:
       - traefik
 
   openmage:
-    container_name: magebridge-openmage
     build: 
       context: ./openmage
       args:
@@ -60,7 +58,6 @@ services:
       - traefik
 
   mysql:
-    container_name: magebridge-mysql
     # https://hub.docker.com/_/mysql
     image: mysql
     volumes:
