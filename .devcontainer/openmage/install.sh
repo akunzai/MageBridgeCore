@@ -72,10 +72,10 @@ docker compose exec --user www-data openmage n98-magerun config:set 'magebridge/
 echo "Disable auto-redirect to base URL ..."
 docker compose exec --user www-data openmage n98-magerun config:set 'web/url/redirect_to_base' 0
 
-echo "Clear catalog product URL suffix ..."
+echo "Clear catalog URL suffix ..."
 docker compose exec --user www-data openmage n98-magerun config:set 'catalog/seo/category_url_suffix' ''
 
-echo "Clear catalog product URL suffix ..."
+echo "Clear product URL suffix ..."
 docker compose exec --user www-data openmage n98-magerun config:set 'catalog/seo/product_url_suffix' ''
 
 echo "Refreshing cache ..."
