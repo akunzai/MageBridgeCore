@@ -58,7 +58,9 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
         // Compile the meta-data
         if (empty($this->_meta_data) || !is_array($this->_meta_data)) {
             $input = $this->app->input;
-            $user = Factory::getUser();
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
             $uri = Uri::getInstance();
             $config = Factory::getConfig();
             $storeHelper = MageBridgeStoreHelper::getInstance();

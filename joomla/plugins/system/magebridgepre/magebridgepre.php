@@ -37,7 +37,10 @@ class plgSystemMageBridgePre extends \Joomla\CMS\Plugin\CMSPlugin
         // Check for postlogin-cookie
         if (isset($_COOKIE['mb_postlogin']) && !empty($_COOKIE['mb_postlogin'])) {
             // If the user is already logged in, remove the cookie
-            if (Factory::getUser()->id > 0) {
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
+            if ($user->id > 0) {
                 setcookie('mb_postlogin', '', time() - 3600, '/', '.' . Uri::getInstance()
                     ->toString(['host']));
             }

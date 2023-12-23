@@ -28,7 +28,9 @@ require_once(dirname(__FILE__) . '/helper.php');
 $block = ModMageBridgeNewsletterHelper::build($params);
 
 // Get the current user
-$user = Factory::getUser();
+$user = version_compare(JVERSION, '4.0.0', '<')
+    ? Factory::getUser()
+    : Factory::getApplication()->getIdentity();
 
 // Set the form URL
 $form_url = MageBridgeUrlHelper::route('newsletter/subscriber/new');

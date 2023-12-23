@@ -119,7 +119,9 @@ class YireoCommonModel extends YireoAbstractModel
     protected function initCommon()
     {
         $this->db   = Factory::getDbo();
-        $this->user = Factory::getUser();
+        $this->user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
     }
 
     /**

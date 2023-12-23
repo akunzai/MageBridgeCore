@@ -21,7 +21,9 @@ use Joomla\CMS\Uri\Uri;
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 // Decide whether to show a login-link or logout-link
-$user = Factory::getUser();
+$user = version_compare(JVERSION, '4.0.0', '<')
+    ? Factory::getUser()
+    : Factory::getApplication()->getIdentity();
 $type = (!$user->get('guest')) ? 'logout_link' : 'login_link';
 
 // Read the parameters

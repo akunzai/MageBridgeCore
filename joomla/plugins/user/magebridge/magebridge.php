@@ -179,7 +179,10 @@ class PlgUserMageBridge extends MageBridgePlugin
 
         // Synchronize this user-record with Magento
         if ($this->getConfigValue('enable_usersync') == 1 && $this->app->isClient('site')) {
-            $user['id'] = Factory::getUser()->id;
+            $identity = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
+            $user['id'] = $identity->id;
             $user       = $this->userModel->synchronize($user);
         }
 

@@ -196,7 +196,9 @@ class YireoViewList extends YireoView
      */
     public function checkedout($item, $i)
     {
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         if (!isset($item->editor)) {
             $item->editor = $user->get('id');
@@ -245,7 +247,9 @@ class YireoViewList extends YireoView
         $published = null;
 
         // Import variables
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         // Create dummy publish_up and publish_down variables if not set
         if (!isset($item->publish_up)) {
@@ -288,7 +292,9 @@ class YireoViewList extends YireoView
         }
 
         // Import variables
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         return $this->table->isCheckedOut($user->get('id'), $item->checked_out);
     }

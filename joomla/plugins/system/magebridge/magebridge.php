@@ -786,7 +786,9 @@ class PlgSystemMageBridge extends MageBridgePlugin
         return;
 
         if ($this->input->getCmd('task') == 'login') {
-            $user = Factory::getUser();
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
 
             if (!$user->guest) {
                 MageBridgeModelUserSSO::getInstance()->checkSSOLogin();

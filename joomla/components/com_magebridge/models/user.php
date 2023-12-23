@@ -534,7 +534,9 @@ class MageBridgeModelUser
         }
 
         // Fetch the current user
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         // Set the changed-flag
         $changed = false;

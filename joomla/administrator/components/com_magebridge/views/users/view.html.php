@@ -106,7 +106,9 @@ class MageBridgeViewUsers extends MageBridgeView
             }
         }
 
-        $this->user       = Factory::getUser();
+        $this->user       = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         $this->lists      = $lists;
         $this->items      = $items;
         $this->pagination = $pagination;

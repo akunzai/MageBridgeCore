@@ -852,7 +852,9 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
         }
 
         // Handle the extra remember-me cookie
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         if ($user->id > 0 && !empty($_COOKIE['persistent_shopping_cart'])) {
             $password = $user->password_clear;

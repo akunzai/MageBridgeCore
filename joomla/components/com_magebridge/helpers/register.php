@@ -65,7 +65,9 @@ class MageBridgeRegisterHelper extends \Joomla\CMS\Helper\ModuleHelper
                 if (preg_match('/^mod_magebridge/', $module->module)) {
                     // Initialize variables
                     $params = YireoHelper::toRegistry($module->params);
-                    $user = Factory::getUser();
+                    $user = version_compare(JVERSION, '4.0.0', '<')
+                        ? Factory::getUser()
+                        : Factory::getApplication()->getIdentity();
 
                     // Check whether caching returns a valid module-output
                     if (

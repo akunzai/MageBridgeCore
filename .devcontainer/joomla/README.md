@@ -1,4 +1,4 @@
-# Joomla Setup
+# Joomla! Setup
 
 ## Extension Installation
 

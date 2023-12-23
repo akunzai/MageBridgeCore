@@ -200,7 +200,9 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
 
         // Try to load the user through the Joomla! ID stored in Magento
         if (isset($customer['joomla_id'])) {
-            $user = Factory::getUser();
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
             $user->load($customer['joomla_id']);
         }
 

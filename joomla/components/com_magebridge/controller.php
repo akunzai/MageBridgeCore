@@ -207,7 +207,9 @@ class MageBridgeController extends YireoAbstractController
      */
     public function ssoCheck()
     {
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
 
         if (!$user->guest) {
             MageBridgeModelUserSSO::getInstance()
