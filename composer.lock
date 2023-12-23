@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b802e4ae40a7b538fccb1e42ce28c1f",
+    "content-hash": "60c4f4c5957e6288da23f18ce505c484",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1174,16 +1174,16 @@
         },
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.17.0",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "dc2fd4fab8cb6b11e161f0eacdd5465c5b42b6f1"
+                "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/dc2fd4fab8cb6b11e161f0eacdd5465c5b42b6f1",
-                "reference": "dc2fd4fab8cb6b11e161f0eacdd5465c5b42b6f1",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/d403f4473e1b3cc616fa59d187e817543b6620c1",
+                "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1",
                 "shasum": ""
             },
             "require": {
@@ -1218,7 +1218,7 @@
             ],
             "description": "Zend_Cache backend using Redis with full support for tags.",
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
-            "time": "2023-10-25T17:06:02+00:00"
+            "time": "2023-12-21T21:56:18+00:00"
         },
         {
             "name": "colinmollenhour/credis",
@@ -1704,15 +1704,15 @@
         },
         {
             "name": "joomla/joomla-cms",
-            "version": "4.4.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-cms.git",
-                "reference": "tags/4.4.0"
+                "reference": "tags/5.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/joomla/joomla-cms/releases/download/4.4.0/Joomla_4.4.0-Stable-Full_Package.zip"
+                "url": "https://github.com/joomla/joomla-cms/releases/download/5.0.1/Joomla_5.0.1-Stable-Full_Package.zip"
             },
             "type": "library"
         },
@@ -2425,16 +2425,16 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "5.0.3",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "912dc2fbe3e3c1e7873313cc801b100b6c68c87b"
+                "reference": "fbf413a49e54f6b9b17e12d900ac7f6101591b7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/912dc2fbe3e3c1e7873313cc801b100b6c68c87b",
-                "reference": "912dc2fbe3e3c1e7873313cc801b100b6c68c87b",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/fbf413a49e54f6b9b17e12d900ac7f6101591b7f",
+                "reference": "fbf413a49e54f6b9b17e12d900ac7f6101591b7f",
                 "shasum": ""
             },
             "require": {
@@ -2447,7 +2447,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "5.0-dev"
+                    "dev-main": "5.1-dev"
                 }
             },
             "autoload": {
@@ -2480,7 +2480,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/diff/issues",
                 "security": "https://github.com/sebastianbergmann/diff/security/policy",
-                "source": "https://github.com/sebastianbergmann/diff/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/diff/tree/5.1.0"
             },
             "funding": [
                 {
@@ -2488,7 +2488,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-01T07:48:21+00:00"
+            "time": "2023-12-22T10:55:06+00:00"
         },
         {
             "name": "shardj/zf1-future",
