@@ -476,7 +476,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
                 return $user->get('username');
             }
 
-            // Just use the email-address
+        // Just use the email-address
         } else {
             return $customer['email'];
         }
