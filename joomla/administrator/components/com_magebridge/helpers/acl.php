@@ -32,7 +32,9 @@ class MageBridgeAclHelper
     {
         // Initialize system variables
         $application = Factory::getApplication();
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         if (empty($view)) {
             $view = $application->input->getCmd('view');
         }
@@ -94,7 +96,9 @@ class MageBridgeAclHelper
      */
     public static function isDemo()
     {
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         if ($user->authorise('com_magebridge.demo_ro', 'com_magebridge') == true && $user->authorise('com_magebridge.demo_rw', 'com_magebridge') == false) {
             return true;
         }

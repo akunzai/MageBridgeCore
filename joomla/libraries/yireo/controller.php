@@ -118,7 +118,9 @@ class YireoController extends YireoCommonController
 
         // Check for ACLs in backend
         if ($this->app->isClient('administrator')) {
-            $user = Factory::getUser();
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
 
             if ($user->authorise('core.manage', $this->input->getCmd('option')) == false) {
                 $this->app->redirect('index.php', Text::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));

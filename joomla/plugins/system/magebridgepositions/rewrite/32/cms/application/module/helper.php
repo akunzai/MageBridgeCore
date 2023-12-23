@@ -307,7 +307,9 @@ abstract class JModuleHelper
         /** @var \Joomla\CMS\Application\SiteApplication */
         $app = Factory::getApplication();
         $Itemid = $app->input->getInt('Itemid');
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         $groups = implode(',', $user->getAuthorisedViewLevels());
         $lang = Factory::getLanguage()->getTag();
         $clientId = (int) $app->getClientId();
@@ -419,7 +421,9 @@ abstract class JModuleHelper
             $cacheparams->cachegroup = $module->module;
         }
 
-        $user = Factory::getUser();
+        $user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         $cache = Factory::getCache($cacheparams->cachegroup, 'callback');
         $conf = Factory::getConfig();
         $app = Factory::getApplication();

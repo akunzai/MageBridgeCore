@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! component MageBridge
  *
@@ -38,7 +39,9 @@ class MageBridgeView extends YireoAbstractView
         // Import use full variables from Factory
         $this->db = Factory::getDbo();
         $this->doc = Factory::getDocument();
-        $this->user = Factory::getUser();
+        $this->user = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         $this->app = Factory::getApplication();
         $this->input = $this->app->input;
     }
@@ -107,7 +110,7 @@ class MageBridgeView extends YireoAbstractView
 
             // Empty blocks
             if (empty($block)) {
-                MageBridgeModelDebug::getInstance()->warning('JView: Empty block: '.$this->block_name);
+                MageBridgeModelDebug::getInstance()->warning('JView: Empty block: ' . $this->block_name);
                 $block = Text::_($this->getOfflineMessage());
             }
         }
@@ -156,9 +159,9 @@ class MageBridgeView extends YireoAbstractView
     {
         // Check for a template-override of this file
         $application = Factory::getApplication();
-        $file = JPATH_BASE.'/templates/'.$application->getTemplate().'/html/com_magebridge/fixes.php';
+        $file = JPATH_BASE . '/templates/' . $application->getTemplate() . '/html/com_magebridge/fixes.php';
         if (!file_exists($file)) {
-            $file = JPATH_SITE.'/components/com_magebridge/views/fixes.php';
+            $file = JPATH_SITE . '/components/com_magebridge/views/fixes.php';
         }
 
         // Include the file and allow $html to be altered

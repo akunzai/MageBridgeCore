@@ -47,7 +47,9 @@ class MagebridgeFormFieldWebsite extends MageBridgeFormFieldAbstract
         $access = (string) $this->element['access'];
 
         if (!empty($access)) {
-            $user = Factory::getUser();
+            $user = version_compare(JVERSION, '4.0.0', '<')
+                ? Factory::getUser()
+                : Factory::getApplication()->getIdentity();
 
             if ($user->authorise($access) == false) {
                 return '<input type="text" name="' . $fieldName . '" value="' . $value . '" disabled="disabled" />';

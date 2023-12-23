@@ -101,7 +101,9 @@ class YireoCommonView extends YireoAbstractView
         $this->db          = Factory::getDbo();
         $this->uri         = Uri::getInstance();
         $this->doc         = Factory::getDocument();
-        $this->user        = Factory::getUser();
+        $this->user        = version_compare(JVERSION, '4.0.0', '<')
+            ? Factory::getUser()
+            : Factory::getApplication()->getIdentity();
         $this->app         = Factory::getApplication();
         $this->input       = $this->app->input;
 
