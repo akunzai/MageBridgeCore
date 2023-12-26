@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60c4f4c5957e6288da23f18ce505c484",
+    "content-hash": "1e8f84a0c96d86d95c12177e2c03fdb0",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1718,16 +1718,16 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.2.0",
+            "version": "v20.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "c7d6d554841a6fad29e99b25f2989b2704cb457c"
+                "reference": "11eca9d518be7e8073556b64ba36cf2178b276fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/c7d6d554841a6fad29e99b25f2989b2704cb457c",
-                "reference": "c7d6d554841a6fad29e99b25f2989b2704cb457c",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/11eca9d518be7e8073556b64ba36cf2178b276fb",
+                "reference": "11eca9d518be7e8073556b64ba36cf2178b276fb",
                 "shasum": ""
             },
             "require": {
@@ -1831,9 +1831,15 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.2.0"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.3.0"
             },
-            "time": "2023-10-27T10:18:52+00:00"
+            "funding": [
+                {
+                    "url": "https://opencollective.com/openmage",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2023-12-26T11:19:35+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
