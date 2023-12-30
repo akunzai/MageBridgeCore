@@ -804,7 +804,7 @@ class MageBridgeTemplateHelper
                 if (MageBridgeModelConfig::load('use_google_api') == 1) {
                     $prefix = (Uri::getInstance()
                         ->isSSL()) ? 'https' : 'http';
-                    $document->addScript($prefix . '://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js');
+                    $document->addScript($prefix . '://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js');
                 } else {
                     YireoHelper::jquery();
                 }
@@ -939,7 +939,7 @@ class MageBridgeTemplateHelper
     {
         switch ($variable) {
             case 'jquery':
-                return 'jquery/jquery-1.8.1.min.js';
+                return 'jquery/jquery.js';
         }
 
         return '';
