@@ -254,7 +254,7 @@ class YireoHelperInstall
         if (self::hasPluginInstalled($plugin, $group)) {
             self::enablePlugin($plugin, $group, $label);
 
-        // Otherwise first, try to install the plugin
+            // Otherwise first, try to install the plugin
         } else {
             if (self::installExtension($url, $label)) {
                 self::enablePlugin($plugin, $group, $label);
