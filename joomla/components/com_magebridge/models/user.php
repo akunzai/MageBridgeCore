@@ -129,7 +129,7 @@ class MageBridgeModelUser
                 $data['password']  = $encryptedPassword;
                 $data['password2'] = $encryptedPassword;
 
-            // Use empty password in the Joomla! user-record
+                // Use empty password in the Joomla! user-record
             } else {
                 $data['password']  = '';
                 $data['password2'] = '';
@@ -335,7 +335,7 @@ class MageBridgeModelUser
 
             $application_name = 'admin';
 
-        // Frontend access
+            // Frontend access
         } else {
             // Check if authentication is enabled for the frontend
             if (MageBridgeModelConfig::load('enable_auth_frontend') != 1) {

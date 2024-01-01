@@ -74,7 +74,7 @@ class Yireo_MageBridge_Model_User
         if (!empty($username) && Mage::helper('magebridge/user')->isEmailAddress($username) == true) {
             $customer->loadByEmail(stripslashes($username));
 
-        // Try to load it by email
+            // Try to load it by email
         } elseif (!empty($email)) {
             $customer->loadByEmail(stripslashes($email));
         }
@@ -105,7 +105,7 @@ class Yireo_MageBridge_Model_User
         if (!empty($username)) {
             $user->loadByUsername(stripslashes($username));
 
-        // Try to load it by email
+            // Try to load it by email
         } elseif (!empty($email)) {
             $user->loadByEmail(stripslashes($email));
         }
