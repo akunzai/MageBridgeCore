@@ -28,10 +28,10 @@ if [ "${INSTALL_SAMPLE_DATA}" = "true" ]; then
     echo "Uncompressing Sample Data ..."
     docker compose exec --user www-data openmage tar zxf /tmp/sample_data.tgz -C /tmp/
 
-    echo "Copying Sample Data into the OpenMage directory..."
+    echo "Copying Sample Data into the OpenMage directory ..."
     docker compose exec --user www-data openmage sh -c "cp -r /tmp/${SAMPLE_DATA_DIR}/* /var/www/html/"
 
-    echo "Importing Sample Data into the database..."
+    echo "Importing Sample Data into the database ..."
     docker compose exec --user www-data openmage sh -c "mysql -h ${OPENMAGE_DB_HOST:-mysql} -u${OPENMAGE_DB_USER:-root} -p${OPENMAGE_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}} ${OPENMAGE_DB_NAME:-openmage} < /tmp/${SAMPLE_DATA_DIR}/${SAMPLE_DATA_SQL}"
 
     echo "Cleaning up ..."
