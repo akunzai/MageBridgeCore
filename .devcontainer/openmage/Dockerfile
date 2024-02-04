@@ -91,7 +91,7 @@ RUN set -eux; \
     chmod +x /usr/local/bin/n98-magerun;
 
 # set up OpenMage
-COPY ./docker-entrypoint.sh /
+COPY --chmod=755 ./docker-entrypoint.sh /
 COPY --from=unzipper --chown=www-data:www-data /usr/src/openmage /usr/src/openmage
 RUN set -eux; \
     chmod +x /docker-entrypoint.sh; \
