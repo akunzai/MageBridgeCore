@@ -25,6 +25,8 @@ jobs:
           coverage: none
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
+      - name: Set up Composer
+        run: composer config -g repositories.firegento composer https://packages.firegento.com
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
