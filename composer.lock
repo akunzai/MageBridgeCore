@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28b16fda3491bf04e33a15b4fc8e520b",
+    "content-hash": "b5e5fa204db88062fe78e424a0cf60ef",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1594,6 +1594,67 @@
             "time": "2022-12-20T22:53:13+00:00"
         },
         {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "bbc513d79acf6691fa9cf10f192c90dd2957f18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/bbc513d79acf6691fa9cf10f192c90dd2957f18c",
+                "reference": "bbc513d79acf6691fa9cf10f192c90dd2957f18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
+            },
+            "require-dev": {
+                "cerdic/css-tidy": "^1.7 || ^2.0",
+                "simpletest/simpletest": "dev-master"
+            },
+            "suggest": {
+                "cerdic/css-tidy": "If you want to use the filter 'Filter.ExtractStyleBlocks'.",
+                "ext-bcmath": "Used for unit conversion and imagecrash protection",
+                "ext-iconv": "Converts text to and from non-UTF-8 encodings",
+                "ext-tidy": "Used for pretty-printing HTML"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ],
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "exclude-from-classmap": [
+                    "/library/HTMLPurifier/Language/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "support": {
+                "issues": "https://github.com/ezyang/htmlpurifier/issues",
+                "source": "https://github.com/ezyang/htmlpurifier/tree/v4.17.0"
+            },
+            "time": "2023-11-17T15:01:25+00:00"
+        },
+        {
             "name": "friendsofphp/php-cs-fixer",
             "version": "v3.49.0",
             "source": {
@@ -1700,16 +1761,16 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.4.0",
+            "version": "v20.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "ae12e16f197fa1b3e75f193e488af76093667c39"
+                "reference": "5b84ee177a3b9902f13f4c82b1fb715f76d83b6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/ae12e16f197fa1b3e75f193e488af76093667c39",
-                "reference": "ae12e16f197fa1b3e75f193e488af76093667c39",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/5b84ee177a3b9902f13f4c82b1fb715f76d83b6d",
+                "reference": "5b84ee177a3b9902f13f4c82b1fb715f76d83b6d",
                 "shasum": ""
             },
             "require": {
@@ -1730,6 +1791,7 @@
                 "ext-simplexml": "*",
                 "ext-soap": "*",
                 "ext-zlib": "*",
+                "ezyang/htmlpurifier": "^4.17",
                 "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
                 "pelago/emogrifier": "^7.0",
                 "php": ">=7.4 <8.4",
@@ -1813,7 +1875,7 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.4.0"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.5.0"
             },
             "funding": [
                 {
@@ -1821,7 +1883,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-09T13:37:26+00:00"
+            "time": "2024-02-27T19:38:41+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -3248,5 +3310,5 @@
         "php": ">=8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
