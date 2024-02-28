@@ -57,10 +57,10 @@
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "v3.49.0",
+        "friendsofphp/php-cs-fixer": "^3.50",
         "joomla/joomla-cms": "5.0.2",
-        "openmage/magento-lts": "v20.4.0",
-        "phpstan/phpstan": "^1.10.57"
+        "openmage/magento-lts": "^20.5",
+        "phpstan/phpstan": "^1.10"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts"

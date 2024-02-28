@@ -1,7 +1,7 @@
 # https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=8.2
-ARG OPENMAGE_VERSION=20.4.0
+ARG OPENMAGE_VERSION=20.5.0
 
 FROM alpine as unzipper
 ARG OPENMAGE_VERSION
