@@ -1,9 +1,9 @@
 # MageBridgeCore
 
-[![Build Status][ci-badge]][ci]
+[![Build Status][build-badge]][build]
 
-[ci]: https://github.com/akunzai/MageBridgeCore/actions?query=workflow%3ACI
-[ci-badge]: https://github.com/akunzai/MageBridgeCore/workflows/CI/badge.svg
+[build]: https://github.com/akunzai/MageBridgeCore/actions?query=workflow%3ABuild
+[build-badge]: https://github.com/akunzai/MageBridgeCore/workflows/Build/badge.svg
 
 This is the repository for the MageBridge Open Core. It includes the main Joomla! component as well as vital plugins, plus the Magento extension. With it, a fully bridged site can be built.
 
