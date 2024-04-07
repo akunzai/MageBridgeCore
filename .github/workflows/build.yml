@@ -2,9 +2,15 @@ name: Build
 
 on:
   push:
-    branches: ['main']
+    branches: 
+      - main
+    paths-ignore:
+      - '.devcontainer/**'
   pull_request:
-    branches: ['main']
+    branches: 
+      - main
+    paths-ignore:
+      - '.devcontainer/**'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
