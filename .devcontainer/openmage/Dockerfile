@@ -3,14 +3,17 @@
 ARG PHP_VERSION=8.2
 ARG OPENMAGE_VERSION=20.6.0
 
-FROM alpine as unzipper
+# https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
+FROM composer as builder
 ARG OPENMAGE_VERSION
 RUN set -eux; \
-    apk add curl unzip; \
     mkdir -p /usr/src/openmage; \
-    curl -Lo /tmp/openmage.zip https://github.com/OpenMage/magento-lts/releases/download/v${OPENMAGE_VERSION}/openmage-v${OPENMAGE_VERSION}.zip; \
-    unzip /tmp/openmage.zip -d /usr/src/openmage; \
-    rm /tmp/openmage.zip;
+    curl -Lo /tmp/openmage.tgz https://github.com/OpenMage/magento-lts/archive/refs/tags/v${OPENMAGE_VERSION}.tar.gz; \
+    tar zxf /tmp/openmage.tgz -C /usr/src/openmage --strip-components=1; \
+    rm /tmp/openmage.tgz; \
+    cd /usr/src/openmage; \
+    composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev; \
+    composer dump-autoload --optimize;
 
 # https://hub.docker.com/_/php
 FROM php:${PHP_VERSION}-apache-bookworm
@@ -92,7 +95,7 @@ RUN set -eux; \
 
 # set up OpenMage
 COPY --chmod=755 ./docker-entrypoint.sh /
-COPY --from=unzipper --chown=www-data:www-data /usr/src/openmage /usr/src/openmage
+COPY --from=builder --chown=www-data:www-data /usr/src/openmage /usr/src/openmage
 RUN set -eux; \
     chmod +x /docker-entrypoint.sh; \
     chown -R www-data:www-data /usr/src/openmage; \
