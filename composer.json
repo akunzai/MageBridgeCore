@@ -57,7 +57,7 @@
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.50",
+        "friendsofphp/php-cs-fixer": "^3.52",
         "joomla/joomla-cms": "5.0.2",
         "openmage/magento-lts": "^20.6",
         "phpstan/phpstan": "^1.10"
