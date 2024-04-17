@@ -11,6 +11,11 @@ parameters:
 			path: joomla/administrator/components/com_magebridge/views/root/view.raw.php
 
 		-
+			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\File\\:\\:upload\\(\\)\\.$#"
+			count: 1
+			path: joomla/components/com_magebridge/helpers/proxy.php
+
+		-
 			message: "#^Function shAddSefURLToCache not found\\.$#"
 			count: 1
 			path: joomla/components/com_magebridge/helpers/url.php
@@ -19,6 +24,11 @@ parameters:
 			message: "#^Function shGetNonSefURLFromCache not found\\.$#"
 			count: 1
 			path: joomla/components/com_magebridge/helpers/url.php
+
+		-
+			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\Folder\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: joomla/components/com_magebridge/models/cache.php
 
 		-
 			message: "#^Instantiated class Joomla\\\\CMS\\\\Crypt\\\\Key not found\\.$#"
@@ -129,6 +139,11 @@ parameters:
 			message: "#^Call to an undefined method MageBridgeViewRoot\\:\\:setBlock\\(\\)\\.$#"
 			count: 1
 			path: joomla/components/com_magebridge/views/root/view.html.php
+
+		-
+			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\File\\:\\:write\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/helper/install.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:checkbox\\(\\)\\.$#"
