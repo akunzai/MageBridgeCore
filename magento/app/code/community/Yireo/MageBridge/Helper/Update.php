@@ -105,7 +105,6 @@ class Yireo_MageBridge_Helper_Update extends Mage_Core_Helper_Abstract
             'settings/debug_log' => 'debug/log',
             'settings/encryption' => 'joomla/encryption',
             'settings/encryption_key' => 'joomla/encryption_key',
-            'settings/license_key' => 'hidden/support_key',
         ];
 
         foreach ($paths as $originalPath => $newPath) {

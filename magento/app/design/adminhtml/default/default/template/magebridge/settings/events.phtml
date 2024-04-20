@@ -24,7 +24,7 @@
     <tbody>
         <?php foreach($this->getEvents() as $event) { ?>
         <tr>
-            <td><label for="license_key"><?php echo $event['name']; ?></label></td>
+            <td><label for="event_forwarding"><?php echo $event['name']; ?></label></td>
             <td>
                 <select name="event_forwarding[<?php echo $event['name']; ?>]" id="<?php echo $event['name']; ?>">
                     <?php if($event['value'] == 1) { ?>

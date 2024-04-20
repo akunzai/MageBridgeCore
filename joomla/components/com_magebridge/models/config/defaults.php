@@ -34,7 +34,6 @@ class MageBridgeModelConfigDefaults
     public function __construct()
     {
         $this->_defaults = [
-            'supportkey'                          => '',
             'host'                                => '',
             'protocol'                            => 'http',
             'method'                              => 'post',
