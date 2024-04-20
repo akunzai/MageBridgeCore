@@ -371,15 +371,6 @@ class MageBridge
             exit;
         }
 
-        // Match the supportkey
-        if ($this->getMeta('supportkey') != $bridge->getLicenseKey() && $this->getMeta('license') != $bridge->getLicenseKey()) {
-            yireo_benchmark('MageBridge supportkey failed');
-            $bridge->setMetaData('state', 'supportkey failed');
-            $bridge->setMetaData('extra', $bridge->getLicenseKey());
-            print $bridge->output(false);
-            exit;
-        }
-
         // Authorize this request using the API credentials (set in the meta-data)
         if ($this->authenticate() == false) {
             yireo_benchmark('MageBridge authentication failed');
@@ -501,7 +492,7 @@ class MageBridge
         foreach ($data as $index => $segment) {
             switch ($segment['type']) {
                 case 'version':
-                    $segment['data'] = Mage::getSingleton('magebridge/update')->getCurrentVersion();
+                    $segment['data'] = Mage::getSingleton('magebridge/core')->getCurrentVersion();
                     break;
 
                 case 'authenticate':
@@ -567,7 +558,9 @@ class MageBridge
             $profiler['data'] = Mage::getSingleton('magebridge/block')->getOutput($profiler['name'], $profiler['arguments']);
             $profiler['meta'] = Mage::getSingleton('magebridge/block')->getMeta($profiler['name']);
             //echo Mage::helper('magebridge/encryption')->base64_decode($profiler['data']);exit;
-            $data[$profilerId] = $profiler;
+            if (isset($profilerId)) {
+                $data[$profilerId] = $profiler;
+            }
         }
 
         return $data;

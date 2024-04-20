@@ -30,7 +30,6 @@ class MageBridgeInstallHelper
             "UPDATE `#__magebridge_config` SET `name`='api_key' WHERE `name`='api_password'",
             "UPDATE `#__magebridge_config` SET `name` = 'disable_css_mage' WHERE `name` = 'disable_css'",
             "UPDATE `#__magebridge_config` SET `name` = 'disable_default_css', `value` = '1' WHERE `name` = 'enable_default_css'",
-            "UPDATE `#__magebridge_config` SET `name` = 'supportkey' WHERE `name` = 'license'",
             "UPDATE `#__plugins` SET `ordering`='99' WHERE `element`='magebridge' AND `folder`='user'",
             "DELETE FROM `#__magebridge_config` WHERE `name`=''",
             "ALTER TABLE `#__magebridge_log` ADD `session` VARCHAR( 50 ) NOT NULL AFTER  `http_agent`",

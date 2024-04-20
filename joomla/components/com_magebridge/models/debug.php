@@ -76,21 +76,6 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add general information to the bridge
-     */
-    public static function addGeneral()
-    {
-        static $flag = 0;
-        if ($flag == 0) {
-            $flag = 1;
-            if (MageBridgeModelDebug::isDebug() == true) {
-                MageBridgeModelDebug::getInstance()
-                    ->notice("Support Key: " . MageBridgeModelConfig::load('supportkey'));
-            }
-        }
-    }
-
-    /**
      * Method to run before the build
      */
     public static function beforeBuild()
@@ -104,7 +89,6 @@ class MageBridgeModelDebug
 
             $debug->notice("API session: " . $bridge->getApiSession());
             $debug->notice("Magento session: " . $bridge->getMageSession());
-            $debug->addGeneral();
         }
     }
 

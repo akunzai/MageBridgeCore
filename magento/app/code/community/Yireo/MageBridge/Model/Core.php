@@ -50,6 +50,11 @@ class Yireo_MageBridge_Model_Core
      */
     protected $_force_preoutput = false;
 
+    /*
+     * Current MageBridge-version
+     */
+    private $_current_version = null;
+
     /**
      * Initialize the bridge-core
      *
@@ -1427,16 +1432,6 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the configured license key
-     *
-     * @return string
-     */
-    public function getLicenseKey()
-    {
-        return Mage::getStoreConfig('magebridge/hidden/support_key');
-    }
-
-    /**
      * Return the current session ID
      *
      * @return string
@@ -1493,5 +1488,21 @@ class Yireo_MageBridge_Model_Core
     {
         $this->_enable_events = false;
         return $this->_enable_events;
+    }
+
+    /*
+     * Method to get the current MageBridge-version
+     *
+     * @access public
+     * @param null
+     * @return string
+     */
+    public function getCurrentVersion()
+    {
+        if (empty($this->_current_version)) {
+            $config = Mage::app()->getConfig()->getModuleConfig('Yireo_MageBridge');
+            $this->_current_version = (string)$config->version;
+        }
+        return $this->_current_version;
     }
 }

@@ -96,7 +96,6 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
                 'http_host' => $uri->toString(['host']),
                 'user_agent' => ((isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : ''),
                 'remote_addr' => ((isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : ''),
-                'supportkey' => MageBridgeModelConfig::load('supportkey'),
                 'debug' => (int) MageBridgeModelDebug::isDebug(),
                 'debug_level' => MageBridgeModelConfig::load('debug_level'),
                 'debug_display_errors' => MageBridgeModelConfig::load('debug_display_errors'),
