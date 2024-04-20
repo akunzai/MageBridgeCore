@@ -2,10 +2,14 @@ name: 'Linting PHP'
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '**.php'
       - '**.phtml'
   pull_request:
+    branches:
+      - main
     paths:
       - '**.php'
       - '**.phtml'

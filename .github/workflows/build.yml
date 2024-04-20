@@ -2,12 +2,12 @@ name: Build
 
 on:
   push:
-    branches: 
+    branches:
       - main
     paths-ignore:
       - '.devcontainer/**'
   pull_request:
-    branches: 
+    branches:
       - main
     paths-ignore:
       - '.devcontainer/**'
