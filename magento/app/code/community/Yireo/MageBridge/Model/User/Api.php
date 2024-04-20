@@ -58,7 +58,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
     {
         try {
             // Initialize the session
-            Mage::getSingleton('core/session', ['name'=>'frontend']);
+            Mage::getSingleton('core/session', ['name' => 'frontend']);
             $session = Mage::getSingleton('customer/session');
 
             // Load the customer

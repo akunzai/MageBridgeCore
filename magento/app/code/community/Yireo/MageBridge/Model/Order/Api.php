@@ -81,7 +81,7 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
             $orderIds = array_keys($orders);
             $orderItems = Mage::getResourceModel('sales/order_item_collection')->addFieldToFilter('order_id', ['IN', $orderIds]);
 
-        // Initialize all without customer-filter
+            // Initialize all without customer-filter
         } else {
             $orderItems = Mage::getResourceModel('sales/order_item_collection');
             $orders = $this->fetchOrders();

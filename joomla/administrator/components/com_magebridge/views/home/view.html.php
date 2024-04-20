@@ -40,8 +40,8 @@ class MageBridgeViewHome extends YireoViewHome
         $this->icons = $icons;
 
         $urls = [];
-        $urls['twitter'] ='http://twitter.com/yireo';
-        $urls['facebook'] ='http://www.facebook.com/yireo';
+        $urls['twitter'] = 'http://twitter.com/yireo';
+        $urls['facebook'] = 'http://www.facebook.com/yireo';
         $this->urls = $urls;
 
         parent::display($tpl);

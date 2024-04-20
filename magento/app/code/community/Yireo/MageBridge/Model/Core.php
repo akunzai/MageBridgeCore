@@ -1044,7 +1044,7 @@ class Yireo_MageBridge_Model_Core
                 $url = Mage::getModel('catalog/product')->setStoreId($store->getId())->load($currentProductId)->getUrlPath();
                 $data['store_urls'][$code] = $url;
 
-            // Category URL
+                // Category URL
             } elseif ($currentCategoryId > 0) {
                 $url = Mage::getModel('catalog/category')->setStoreId($store->getId())->load($currentCategoryId)->getUrlPath();
                 $data['store_urls'][$code] = $url;
