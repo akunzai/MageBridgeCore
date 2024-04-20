@@ -1,9 +1,16 @@
-# https://mcr.microsoft.com/v2/vscode/devcontainers/php/tags/list
+# https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
+# https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=7.4
-# https://hub.docker.com/_/joomla
-ARG JOOMLA_VERSION=3.10.12
+ARG OPENMAGE_VERSION=19.5.3
 
-FROM joomla:${JOOMLA_VERSION}-apache AS joomla
+FROM alpine as unzipper
+ARG OPENMAGE_VERSION
+RUN set -eux; \
+	apk add curl unzip; \
+    mkdir -p /usr/src/openmage; \
+    curl -Lo /tmp/openmage.zip https://github.com/OpenMage/magento-lts/releases/download/v${OPENMAGE_VERSION}/openmage-v${OPENMAGE_VERSION}.zip; \
+    unzip /tmp/openmage.zip -d /usr/src/openmage; \
+    rm /tmp/openmage.zip;
 
 # https://hub.docker.com/_/php
 FROM php:${PHP_VERSION}-apache
@@ -11,9 +18,9 @@ FROM php:${PHP_VERSION}-apache
 ENV LANG=en_US.UTF-8
 
 # install MySQL client
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends default-mysql-client \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends default-mysql-client && \
+    apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # install pickle
 # https://github.com/FriendsOfPHP/pickle
@@ -23,10 +30,17 @@ RUN set -eux; \
 
 # install the PHP extensions we need
 RUN set -eux; \
+    # https://github.com/colinmollenhour/modman
+    curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
+    chmod +x /usr/local/bin/modman; \
+    # https://github.com/netz98/n98-magerun
+    curl -fSL -o /usr/local/bin/n98-magerun https://files.magerun.net/n98-magerun.phar && \
+    chmod +x /usr/local/bin/n98-magerun; \
+    # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
-    libfreetype6-dev libicu-dev libjpeg62-turbo-dev \
+    apt-get install -y --no-install-recommends default-mysql-client \
+    libfreetype6-dev libicu-dev libjpeg62-turbo-dev libonig-dev \
     libpng-dev libxml2-dev libxslt1-dev libzip-dev libwebp-dev \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
@@ -64,15 +78,25 @@ RUN set -eux; \
 # https://hub.docker.com/_/composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-# set up Joomla!
-# Disable remote database security requirements.
-ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
-COPY --from=joomla /entrypoint.sh /
-COPY --from=joomla /makedb.php /
-COPY --from=joomla --chown=www-data:www-data /usr/src/joomla /usr/src/joomla
+# install modman
+# https://github.com/colinmollenhour/modman
 RUN set -eux; \
-    chown -R www-data:www-data /usr/src/joomla; \
-    chmod -R g+w /usr/src/joomla;
+    curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
+    chmod +x /usr/local/bin/modman;
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["apache2-foreground"]
+# install n98-magerun
+# https://github.com/netz98/n98-magerun
+RUN set -eux; \
+    curl -fSL -o /usr/local/bin/n98-magerun https://files.magerun.net/n98-magerun.phar && \
+    chmod +x /usr/local/bin/n98-magerun;
+
+# set up OpenMage
+COPY --chmod=755 ./docker-entrypoint.sh /
+COPY --from=unzipper --chown=www-data:www-data /usr/src/openmage /usr/src/openmage
+RUN set -eux; \
+    chmod +x /docker-entrypoint.sh; \
+    chown -R www-data:www-data /usr/src/openmage; \
+    chmod -R g+w /usr/src/openmage;
+
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD [ "apache2-foreground" ]
