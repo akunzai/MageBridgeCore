@@ -2,9 +2,13 @@ name: Build Docker images
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '.devcontainer/**'
   pull_request:
+    branches:
+      - main
     paths:
       - '.devcontainer/**'
   workflow_dispatch:
