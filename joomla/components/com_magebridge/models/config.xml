@@ -193,6 +193,12 @@
             </field>
             <field name="curl_post_as_array" type="magebridge.boolean"/>
             <field name="curl_timeout" type="input"/>
+            <field name="curl_http_version" type="list" default="0">
+                <option value="0">COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_CURL_HTTP_VERSION_OPTION_NONE</option>
+                <option value="2">COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_CURL_HTTP_VERSION_OPTION_1_1</option>
+                <option value="3">COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_CURL_HTTP_VERSION_OPTION_2</option>
+                <option value="4">COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_CURL_HTTP_VERSION_OPTION_2TLS</option>
+            </field>
             <field name="direct_output" type="textarea"/>
             <field name="update_format" type="list">
                 <option value="tar.gz">COM_MAGEBRIDGE_MODEL_CONFIG_FIELD_UPDATE_FORMAT_OPTION_TAR</option>

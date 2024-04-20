@@ -432,14 +432,15 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
             CURLOPT_MAXREDIRS            => 0,
             CURLOPT_SSL_VERIFYPEER       => false,
             CURLOPT_SSL_VERIFYHOST       => false,
-            CURLOPT_CONNECTTIMEOUT       => MageBridgeModelConfig::load('curl_timeout'),
-            CURLOPT_TIMEOUT              => MageBridgeModelConfig::load('curl_timeout'),
-            CURLOPT_DNS_CACHE_TIMEOUT    => MageBridgeModelConfig::load('curl_timeout'),
+            CURLOPT_CONNECTTIMEOUT       => intval(MageBridgeModelConfig::load('curl_timeout')),
+            CURLOPT_TIMEOUT              => intval(MageBridgeModelConfig::load('curl_timeout')),
+            CURLOPT_DNS_CACHE_TIMEOUT    => intval(MageBridgeModelConfig::load('curl_timeout')),
             CURLOPT_DNS_USE_GLOBAL_CACHE => true,
             CURLOPT_COOKIESESSION        => true,
             CURLOPT_FRESH_CONNECT        => false,
             CURLOPT_FORBID_REUSE         => false,
             CURLOPT_BUFFERSIZE           => 8192,
+            CURLOPT_HTTP_VERSION         => intval(MageBridgeModelConfig::load('curl_http_version')),
         ];
     }
 
