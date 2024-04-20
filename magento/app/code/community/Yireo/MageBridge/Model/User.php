@@ -74,7 +74,7 @@ class Yireo_MageBridge_Model_User
         if (!empty($username) && Mage::helper('magebridge/user')->isEmailAddress($username) == true) {
             $customer->loadByEmail(stripslashes($username));
 
-        // Try to load it by email
+            // Try to load it by email
         } elseif (!empty($email)) {
             $customer->loadByEmail(stripslashes($email));
         }
@@ -105,7 +105,7 @@ class Yireo_MageBridge_Model_User
         if (!empty($username)) {
             $user->loadByUsername(stripslashes($username));
 
-        // Try to load it by email
+            // Try to load it by email
         } elseif (!empty($email)) {
             $user->loadByEmail(stripslashes($email));
         }
@@ -172,7 +172,7 @@ class Yireo_MageBridge_Model_User
         } else {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if (!empty($customer) && $customer->getEmail() == $username) {
-                Mage::getSingleton('core/session', ['name'=>'frontend']);
+                Mage::getSingleton('core/session', ['name' => 'frontend']);
                 Mage::getSingleton('customer/session')->logout();
                 setcookie('frontend', null);
                 session_destroy();
@@ -243,7 +243,7 @@ class Yireo_MageBridge_Model_User
     private function doSSOLoginCustomer($username)
     {
         // Initialize the session
-        Mage::getSingleton('core/session', ['name'=>'frontend']);
+        Mage::getSingleton('core/session', ['name' => 'frontend']);
         $session = Mage::getSingleton('customer/session');
 
         // Initialize the customer

@@ -239,7 +239,7 @@ class YireoController extends YireoCommonController
 
             $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_SAVED', $this->input->getCmd('view'));
 
-        // If this fails, set the error
+            // If this fails, set the error
         } else {
             $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_NOT_SAVED', $this->input->getCmd('view'));
             $error     = $model->getError();

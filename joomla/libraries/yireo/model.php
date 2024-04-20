@@ -432,7 +432,7 @@ class YireoModel extends YireoCommonModel
                     }
                 }
 
-            // Plural model
+                // Plural model
             } else {
                 if ($this->isSingular() == false) {
                     $query = $this->buildQuery();

@@ -76,11 +76,10 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
      * Method to index a single item
      *
      * @param FinderIndexerResult $item
-     * @param string $format
      *
-     * @return null
+     * @return boolean  True on success.
      */
-    protected function index(FinderIndexerResult $item, $format = 'html')
+    protected function index($item)
     {
         // Add the type taxonomy data.
         $item->addTaxonomy('Type', 'Product');
@@ -93,6 +92,8 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
 
         // Index the item.
         $this->indexer->index($item);
+
+        return true;
     }
 
     /**

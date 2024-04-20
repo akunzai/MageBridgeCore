@@ -555,16 +555,16 @@ class MageBridgeModelBridge
             $referer = JUri::getInstance()
                 ->toString();
 
-        // If the referer is set on the URL, use it also
+            // If the referer is set on the URL, use it also
         } elseif (preg_match('/\/(uenc|referer)\/([a-zA-Z0-9\,\_\-]+)/', JUri::current(), $match)) {
             $referer = MageBridgeEncryptionHelper::base64_decode($match[2]);
 
-        // If this is the MageBridge page checkout/cart/updatePost, return to the checkout
+            // If this is the MageBridge page checkout/cart/updatePost, return to the checkout
         } else {
             if (preg_match('/\/checkout\/cart\/([a-zA-Z0-9]+)Post/', JUri::current()) == true) {
                 $referer = MageBridgeUrlHelper::route('checkout/cart');
 
-            // If this is a MageBridge page, use it only if its not a customer-page, or homepage
+                // If this is a MageBridge page, use it only if its not a customer-page, or homepage
             } else {
                 if (preg_match('/\/customer\/account\//', JUri::current()) == false && preg_match('/\/persistent\/index/', JUri::current()) == false && preg_match('/\/review\/product\/post/', JUri::current()) == false && preg_match('/\/remove\/item/', JUri::current()) == false && preg_match('/\/newsletter\/subscriber/', JUri::current()) == false && preg_match('/\/checkout\/cart/', JUri::current()) == false && $this->isAjax() == false && JUri::current() != $this->getJoomlaBridgeUrl()) {
                     $referer = JUri::getInstance()

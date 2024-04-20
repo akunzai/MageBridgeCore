@@ -47,7 +47,7 @@ class Yireo_MageBridge_Model_Search extends Mage_Core_Model_Abstract
                 $query->setQueryText($text);
                 $query->setPopularity(1);
             } else {
-                $query->setPopularity($query->getPopularity()+1);
+                $query->setPopularity($query->getPopularity() + 1);
             }
 
             // Save the search-record to the database
@@ -77,7 +77,7 @@ class Yireo_MageBridge_Model_Search extends Mage_Core_Model_Abstract
                     ->addTaxPercents()
                 ;
 
-            // Instead of using the original classes, grab the collection using SQL-statements
+                // Instead of using the original classes, grab the collection using SQL-statements
             } else {
                 $catalogsearchTable = Mage::getSingleton('core/resource')->getTableName('catalogsearch/fulltext');
                 ;

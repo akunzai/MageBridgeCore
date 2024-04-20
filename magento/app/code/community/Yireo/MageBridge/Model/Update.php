@@ -196,7 +196,7 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
                     return $msg;
                 }
 
-            // Try to extract ZIP-archive using PharData
+                // Try to extract ZIP-archive using PharData
             } elseif (class_exists('PharData')) {
                 $zip = new PharData($tmpfile);
                 $rt = $zip->extractTo($rootDir);
@@ -209,19 +209,19 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
 
                 @unlink($tmpfile);
 
-            // Try to extra ZIP-archive using exec-function (assuming unzip is installed)
+                // Try to extra ZIP-archive using exec-function (assuming unzip is installed)
             } elseif (function_exists('exec')) {
                 @exec('unzip -o '.$tmpfile.' -d '.$rootDir);
                 @unlink($tmpfile);
 
-            // Failed to extract ZIP-archive
+                // Failed to extract ZIP-archive
             } else {
                 $msg = 'ERROR: Failed to extract the ZIP-archive';
                 Mage::getSingleton('adminhtml/session')->addError($msg);
                 return $msg;
             }
 
-        // TGZ-format
+            // TGZ-format
         } elseif ($format == 'tgz') {
             // Try to extract TAR-archive using TGZ-class
             if (class_exists('PharData')) {
@@ -239,12 +239,12 @@ class Yireo_MageBridge_Model_Update extends Mage_Core_Model_Abstract
 
                 @unlink($tmpfile);
 
-            // Try to extra TGZ-archive using exec-function (assuming tar is installed)
+                // Try to extra TGZ-archive using exec-function (assuming tar is installed)
             } elseif (function_exists('exec')) {
                 @exec('tar -xzf '.$tmpfile.' -C '.$rootDir);
                 @unlink($tmpfile);
 
-            // Failed to extract TGZ-archive
+                // Failed to extract TGZ-archive
             } else {
                 $msg = 'ERROR: Failed to extract the TGZ-archive';
                 Mage::getSingleton('adminhtml/session')->addError($msg);

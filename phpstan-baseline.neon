@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Access to an undefined property MagebridgeFormFieldBoolean\\:\\:\\$class\\.$#"
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/boolean.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:getInput\\(\\)\\.$#"
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/boolean.php
+
+		-
 			message: "#^Access to an undefined property MagebridgeModelCheck\\:\\:\\$_checks\\.$#"
 			count: 2
 			path: joomla/administrator/components/com_magebridge/models/check.php
@@ -276,6 +286,11 @@ parameters:
 			path: joomla/components/com_magebridge/models/proxy.php
 
 		-
+			message: "#^Instantiated class JCryptCipherSimple not found\\.$#"
+			count: 1
+			path: joomla/components/com_magebridge/models/proxy.php
+
+		-
 			message: "#^Call to static method sefGetLocation\\(\\) on an unknown class sef_404\\.$#"
 			count: 1
 			path: joomla/components/com_magebridge/sef_ext/com_magebridge.php
@@ -396,6 +411,166 @@ parameters:
 			path: joomla/components/com_magebridge/views/root/view.html.php
 
 		-
+			message: "#^Access to an undefined property YireoFormFieldBoolean\\:\\:\\$class\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldBoolean\\:\\:\\$description\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldBoolean\\:\\:\\$element\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldBoolean\\:\\:\\$fieldname\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldBoolean\\:\\:\\$global\\.$#"
+			count: 3
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:getInput\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:getOptions\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:setup\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/boolean.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$autofocus\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$disabled\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$id\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$multiple\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$name\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$onchange\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$required\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldFile\\:\\:\\$value\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$class\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$element\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$fieldName\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$fieldname\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$name\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$required\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldPublished\\:\\:\\$value\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:getInput\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldRadio\\:\\:setup\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/published.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldText\\:\\:\\$class\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldText\\:\\:\\$description\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldText\\:\\:\\$element\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldText\\:\\:\\$fieldname\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Access to an undefined property YireoFormFieldText\\:\\:\\$form\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldText\\:\\:getInput\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
+			message: "#^Call to an undefined static method JFormFieldText\\:\\:setup\\(\\)\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/form/fields/text.php
+
+		-
 			message: "#^Access to an undefined property YireoModel\\:\\:\\$_table\\.$#"
 			count: 1
 			path: joomla/libraries/yireo/model.php
@@ -406,9 +581,24 @@ parameters:
 			path: joomla/libraries/yireo/model.php
 
 		-
+			message: "#^Class JDatabaseExceptionExecuting does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/model.php
+
+		-
+			message: "#^Class JDatabaseExceptionUnsupported does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/model.php
+
+		-
 			message: "#^Access to an undefined property YireoCommonModel\\:\\:\\$params\\.$#"
 			count: 2
 			path: joomla/libraries/yireo/model/common.php
+
+		-
+			message: "#^Class JDatabaseExceptionUnsupported does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/model/data.php
 
 		-
 			message: "#^Access to an undefined property YireoModelDataQuery\\:\\:\\$data\\.$#"
@@ -421,6 +611,11 @@ parameters:
 			path: joomla/libraries/yireo/model/data/querytext.php
 
 		-
+			message: "#^Class JDatabaseExceptionExecuting does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 2
+			path: joomla/libraries/yireo/model/item.php
+
+		-
 			message: "#^Access to an undefined property YireoModelItems\\:\\:\\$_orderby\\.$#"
 			count: 1
 			path: joomla/libraries/yireo/model/items.php
@@ -428,6 +623,11 @@ parameters:
 		-
 			message: "#^Access to an undefined property YireoModelItems\\:\\:\\$where\\.$#"
 			count: 1
+			path: joomla/libraries/yireo/model/items.php
+
+		-
+			message: "#^Class JDatabaseExceptionExecuting does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 2
 			path: joomla/libraries/yireo/model/items.php
 
 		-
@@ -452,6 +652,11 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property YireoView\\:\\:\\$total\\.$#"
+			count: 1
+			path: joomla/libraries/yireo/view.php
+
+		-
+			message: "#^Call to an undefined static method JHtmlAccess\\:\\:level\\(\\)\\.$#"
 			count: 1
 			path: joomla/libraries/yireo/view.php
 
@@ -504,6 +709,31 @@ parameters:
 			message: "#^Call to an undefined method object\\:\\:published\\(\\)\\.$#"
 			count: 1
 			path: joomla/libraries/yireo/view/list/default.php
+
+		-
+			message: "#^Access to an undefined property PlgFinderMageBridge\\:\\:\\$indexer\\.$#"
+			count: 1
+			path: joomla/plugins/finder/magebridge/magebridge.php
+
+		-
+			message: "#^Access to undefined constant FinderIndexer\\:\\:TEXT_CONTEXT\\.$#"
+			count: 1
+			path: joomla/plugins/finder/magebridge/magebridge.php
+
+		-
+			message: "#^Call to an undefined method PlgFinderMageBridge\\:\\:getTypeId\\(\\)\\.$#"
+			count: 1
+			path: joomla/plugins/finder/magebridge/magebridge.php
+
+		-
+			message: "#^Call to an undefined method PlgFinderMageBridge\\:\\:loadLanguage\\(\\)\\.$#"
+			count: 1
+			path: joomla/plugins/finder/magebridge/magebridge.php
+
+		-
+			message: "#^Call to an undefined static method FinderIndexerAdapter\\:\\:__construct\\(\\)\\.$#"
+			count: 1
+			path: joomla/plugins/finder/magebridge/magebridge.php
 
 		-
 			message: "#^Call to static method getInstance\\(\\) on an unknown class FalangManager\\.$#"

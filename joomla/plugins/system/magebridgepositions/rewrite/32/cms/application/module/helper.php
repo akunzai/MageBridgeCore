@@ -35,7 +35,7 @@ abstract class JModuleHelper
     public static function &getModule($name, $title = null)
     {
         $result = null;
-        $modules =& static::load();
+        $modules = & static::load();
         $total = count($modules);
 
         for ($i = 0; $i < $total; $i++) {
@@ -89,7 +89,7 @@ abstract class JModuleHelper
             return $result;
         }
 
-        $modules =& static::load();
+        $modules = & static::load();
 
         $total = count($modules);
         for ($i = 0; $i < $total; $i++) {

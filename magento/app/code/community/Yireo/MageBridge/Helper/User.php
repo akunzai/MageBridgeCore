@@ -33,7 +33,7 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
             $map->load($select);
             return $map->getData();
 
-        // Load by different field
+            // Load by different field
         } elseif (is_array($select)) {
             $collection = Mage::getModel('magebridge/customer_joomla')->getCollection();
             if (!is_object($collection)) {

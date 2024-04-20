@@ -63,7 +63,7 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
                     $customer->setConfirmation(null);
                     $customer->save();
 
-                // Remember that Magento authentication failed, so reset the password
+                    // Remember that Magento authentication failed, so reset the password
                 } else {
                     $customer->changePassword($password);
                     $customer->setConfirmation(null);

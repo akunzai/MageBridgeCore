@@ -68,7 +68,7 @@ $disabled_img = JHtml::image(JUri::base().'/images/check.png', JText::_('Enabled
 	<?php
     $k = 0;
 if (count($this->items) > 0) {
-    for ($i=0, $n=count($this->items); $i < $n; $i++) {
+    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
         $item = $this->items[$i];
         $migration_enabled = true;
         $item->checked_out = 0;

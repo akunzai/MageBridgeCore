@@ -119,7 +119,7 @@ class Zend_Json_Encoder
         if ($this->_cycleCheck) {
             if ($this->_wasVisited($value)) {
                 if (isset($this->_options['silenceCyclicalExceptions'])
-                    && $this->_options['silenceCyclicalExceptions']===true) {
+                    && $this->_options['silenceCyclicalExceptions'] === true) {
                     return '"* RECURSION (' . get_class($value) . ') *"';
                 } else {
                     require_once 'Zend/Json/Exception.php';

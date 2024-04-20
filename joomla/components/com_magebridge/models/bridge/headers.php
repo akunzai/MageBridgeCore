@@ -655,14 +655,14 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
 
             return true;
 
-        // Load Protoaculous
+            // Load Protoaculous
         } else {
             if (MageBridgeModelConfig::load('use_protoaculous') == 1) {
                 $this->addScript('media/com_magebridge/js/protoaculous.1.9.0-1.7.3.0.min.js');
 
                 return true;
 
-            // Load Protoculous
+                // Load Protoculous
             } else {
                 if (MageBridgeModelConfig::load('use_protoculous') == 1) {
                     $this->addScript('media/com_magebridge/js/protoculous-1.0.2-packed.js');
