@@ -2,9 +2,13 @@ name: 'Linting XML'
 
 on:
   push:
+    branches:
+      - 1.9.x
     paths:
       - '**.xml'
   pull_request:
+    branches:
+      - 1.9.x
     paths:
       - '**.xml'
   # Allow manually triggering the workflow.
