@@ -137,6 +137,7 @@ class MageBridgeModelConfigDefaults
             'spoof_headers'                       => 0,
             'curl_post_as_array'                  => 1,
             'curl_timeout'                        => 120,
+            'curl_http_version'                   => CURL_HTTP_VERSION_2TLS,
             'enable_notfound'                     => 0,
             'payment_urls'                        => '',
             'direct_output'                       => '',
