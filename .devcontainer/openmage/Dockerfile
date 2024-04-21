@@ -1,6 +1,6 @@
 # https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.3
 ARG OPENMAGE_VERSION=20.6.0
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
