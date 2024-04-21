@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37c8c90f3268df47e032953fa1e3f815",
+    "content-hash": "83d94974ba84c8788e4d2995d598dd1a",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -191,7 +191,7 @@
             "version": "4.0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Cotya/magento-composer-installer.git",
+                "url": "https://github.com/Cotya/magento-composer-installer.git",
                 "reference": "ece5cc5bb2a0150a743619901543036597f9eb5b"
             },
             "dist": {
@@ -232,17 +232,7 @@
                     "MagentoHackathon\\Composer": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-0": {
-                    "MagentoHackathon\\Composer\\Magento": "tests/"
-                }
-            },
-            "archive": {
-                "exclude": [
-                    "vendor",
-                    "/tests/FullStackTest/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -278,6 +268,20 @@
                 "composer-installer",
                 "magento",
                 "openmage"
+            ],
+            "support": {
+                "issues": "https://github.com/Cotya/magento-composer-installer/issues",
+                "source": "https://github.com/Cotya/magento-composer-installer/tree/4.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/Flyingmana",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/Flyingmana",
+                    "type": "patreon"
+                }
             ],
             "time": "2022-04-20T19:23:22+00:00"
         },
@@ -1159,7 +1163,7 @@
             "version": "1.17.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:colinmollenhour/Cm_Cache_Backend_Redis.git",
+                "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
                 "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1"
             },
             "dist": {
@@ -1182,14 +1186,7 @@
                     "Cm/Cache/Backend/Redis.php"
                 ]
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit tests"
-                ],
-                "php-cs-fixer": [
-                    "vendor/bin/php-cs-fixer fix --diff"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause-Modification"
             ],
@@ -1200,6 +1197,10 @@
             ],
             "description": "Zend_Cache backend using Redis with full support for tags.",
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.17.1"
+            },
             "time": "2023-12-21T21:56:18+00:00"
         },
         {
@@ -1254,7 +1255,7 @@
             "version": "3.2.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:colinmollenhour/Cm_RedisSession.git",
+                "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
                 "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa"
             },
             "dist": {
@@ -1271,6 +1272,7 @@
                 "magento-hackathon/magento-composer-installer": "Makes it possible to manage this package as a dependency"
             },
             "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1281,6 +1283,10 @@
             ],
             "description": "A Redis-based session handler for Magento with optimistic locking.",
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.0"
+            },
             "time": "2023-10-03T14:21:02+00:00"
         },
         {
@@ -1656,16 +1662,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.53.0",
+            "version": "v3.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "69a19093a9ded8d1baac62ed6c009b8bc148d008"
+                "reference": "2aecbc8640d7906c38777b3dcab6f4ca79004d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/69a19093a9ded8d1baac62ed6c009b8bc148d008",
-                "reference": "69a19093a9ded8d1baac62ed6c009b8bc148d008",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/2aecbc8640d7906c38777b3dcab6f4ca79004d08",
+                "reference": "2aecbc8640d7906c38777b3dcab6f4ca79004d08",
                 "shasum": ""
             },
             "require": {
@@ -1737,7 +1743,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.53.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.54.0"
             },
             "funding": [
                 {
@@ -1745,7 +1751,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-08T15:03:00+00:00"
+            "time": "2024-04-17T08:12:13+00:00"
         },
         {
             "name": "joomla/joomla-cms",
