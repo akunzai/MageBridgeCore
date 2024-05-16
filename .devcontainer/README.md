@@ -38,3 +38,11 @@ docker compose up -d
 
 - [OpenMage](./openmage/)
 - [Joomla!](./joomla/)
+
+## Troubleshooting
+
+### [Unable connect 127.0.0.2 on macOS](https://superuser.com/a/1618532)
+
+```sh
+sudo ifconfig lo0 alias 127.0.0.2
+```
