@@ -34,4 +34,4 @@ docker compose exec --user www-data joomla php installation/joomla.php install \
   --no-interaction
 
 echo "Fixing permissions ..."
-docker compose exec joomla chown -R www-data:www-data /var/www/html
+docker compose exec joomla chown -R www-data:www-data /var/www/html > /dev/null 2>&1

@@ -82,4 +82,4 @@ echo "Refreshing cache ..."
 docker compose exec --user www-data openmage n98-magerun cache:flush
 
 echo "Fixing permissions ..."
-docker compose exec openmage chown -R www-data:www-data /var/www/html
+docker compose exec openmage chown -R www-data:www-data /var/www/html > /dev/null 2>&1
