@@ -29,8 +29,8 @@ Upload Package File: `pkg_magebridge.zip`
 
 ### Bridge
 
-- Protocol: `HTTPS`
-- Enforce SSL: `Entire site`
+- Protocol: `HTTP`
+- Enforce SSL: `None`
 
 ### Users
 

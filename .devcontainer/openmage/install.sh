@@ -59,8 +59,8 @@ docker compose exec --user www-data openmage php install.php \
   --skip_url_validation \
   --license_agreement_accepted yes \
   --use_rewrites yes \
-  --use_secure yes \
-  --use_secure_admin yes \
+  --use_secure no \
+  --use_secure_admin no \
   --encryption_key "${ENCRYPTION_KEY:-}"
 
 echo "Installing MageBridge module ..."
