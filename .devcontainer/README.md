@@ -4,19 +4,15 @@
 
 - [Docker Engine](https://docs.docker.com/install/)
 - [Docker Compose V2](https://docs.docker.com/compose/cli-command/)
-- [mkcert](https://github.com/FiloSottile/mkcert)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - Bash
 
 ## Getting Start
 
 ```sh
-# set up TLS certs in Host
-mkdir -p .secrets
-mkcert -cert-file .secrets/cert.pem -key-file .secrets/key.pem '*.dev.local'
-
 # set up hosts in Host
-echo "127.0.0.1 store.dev.local www.dev.local" | sudo tee -a /etc/hosts
+echo "127.0.0.1 www.dev.local" | sudo tee -a /etc/hosts
+echo "127.0.0.2 store.dev.local" | sudo tee -a /etc/hosts
 
 # starting container or open folder in container
 docker compose up -d
@@ -30,8 +26,8 @@ docker compose up -d
 
 ## Admin URLs
 
-- [OpenMage](https://store.dev.local/admin/)
-- [Joomla!](https://www.dev.local/administrator/)
+- [OpenMage](http://store.dev.local/admin/)
+- [Joomla!](http://www.dev.local/administrator/)
 
 ## Credentials
 
@@ -42,3 +38,11 @@ docker compose up -d
 
 - [OpenMage](./openmage/)
 - [Joomla!](./joomla/)
+
+## Troubleshooting
+
+### [Unable connect 127.0.0.2 on macOS](https://superuser.com/a/1618532)
+
+```sh
+sudo ifconfig lo0 alias 127.0.0.2
+```
