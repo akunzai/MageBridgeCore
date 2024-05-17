@@ -11,8 +11,7 @@
 
 ```sh
 # set up hosts in Host
-echo "127.0.0.1 www.dev.local" | sudo tee -a /etc/hosts
-echo "127.0.0.2 store.dev.local" | sudo tee -a /etc/hosts
+echo "127.0.0.1 www.dev.local store.dev.local" | sudo tee -a /etc/hosts
 
 # starting container or open folder in container
 docker compose up -d
@@ -26,7 +25,7 @@ docker compose up -d
 
 ## Admin URLs
 
-- [OpenMage](http://store.dev.local/admin/)
+- [OpenMage](http://store.dev.local:8080/admin/)
 - [Joomla!](http://www.dev.local/administrator/)
 
 ## Credentials
@@ -38,11 +37,3 @@ docker compose up -d
 
 - [OpenMage](./openmage/)
 - [Joomla!](./joomla/)
-
-## Troubleshooting
-
-### [Unable connect 127.0.0.2 on macOS](https://superuser.com/a/1618532)
-
-```sh
-sudo ifconfig lo0 alias 127.0.0.2
-```

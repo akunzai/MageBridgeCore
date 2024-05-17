@@ -75,7 +75,10 @@ RUN set -eux; \
     echo 'ServerSignature Off' >> /etc/apache2/apache2.conf; \
     echo 'ServerTokens Prod' >> /etc/apache2/apache2.conf; \
     # enable support for TLS termination
-    echo 'SetEnvIf X-Forwarded-Proto https HTTPS=on' >> /etc/apache2/apache2.conf;
+    echo 'SetEnvIf X-Forwarded-Proto https HTTPS=on' >> /etc/apache2/apache2.conf; \
+    # change listening port to 8080
+    sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf; \
+    sed -i 's/*:80/*:8080/' /etc/apache2/sites-available/000-default.conf;
 
 # install composer
 # https://hub.docker.com/_/composer
@@ -101,5 +104,6 @@ RUN set -eux; \
     chown -R www-data:www-data /usr/src/openmage; \
     chmod -R g+w /usr/src/openmage;
 
+EXPOSE 8080
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD [ "apache2-foreground" ]

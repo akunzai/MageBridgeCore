@@ -41,6 +41,11 @@ if [ "${INSTALL_SAMPLE_DATA}" = "true" ]; then
 fi
 
 echo "Installing OpenMage ..."
+
+HOST_PORT=":${HOST_PORT:-8080}"
+test "$HOST_PORT" = ":80" && HOST_PORT=""
+BASE_URL="${BASE_URL:-http://${HOST_NAME:-store.dev.local}${HOST_PORT}/}"
+
 docker compose exec --user www-data openmage php install.php \
   --admin_firstname OpenMage  \
   --admin_lastname Admin \
@@ -54,8 +59,8 @@ docker compose exec --user www-data openmage php install.php \
   --locale "${LOCALE:-en_US}" \
   --timezone "${TIMEZONE:-America/New_York}" \
   --default_currency "${CURRENCY:-USD}" \
-  --url "$(echo ${BASE_URL:-"https://store.dev.local"} | sed -e 's/^https:/http:/')" \
-  --secure_base_url "$(echo ${BASE_URL:-"https://store.dev.local"} | sed -e 's/^http:/https:/')" \
+  --url ${BASE_URL} \
+  --secure_base_url "${BASE_URL}" \
   --skip_url_validation \
   --license_agreement_accepted yes \
   --use_rewrites yes \
