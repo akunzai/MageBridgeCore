@@ -451,11 +451,7 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function controllerActionPredispatch($observer)
     {
-        // Run the feed
-        Mage::getModel('magebridge/feed')->updateIfAllowed();
-
         // Get the variables
-        $controller = $observer->getEvent()->getControllerAction();
         $currentUrl = Mage::helper('core/url')->getCurrentUrl();
 
         // Remote SSO login within native Magento frontend
