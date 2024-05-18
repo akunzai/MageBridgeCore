@@ -35,6 +35,7 @@ class MageBridgeModelConfigDefaults
     {
         $this->_defaults = [
             'host'                                => '',
+            'port'                                => '',
             'protocol'                            => 'http',
             'method'                              => 'post',
             'encryption'                          => '0',

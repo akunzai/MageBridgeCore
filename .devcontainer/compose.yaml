@@ -68,7 +68,7 @@ services:
       XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
       XDEBUG_MODE: debug
     ports:
-      - 127.0.0.2:80:80
+      - 127.0.0.1:8080:8080
     networks:
       default:
         aliases:

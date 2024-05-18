@@ -24,6 +24,7 @@ Upload Package File: `pkg_magebridge.zip`
 ### API
 
 - Hostname: `store.dev.local`
+- Port: `8080`
 - API User: `magebridge_api`
 - API Key: `ChangeTheAp1K3y`
 

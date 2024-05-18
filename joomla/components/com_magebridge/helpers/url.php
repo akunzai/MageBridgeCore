@@ -488,9 +488,10 @@ class MageBridgeUrlHelper
         // Extra workaround if Magento hostname is same as current hostname
         $hostname = Uri::getInstance()
             ->toString(['host']);
+        $mageHostname = MageBridgeModelConfig::load('host');
 
-        if ($hostname == MageBridgeModelConfig::load('host')) {
-            $url = str_replace(MageBridgeModelConfig::load('protocol') . '://' . MageBridgeModelConfig::load('host'), '', $url); // Strip the Magento host
+        if ($hostname == $mageHostname) {
+            $url = str_replace(MageBridgeModelConfig::load('protocol') . '://' . $mageHostname, '', $url); // Strip the Magento host
         }
 
         return $url;
