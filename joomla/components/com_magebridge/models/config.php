@@ -179,26 +179,34 @@ class MageBridgeModelConfig extends YireoAbstractModel
             $this->config['disable_js_all'] = (new MagebridgeModelConfigValue(['value' => 1]))->toArray();
             $this->config['disable_js_mootools'] = (new MagebridgeModelConfigValue(['value' => 1]))->toArray();
         }
-
-        // Return the URL
-        if (!isset($this->config['url'])) {
-            $url = '';
-
-            if (!empty($this->config['host']['value'])) {
-                $url = $this->config['protocol']['value'] . '://' . $this->config['host']['value'] . '/';
-
-                if (!empty($this->config['basedir']['value'])) {
-                    $url .= $this->config['basedir']['value'] . '/';
-                }
-            }
-
-            $this->config['url'] = (new MagebridgeModelConfigValue(['value' => $url]))->toArray();
+        $protocol = $this->config['protocol']['value']; // http or https
+        $port = $protocol == 'http' ? 80 : 443;
+        if (isset($this->config['port']) && !empty($this->config['port']['value'])) {
+            $port = abs(intval($this->config['port']['value']));
         }
 
         // Return the port-number
         if (!isset($this->config['port'])) {
-            $value = ($this->config['protocol']['value'] == 'http') ? 80 : 443;
-            $this->config['port'] = (new MagebridgeModelConfigValue(['value' => $value]))->toArray();
+            $this->config['port'] = (new MagebridgeModelConfigValue(['value' => $port]))->toArray();
+        }
+
+        // Return the URL
+        if (!isset($this->config['url'])) {
+            $url = '';
+            $host = $this->config['host']['value'];
+            if (!empty($host)) {
+                $url = $protocol . '://' . $host;
+                if ($protocol == 'http' && $port != 80 || $protocol == 'https' && $port != 443) {
+                    $url .= ':' . $port;
+                }
+                $url = $url . '/';
+                $basedir = $this->config['basedir']['value'];
+                if (!empty($basedir)) {
+                    $url .= $basedir . '/';
+                }
+            }
+
+            $this->config['url'] = (new MagebridgeModelConfigValue(['value' => $url]))->toArray();
         }
 
         return $this->config;
@@ -470,7 +478,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
         }
 
         // Detect changes in API-settings and if so, dump and clean the cache
-        $detect_values  = ['host', 'basedir', 'api_user', 'api_password'];
+        $detect_values  = ['host', 'port', 'basedir', 'api_user', 'api_password'];
         $changeDetected = false;
 
         foreach ($detect_values as $d) {

@@ -177,7 +177,7 @@ class MageBridgeModelBridge
     {
         $url = MageBridgeModelConfig::load('url');
         if (!empty($url)) {
-            return preg_replace('/\/\/$/', '/', MageBridgeModelConfig::load('url'));
+            return preg_replace('/\/\/$/', '/', $url);
         } else {
             return null;
         }

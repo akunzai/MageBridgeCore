@@ -155,6 +155,7 @@ class MageBridgeViewCheck extends YireoCommonView
         // Fetch configuration data
         $url  = MageBridgeModelConfig::load('url') . 'magebridge.php';
         $host = MageBridgeModelConfig::load('host');
+        $port = MageBridgeModelConfig::load('port');
 
         // Do basic resolving on the host if it is not an IP-address
         if (preg_match('/^([0-9\.]+)$/', $host) == false) {
@@ -164,9 +165,9 @@ class MageBridgeViewCheck extends YireoCommonView
             }
         }
 
-        // Try to open a socket to port 80
-        if (fsockopen($host, 80, $errno, $errmsg, 5) == false) {
-            die('ERROR: Failed to open a connection to host "' . $host . '" on port 80. Perhaps a firewall is in the way?');
+        // Try to open a socket to port
+        if (fsockopen($host, $port, $errno, $errmsg, 5) == false) {
+            die('ERROR: Failed to open a connection to host "' . $host . '" on port "' . $port . '". Perhaps a firewall is in the way?');
         }
 
         // Fetch content through the proxy
