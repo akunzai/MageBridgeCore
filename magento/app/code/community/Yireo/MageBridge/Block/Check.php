@@ -269,24 +269,18 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
         $result = ($this->hasOpcaching()) ? self::CHECK_OK : self::CHECK_WARNING;
         $this->addResult('system', 'OPC-caching', $result, 'An OPC-caching PHP-extension (like Zend OPC, APC or XCache) is highly recommended');
 
-        $remote_domain = 'api.yireo.com';
-        $result = (gethostbyname($remote_domain) == $remote_domain) ? self::CHECK_ERROR : self::CHECK_OK;
+        $api_url = Mage::getStoreConfig('magebridge/joomla/api_url');
+        $url_components = parse_url($api_url);
+        $host = $url_components['host'];
+        $port = (isset($url_components['port'])) ? $url_components['port'] : 80;
+        $result = (gethostbyname($host) == $host) ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('system', 'DNS', $result, 'External DNS lookups need to be enabled');
 
-        $result = ($this->hasOutgoingWebaccess()) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('system', 'Firewall', $result, 'Firewall needs to allow outgoing access on port 80.');
+        $result = (bool)@fsockopen($host, $port, $errno, $errmsg, 5) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('system', 'Firewall', $result, 'Firewall needs to allow outgoing access on port ' . $port . '.');
 
         $result = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? self::CHECK_ERROR : self::CHECK_OK;
         $this->addResult('system', 'Operating System', $result, 'Windows platforms are not supported.');
-    }
-
-    /**
-     * @return bool
-     */
-    protected function hasOutgoingWebaccess()
-    {
-        $remote_domain = 'api.yireo.com';
-        return (bool)@fsockopen($remote_domain, 80, $errno, $errmsg, 5);
     }
 
     /**
