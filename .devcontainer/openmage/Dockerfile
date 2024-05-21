@@ -1,6 +1,7 @@
 # https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=8.3
+ARG PHP_EXTRA_BUILD_DEPS=""
 ARG OPENMAGE_VERSION=20.7.0
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
@@ -16,7 +17,7 @@ RUN set -eux; \
     composer dump-autoload --optimize;
 
 # https://hub.docker.com/_/php
-FROM php:${PHP_VERSION}-apache-bookworm
+FROM php:${PHP_VERSION}-apache
 
 ENV LANG=en_US.UTF-8
 
