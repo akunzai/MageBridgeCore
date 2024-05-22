@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24bfd8184b2950730a620a7fd0372144",
+    "content-hash": "1b61c7984ac35b3439e30e67399a69f0",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1356,16 +1356,16 @@
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/php-redis-session-abstract.git",
-                "reference": "f485d282a91cff5dbbcc6a31de1d6132d4d6b380"
+                "reference": "5d93866cd53701ef8f866cb41cb5c6d7259d4416"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/php-redis-session-abstract/zipball/f485d282a91cff5dbbcc6a31de1d6132d4d6b380",
-                "reference": "f485d282a91cff5dbbcc6a31de1d6132d4d6b380",
+                "url": "https://api.github.com/repos/colinmollenhour/php-redis-session-abstract/zipball/5d93866cd53701ef8f866cb41cb5c6d7259d4416",
+                "reference": "5d93866cd53701ef8f866cb41cb5c6d7259d4416",
                 "shasum": ""
             },
             "require": {
@@ -1394,9 +1394,9 @@
             "homepage": "https://github.com/colinmollenhour/php-redis-session-abstract",
             "support": {
                 "issues": "https://github.com/colinmollenhour/php-redis-session-abstract/issues",
-                "source": "https://github.com/colinmollenhour/php-redis-session-abstract/tree/v1.6.0"
+                "source": "https://github.com/colinmollenhour/php-redis-session-abstract/tree/v1.7.0"
             },
-            "time": "2024-05-15T18:54:21+00:00"
+            "time": "2024-02-03T06:04:45+00:00"
         },
         {
             "name": "composer/pcre",
@@ -1835,16 +1835,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.57.1",
+            "version": "v3.57.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "3f7efe667a8c9818aacceee478add7c0fc24cb21"
+                "reference": "22f7f3145606df92b02fb1bd22c30abfce956d3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/3f7efe667a8c9818aacceee478add7c0fc24cb21",
-                "reference": "3f7efe667a8c9818aacceee478add7c0fc24cb21",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/22f7f3145606df92b02fb1bd22c30abfce956d3c",
+                "reference": "22f7f3145606df92b02fb1bd22c30abfce956d3c",
                 "shasum": ""
             },
             "require": {
@@ -1923,7 +1923,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.57.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.57.2"
             },
             "funding": [
                 {
@@ -1931,7 +1931,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-15T22:01:07+00:00"
+            "time": "2024-05-20T20:41:57+00:00"
         },
         {
             "name": "joomla/joomla-cms",
@@ -1949,16 +1949,16 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.7.0",
+            "version": "v20.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "d9f727fcb9e8f09e4d08cf7bb2ea7ff3bfc7dfd3"
+                "reference": "e22853875f197abc3413797f75e59d00529ba9c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/d9f727fcb9e8f09e4d08cf7bb2ea7ff3bfc7dfd3",
-                "reference": "d9f727fcb9e8f09e4d08cf7bb2ea7ff3bfc7dfd3",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/e22853875f197abc3413797f75e59d00529ba9c2",
+                "reference": "e22853875f197abc3413797f75e59d00529ba9c2",
                 "shasum": ""
             },
             "require": {
@@ -2063,7 +2063,7 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.7.0"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.8.0"
             },
             "funding": [
                 {
@@ -2071,7 +2071,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-05-07T09:37:15+00:00"
+            "time": "2024-05-20T08:55:00+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
