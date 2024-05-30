@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c505ea44b86032ea28c75478c76ff42",
+    "content-hash": "2affb5a73eef3fbf85a7e930c6018649",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1835,16 +1835,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.58.0",
+            "version": "v3.58.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "55d3483c80c09f91d876aa4e2971ce349d07310c"
+                "reference": "04e9424025677a86914b9a4944dbbf4060bb0aff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/55d3483c80c09f91d876aa4e2971ce349d07310c",
-                "reference": "55d3483c80c09f91d876aa4e2971ce349d07310c",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/04e9424025677a86914b9a4944dbbf4060bb0aff",
+                "reference": "04e9424025677a86914b9a4944dbbf4060bb0aff",
                 "shasum": ""
             },
             "require": {
@@ -1923,7 +1923,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.58.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.58.1"
             },
             "funding": [
                 {
@@ -1931,7 +1931,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-28T16:55:30+00:00"
+            "time": "2024-05-29T16:39:07+00:00"
         },
         {
             "name": "joomla/joomla-cms",
@@ -1949,16 +1949,16 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.8.0",
+            "version": "v20.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "e22853875f197abc3413797f75e59d00529ba9c2"
+                "reference": "97a8fa0f302c826a3a675893f614ea1ad2c6f981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/e22853875f197abc3413797f75e59d00529ba9c2",
-                "reference": "e22853875f197abc3413797f75e59d00529ba9c2",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/97a8fa0f302c826a3a675893f614ea1ad2c6f981",
+                "reference": "97a8fa0f302c826a3a675893f614ea1ad2c6f981",
                 "shasum": ""
             },
             "require": {
@@ -2001,7 +2001,7 @@
                 "openmage/dev-meta-package": "^1.0",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.9.13",
+                "phpstan/phpstan": "^1.11",
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "^3.7",
                 "symplify/vendor-patches": "^11.1"
@@ -2063,7 +2063,7 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.8.0"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.9.0"
             },
             "funding": [
                 {
@@ -2071,7 +2071,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-05-20T08:55:00+00:00"
+            "time": "2024-05-29T14:45:52+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
