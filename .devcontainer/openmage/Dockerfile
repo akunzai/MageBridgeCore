@@ -2,7 +2,7 @@
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=8.3
 ARG PHP_EXTRA_BUILD_DEPS=""
-ARG OPENMAGE_VERSION=20.9.0
+ARG OPENMAGE_VERSION=20.10.0
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
 FROM composer as builder
