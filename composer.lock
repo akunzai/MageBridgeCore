@@ -1947,16 +1947,16 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.10.0",
+            "version": "v20.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "68a5ec5fe00dca6b094d6a148a766acf74156728"
+                "reference": "aae923229112b80e7cf1e0b1d713e858efcd97f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/68a5ec5fe00dca6b094d6a148a766acf74156728",
-                "reference": "68a5ec5fe00dca6b094d6a148a766acf74156728",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/aae923229112b80e7cf1e0b1d713e858efcd97f1",
+                "reference": "aae923229112b80e7cf1e0b1d713e858efcd97f1",
                 "shasum": ""
             },
             "require": {
@@ -2062,7 +2062,7 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.10.0"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.10.1"
             },
             "funding": [
                 {
@@ -2070,7 +2070,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-02T09:39:08+00:00"
+            "time": "2024-07-24T13:48:33+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -2447,16 +2447,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.7",
+            "version": "1.11.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "52d2bbfdcae7f895915629e4694e9497d0f8e28d"
+                "reference": "6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/52d2bbfdcae7f895915629e4694e9497d0f8e28d",
-                "reference": "52d2bbfdcae7f895915629e4694e9497d0f8e28d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec",
+                "reference": "6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec",
                 "shasum": ""
             },
             "require": {
@@ -2501,7 +2501,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-06T11:17:41+00:00"
+            "time": "2024-07-24T07:01:22+00:00"
         },
         {
             "name": "psr/event-dispatcher",
