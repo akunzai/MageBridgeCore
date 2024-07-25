@@ -31,4 +31,3 @@ parameters:
   ignoreErrors:
     - '#Call to an undefined static method Joomla\\CMS\\Language\\Text::_\(\).#'
     - '#Access to an undefined property object::\$pagination.#'
-    - '#Access to protected property MageBridgeController::\$app.#'
