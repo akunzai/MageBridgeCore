@@ -119,7 +119,7 @@ try {
 
     // Benchmarking
     yireo_benchmark('Mage::app()');
-} catch(Exception $e) {
+} catch (Exception $e) {
     // Debugging
     $debug = Mage::getSingleton('magebridge/debug');
     if (!empty($debug)) {

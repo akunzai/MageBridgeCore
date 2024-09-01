@@ -146,7 +146,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
 
             // Get the current password-hash
             $data['hash'] = $customer->getPasswordHash();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to load customer: '.$e->getMessage());
         }
 
@@ -154,7 +154,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
         if (!empty($customer)) {
             try {
                 $this->saveAddress($customer, $data);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('magebridge/debug')->error('Failed to save customer address: '.$e->getMessage());
             }
         }
@@ -225,7 +225,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
             if ($user->save() == false) {
                 Mage::getSingleton('magebridge/debug')->error('Failed to save admin-user '.$user->getEmail());
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to load admin-user: '.$e->getMessage());
         }
 
@@ -365,7 +365,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
         $data['email'] = stripslashes($data['email']);
 
         // Determine whether to do a backend or a frontend login
-        switch($data['application']) {
+        switch ($data['application']) {
             case 'admin':
                 // SSI in the backend is not needed (yet)
                 break;

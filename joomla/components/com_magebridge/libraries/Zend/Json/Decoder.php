@@ -346,7 +346,7 @@ class Zend_Json_Decoder
             case ':':
                 $this->_token = self::COLON;
                 break;
-            case  '"':
+            case '"':
                 $result = '';
                 do {
                     $i++;

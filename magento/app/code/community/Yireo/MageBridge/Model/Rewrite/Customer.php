@@ -27,7 +27,7 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
         $rt = false;
         try {
             $rt = parent::authenticate($username, $password);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $rt = false;
         }
 

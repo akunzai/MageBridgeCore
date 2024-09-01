@@ -80,7 +80,7 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
 
         try {
             $map->save();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->trace('Failed to save map', $e->getMessage());
         }
 

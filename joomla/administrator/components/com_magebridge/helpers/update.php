@@ -43,7 +43,7 @@ class MageBridgeUpdateHelper
      */
     public static function getCurrentVersion($package)
     {
-        switch($package['type']) {
+        switch ($package['type']) {
             case 'component':
                 $file = JPATH_ADMINISTRATOR.'/components/'.$package['name'].'/com_magebridge.xml';
                 break;

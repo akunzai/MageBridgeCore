@@ -38,14 +38,14 @@ class Yireo_MageBridge_Model_Breadcrumbs
         try {
             $controller = Mage::getSingleton('magebridge/core')->getController();
             $controller->getResponse()->clearBody();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to load controller: '.$e->getMessage());
             return false;
         }
 
         try {
             $block = $controller->getAction()->getLayout()->getBlock('breadcrumbs');
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to get breadcrumbs: '.$e->getMessage());
             return false;
         }
@@ -62,7 +62,7 @@ class Yireo_MageBridge_Model_Breadcrumbs
 
                 return $crumbs;
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to set block: '.$e->getMessage());
             return false;
         }

@@ -43,7 +43,7 @@ function Yireo_MageBridge_ErrorHandler($errno, $errstr, $errfile, $errline)
     $close_bridge = false;
 
     // Handle each error-type differently
-    switch($errno) {
+    switch ($errno) {
         // With errors, we need to close the bridge and exit
         case E_ERROR:
         case E_USER_ERROR:

@@ -55,7 +55,7 @@ class Yireo_MageBridge_Model_Api
 
             try {
                 $apiModel = Mage::getModel($apiClass);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('magebridge/debug')->error('Failed to instantiate API-class '.$apiClass.': '.$e->getMessage());
                 return false;
             }
@@ -71,7 +71,7 @@ class Yireo_MageBridge_Model_Api
                 Mage::getSingleton('magebridge/debug')->notice('API class "'.$apiClass.'" has no method '.$apiMethod);
                 return false;
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to call API: '.$resourcePath.': '.$e->getMessage());
             return false;
         }
