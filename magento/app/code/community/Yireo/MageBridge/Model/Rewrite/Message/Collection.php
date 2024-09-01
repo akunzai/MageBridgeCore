@@ -25,7 +25,7 @@ class Yireo_MageBridge_Model_Rewrite_Message_Collection extends Mage_Core_Model_
         // Only do this for MB, not Magento standalone
         if (Mage::getSingleton('magebridge/core')->getMetaData('enable_messages') == 1) {
             $text = base64_encode($message->getCode());
-            switch($message->getType()) {
+            switch ($message->getType()) {
                 case 'error':
                     header('X-MageBridge-Error: '.$text);
                     break;

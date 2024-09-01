@@ -130,7 +130,7 @@ class Yireo_MageBridge_Model_User
         $app = Mage::app()->getRequest()->getQuery('app');
 
         if (!empty($sso) && !empty($app)) {
-            switch($sso) {
+            switch ($sso) {
                 case 'logout':
                     $this->doSSOLogout($app);
                     return true;
@@ -340,7 +340,7 @@ class Yireo_MageBridge_Model_User
         $data['password'] = Mage::helper('magebridge/encryption')->decrypt($data['password'], 'customer password');
 
         // Determine whether to do a backend or a frontend login
-        switch($data['application']) {
+        switch ($data['application']) {
             case 'admin':
                 return $this->loginAdmin($data);
 
@@ -366,7 +366,7 @@ class Yireo_MageBridge_Model_User
 
         try {
             $session = Mage::getSingleton('customer/session');
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to start customer session');
             return $data;
         }
@@ -388,7 +388,7 @@ class Yireo_MageBridge_Model_User
                 Mage::getSingleton('magebridge/debug')->error('Login failed');
                 $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to login customer "'.$username.'": '.$e->getMessage());
             $data['state'] = MAGEBRIDGE_AUTHENTICATION_ERROR;
             return $data;
@@ -435,7 +435,7 @@ class Yireo_MageBridge_Model_User
                 Mage::getSingleton('magebridge/debug')->error('Admin login failed');
                 $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to login admin: '.$e->getMessage());
             $data['state'] = MAGEBRIDGE_AUTHENTICATION_ERROR;
             return $data;
@@ -463,7 +463,7 @@ class Yireo_MageBridge_Model_User
             $session = Mage::getSingleton('customer/session');
             $session->logout();
             $data['state'] = 0;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to logout customer: '.$e->getMessage());
             $data['state'] = 2;
         }

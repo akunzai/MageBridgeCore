@@ -31,7 +31,7 @@ class Yireo_MageBridge_Model_Block
             if (Mage::getSingleton('magebridge/core')->getMetaData('app') == 1) {
                 $controller->getAction()->getLayout()->getUpdate()->addHandle('magebridge_backend');
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to load controller: '.$e->getMessage());
             return false;
         }
@@ -72,7 +72,7 @@ class Yireo_MageBridge_Model_Block
         try {
             $block = $controller->getAction()->getLayout()->getBlock($block_name);
             $instances[$block_name] = $block;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to get block: '.$block_name.': '.$e->getMessage());
             return false;
         }
@@ -114,7 +114,7 @@ class Yireo_MageBridge_Model_Block
         try {
             $block = $controller->getAction()->getLayout()->createBlock($block_type);
             $instances[$block_name] = $block;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to get block: type '.$block_type.': '.$e->getMessage());
         }
 
@@ -236,7 +236,7 @@ class Yireo_MageBridge_Model_Block
         // Get the HTML of the block-object
         try {
             return $block->toHtml();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error('Failed to get html from block '.$block_name.': '.$e->getMessage());
         }
 
@@ -296,7 +296,7 @@ class Yireo_MageBridge_Model_Block
         if (!empty($processor)) {
             try {
                 $new_html = $processor->filter($html);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('magebridge/debug')->error('Template filter failed: '.$e->getMessage());
             }
 

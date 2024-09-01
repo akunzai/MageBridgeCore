@@ -326,7 +326,7 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         // Set ordering
-        switch($this->arguments['ordering']) {
+        switch ($this->arguments['ordering']) {
             case 'newest':
                 $collection->setOrder('created_at', 'desc');
                 return;

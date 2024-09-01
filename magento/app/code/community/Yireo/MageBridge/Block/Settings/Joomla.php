@@ -47,7 +47,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
             foreach ($rows as $row) {
                 $key = $row['scope'].'-'.$row['scope_id'];
                 if (!isset($details[$key])) {
-                    switch($row['scope']) {
+                    switch ($row['scope']) {
                         case 'websites':
                             $scope_name = Mage::app()->getWebsite($row['scope_id'])->getName().' ['.$row['scope'].']';
                             break;

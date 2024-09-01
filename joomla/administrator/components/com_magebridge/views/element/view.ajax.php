@@ -34,7 +34,7 @@ class MageBridgeViewElement extends MageBridgeViewCommon
         $layoutType = $this->app->input->getCmd('type');
 
         // Determine the layout and data
-        switch($layoutType) {
+        switch ($layoutType) {
             case 'product':
                 $this->doProductLayout();
                 break;

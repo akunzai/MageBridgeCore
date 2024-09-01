@@ -36,7 +36,7 @@ class Yireo_MageBridge_Model_Url extends Mage_Core_Model_Abstract
             $magebridge = Mage::getSingleton('magebridge/core');
             $urls[$type] = [];
 
-            switch($type) {
+            switch ($type) {
                 case 'category':
                     $categories = Mage::getModel('catalog/category')->getTreeModel();
                     $helper = Mage::helper('catalog/category');

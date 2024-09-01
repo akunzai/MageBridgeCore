@@ -98,7 +98,7 @@ class Yireo_MageBridge_Model_Search extends Mage_Core_Model_Abstract
 
             // Return the collection
             return $collection;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('magebridge/debug')->error($e->getMessage());
             return false;
         }

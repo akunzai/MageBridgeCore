@@ -134,7 +134,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         @mkdir(BP.DS.'var'.DS.'log');
         $type = $this->getRequest()->getParam('type');
-        switch($type) {
+        switch ($type) {
             case 'system':
                 $file = BP.DS.'var'.DS.'log'.DS.'system.log';
                 break;
