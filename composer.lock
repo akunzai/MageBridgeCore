@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ebf0c5bd4ad0290cd40b378d382bb94",
+    "content-hash": "641e8f3c0965a5c264a88c02d3350359",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -1941,15 +1941,15 @@
         },
         {
             "name": "joomla/joomla-cms",
-            "version": "5.1.3",
+            "version": "5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-cms.git",
-                "reference": "tags/5.1.3"
+                "reference": "tags/5.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/joomla/joomla-cms/releases/download/5.1.3/Joomla_5.1.3-Stable-Full_Package.zip"
+                "url": "https://github.com/joomla/joomla-cms/releases/download/5.1.4/Joomla_5.1.4-Stable-Full_Package.zip"
             },
             "type": "library"
         },
