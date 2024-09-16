@@ -5,8 +5,9 @@ ARG PHP_EXTRA_BUILD_DEPS=""
 ARG OPENMAGE_VERSION=20.10.2
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
-FROM composer as builder
+FROM composer AS builder
 ARG OPENMAGE_VERSION
+# hadolint ignore=DL3003
 RUN set -eux; \
     mkdir -p /usr/src/openmage; \
     curl -Lo /tmp/openmage.tgz https://github.com/OpenMage/magento-lts/archive/refs/tags/v${OPENMAGE_VERSION}.tar.gz; \
@@ -33,6 +34,7 @@ RUN set -eux; \
     chmod +x /usr/local/bin/pickle;
 
 # install the PHP extensions we need
+# hadolint ignore=SC2086
 RUN set -eux; \
     # https://github.com/colinmollenhour/modman
     curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
@@ -70,16 +72,19 @@ RUN set -eux; \
 
 # set up Apache2
 RUN set -eux; \
-    # enable Apache2 modules
-    a2enmod rewrite expires include deflate remoteip headers; \
-    # disable Apache2 server signature
-    echo 'ServerSignature Off' >> /etc/apache2/apache2.conf; \
-    echo 'ServerTokens Prod' >> /etc/apache2/apache2.conf; \
-    # enable support for TLS termination
-    echo 'SetEnvIf X-Forwarded-Proto https HTTPS=on' >> /etc/apache2/apache2.conf; \
     # change listening port to 8080
     sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf; \
-    sed -i 's/*:80/*:8080/' /etc/apache2/sites-available/000-default.conf;
+    sed -i 's/*:80/*:8080/' /etc/apache2/sites-available/000-default.conf; \
+    # enable Apache2 modules
+    a2enmod rewrite expires include deflate remoteip headers; \
+    { \
+        # disable Apache2 server signature
+        echo 'ServerSignature Off'; \
+        echo 'ServerTokens Prod'; \
+        # enable support for TLS termination
+        echo 'SetEnvIf X-Forwarded-Proto https HTTPS=on'; \
+    } >> /etc/apache2/apache2.conf;
+    
 
 # install composer
 # https://hub.docker.com/_/composer
