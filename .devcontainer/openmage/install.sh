@@ -1,27 +1,26 @@
 #!/usr/bin/env bash
 # https://github.com/OpenMage/magento-lts/blob/main/dev/openmage/install.sh
 
-[ -f .env ] && source .env
+# shellcheck disable=1091
+[[ -f .env ]] && source .env
 
-docker compose exec openmage test -f app/etc/local.xml
-if [ "$?" -eq "0" ]; then
+if docker compose exec openmage test -f app/etc/local.xml; then
   echo "OpenMage already installed!"
   exit 0
 fi
 
 echo "Checking database ..."
-for i in $(seq 1 20); do
+for _ in $(seq 1 20); do
   docker compose exec mysql sh -c "mysql -uroot -p${MYSQL_ROOT_PASSWORD:-secret} -e 'show databases;' 2>/dev/null" | grep -qF 'openmage' && break
   sleep 1
 done
 
 INSTALL_SAMPLE_DATA="${INSTALL_SAMPLE_DATA:-true}"
 
-if [ "${INSTALL_SAMPLE_DATA}" = "true" ]; then
+if [[ "${INSTALL_SAMPLE_DATA}" = "true" ]]; then
   SAMPLE_DATA_DIR="${SAMPLE_DATA_DIR:-magento-sample-data-1.9.2.4}"
   SAMPLE_DATA_SQL="${SAMPLE_DATA_SQL:-magento_sample_data_for_1.9.2.4.sql}"
-  docker compose exec openmage test -d /tmp/${SAMPLE_DATA_DIR}
-  if [ "$?" -ne "0" ]; then
+  if ! docker compose exec openmage test -d "/tmp/${SAMPLE_DATA_DIR}"; then
     echo "Downloading Sample Data ..."
     docker compose exec --user www-data openmage curl -Lo /tmp/sample_data.tgz "${SAMPLE_DATA_URL:-https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz}"
 
@@ -43,7 +42,7 @@ fi
 echo "Installing OpenMage ..."
 
 HOST_PORT=":${HOST_PORT:-8080}"
-test "$HOST_PORT" = ":80" && HOST_PORT=""
+test "${HOST_PORT}" = ":80" && HOST_PORT=""
 BASE_URL="${BASE_URL:-http://${HOST_NAME:-store.dev.local}${HOST_PORT}/}"
 
 docker compose exec --user www-data openmage php install.php \
@@ -59,7 +58,7 @@ docker compose exec --user www-data openmage php install.php \
   --locale "${LOCALE:-en_US}" \
   --timezone "${TIMEZONE:-America/New_York}" \
   --default_currency "${CURRENCY:-USD}" \
-  --url ${BASE_URL} \
+  --url "${BASE_URL}" \
   --secure_base_url "${BASE_URL}" \
   --skip_url_validation \
   --license_agreement_accepted yes \
