@@ -49,7 +49,7 @@ RUN set -eux; \
     | sort -u \
     | xargs -r apt-mark manual; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*;
+    rm -rf /var/lib/apt/lists/* /tmp/*;
 
 # set up Apache2
 RUN set -eux; \
