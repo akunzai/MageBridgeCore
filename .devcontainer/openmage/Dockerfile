@@ -84,7 +84,6 @@ RUN set -eux; \
         # enable support for TLS termination
         echo 'SetEnvIf X-Forwarded-Proto https HTTPS=on'; \
     } >> /etc/apache2/apache2.conf;
-    
 
 # install composer
 # https://hub.docker.com/_/composer

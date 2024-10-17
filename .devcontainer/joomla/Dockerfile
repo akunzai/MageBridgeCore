@@ -11,9 +11,9 @@ FROM php:${PHP_VERSION}-apache
 ENV LANG=en_US.UTF-8
 
 # install MySQL client
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends default-mysql-client \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends default-mysql-client && \
+    apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # install pickle
 # https://github.com/FriendsOfPHP/pickle
