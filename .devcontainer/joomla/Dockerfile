@@ -1,7 +1,7 @@
 ARG PHP_VERSION=8.3
 ARG PHP_EXTRA_BUILD_DEPS=""
 # https://hub.docker.com/_/joomla
-ARG JOOMLA_VERSION=5.1.4
+ARG JOOMLA_VERSION=5.2.0
 
 FROM joomla:${JOOMLA_VERSION}-apache AS joomla
 
@@ -77,5 +77,5 @@ RUN set -eux; \
     chown -R www-data:www-data /usr/src/joomla; \
     chmod -R g+w /usr/src/joomla;
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["apache2-foreground"]
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "apache2-foreground" ]
