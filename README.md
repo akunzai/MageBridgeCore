@@ -32,7 +32,7 @@ composer run phpstan
 
 ## Installation
 
-### Joomla!
+### Joomla
 
 > see [here](./.devcontainer/joomla/) for details
 

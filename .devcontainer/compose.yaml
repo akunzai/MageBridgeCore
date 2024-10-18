@@ -27,8 +27,8 @@ services:
       JOOMLA_DB_HOST: ${JOOMLA_DB_HOST:-mysql}
       JOOMLA_DB_PASSWORD: ${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}}
       # https://xdebug.org/docs/all_settings
-      XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
-      XDEBUG_MODE: debug
+      # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
+      # XDEBUG_MODE: debug
     ports:
       - 127.0.0.1:80:80
     networks:
@@ -61,12 +61,12 @@ services:
         source: ${LOCAL_WORKSPACE_FOLDER:-..}/.vscode
         target: /var/www/html/.vscode
         consistency: cached
-    environment:
+    # environment:
       # https://github.com/OpenMage/magento-lts/blob/32773dd4f82bb44bac89e8eca97379dad2a10af5/app/Mage.php#L22
       # MAGE_IS_DEVELOPER_MODE: '1'
       # https://xdebug.org/docs/all_settings
-      XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
-      XDEBUG_MODE: debug
+      # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
+      # XDEBUG_MODE: debug
     ports:
       - 127.0.0.1:8080:8080
     networks:
