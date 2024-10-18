@@ -2,7 +2,7 @@
 
 ## Create API Role
 
-> System->`Web Services`->`SOAP/XML-RPC Users`->`Add New Role`
+> System->`Web Services`->`SOAP/XML-RPC Roles`->`Add New Role`
 
 - Role Name: `MageBridge`
 - Resource Access: `All`
