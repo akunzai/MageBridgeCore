@@ -22,20 +22,13 @@ FROM php:${PHP_VERSION}-apache
 
 ENV LANG=en_US.UTF-8
 
-# install MySQL client
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends default-mysql-client && \
-    apt-get clean -y && rm -rf /var/lib/apt/lists/*
-
-# install pickle
-# https://github.com/FriendsOfPHP/pickle
-RUN set -eux; \
-    curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
-    chmod +x /usr/local/bin/pickle;
-
 # install the PHP extensions we need
 # hadolint ignore=SC2086
-RUN set -eux; \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    set -eux; \
+    curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
+    chmod +x /usr/local/bin/pickle; \
     # https://github.com/colinmollenhour/modman
     curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
     chmod +x /usr/local/bin/modman; \
@@ -45,9 +38,13 @@ RUN set -eux; \
     # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get update; \
-    apt-get install -y --no-install-recommends default-mysql-client \
-    libfreetype6-dev libicu-dev libjpeg62-turbo-dev libonig-dev \
-    libpng-dev libxml2-dev libxslt1-dev libzip-dev libwebp-dev \
+    apt-get install -y --no-install-recommends \
+    libonig-dev \
+    libfreetype6-dev libicu-dev \
+    libjpeg62-turbo-dev libpng-dev \
+    libxml2-dev libxslt1-dev \
+    libzip-dev libwebp-dev \
+    mariadb-client \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
@@ -91,18 +88,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # install modman
 # https://github.com/colinmollenhour/modman
-RUN set -eux; \
-    curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
-    chmod +x /usr/local/bin/modman;
+ADD --chmod=755 https://raw.githubusercontent.com/colinmollenhour/modman/master/modman /usr/local/bin/modman
 
 # install n98-magerun
 # https://github.com/netz98/n98-magerun
-RUN set -eux; \
-    curl -fSL -o /usr/local/bin/n98-magerun https://files.magerun.net/n98-magerun.phar && \
-    chmod +x /usr/local/bin/n98-magerun;
+ADD --chmod=755 https://files.magerun.net/n98-magerun.phar /usr/local/bin/n98-magerun
 
 # set up OpenMage
-COPY --link --chmod=755 ./docker-entrypoint.sh /
+COPY --chmod=755 ./docker-entrypoint.sh /
 COPY --from=builder --chown=www-data:www-data /usr/src/openmage /usr/src/openmage
 RUN set -eux; \
     chmod +x /docker-entrypoint.sh; \
