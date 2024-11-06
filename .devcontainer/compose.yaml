@@ -5,16 +5,16 @@ services:
       context: ./joomla
     image: joomla:3.10-magebridge
     volumes:
-      - joomla-data:/var/www/html
+      - joomla_data:/var/www/html
+      - joomla_log:/var/www/html/administrator/logs
       - ..:/workspace:cached
       - ./php.ini:/usr/local/etc/php/php.ini:ro
-      - ./joomla/log:/var/www/html/administrator/logs
     environment:
       JOOMLA_DB_HOST: ${JOOMLA_DB_HOST:-mysql}
       JOOMLA_DB_PASSWORD: ${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}}
       # https://xdebug.org/docs/all_settings
-      XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
-      XDEBUG_MODE: debug
+      # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
+      # XDEBUG_MODE: debug
     external_links:
       - traefik:store.dev.local
     labels:
@@ -30,16 +30,16 @@ services:
       context: ./openmage
     image: openmage:1.9-magebridge
     volumes:
-      - openmage-data:/var/www/html
+      - openmage_data:/var/www/html
+      - openmage_log:/var/www/html/var/log
       - ..:/var/www/html/.modman/MageBridge:cached
       - ./php.ini:/usr/local/etc/php/php.ini:ro
-      - ./openmage/log:/var/www/html/var/log
-    environment:
+    # environment:
       # https://github.com/OpenMage/magento-lts/blob/32773dd4f82bb44bac89e8eca97379dad2a10af5/app/Mage.php#L22
       # MAGE_IS_DEVELOPER_MODE: '1'
       # https://xdebug.org/docs/all_settings
-      XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
-      XDEBUG_MODE: debug
+      # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
+      # XDEBUG_MODE: debug
     external_links:
       - traefik:www.dev.local
     labels:
@@ -54,7 +54,7 @@ services:
     # https://hub.docker.com/_/mysql
     image: mysql
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-openmage}
@@ -93,6 +93,8 @@ secrets:
     file: .secrets/key.pem
 
 volumes:
-  joomla-data: null
-  mysql-data: null
-  openmage-data: null
+  joomla_data: null
+  joomla_log: null
+  mysql_data: null
+  openmage_data: null
+  openmage_log: null
