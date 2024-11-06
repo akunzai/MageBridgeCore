@@ -14,7 +14,7 @@ ENV LANG=en_US.UTF-8
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     --mount=type=cache,target=/var/cache/apt,sharing=locked \
     set -eux; \
-    apt-get update & apt-get upgrade; \
+    apt-get update; \
     # install the system tools we need
     apt-get install -y --no-install-recommends mariadb-client; \
     # install the PHP extensions we need
