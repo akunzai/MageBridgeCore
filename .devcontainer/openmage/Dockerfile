@@ -22,34 +22,28 @@ FROM php:${PHP_VERSION}-apache
 
 ENV LANG=en_US.UTF-8
 
-# install the PHP extensions we need
 # hadolint ignore=SC2086
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     --mount=type=cache,target=/var/cache/apt,sharing=locked \
     set -eux; \
-    curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
-    chmod +x /usr/local/bin/pickle; \
-    # https://github.com/colinmollenhour/modman
-    curl -fSL -o /usr/local/bin/modman https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && \
-    chmod +x /usr/local/bin/modman; \
-    # https://github.com/netz98/n98-magerun
-    curl -fSL -o /usr/local/bin/n98-magerun https://files.magerun.net/n98-magerun.phar && \
-    chmod +x /usr/local/bin/n98-magerun; \
+    apt-get update & apt-get upgrade; \
+    # install the system tools we need
+    apt-get install -y --no-install-recommends mariadb-client; \
     # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
-    apt-get update; \
     apt-get install -y --no-install-recommends \
     libonig-dev \
     libfreetype6-dev libicu-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
     libzip-dev libwebp-dev \
-    mariadb-client \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
     docker-php-ext-install -j$(nproc) opcache \
     intl gd mysqli pcntl pdo_mysql soap xsl zip; \
+    curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
+    chmod +x /usr/local/bin/pickle; \
     pickle install --no-interaction apcu-stable; \
     pickle install --no-interaction redis-stable; \
     pickle install --no-interaction xdebug-stable; \
@@ -65,7 +59,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     | sort -u \
     | xargs -r apt-mark manual; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/* /tmp/*;
+    rm -rf /tmp/*;
 
 # set up Apache2
 RUN set -eux; \
