@@ -392,7 +392,7 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     {
         // Add the minimal price
         if (!isset($this->arguments['minimal_price']) || $this->arguments['minimal_price'] == 1) {
-            $collection->addMinimalPrice();
+            $collection->addPriceData();
         }
     }
 }

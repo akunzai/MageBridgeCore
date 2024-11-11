@@ -69,7 +69,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
 
             // Set new values
             if ($customer->getId() > 0 == false) {
-                $customer->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
+                $customer->setCreatedAt(date('Y-m-d H:i:s', time()));
                 if (isset($data['website_id'])) {
                     $customer->setWebsiteId((int)$data['website_id']);
                 }
@@ -177,7 +177,7 @@ class Yireo_MageBridge_Model_User_Api extends Mage_Api_Model_Resource_Abstract
 
             // Set new values for new users
             if ($user->getId() > 0 == false) {
-                $user->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
+                $user->setCreatedAt(date('Y-m-d H:i:s', time()));
             }
 
             // Workaround to prevent the password from being reset
