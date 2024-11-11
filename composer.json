@@ -15,8 +15,9 @@
     ],
     "config": {
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "magento-hackathon/magento-composer-installer": true,
-            "cweagans/composer-patches": true
+            "phpstan/extension-installer": true
         },
         "preferred-install": "dist",
         "sort-packages": true
@@ -57,10 +58,12 @@
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.62",
+        "friendsofphp/php-cs-fixer": "^3.64",
         "joomla/joomla-cms": "5.2.1",
         "openmage/magento-lts": "^20.10",
-        "phpstan/phpstan": "^1.11"
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-deprecation-rules": "^2.0"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts"
