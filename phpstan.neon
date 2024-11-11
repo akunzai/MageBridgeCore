@@ -30,5 +30,4 @@ parameters:
   tmpDir: tmp
   ignoreErrors:
     - '#Call to an undefined static method Joomla\\CMS\\Language\\Text::_\(\).#'
-    - '#Access to an undefined property object::\$pagination.#'
-    - '#Access to protected property MageBridgeController::\$app.#'
+    - '#Access to protected property \$this\(MageBridgeController\)::\$app.#'

@@ -1,191 +1,2495 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method MageBridgeViewRoot\\:\\:build\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/controllers/users.php
+
+		-
+			message: '''
+				#^Call to deprecated method addScriptDeclaration\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>addInlineScript\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/article.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/article.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/article.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/scripts.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/storegroup.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/storeview.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/stylesheets.php
+
+		-
+			message: '''
+				#^Call to method getTemplateOptions\(\) of deprecated class Joomla\\Component\\Templates\\Administrator\\Helper\\TemplatesHelper\:
+				4\.3 will be removed in 6\.0
+				             Use \\Joomla\\Component\\Templates\\Administrator\\Helper\\TemplatesHelper instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/template.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/website.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/helpers/acl.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/element.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/form.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/install.php
+
+		-
+			message: '''
+				#^Call to deprecated method exists\(\) of class Joomla\\CMS\\Filesystem\\File\:
+				4\.4 will be removed in 6\.0
+				             Use is_file\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/update.php
+
+		-
+			message: '''
+				#^Call to method exists\(\) of deprecated class Joomla\\CMS\\Filesystem\\File\:
+				4\.4 will be removed in 6\.0
+				             Use Joomla\\Filesystem\\File instead\.$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/update.php
+
+		-
+			message: '''
+				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/administrator/components/com_magebridge/helpers/view.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/view.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Toolbar\\Toolbar\:
+				4\.0 will be removed in 6\.0
+				             Use the ToolbarFactoryInterface instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(ToolbarFactoryInterface\:\:class\)\-\>createToolbar\(\$name\)$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/view.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/helpers/widget.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/models/check.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/models/check.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/log.php
+
+		-
+			message: '''
+				#^Call to method store\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/log.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelLog extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/log.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/product.php
+
+		-
+			message: '''
+				#^Call to method store\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/product.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelProduct extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/product.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/products.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelProducts extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/products.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/store.php
+
+		-
+			message: '''
+				#^Call to method delete\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/store.php
+
+		-
+			message: '''
+				#^Call to method store\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/store.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelStore extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/store.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/stores.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelStores extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/stores.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/urls.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelUrls extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/urls.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/usergroup.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelUsergroup extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/usergroup.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/usergroups.php
+
+		-
+			message: '''
+				#^Class MagebridgeModelUsergroups extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/usergroups.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/users.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/administrator/components/com_magebridge/script.magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/uninstall.magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
+				4\.3 will be removed in 6\.0
+				             Use the FormFactory service from the container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(FormFactoryInterface\:\:class\)\-\>createForm\(\$name, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/config/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 4
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/logs/view.csv.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/administrator/components/com_magebridge/views/logs/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
+				4\.3 will be removed in 6\.0
+				             Use the FormFactory service from the container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(FormFactoryInterface\:\:class\)\-\>createForm\(\$name, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/product/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/product/view.html.php
+
+		-
+			message: '#^Call to an undefined method MageBridgeViewRoot\:\:build\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/administrator/components/com_magebridge/views/root/view.raw.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewRoot\\:\\:setBlock\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewRoot\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/administrator/components/com_magebridge/views/root/view.raw.php
 
 		-
-			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\File\\:\\:upload\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
+				4\.3 will be removed in 6\.0
+				             Use the FormFactory service from the container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(FormFactoryInterface\:\:class\)\-\>createForm\(\$name, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/store/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/store/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
+				4\.3 will be removed in 6\.0
+				             Use the FormFactory service from the container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(FormFactoryInterface\:\:class\)\-\>createForm\(\$name, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/usergroup/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/users/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/connector.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/connectors/product.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/connectors/profile.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/connectors/profile.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/connectors/profile.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/connectors/store.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/connectors/store.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Joomla\\CMS\\User\\User\:
+				4\.3\.0 will be removed in 6\.0
+				            Create a proper getter function for the property$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/controllers/default.sso.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/controllers/default.sso.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/helpers/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/helpers/module.php
+
+		-
+			message: '#^Call to an undefined static method Joomla\\Filesystem\\File\:\:upload\(\)\.$#'
+			identifier: staticMethod.notFound
 			count: 1
 			path: joomla/components/com_magebridge/helpers/proxy.php
 
 		-
-			message: "#^Function shAddSefURLToCache not found\\.$#"
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/helpers/proxy.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/helpers/register.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/helpers/register.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/helpers/register.php
+
+		-
+			message: '''
+				#^Call to deprecated method addScript\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseScript\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/helpers/template.php
+
+		-
+			message: '''
+				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/helpers/template.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 4
+			path: joomla/components/com_magebridge/helpers/template.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/components/com_magebridge/helpers/url.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/components/com_magebridge/helpers/url.php
 
 		-
-			message: "#^Function shGetNonSefURLFromCache not found\\.$#"
+			message: '#^Function shAddSefURLToCache not found\.$#'
+			identifier: function.notFound
 			count: 1
 			path: joomla/components/com_magebridge/helpers/url.php
 
 		-
-			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\Folder\\:\\:create\\(\\)\\.$#"
+			message: '#^Function shGetNonSefURLFromCache not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: joomla/components/com_magebridge/helpers/url.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/helpers/user.php
+
+		-
+			message: '#^Call to deprecated method isArray\(\) of class ReflectionParameter\.$#'
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/Zend/Server/Reflection/Function/Abstract.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/api.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/api.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/plugin/product.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/plugin/profile.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/libraries/plugin/store.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getRouter\(\) of class Joomla\\CMS\\Application\\CMSApplication\:
+				4\.3 will be removed in 6\.0
+				             Inject the router or load it from the dependency injection container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(\$name\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 10
+			path: joomla/components/com_magebridge/models/bridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of interface Joomla\\CMS\\Application\\EventAwareInterface\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/bridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge/block.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/bridge/block.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge/events.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge/meta.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge/meta.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/bridge/segment.php
+
+		-
+			message: '#^Call to an undefined static method Joomla\\Filesystem\\Folder\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
 			count: 1
 			path: joomla/components/com_magebridge/models/cache.php
 
 		-
-			message: "#^Instantiated class Joomla\\\\CMS\\\\Crypt\\\\Key not found\\.$#"
+			message: '''
+				#^Call to deprecated method delete\(\) of class Joomla\\CMS\\Filesystem\\File\:
+				4\.4 will be removed in 6\.0
+				             Use Joomla\\Filesystem\\File\:\:delete\(\) instead\.
+				             The framework class throws Exceptions in case of error which you have to catch\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/cache.php
+
+		-
+			message: '''
+				#^Call to method delete\(\) of deprecated class Joomla\\CMS\\Filesystem\\File\:
+				4\.4 will be removed in 6\.0
+				             Use Joomla\\Filesystem\\File instead\.$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/components/com_magebridge/models/cache.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/config.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/config.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Table\\Table\:
+				4\.3 will be removed in 6\.0
+				             Use the MvcFactory instead
+				             Example\: Factory\:\:getApplication\(\)\-\>bootComponent\('\.\.\.'\)\-\>getMVCFactory\(\)\-\>createTable\(\$name, \$prefix, \$config\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/config.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/debug.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/debug.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/components/com_magebridge/models/proxy.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/proxy.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/components/com_magebridge/models/proxy.php
 
 		-
-			message: "#^Call to static method sefGetLocation\\(\\) on an unknown class sef_404\\.$#"
+			message: '#^Instantiated class Joomla\\CMS\\Crypt\\Key not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: joomla/components/com_magebridge/models/proxy.php
+
+		-
+			message: '#^Call to deprecated function utf8_encode\(\)\.$#'
+			identifier: function.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/proxy/abstract.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/proxy/abstract.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/components/com_magebridge/models/user.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Table\\Table\:
+				4\.3 will be removed in 6\.0
+				             Use the MvcFactory instead
+				             Example\: Factory\:\:getApplication\(\)\-\>bootComponent\('\.\.\.'\)\-\>getMVCFactory\(\)\-\>createTable\(\$name, \$prefix, \$config\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/models/user.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/components/com_magebridge/models/user.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/components/com_magebridge/models/user.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/components/com_magebridge/models/user/sso.php
+
+		-
+			message: '#^Call to static method sefGetLocation\(\) on an unknown class sef_404\.$#'
+			identifier: class.notFound
 			count: 1
 			path: joomla/components/com_magebridge/sef_ext/com_magebridge.php
 
 		-
-			message: "#^Call to static method shGetConfig\\(\\) on an unknown class shRouter\\.$#"
+			message: '#^Call to static method shGetConfig\(\) on an unknown class shRouter\.$#'
+			identifier: class.notFound
 			count: 1
 			path: joomla/components/com_magebridge/sef_ext/com_magebridge.php
 
 		-
-			message: "#^Function shGetComponentPrefix not found\\.$#"
+			message: '#^Function shGetComponentPrefix not found\.$#'
+			identifier: function.notFound
 			count: 1
 			path: joomla/components/com_magebridge/sef_ext/com_magebridge.php
 
 		-
-			message: "#^Access to private property \\$app of parent class YireoCommonView\\.$#"
+			message: '#^Access to private property \$app of parent class YireoCommonView\.$#'
+			identifier: property.private
 			count: 1
 			path: joomla/components/com_magebridge/view.php
 
 		-
-			message: "#^Access to private property \\$db of parent class YireoCommonView\\.$#"
+			message: '#^Access to private property \$db of parent class YireoCommonView\.$#'
+			identifier: property.private
 			count: 1
 			path: joomla/components/com_magebridge/view.php
 
 		-
-			message: "#^Access to private property \\$doc of parent class YireoCommonView\\.$#"
+			message: '#^Access to private property \$doc of parent class YireoCommonView\.$#'
+			identifier: property.private
 			count: 1
 			path: joomla/components/com_magebridge/view.php
 
 		-
-			message: "#^Access to private property \\$input of parent class YireoCommonView\\.$#"
+			message: '#^Access to private property \$input of parent class YireoCommonView\.$#'
+			identifier: property.private
 			count: 1
 			path: joomla/components/com_magebridge/view.php
 
 		-
-			message: "#^Access to private property \\$user of parent class YireoCommonView\\.$#"
+			message: '#^Access to private property \$user of parent class YireoCommonView\.$#'
+			identifier: property.private
 			count: 1
 			path: joomla/components/com_magebridge/view.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCatalog\\:\\:setBlock\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/view.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/view.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/view.php
+
+		-
+			message: '#^Call to an undefined method MageBridgeViewCatalog\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/catalog/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCatalog\\:\\:setRequest\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewCatalog\:\:setRequest\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/catalog/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCms\\:\\:setBlock\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/views/catalog/view.html.php
+
+		-
+			message: '#^Call to an undefined method MageBridgeViewCms\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/cms/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCms\\:\\:setRequest\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewCms\:\:setRequest\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/cms/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewContent\\:\\:setBlock\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/views/cms/view.html.php
+
+		-
+			message: '#^Call to an undefined method MageBridgeViewContent\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/content/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewContent\\:\\:setRequest\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewContent\:\:setRequest\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: joomla/components/com_magebridge/views/content/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCustom\\:\\:setBlock\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewCustom\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/custom/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewCustom\\:\\:setRequest\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewCustom\:\:setRequest\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/custom/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewOffline\\:\\:getOfflineMessage\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/components/com_magebridge/views/custom/view.html.php
+
+		-
+			message: '#^Call to an undefined method MageBridgeViewOffline\:\:getOfflineMessage\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/offline/view.html.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$content_class\\.$#"
-			count: 1
-			path: joomla/components/com_magebridge/views/root/tmpl/default.php
-
-		-
-			message: "#^Access to an undefined property MageBridgeViewRoot\\:\\:\\$content_class\\.$#"
+			message: '#^Access to an undefined property MageBridgeViewRoot\:\:\$content_class\.$#'
+			identifier: property.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/root/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewRoot\\:\\:build\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewRoot\:\:build\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/root/view.html.php
 
 		-
-			message: "#^Call to an undefined method MageBridgeViewRoot\\:\\:setBlock\\(\\)\\.$#"
+			message: '#^Call to an undefined method MageBridgeViewRoot\:\:setBlock\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: joomla/components/com_magebridge/views/root/view.html.php
 
 		-
-			message: "#^Call to an undefined static method Joomla\\\\Filesystem\\\\File\\:\\:write\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Instantiation of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: new.deprecated
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Return type of method YireoController\:\:_loadModel\(\) has typehint with deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: return.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to deprecated method addModelPath\(\) of class Joomla\\CMS\\MVC\\Controller\\BaseController\:
+				4\.3 will be removed in 6\.0
+				             Will be removed without replacement\. Get the model through the MVCFactory instead$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/libraries/yireo/controller/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/form/fields/abstract.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/form/fields/article.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/form/fields/components.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getLanguage\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the language service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getLanguage\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/helper/form.php
+
+		-
+			message: '#^Call to an undefined static method Joomla\\Filesystem\\File\:\:write\(\)\.$#'
+			identifier: staticMethod.notFound
 			count: 1
 			path: joomla/libraries/yireo/helper/install.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:checkbox\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method delete\(\) of class Joomla\\CMS\\Filesystem\\Folder\:
+				4\.4 will be removed in 6\.0
+				             Use Joomla\\Filesystem\\Folder\:\:delete\(\) instead\.
+				             The framework class throws Exceptions in case of error which you have to catch\.$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
-			path: joomla/libraries/yireo/view/list/default.php
+			path: joomla/libraries/yireo/helper/install.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:getImageTag\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 2
-			path: joomla/libraries/yireo/view/list/default.php
+			path: joomla/libraries/yireo/helper/install.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:getModel\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 4
+			path: joomla/libraries/yireo/helper/install.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Cache\\Cache\:
+				4\.2 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$type, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/libraries/yireo/helper/install.php
+
+		-
+			message: '''
+				#^Call to method delete\(\) of deprecated class Joomla\\CMS\\Filesystem\\Folder\:
+				4\.4 will be removed in 6\.0
+				             Use Joomla\\Filesystem\\Folder instead\.$#
+			'''
+			identifier: staticMethod.deprecatedClass
 			count: 1
-			path: joomla/libraries/yireo/view/list/default.php
+			path: joomla/libraries/yireo/helper/install.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:loadTemplate\\(\\)\\.$#"
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
-			path: joomla/libraries/yireo/view/list/default.php
+			path: joomla/libraries/yireo/helper/view.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:published\\(\\)\\.$#"
+			message: '''
+				#^Parameter \$input of method YireoAbstractModel\:\:setInput\(\) has typehint with deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: parameter.deprecatedClass
 			count: 1
-			path: joomla/libraries/yireo/view/list/default.php
+			path: joomla/libraries/yireo/model/abstract.php
 
 		-
-			message: "#^Call to static method getInstance\\(\\) on an unknown class FalangManager\\.$#"
+			message: '''
+				#^Return type of method YireoAbstractModel\:\:getInput\(\) has typehint with deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: return.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/model/abstract.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
+				4\.3 will be removed in 6\.0
+				             Use the FormFactory service from the container
+				             Example\: Factory\:\:getContainer\(\)\-\>get\(FormFactoryInterface\:\:class\)\-\>createForm\(\$name, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/libraries/yireo/model/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/data.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/data.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/data/query.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/data/querytext.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Joomla\\CMS\\User\\User\:
+				4\.3\.0 will be removed in 6\.0
+				            Create a proper getter function for the property$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/libraries/yireo/model/item.php
+
+		-
+			message: '''
+				#^Call to deprecated method getProperties\(\) of class Joomla\\CMS\\Table\\Table\:
+				4\.3\.0 will be removed in 6\.0
+				            Create a proper getter function for the property$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/item.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Joomla\\CMS\\User\\User\:
+				4\.3\.0 will be removed in 6\.0
+				            Create a proper getter function for the property$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/items.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCfg\(\) of class Joomla\\CMS\\Application\\CMSApplication\:
+				3\.2 will be removed in 6\.0
+				             Use get\(\) instead
+				             Example\: Factory\:\:getApplication\(\)\-\>get\(\$varname, \$default\);$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/libraries/yireo/model/items.php
+
+		-
+			message: '''
+				#^Class YireoServiceModel extends deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/model/service.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/route/query.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/table.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/table.php
+
+		-
+			message: '''
+				#^Call to deprecated method addScript\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseScript\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 5
+			path: joomla/libraries/yireo/view/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 5
+			path: joomla/libraries/yireo/view/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/view/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/view/common.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/view/common.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Call to method display\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Class YireoViewForm extends deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
+				#^Call to method display\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
+				#^Class YireoViewHome extends deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
+				#^Call to method display\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/item.php
+
+		-
+			message: '''
+				#^Class YireoViewItem extends deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/item.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method __construct\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method display\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Class YireoViewList extends deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/modules/mod_magebridge_block/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/modules/mod_magebridge_login/mod_magebridge_login.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/modules/mod_magebridge_newsletter/mod_magebridge_newsletter.php
+
+		-
+			message: '''
+				#^Call to method getAssociations\(\) of deprecated class Joomla\\Component\\Menus\\Administrator\\Helper\\MenusHelper\:
+				4\.3 will be removed in 6\.0
+				             Use \\Joomla\\Component\\Menus\\Administrator\\Helper\\MenusHelper instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: joomla/modules/mod_magebridge_switcher/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/modules/mod_magebridge_widget/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/authentication/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getLanguage\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the language service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getLanguage\(\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/plugins/magebridgestore/falang/falang.php
 
 		-
-			message: "#^Call to static method getInstance\\(\\) on an unknown class JoomfishManager\\.$#"
+			message: '#^Call to static method getInstance\(\) on an unknown class FalangManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: joomla/plugins/magebridgestore/falang/falang.php
+
+		-
+			message: '''
+				#^Call to deprecated method getLanguage\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the language service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getLanguage\(\);$#
+			'''
+			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/plugins/magebridgestore/joomfish/joomfish.php
 
 		-
-			message: "#^Access to an undefined property Yireo_MageBridge_Model_Attribute_Api\\:\\:\\$_attributeSetCollection\\.$#"
+			message: '#^Call to static method getInstance\(\) on an unknown class JoomfishManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: joomla/plugins/magebridgestore/joomfish/joomfish.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/magento/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method triggerEvent\(\) of class Joomla\\CMS\\Application\\WebApplication\:
+				4\.0 will be removed in 6\.0
+				             Use the Dispatcher method instead
+				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/plugins/magento/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecated
+			count: 4
+			path: joomla/plugins/system/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 3
+			path: joomla/plugins/system/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getCache\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the cache controller factory instead
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(CacheControllerFactoryInterface\:\:class\)\-\>createCacheController\(\$handler, \$options\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridgepositions/rewrite/32/cms/application/module/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridgepositions/rewrite/32/cms/application/module/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridgepositions/rewrite/32/cms/application/module/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getLanguage\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the language service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getLanguage\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/plugins/system/magebridgepositions/rewrite/32/cms/application/module/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/plugins/system/magebridgepositions/rewrite/32/cms/application/module/helper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridgepre/magebridgepre.php
+
+		-
+			message: '''
+				#^Call to deprecated method addStyleDeclaration\(\) of class Joomla\\CMS\\Document\\Document\:
+				4\.3 will be removed in 6\.0
+				             Use WebAssetManager
+				             Example\: \$wa\-\>addInlineStyle\(\.\.\.\);$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: joomla/plugins/system/magebridgert/magebridgert.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 4
+			path: joomla/plugins/system/magebridgert/magebridgert.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the document service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getDocument\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/plugins/system/magebridgert/magebridgert.php
+
+		-
+			message: '''
+				#^Call to deprecated method getConfig\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the configuration object within the application
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/plugins/system/magebridgeyoo/magebridgeyoo.php
+
+		-
+			message: '''
+				#^Call to deprecated method getSession\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the session service in the DI container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/plugins/user/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Load the user service from the dependency injection container or get from the application object
+				             Example\:
+				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: joomla/plugins/user/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
+				4\.3 will be removed in 6\.0
+				             Use the database service in the DI container
+				             Example\:
+				             Factory\:\:getContainer\(\)\-\>get\(DatabaseInterface\:\:class\);$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 4
+			path: joomla/plugins/user/magebridgefirstlast/magebridgefirstlast.php
+
+		-
+			message: '''
+				#^Call to deprecated method set\(\) of class Joomla\\CMS\\User\\User\:
+				4\.3\.0 will be removed in 6\.0
+				            Create a proper setter function for the property$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: joomla/plugins/user/magebridgefirstlast/magebridgefirstlast.php
+
+		-
+			message: '#^Access to an undefined property Yireo_MageBridge_Model_Attribute_Api\:\:\$_attributeSetCollection\.$#'
+			identifier: property.notFound
 			count: 1
 			path: magento/app/code/community/Yireo/MageBridge/Model/Attribute/Api.php
 
 		-
-			message: "#^Access to an undefined property Yireo_MageBridge_Model_Client\\:\\:\\$coreModel\\.$#"
+			message: '#^Access to an undefined property Yireo_MageBridge_Model_Client\:\:\$coreModel\.$#'
+			identifier: property.notFound
 			count: 2
 			path: magento/app/code/community/Yireo/MageBridge/Model/Client.php
+
+		-
+			message: '''
+				#^Call to deprecated method rewrite\(\) of class Mage_Core_Controller_Varien_Front\:
+				since 1\.7\.0\.2\. Refactored and moved to Mage_Core_Controller_Request_Rewrite$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: magento/app/code/community/Yireo/MageBridge/Model/Core.php
+
+		-
+			message: '#^Path in include\(\) "includes/config\.php" is not a file or it does not exist\.$#'
+			identifier: include.fileNotFound
+			count: 1
+			path: magento/magebridge.php
+
+		-
+			message: '#^Path in require_once\(\) "app/Mage\.php" is not a file or it does not exist\.$#'
+			identifier: requireOnce.fileNotFound
+			count: 1
+			path: magento/magebridge.php
