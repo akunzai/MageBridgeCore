@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Joomla! article field
  *

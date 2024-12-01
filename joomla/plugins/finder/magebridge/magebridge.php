@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge - Finder plugin
  *
