@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Product plugin - Example
  *

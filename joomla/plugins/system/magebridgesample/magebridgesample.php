@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! MageBridge Sample - System plugin
  *

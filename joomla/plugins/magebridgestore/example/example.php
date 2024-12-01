@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MageBridge Store plugin - Example
  *

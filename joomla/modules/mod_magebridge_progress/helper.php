@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Joomla! module MageBridge: Progress Block
  *
