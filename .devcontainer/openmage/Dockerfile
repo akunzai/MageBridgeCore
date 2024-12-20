@@ -2,7 +2,7 @@
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=8.3
 ARG PHP_EXTRA_BUILD_DEPS=""
-ARG OPENMAGE_VERSION=20.10.2
+ARG OPENMAGE_VERSION=20.11.0
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
 FROM composer AS builder
@@ -32,7 +32,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends \
-    libonig-dev \
+    libonig-dev libssl-dev \
     libfreetype6-dev libicu-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
@@ -40,8 +40,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
-    docker-php-ext-install -j$(nproc) opcache \
-    intl gd mysqli pcntl pdo_mysql soap xsl zip; \
+    docker-php-ext-install -j$(nproc) ftp \
+    gd intl mysqli opcache pcntl pdo_mysql soap xsl zip; \
     curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
     chmod +x /usr/local/bin/pickle; \
     pickle install --no-interaction apcu-stable; \
