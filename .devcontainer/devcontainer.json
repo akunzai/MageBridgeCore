@@ -5,7 +5,7 @@
   "service": "joomla",
   "workspaceFolder": "/workspace",
   "postCreateCommand": "sudo usermod -aG www-data vscode",
-  "postAttachCommand": "newgrp www-data",
+  "postAttachCommand": "newgrp www-data; composer config -g repositories.firegento composer https://packages.firegento.com",
   "remoteUser": "vscode",
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
