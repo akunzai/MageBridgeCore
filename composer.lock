@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a54dce966de3b673b0b5535e7b66ca4",
+    "content-hash": "db1b6b31829727a5d94929f13a7a1827",
     "packages": [
         {
             "name": "aydin-hassan/magento-core-composer-installer",
@@ -965,15 +965,15 @@
         },
         {
             "name": "joomla/joomla-cms",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-cms.git",
-                "reference": "tags/5.2.1"
+                "reference": "tags/5.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/joomla/joomla-cms/releases/download/5.2.1/Joomla_5.2.1-Stable-Full_Package.zip"
+                "url": "https://github.com/joomla/joomla-cms/releases/download/5.2.2/Joomla_5.2.2-Stable-Full_Package.zip"
             },
             "type": "library"
         },
