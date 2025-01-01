@@ -1231,7 +1231,7 @@ parameters:
 				             Factory\:\:getApplication\(\)\-\>getConfig\(\);$#
 			'''
 			identifier: staticMethod.deprecated
-			count: 3
+			count: 1
 			path: joomla/components/com_magebridge/models/proxy.php
 
 		-
@@ -1243,24 +1243,6 @@ parameters:
 				             Factory\:\:getApplication\(\)\-\>getSession\(\);$#
 			'''
 			identifier: staticMethod.deprecated
-			count: 2
-			path: joomla/components/com_magebridge/models/proxy.php
-
-		-
-			message: '''
-				#^Call to deprecated method getUser\(\) of class Joomla\\CMS\\Factory\:
-				4\.3 will be removed in 6\.0
-				             Load the user service from the dependency injection container or get from the application object
-				             Example\:
-				             Factory\:\:getApplication\(\)\-\>getIdentity\(\);$#
-			'''
-			identifier: staticMethod.deprecated
-			count: 1
-			path: joomla/components/com_magebridge/models/proxy.php
-
-		-
-			message: '#^Instantiated class Joomla\\CMS\\Crypt\\Key not found\.$#'
-			identifier: class.notFound
 			count: 1
 			path: joomla/components/com_magebridge/models/proxy.php
 
