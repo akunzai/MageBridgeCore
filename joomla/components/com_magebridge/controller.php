@@ -30,11 +30,6 @@ class MageBridgeController extends YireoAbstractController
     protected $bridge;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
-     */
-    protected $app;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -47,7 +42,6 @@ class MageBridgeController extends YireoAbstractController
 
         $this->bridge = MageBridgeModelBridge::getInstance();
 
-        $this->app   = Factory::getApplication();
         $input       = $this->app->input;
         $post        = $input->post->getArray();
         $doCheckPost = $this->doCheckPost();
