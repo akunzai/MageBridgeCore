@@ -60,9 +60,9 @@
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.69",
+        "friendsofphp/php-cs-fixer": "^3.70",
         "joomla/joomla-cms": "5.2.4",
-        "openmage/magento-lts": "^20.12",
+        "openmage/magento-lts": "^20.13",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0"
@@ -72,6 +72,7 @@
         "enable-patching": true,
         "magento-core-package-type": "magento-source"
     },
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "lint": [

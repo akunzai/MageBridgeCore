@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb34bad16f471a8ff231781ea902c063",
+    "content-hash": "ef4a94f78f3cdded42425f85410ddba8",
     "packages": [
         {
             "name": "aydin-hassan/magento-core-composer-installer",
@@ -137,7 +137,7 @@
             "version": "1.17.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
+                "url": "git@github.com:colinmollenhour/Cm_Cache_Backend_Redis.git",
                 "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1"
             },
             "dist": {
@@ -160,7 +160,14 @@
                     "Cm/Cache/Backend/Redis.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit tests"
+                ],
+                "php-cs-fixer": [
+                    "vendor/bin/php-cs-fixer fix --diff"
+                ]
+            },
             "license": [
                 "BSD-3-Clause-Modification"
             ],
@@ -171,10 +178,6 @@
             ],
             "description": "Zend_Cache backend using Redis with full support for tags.",
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
-            "support": {
-                "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.17.1"
-            },
             "time": "2023-12-21T21:56:18+00:00"
         },
         {
@@ -229,7 +232,7 @@
             "version": "3.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
+                "url": "git@github.com:colinmollenhour/Cm_RedisSession.git",
                 "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa"
             },
             "dist": {
@@ -246,7 +249,6 @@
                 "magento-hackathon/magento-composer-installer": "Makes it possible to manage this package as a dependency"
             },
             "type": "magento-module",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -257,10 +259,6 @@
             ],
             "description": "A Redis-based session handler for Magento with optimistic locking.",
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
-            "support": {
-                "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.0"
-            },
             "time": "2023-10-03T14:21:02+00:00"
         },
         {
@@ -807,6 +805,44 @@
             "time": "2024-08-06T10:04:20+00:00"
         },
         {
+            "name": "flowjs/flowjs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flowjs/flow.js.git",
+                "reference": "3d4ba3a1b9906b31551f33ae649e6fd6b95cf711"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flowjs/flow.js/zipball/3d4ba3a1b9906b31551f33ae649e6fd6b95cf711",
+                "reference": "3d4ba3a1b9906b31551f33ae649e6fd6b95cf711",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A JavaScript library providing multiple file uploads via the HTML5 File API.",
+            "homepage": "https://github.com/flowjs/flow.js",
+            "keywords": [
+                "JS",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/flowjs/flow.js/issues",
+                "source": "https://github.com/flowjs/flow.js/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/aidas",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-01-09T16:06:32+00:00"
+        },
+        {
             "name": "flyingmana/composer-config-reader",
             "version": "20.0.1",
             "source": {
@@ -862,16 +898,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.69.1",
+            "version": "v3.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "13b0c0eede38c11cd674b080f2b485d0f14ffa9f"
+                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/13b0c0eede38c11cd674b080f2b485d0f14ffa9f",
-                "reference": "13b0c0eede38c11cd674b080f2b485d0f14ffa9f",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
+                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
                 "shasum": ""
             },
             "require": {
@@ -953,7 +989,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.69.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.70.0"
             },
             "funding": [
                 {
@@ -961,7 +997,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-18T23:57:43+00:00"
+            "time": "2025-02-22T23:30:51+00:00"
         },
         {
             "name": "joomla/joomla-cms",
@@ -1047,7 +1083,7 @@
             "version": "4.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Cotya/magento-composer-installer.git",
+                "url": "git@github.com:Cotya/magento-composer-installer.git",
                 "reference": "ece5cc5bb2a0150a743619901543036597f9eb5b"
             },
             "dist": {
@@ -1088,7 +1124,17 @@
                     "MagentoHackathon\\Composer": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-0": {
+                    "MagentoHackathon\\Composer\\Magento": "tests/"
+                }
+            },
+            "archive": {
+                "exclude": [
+                    "vendor",
+                    "/tests/FullStackTest/"
+                ]
+            },
             "license": [
                 "OSL-3.0"
             ],
@@ -1125,34 +1171,30 @@
                 "magento",
                 "openmage"
             ],
-            "support": {
-                "issues": "https://github.com/Cotya/magento-composer-installer/issues",
-                "source": "https://github.com/Cotya/magento-composer-installer/tree/4.0.2"
-            },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/Flyingmana",
-                    "type": "github"
+                    "type": "patreon",
+                    "url": "https://www.patreon.com/Flyingmana"
                 },
                 {
-                    "url": "https://www.patreon.com/Flyingmana",
-                    "type": "patreon"
+                    "type": "github",
+                    "url": "https://github.com/sponsors/Flyingmana"
                 }
             ],
             "time": "2022-04-20T19:23:22+00:00"
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "24.12.30",
+            "version": "25.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9"
+                "reference": "e3f20d04fdf6d590019c319fd96a1a9fc02325e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
-                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/e3f20d04fdf6d590019c319fd96a1a9fc02325e1",
+                "reference": "e3f20d04fdf6d590019c319fd96a1a9fc02325e1",
                 "shasum": ""
             },
             "type": "library",
@@ -1174,9 +1216,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/24.12.30"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.2.3"
             },
-            "time": "2024-12-30T10:42:10+00:00"
+            "time": "2025-02-03T10:42:25+00:00"
         },
         {
             "name": "openmage/composer-plugin",
@@ -1244,21 +1286,22 @@
         },
         {
             "name": "openmage/magento-lts",
-            "version": "v20.12.2",
+            "version": "v20.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/magento-lts.git",
-                "reference": "5496d8a9d1c3895b5f55df2e89737abe1890757e"
+                "reference": "cd7bf930736a34add81b1fe84ba8caaca7e42b38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/5496d8a9d1c3895b5f55df2e89737abe1890757e",
-                "reference": "5496d8a9d1c3895b5f55df2e89737abe1890757e",
+                "url": "https://api.github.com/repos/OpenMage/magento-lts/zipball/cd7bf930736a34add81b1fe84ba8caaca7e42b38",
+                "reference": "cd7bf930736a34add81b1fe84ba8caaca7e42b38",
                 "shasum": ""
             },
             "require": {
                 "colinmollenhour/cache-backend-redis": "^1.14",
                 "colinmollenhour/magento-redis-session": "^3.2.0",
+                "composer-runtime-api": "^2",
                 "cweagans/composer-patches": "^1.7",
                 "ext-ctype": "*",
                 "ext-curl": "*",
@@ -1277,8 +1320,9 @@
                 "ext-soap": "*",
                 "ext-zlib": "*",
                 "ezyang/htmlpurifier": "^4.17",
+                "flowjs/flowjs": "dev-master",
                 "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-                "mklkj/tinymce-i18n": "^24.11",
+                "mklkj/tinymce-i18n": "^25.2",
                 "openmage/composer-plugin": "^3.0",
                 "pelago/emogrifier": "^7.0",
                 "php": ">=7.4 <8.5",
@@ -1299,7 +1343,6 @@
                 "n98/n98_layouthelper": "*"
             },
             "require-dev": {
-                "composer/composer": "^2.7",
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
                 "ext-xmlreader": "*",
                 "friendsofphp/php-cs-fixer": "^3.6",
@@ -1309,9 +1352,11 @@
                 "perftools/php-profiler": "^1.1",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpmd/phpmd": "^2.13",
+                "phpstan/extension-installer": "^1.4",
                 "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.6",
-                "rector/rector": "^2.0.5",
+                "rector/rector": "^2.0",
                 "squizlabs/php_codesniffer": "^3.7",
                 "symplify/vendor-patches": "^11.1"
             },
@@ -1375,7 +1420,7 @@
             "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
             "support": {
                 "issues": "https://github.com/OpenMage/magento-lts/issues",
-                "source": "https://github.com/OpenMage/magento-lts/tree/v20.12.2"
+                "source": "https://github.com/OpenMage/magento-lts/tree/v20.13.0"
             },
             "funding": [
                 {
@@ -1383,7 +1428,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-01-17T17:59:15+00:00"
+            "time": "2025-02-28T13:47:05+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -4230,16 +4275,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.2.0",
+            "version": "v7.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e"
+                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
-                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
+                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
                 "shasum": ""
             },
             "require": {
@@ -4271,7 +4316,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.2.0"
+                "source": "https://github.com/symfony/process/tree/v7.2.4"
             },
             "funding": [
                 {
@@ -4287,7 +4332,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T14:24:19+00:00"
+            "time": "2025-02-05T08:33:46+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -4374,16 +4419,16 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v7.2.2",
+            "version": "v7.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
-                "reference": "e46690d5b9d7164a6d061cab1e8d46141b9f49df"
+                "reference": "5a49289e2b308214c8b9c2fda4ea454d8b8ad7cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/e46690d5b9d7164a6d061cab1e8d46141b9f49df",
-                "reference": "e46690d5b9d7164a6d061cab1e8d46141b9f49df",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/5a49289e2b308214c8b9c2fda4ea454d8b8ad7cd",
+                "reference": "5a49289e2b308214c8b9c2fda4ea454d8b8ad7cd",
                 "shasum": ""
             },
             "require": {
@@ -4416,7 +4461,7 @@
             "description": "Provides a way to profile code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/stopwatch/tree/v7.2.2"
+                "source": "https://github.com/symfony/stopwatch/tree/v7.2.4"
             },
             "funding": [
                 {
@@ -4432,7 +4477,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-18T14:28:33+00:00"
+            "time": "2025-02-24T10:49:57+00:00"
         },
         {
             "name": "symfony/string",
@@ -4659,7 +4704,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "akunzai/joomla-stubs": 20
     },
