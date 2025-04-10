@@ -16,10 +16,10 @@ defined('_JEXEC') or die('Restricted access');
 $form = $this->actions_form;
 $fieldsetCount = count($form->getFieldsets('actions'));
 ?>
-<?php if($fieldsetCount > 0) : ?>
-<?php foreach($form->getFieldsets('actions') as $fieldset): ?>
+<?php if ($fieldsetCount > 0) : ?>
+<?php foreach ($form->getFieldsets('actions') as $fieldset): ?>
 <?php $fieldCount = count($form->getFieldset($fieldset->name)); ?>
-<?php if($fieldCount == 0) {
+<?php if ($fieldCount == 0) {
     continue;
 } ?>
 <fieldset class="adminform">
@@ -27,7 +27,7 @@ $fieldsetCount = count($form->getFieldsets('actions'));
 	<?php echo Text::_('COM_MAGEBRIDGE_VIEW_PRODUCT_FIELDSET_ACTIONS'); ?>: 
 	<?php echo (!empty($fieldset->label)) ? Text::_($fieldset->label) : $fieldset->name; ?>
 </legend>
-	<?php foreach($form->getFieldset($fieldset->name) as $field): ?>
+	<?php foreach ($form->getFieldset($fieldset->name) as $field): ?>
     <div class="row-fluid form-group" style="margin-bottom:5px;">
         <div class="span4 col-md-4">
 		    <?php echo $field->label; ?>

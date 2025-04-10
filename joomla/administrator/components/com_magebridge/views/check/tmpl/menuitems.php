@@ -32,7 +32,7 @@ $items = MageBridgeUrlHelper::getRootItems(false);
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach($items as $item): ?>
+	<?php foreach ($items as $item): ?>
 	<tr>
 		<td>
 			<?php echo $item->id; ?>

@@ -14,28 +14,28 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die('Restricted access');
 ?>
 <td>
-	<?php if(!empty($item->label)): ?>
+	<?php if (!empty($item->label)): ?>
 	<a href="<?php echo $item->edit_link; ?>" title="<?php echo Text::_('Edit usergroup relation'); ?>"><?php echo $item->label; ?></a>
 	<?php else: ?>
 	&nbsp;
 	<?php endif; ?>
 </td>
 <td>
-	<?php if(!empty($item->description)): ?>
+	<?php if (!empty($item->description)): ?>
 	<a href="<?php echo $item->edit_link; ?>" title="<?php echo Text::_('Edit usergroup relation'); ?>"><?php echo $item->description; ?></a>
 	<?php else: ?>
 	&nbsp;
 	<?php endif; ?>
 </td>
 <td>
-	<?php if(!empty($item->joomla_group_label)) : ?>
+	<?php if (!empty($item->joomla_group_label)) : ?>
 	<?php echo $item->joomla_group_label; ?> (ID <?php echo $item->joomla_group; ?>)
 	<?php else: ?>
 	(ID <?php echo $item->joomla_group; ?>)
 	<?php endif; ?>
 </td>
 <td>
-	<?php if(!empty($item->magento_group_label)) : ?>
+	<?php if (!empty($item->magento_group_label)) : ?>
 	<?php echo $item->magento_group_label; ?> (ID <?php echo $item->magento_group; ?>)
 	<?php else: ?>
 	(ID <?php echo $item->magento_group; ?>)
