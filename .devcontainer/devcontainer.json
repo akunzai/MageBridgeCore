@@ -4,9 +4,6 @@
   "dockerComposeFile": "compose.yaml",
   "service": "joomla",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "sudo usermod -aG www-data vscode",
-  "postAttachCommand": "newgrp www-data; composer config -g repositories.firegento composer https://packages.firegento.com",
-  "remoteUser": "vscode",
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
   },
@@ -27,15 +24,7 @@
   },
   // https://containers.dev/features
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "username": "vscode",
-      "userUid": "1000",
-      "userGid": "1000"
-    },
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "latest",
-      "ppa": "false"
-    },
+    "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
   }
 }
