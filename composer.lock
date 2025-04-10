@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef4a94f78f3cdded42425f85410ddba8",
+    "content-hash": "6f00c7b6d00d4e1593312db770921f15",
     "packages": [
         {
             "name": "aydin-hassan/magento-core-composer-installer",
@@ -137,7 +137,7 @@
             "version": "1.17.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:colinmollenhour/Cm_Cache_Backend_Redis.git",
+                "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
                 "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1"
             },
             "dist": {
@@ -160,14 +160,7 @@
                     "Cm/Cache/Backend/Redis.php"
                 ]
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit tests"
-                ],
-                "php-cs-fixer": [
-                    "vendor/bin/php-cs-fixer fix --diff"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause-Modification"
             ],
@@ -178,6 +171,10 @@
             ],
             "description": "Zend_Cache backend using Redis with full support for tags.",
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.17.1"
+            },
             "time": "2023-12-21T21:56:18+00:00"
         },
         {
@@ -232,7 +229,7 @@
             "version": "3.2.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:colinmollenhour/Cm_RedisSession.git",
+                "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
                 "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa"
             },
             "dist": {
@@ -249,6 +246,7 @@
                 "magento-hackathon/magento-composer-installer": "Makes it possible to manage this package as a dependency"
             },
             "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -259,6 +257,10 @@
             ],
             "description": "A Redis-based session handler for Magento with optimistic locking.",
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.0"
+            },
             "time": "2023-10-03T14:21:02+00:00"
         },
         {
@@ -898,16 +900,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.70.0",
+            "version": "v3.75.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e"
+                "reference": "399a128ff2fdaf4281e4e79b755693286cdf325c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
-                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/399a128ff2fdaf4281e4e79b755693286cdf325c",
+                "reference": "399a128ff2fdaf4281e4e79b755693286cdf325c",
                 "shasum": ""
             },
             "require": {
@@ -915,6 +917,7 @@
                 "composer/semver": "^3.4",
                 "composer/xdebug-handler": "^3.0.3",
                 "ext-filter": "*",
+                "ext-hash": "*",
                 "ext-json": "*",
                 "ext-tokenizer": "*",
                 "fidry/cpu-core-counter": "^1.2",
@@ -937,18 +940,18 @@
                 "symfony/stopwatch": "^5.4 || ^6.4 || ^7.0"
             },
             "require-dev": {
-                "facile-it/paraunit": "^1.3.1 || ^2.5",
-                "infection/infection": "^0.29.10",
-                "justinrainbow/json-schema": "^5.3 || ^6.0",
+                "facile-it/paraunit": "^1.3.1 || ^2.6",
+                "infection/infection": "^0.29.14",
+                "justinrainbow/json-schema": "^5.3 || ^6.2",
                 "keradus/cli-executor": "^2.1",
                 "mikey179/vfsstream": "^1.6.12",
                 "php-coveralls/php-coveralls": "^2.7",
                 "php-cs-fixer/accessible-object": "^1.1",
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.6",
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.6",
-                "phpunit/phpunit": "^9.6.22 || ^10.5.45 || ^11.5.7",
-                "symfony/var-dumper": "^5.4.48 || ^6.4.18 || ^7.2.0",
-                "symfony/yaml": "^5.4.45 || ^6.4.18 || ^7.2.0"
+                "phpunit/phpunit": "^9.6.22 || ^10.5.45 || ^11.5.12",
+                "symfony/var-dumper": "^5.4.48 || ^6.4.18 || ^7.2.3",
+                "symfony/yaml": "^5.4.45 || ^6.4.18 || ^7.2.3"
             },
             "suggest": {
                 "ext-dom": "For handling output formats in XML",
@@ -989,7 +992,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.70.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.75.0"
             },
             "funding": [
                 {
@@ -997,19 +1000,19 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-22T23:30:51+00:00"
+            "time": "2025-03-31T18:40:42+00:00"
         },
         {
             "name": "joomla/joomla-cms",
-            "version": "5.2.4",
+            "version": "5.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-cms.git",
-                "reference": "tags/5.2.4"
+                "reference": "tags/5.2.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/joomla/joomla-cms/releases/download/5.2.4/Joomla_5.2.4-Stable-Full_Package.zip"
+                "url": "https://github.com/joomla/joomla-cms/releases/download/5.2.6/Joomla_5.2.6-Stable-Full_Package.zip"
             },
             "type": "library"
         },
@@ -1083,7 +1086,7 @@
             "version": "4.0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Cotya/magento-composer-installer.git",
+                "url": "https://github.com/Cotya/magento-composer-installer.git",
                 "reference": "ece5cc5bb2a0150a743619901543036597f9eb5b"
             },
             "dist": {
@@ -1124,17 +1127,7 @@
                     "MagentoHackathon\\Composer": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-0": {
-                    "MagentoHackathon\\Composer\\Magento": "tests/"
-                }
-            },
-            "archive": {
-                "exclude": [
-                    "vendor",
-                    "/tests/FullStackTest/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -1171,14 +1164,18 @@
                 "magento",
                 "openmage"
             ],
+            "support": {
+                "issues": "https://github.com/Cotya/magento-composer-installer/issues",
+                "source": "https://github.com/Cotya/magento-composer-installer/tree/4.0.2"
+            },
             "funding": [
                 {
-                    "type": "patreon",
-                    "url": "https://www.patreon.com/Flyingmana"
+                    "url": "https://github.com/sponsors/Flyingmana",
+                    "type": "github"
                 },
                 {
-                    "type": "github",
-                    "url": "https://github.com/sponsors/Flyingmana"
+                    "url": "https://www.patreon.com/Flyingmana",
+                    "type": "patreon"
                 }
             ],
             "time": "2022-04-20T19:23:22+00:00"
@@ -1857,16 +1854,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.6",
+            "version": "2.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c"
+                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
-                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8ca5f79a8f63c49b2359065832a654e1ec70ac30",
+                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30",
                 "shasum": ""
             },
             "require": {
@@ -1911,7 +1908,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-19T15:46:42+00:00"
+            "time": "2025-03-24T13:45:00+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -2641,16 +2638,16 @@
         },
         {
             "name": "sabberworm/php-css-parser",
-            "version": "v8.7.0",
+            "version": "v8.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/PHP-CSS-Parser.git",
-                "reference": "f414ff953002a9b18e3a116f5e462c56f21237cf"
+                "reference": "3de493bdddfd1f051249af725c7e0d2c38fed740"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/f414ff953002a9b18e3a116f5e462c56f21237cf",
-                "reference": "f414ff953002a9b18e3a116f5e462c56f21237cf",
+                "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/3de493bdddfd1f051249af725c7e0d2c38fed740",
+                "reference": "3de493bdddfd1f051249af725c7e0d2c38fed740",
                 "shasum": ""
             },
             "require": {
@@ -2658,7 +2655,7 @@
                 "php": "^5.6.20 || ^7.0.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.7.27 || 6.5.14 || 7.5.20 || 8.5.40"
+                "phpunit/phpunit": "5.7.27 || 6.5.14 || 7.5.20 || 8.5.41"
             },
             "suggest": {
                 "ext-mbstring": "for parsing UTF-8 CSS"
@@ -2700,9 +2697,9 @@
             ],
             "support": {
                 "issues": "https://github.com/MyIntervals/PHP-CSS-Parser/issues",
-                "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.7.0"
+                "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.8.0"
             },
-            "time": "2024-10-27T17:38:32+00:00"
+            "time": "2025-03-23T17:59:05+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -4275,16 +4272,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.2.4",
+            "version": "v7.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf"
+                "reference": "87b7c93e57df9d8e39a093d32587702380ff045d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
-                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
+                "url": "https://api.github.com/repos/symfony/process/zipball/87b7c93e57df9d8e39a093d32587702380ff045d",
+                "reference": "87b7c93e57df9d8e39a093d32587702380ff045d",
                 "shasum": ""
             },
             "require": {
@@ -4316,7 +4313,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.2.4"
+                "source": "https://github.com/symfony/process/tree/v7.2.5"
             },
             "funding": [
                 {
@@ -4332,7 +4329,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-05T08:33:46+00:00"
+            "time": "2025-03-13T12:21:46+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -4645,16 +4642,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "7.7.0",
+            "version": "7.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "4b04481b24137029525f6dc372706fa9d3168f14"
+                "reference": "88d1b2874256895338034dba28bf6e920aa4ba17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/4b04481b24137029525f6dc372706fa9d3168f14",
-                "reference": "4b04481b24137029525f6dc372706fa9d3168f14",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/88d1b2874256895338034dba28bf6e920aa4ba17",
+                "reference": "88d1b2874256895338034dba28bf6e920aa4ba17",
                 "shasum": ""
             },
             "type": "component",
@@ -4698,9 +4695,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/7.7.0"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/7.8.0"
             },
-            "time": "2025-02-20T08:31:02+00:00"
+            "time": "2025-04-09T02:06:27+00:00"
         }
     ],
     "aliases": [],
