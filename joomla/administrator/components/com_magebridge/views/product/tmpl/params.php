@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 $form = $this->params_form;
 ?>
-<?php foreach($form->getFieldset('params') as $field): ?>
+<?php foreach ($form->getFieldset('params') as $field): ?>
 <div class="row-fluid form-group" style="margin-bottom:5px;">
     <div class="span4 col-md-4">
 		<?php echo $field->label; ?>

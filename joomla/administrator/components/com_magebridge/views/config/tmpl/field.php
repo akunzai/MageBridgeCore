@@ -12,7 +12,7 @@
 use Joomla\CMS\Language\Text;
 
 ?>
-<?php if(strtolower($field->type) == 'spacer') : ?>
+<?php if (strtolower($field->type) == 'spacer') : ?>
 <h4 class="fieldgroup"><?php echo Text::_('COM_MAGEBRIDGE_MODEL_CONFIG_FIELDGROUP_'.$field->fieldname); ?></h4>
 <?php else: ?>
 <?php
