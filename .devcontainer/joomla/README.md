@@ -24,14 +24,13 @@ Upload Package File: `pkg_magebridge.zip`
 ### API
 
 - Hostname: `store.dev.local`
-- Port: `8080`
 - API User: `magebridge_api`
 - API Key: `ChangeTheAp1K3y`
 
 ### Bridge
 
-- Protocol: `HTTP`
-- Enforce SSL: `None`
+- Protocol: `HTTPS`
+- Enforce SSL: `Entire site`
 
 ### Users
 
