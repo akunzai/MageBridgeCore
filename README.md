@@ -34,7 +34,7 @@ composer run phpstan
 
 ### Joomla
 
-> see [here](./.devcontainer/joomla/) for details
+> see [joomla setup document](./.devcontainer/joomla/) for details
 
 Navigate to `System->Install->Extensions` in Joomla! backend and upload the package file `pkg_magebridge.zip` to install
 
@@ -43,7 +43,7 @@ Navigate to `System->Install->Extensions` in Joomla! backend and upload the pack
 ### OpenMage
 
 > [modman](https://github.com/colinmollenhour/modman) is required,
-> see [here](./.devcontainer/openmage/) for details
+> see [OpenMage setup document](./.devcontainer/openmage/) for details
 
 ```sh
 # install
