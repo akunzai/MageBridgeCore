@@ -62,7 +62,7 @@
         "akunzai/joomla-stubs": "dev-master",
         "friendsofphp/php-cs-fixer": "^3.75",
         "joomla/joomla-cms": "5.2.6",
-        "openmage/magento-lts": "^20.13",
+        "openmage/magento-lts": "^20.14",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0"
