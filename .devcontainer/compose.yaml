@@ -29,14 +29,18 @@ services:
       # https://xdebug.org/docs/all_settings
       # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
       # XDEBUG_MODE: debug
-    ports:
-      - 127.0.0.1:80:80
     networks:
       default:
         aliases:
           - www.dev.local
     depends_on:
       - mysql
+    external_links:
+      - traefik:store.dev.local
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.joomla.entrypoints=websecure
+      - traefik.http.routers.joomla.rule=Host(`www.dev.local`)
 
   openmage:
     build:
@@ -67,14 +71,22 @@ services:
       # https://xdebug.org/docs/all_settings
       # XDEBUG_CONFIG: 'client_host=localhost log=/tmp/xdebug.log'
       # XDEBUG_MODE: debug
-    ports:
-      - 127.0.0.1:8080:8080
+    secrets:
+      - cert.pem
+      - key.pem
     networks:
       default:
         aliases:
           - store.dev.local
     depends_on:
       - mysql
+    external_links:
+      - traefik:www.dev.local
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.openmage.entrypoints=websecure
+      - traefik.http.routers.openmage.rule=Host(`store.dev.local`)
+      - traefik.http.services.openmage.loadbalancer.server.port=8080
 
   mysql:
     # https://hub.docker.com/_/mysql
@@ -88,6 +100,37 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-openmage}
     ports:
       - 127.0.0.1:3306:3306
+
+  traefik:
+    # https://hub.docker.com/_/traefik
+    image: traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/etc:/etc/traefik
+    command:
+      - --api.insecure=true
+      - --api.dashboard=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --providers.file.directory=/etc/traefik/dynamic/
+    ports:
+      - 127.0.0.1:80:80
+      - 127.0.0.1:443:443
+      - 127.0.0.1:9090:8080
+    secrets:
+      - cert.pem
+      - key.pem
+
+secrets:
+  cert.pem:
+    file: .secrets/cert.pem
+  key.pem:
+    file: .secrets/key.pem
 
 volumes:
   joomla_data: null

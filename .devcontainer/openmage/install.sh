@@ -41,10 +41,6 @@ fi
 
 echo "Installing OpenMage ..."
 
-HOST_PORT=":${HOST_PORT:-8080}"
-test "${HOST_PORT}" = ":80" && HOST_PORT=""
-BASE_URL="${BASE_URL:-http://${HOST_NAME:-store.dev.local}${HOST_PORT}/}"
-
 docker compose exec --user www-data openmage php install.php \
   --admin_firstname OpenMage  \
   --admin_lastname Admin \
@@ -58,13 +54,13 @@ docker compose exec --user www-data openmage php install.php \
   --locale "${LOCALE:-en_US}" \
   --timezone "${TIMEZONE:-America/New_York}" \
   --default_currency "${CURRENCY:-USD}" \
-  --url "${BASE_URL}" \
-  --secure_base_url "${BASE_URL}" \
+  --url "$(echo ${HTTP_BASE_URL:-"http://store.dev.local"})" \
+  --secure_base_url "$(echo ${HTTPS_BASE_URL:-"https://store.dev.local"})" \
   --skip_url_validation \
   --license_agreement_accepted yes \
   --use_rewrites yes \
-  --use_secure no \
-  --use_secure_admin no \
+  --use_secure yes \
+  --use_secure_admin yes \
   --encryption_key "${ENCRYPTION_KEY:-}"
 
 echo "Installing MageBridge module ..."

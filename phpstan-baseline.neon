@@ -63,7 +63,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addScriptDeclaration\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>addInlineScript\(\.\.\.\);$#
 			'''
@@ -94,6 +94,36 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/administrator/components/com_magebridge/fields/article.php
+
+		-
+			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/category.php
+
+		-
+			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/customer.php
+
+		-
+			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/product.php
 
 		-
 			message: '''
@@ -145,7 +175,17 @@ parameters:
 
 		-
 			message: '''
-				#^Call to method getTemplateOptions\(\) of deprecated class Joomla\\Component\\Templates\\Administrator\\Helper\\TemplatesHelper\:
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/stylesheets.php
+
+		-
+			message: '''
+				#^Call to static method getTemplateOptions\(\) on deprecated class TemplatesHelper\:
 				4\.3 will be removed in 6\.0
 				             Use \\Joomla\\Component\\Templates\\Administrator\\Helper\\TemplatesHelper instead$#
 			'''
@@ -164,6 +204,16 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/administrator/components/com_magebridge/fields/website.php
+
+		-
+			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/fields/widget.php
 
 		-
 			message: '''
@@ -215,16 +265,6 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method exists\(\) of class Joomla\\CMS\\Filesystem\\File\:
-				4\.4 will be removed in 6\.0
-				             Use is_file\(\) instead\.$#
-			'''
-			identifier: staticMethod.deprecated
-			count: 1
-			path: joomla/administrator/components/com_magebridge/helpers/update.php
-
-		-
-			message: '''
 				#^Call to method exists\(\) of deprecated class Joomla\\CMS\\Filesystem\\File\:
 				4\.4 will be removed in 6\.0
 				             Use Joomla\\Filesystem\\File instead\.$#
@@ -236,7 +276,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
 			'''
@@ -309,7 +349,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/log.php
 
@@ -318,7 +358,7 @@ parameters:
 				#^Call to method store\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/log.php
 
@@ -333,10 +373,19 @@ parameters:
 
 		-
 			message: '''
+				#^Access to property \$_orderby_title of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/product.php
+
+		-
+			message: '''
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/product.php
 
@@ -345,7 +394,7 @@ parameters:
 				#^Call to method store\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/product.php
 
@@ -363,7 +412,25 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/products.php
+
+		-
+			message: '''
+				#^Call to method addWhere\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/products.php
+
+		-
+			message: '''
+				#^Call to method getFilter\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/products.php
 
@@ -381,7 +448,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/store.php
 
@@ -390,7 +457,7 @@ parameters:
 				#^Call to method delete\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/store.php
 
@@ -399,7 +466,7 @@ parameters:
 				#^Call to method store\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/store.php
 
@@ -417,7 +484,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/stores.php
 
@@ -435,7 +502,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/urls.php
 
@@ -450,10 +517,19 @@ parameters:
 
 		-
 			message: '''
+				#^Access to property \$_orderby_title of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/models/usergroup.php
+
+		-
+			message: '''
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/usergroup.php
 
@@ -471,7 +547,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/administrator/components/com_magebridge/models/usergroups.php
 
@@ -522,6 +598,17 @@ parameters:
 
 		-
 			message: '''
+				#^Call to deprecated method get\(\) of class Joomla\\CMS\\MVC\\View\\AbstractView\:
+				5\.3\.0 will be removed in 7\.0\.
+				             Retrieve the model with \$model \= \$this\-\>getModel\(\); and call the methods
+				             to the model directly, e\.g\. \$model\-\>getItems\(\) instead of \$this\-\>get\('Items'\)\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/check/view.html.php
+
+		-
+			message: '''
 				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
 				4\.3 will be removed in 6\.0
 				             Use the FormFactory service from the container
@@ -533,12 +620,22 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				#^Access to property \$get of deprecated class Joomla\\CMS\\Input\\Input\:
 				4\.3 will be removed in 6\.0\.
 				              Use Joomla\\Input\\Input instead$#
 			'''
-			identifier: method.deprecated
-			count: 2
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Access to property \$post of deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
 			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
 
 		-
@@ -567,6 +664,36 @@ parameters:
 
 		-
 			message: '''
+				#^Call to deprecated method stylesheet\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useStyle\(\) or WebAssetManager\:\:registerAndUseStyle\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Call to method getArray\(\) of deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/element/view.common.php
+
+		-
+			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/element/view.html.php
+
+		-
+			message: '''
 				#^Call to deprecated method getDbo\(\) of class Joomla\\CMS\\Factory\:
 				4\.3 will be removed in 6\.0
 				             Use the database service in the DI container
@@ -576,6 +703,15 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/administrator/components/com_magebridge/views/logs/view.csv.php
+
+		-
+			message: '''
+				#^Access to property \$lists of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 3
+			path: joomla/administrator/components/com_magebridge/views/logs/view.html.php
 
 		-
 			message: '''
@@ -591,6 +727,33 @@ parameters:
 
 		-
 			message: '''
+				#^Call to method fetchItems\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/logs/view.html.php
+
+		-
+			message: '''
+				#^Call to method getFilter\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 3
+			path: joomla/administrator/components/com_magebridge/views/logs/view.html.php
+
+		-
+			message: '''
+				#^Access to property \$lists of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/product/view.html.php
+
+		-
+			message: '''
 				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
 				4\.3 will be removed in 6\.0
 				             Use the FormFactory service from the container
@@ -610,6 +773,24 @@ parameters:
 			identifier: method.deprecated
 			count: 1
 			path: joomla/administrator/components/com_magebridge/views/product/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/product/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItems\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/products/view.html.php
 
 		-
 			message: '#^Call to an undefined method MageBridgeViewRoot\:\:build\(\)\.$#'
@@ -625,6 +806,24 @@ parameters:
 
 		-
 			message: '''
+				#^Access to property \$lists of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/store/view.html.php
+
+		-
+			message: '''
+				#^Access to property \$loadToolbar of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/store/view.html.php
+
+		-
+			message: '''
 				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
 				4\.3 will be removed in 6\.0
 				             Use the FormFactory service from the container
@@ -647,6 +846,60 @@ parameters:
 
 		-
 			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/store/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItems\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/stores/view.html.php
+
+		-
+			message: '''
+				#^Access to property \$item of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/url/view.html.php
+
+		-
+			message: '''
+				#^Access to property \$lists of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/url/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/url/view.html.php
+
+		-
+			message: '''
+				#^Access to property \$item of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 5
+			path: joomla/administrator/components/com_magebridge/views/usergroup/view.html.php
+
+		-
+			message: '''
 				#^Call to deprecated method getInstance\(\) of class Joomla\\CMS\\Form\\Form\:
 				4\.3 will be removed in 6\.0
 				             Use the FormFactory service from the container
@@ -655,6 +908,35 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/administrator/components/com_magebridge/views/usergroup/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/usergroup/view.html.php
+
+		-
+			message: '''
+				#^Call to method fetchItems\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/administrator/components/com_magebridge/views/usergroups/view.html.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Joomla\\CMS\\MVC\\View\\AbstractView\:
+				5\.3\.0 will be removed in 7\.0\.
+				             Retrieve the model with \$model \= \$this\-\>getModel\(\); and call the methods
+				             to the model directly, e\.g\. \$model\-\>getItems\(\) instead of \$this\-\>get\('Items'\)\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: joomla/administrator/components/com_magebridge/views/users/view.html.php
 
 		-
 			message: '''
@@ -876,7 +1158,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addScript\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseScript\(\.\.\.\);$#
 			'''
@@ -887,7 +1169,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
 			'''
@@ -1039,7 +1321,7 @@ parameters:
 				             Inject the router or load it from the dependency injection container
 				             Example\: Factory\:\:getContainer\(\)\-\>get\(\$name\);$#
 			'''
-			identifier: method.deprecated
+			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/components/com_magebridge/models/bridge.php
 
@@ -1057,12 +1339,11 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method triggerEvent\(\) of interface Joomla\\CMS\\Application\\EventAwareInterface\:
-				4\.0 will be removed in 6\.0
-				             Use the Dispatcher method instead
-				             Example\: Factory\:\:getApplication\(\)\-\>getDispatcher\(\)\-\>dispatch\(\$eventName, \$event\);$#
+				#^Call to method triggerEvent\(\) of deprecated interface Joomla\\CMS\\Application\\EventAwareInterface\:
+				4\.3 will be removed in 6\.0
+				             This interface will be removed without replacement as the Joomla 3\.x compatibility layer will be removed$#
 			'''
-			identifier: method.deprecated
+			identifier: method.deprecatedInterface
 			count: 2
 			path: joomla/components/com_magebridge/models/bridge.php
 
@@ -1139,17 +1420,6 @@ parameters:
 		-
 			message: '#^Call to an undefined static method Joomla\\Filesystem\\Folder\:\:create\(\)\.$#'
 			identifier: staticMethod.notFound
-			count: 1
-			path: joomla/components/com_magebridge/models/cache.php
-
-		-
-			message: '''
-				#^Call to deprecated method delete\(\) of class Joomla\\CMS\\Filesystem\\File\:
-				4\.4 will be removed in 6\.0
-				             Use Joomla\\Filesystem\\File\:\:delete\(\) instead\.
-				             The framework class throws Exceptions in case of error which you have to catch\.$#
-			'''
-			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/components/com_magebridge/models/cache.php
 
@@ -1516,11 +1786,11 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				#^Access to property \$post of deprecated class Joomla\\CMS\\Input\\Input\:
 				4\.3 will be removed in 6\.0\.
 				              Use Joomla\\Input\\Input instead$#
 			'''
-			identifier: method.deprecated
+			identifier: property.deprecatedClass
 			count: 2
 			path: joomla/libraries/yireo/controller.php
 
@@ -1538,19 +1808,110 @@ parameters:
 
 		-
 			message: '''
-				#^Instantiation of deprecated class YireoModel\:
+				#^Call to method __construct\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: new.deprecated
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/controller.php
 
 		-
 			message: '''
-				#^Return type of method YireoController\:\:_loadModel\(\) has typehint with deprecated class YireoModel\:
+				#^Call to method checkin\(\) of deprecated class YireoModel\:
 				Use YireoModelItem or YireoModelItems instead$#
 			'''
-			identifier: return.deprecatedClass
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method checkout\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method delete\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method getArray\(\) of deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method hasErrors\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method move\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method publish\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method saveorder\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method store\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Call to method toggle\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/controller.php
+
+		-
+			message: '''
+				#^Instantiation of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: new.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/controller.php
 
@@ -1560,7 +1921,7 @@ parameters:
 				4\.3 will be removed in 6\.0
 				             Will be removed without replacement\. Get the model through the MVCFactory instead$#
 			'''
-			identifier: method.deprecated
+			identifier: staticMethod.deprecated
 			count: 3
 			path: joomla/libraries/yireo/controller/common.php
 
@@ -1602,6 +1963,16 @@ parameters:
 
 		-
 			message: '''
+				#^Call to deprecated method script\(\) of class Joomla\\CMS\\HTML\\HTMLHelper\:
+				5\.3\.0 will be removed in 7\.0
+				             Use WebAssetManager\:\:useScript\(\) or WebAssetManager\:\:registerAndUseScript\(\) instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: joomla/libraries/yireo/form/fields/file.php
+
+		-
+			message: '''
 				#^Call to deprecated method getDocument\(\) of class Joomla\\CMS\\Factory\:
 				4\.3 will be removed in 6\.0
 				             Use the document service in the DI container or get from the application object
@@ -1639,17 +2010,6 @@ parameters:
 		-
 			message: '#^Call to an undefined static method Joomla\\Filesystem\\File\:\:write\(\)\.$#'
 			identifier: staticMethod.notFound
-			count: 1
-			path: joomla/libraries/yireo/helper/install.php
-
-		-
-			message: '''
-				#^Call to deprecated method delete\(\) of class Joomla\\CMS\\Filesystem\\Folder\:
-				4\.4 will be removed in 6\.0
-				             Use Joomla\\Filesystem\\Folder\:\:delete\(\) instead\.
-				             The framework class throws Exceptions in case of error which you have to catch\.$#
-			'''
-			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/libraries/yireo/helper/install.php
 
@@ -1709,26 +2069,6 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: joomla/libraries/yireo/helper/view.php
-
-		-
-			message: '''
-				#^Parameter \$input of method YireoAbstractModel\:\:setInput\(\) has typehint with deprecated class Joomla\\CMS\\Input\\Input\:
-				4\.3 will be removed in 6\.0\.
-				              Use Joomla\\Input\\Input instead$#
-			'''
-			identifier: parameter.deprecatedClass
-			count: 1
-			path: joomla/libraries/yireo/model/abstract.php
-
-		-
-			message: '''
-				#^Return type of method YireoAbstractModel\:\:getInput\(\) has typehint with deprecated class Joomla\\CMS\\Input\\Input\:
-				4\.3 will be removed in 6\.0\.
-				              Use Joomla\\Input\\Input instead$#
-			'''
-			identifier: return.deprecatedClass
-			count: 1
-			path: joomla/libraries/yireo/model/abstract.php
 
 		-
 			message: '''
@@ -1914,7 +2254,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addScript\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseScript\(\.\.\.\);$#
 			'''
@@ -1925,7 +2265,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
 			'''
@@ -1971,10 +2311,28 @@ parameters:
 
 		-
 			message: '''
+				#^Access to property \$prepare_display of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Access to property \$table of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 5
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
 				#^Call to method __construct\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/form.php
 
@@ -1983,7 +2341,25 @@ parameters:
 				#^Call to method display\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/form.php
+
+		-
+			message: '''
+				#^Call to method prepareDisplay\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/form.php
 
@@ -1998,8 +2374,17 @@ parameters:
 
 		-
 			message: '''
+				#^Access to property \$loadToolbar of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/home.php
+
+		-
+			message: '''
 				#^Call to deprecated method addStyleSheet\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>registerAndUseStyle\(\.\.\.\);$#
 			'''
@@ -2024,7 +2409,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/home.php
 
@@ -2033,7 +2418,7 @@ parameters:
 				#^Call to method display\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/home.php
 
@@ -2051,7 +2436,16 @@ parameters:
 				#^Call to method display\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/item.php
+
+		-
+			message: '''
+				#^Call to method fetchItem\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/item.php
 
@@ -2063,6 +2457,33 @@ parameters:
 			identifier: class.extendsDeprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/item.php
+
+		-
+			message: '''
+				#^Access to property \$loadToolbar of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Access to property \$model of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 3
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Access to property \$table of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: property.deprecatedClass
+			count: 8
+			path: joomla/libraries/yireo/view/list.php
 
 		-
 			message: '''
@@ -2081,7 +2502,7 @@ parameters:
 				#^Call to method __construct\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/list.php
 
@@ -2090,7 +2511,52 @@ parameters:
 				#^Call to method display\(\) of deprecated class YireoView\:
 				Use a subclass instead$#
 			'''
-			identifier: staticMethod.deprecatedClass
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method fetchItems\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method getImageTag\(\) of deprecated class YireoView\:
+				Use a subclass instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method getOrderByDefault\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method getPagination\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method getPrimaryKey\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/list.php
 
@@ -2102,6 +2568,15 @@ parameters:
 			identifier: class.extendsDeprecatedClass
 			count: 1
 			path: joomla/libraries/yireo/view/list.php
+
+		-
+			message: '''
+				#^Call to method getTable\(\) of deprecated class YireoModel\:
+				Use YireoModelItem or YireoModelItems instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: joomla/libraries/yireo/view/list/default.php
 
 		-
 			message: '''
@@ -2141,7 +2616,7 @@ parameters:
 
 		-
 			message: '''
-				#^Call to method getAssociations\(\) of deprecated class Joomla\\Component\\Menus\\Administrator\\Helper\\MenusHelper\:
+				#^Call to static method getAssociations\(\) on deprecated class MenusHelper\:
 				4\.3 will be removed in 6\.0
 				             Use \\Joomla\\Component\\Menus\\Administrator\\Helper\\MenusHelper instead$#
 			'''
@@ -2234,11 +2709,11 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method getArray\(\) of class Joomla\\CMS\\Input\\Input\:
+				#^Access to property \$post of deprecated class Joomla\\CMS\\Input\\Input\:
 				4\.3 will be removed in 6\.0\.
 				              Use Joomla\\Input\\Input instead$#
 			'''
-			identifier: method.deprecated
+			identifier: property.deprecatedClass
 			count: 4
 			path: joomla/plugins/system/magebridge/magebridge.php
 
@@ -2276,6 +2751,16 @@ parameters:
 			'''
 			identifier: staticMethod.deprecated
 			count: 1
+			path: joomla/plugins/system/magebridge/magebridge.php
+
+		-
+			message: '''
+				#^Call to method getArray\(\) of deprecated class Joomla\\CMS\\Input\\Input\:
+				4\.3 will be removed in 6\.0\.
+				              Use Joomla\\Input\\Input instead$#
+			'''
+			identifier: method.deprecatedClass
+			count: 4
 			path: joomla/plugins/system/magebridge/magebridge.php
 
 		-
@@ -2353,7 +2838,7 @@ parameters:
 		-
 			message: '''
 				#^Call to deprecated method addStyleDeclaration\(\) of class Joomla\\CMS\\Document\\Document\:
-				4\.3 will be removed in 6\.0
+				4\.3 will be removed in 7\.0
 				             Use WebAssetManager
 				             Example\: \$wa\-\>addInlineStyle\(\.\.\.\);$#
 			'''

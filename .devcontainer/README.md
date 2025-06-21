@@ -10,6 +10,10 @@
 ## Getting Start
 
 ```sh
+# set up TLS certs in Host
+mkdir -p .secrets
+mkcert -cert-file .secrets/cert.pem -key-file .secrets/key.pem '*.dev.local'
+
 # set up hosts in Host
 echo "127.0.0.1 www.dev.local store.dev.local" | sudo tee -a /etc/hosts
 
@@ -25,8 +29,8 @@ docker compose up -d
 
 ## Admin URLs
 
-- [OpenMage](http://store.dev.local:8080/admin/)
-- [Joomla!](http://www.dev.local/administrator/)
+- [OpenMage](https://store.dev.local/admin/)
+- [Joomla!](https://www.dev.local/administrator/)
 
 ## Credentials
 
