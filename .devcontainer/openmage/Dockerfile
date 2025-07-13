@@ -2,7 +2,7 @@
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
 ARG PHP_VERSION=8.3
 ARG PHP_EXTRA_BUILD_DEPS=""
-ARG OPENMAGE_VERSION=20.14.0
+ARG OPENMAGE_VERSION=20.15.0
 
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
 FROM composer AS builder
@@ -36,7 +36,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     libfreetype6-dev libicu-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
-    libzip-dev libwebp-dev \
+    libzip-dev libwebp-dev unzip \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \

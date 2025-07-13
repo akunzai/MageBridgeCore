@@ -1,7 +1,7 @@
 ARG PHP_VERSION=8.3
 ARG PHP_EXTRA_BUILD_DEPS=""
 # https://hub.docker.com/_/joomla
-ARG JOOMLA_VERSION=5.3.1
+ARG JOOMLA_VERSION=5.3.2
 
 FROM joomla:${JOOMLA_VERSION}-apache AS joomla
 
@@ -23,7 +23,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     libfreetype6-dev libicu-dev libssl-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
-    libzip-dev libwebp-dev \
+    libzip-dev libwebp-dev unzip \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
