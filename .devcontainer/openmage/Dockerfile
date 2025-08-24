@@ -1,6 +1,6 @@
 # https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.3.24
 ARG PHP_EXTRA_BUILD_DEPS=""
 ARG OPENMAGE_VERSION=20.15.0
 
@@ -51,10 +51,11 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
     [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark; \
-    find /usr/local -type f -executable -exec ldd '{}' ';' \
+    find /usr/local -type f -executable -exec ldd '{}' ';' 2>/dev/null \
     | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
     | sort -u \
     | xargs -r dpkg-query --search \
+    | grep -v -i '^diversion' \
     | cut -d: -f1 \
     | sort -u \
     | xargs -r apt-mark manual; \
