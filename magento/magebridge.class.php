@@ -1,27 +1,27 @@
 <?php
 
 /**
- * Magento Bridge
+ * Magento Bridge.
  *
  * @author Yireo
- * @package Magento Bridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge-class that acts like proxy between bridge-classes and the API
+ * MageBridge-class that acts like proxy between bridge-classes and the API.
  */
 class MageBridge
 {
     /**
-     * The current request
+     * The current request.
      */
     private $request = [];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -43,9 +43,10 @@ class MageBridge
     }
 
     /**
-     * Decode a JSON-message
+     * Decode a JSON-message.
      *
      * @param string $string
+     *
      * @return array
      */
     public function getJson($string)
@@ -63,10 +64,8 @@ class MageBridge
     }
 
     /**
-     * Get the request-data
+     * Get the request-data.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getRequest()
@@ -75,9 +74,10 @@ class MageBridge
     }
 
     /**
-     * Get a segment from the request-data
+     * Get a segment from the request-data.
      *
      * @param string $name
+     *
      * @return array
      */
     public function getSegment($name = '')
@@ -98,9 +98,10 @@ class MageBridge
     }
 
     /**
-     * Helper-function to get the meta-data from the request
+     * Helper-function to get the meta-data from the request.
      *
      * @param string $name
+     *
      * @return array
      */
     public function getMeta($name = null)
@@ -117,7 +118,7 @@ class MageBridge
     }
 
     /**
-     * Mask this request by using the data sent along with this request
+     * Mask this request by using the data sent along with this request.
      *
      * @return bool
      */
@@ -302,10 +303,11 @@ class MageBridge
     }
 
     /**
-     * Run the bridge-core
+     * Run the bridge-core.
      *
      * @param string $sessionId
      * @param string $sessionName
+     *
      * @return bool
      */
     public function isValidSessionId($sessionId, $sessionName = null)
@@ -331,7 +333,7 @@ class MageBridge
     }
 
     /**
-     * Run the bridge-core
+     * Run the bridge-core.
      */
     public function run()
     {
@@ -434,7 +436,7 @@ class MageBridge
     }
 
     /**
-     * Authorize access to the bridge
+     * Authorize access to the bridge.
      *
      * @return bool
      */
@@ -461,7 +463,7 @@ class MageBridge
     }
 
     /**
-     * Determine whether this remote host is allowed to connect
+     * Determine whether this remote host is allowed to connect.
      *
      * @return bool
      */
@@ -481,9 +483,10 @@ class MageBridge
     }
 
     /**
-     * Dispatch the bridge-request to the appropriate classes
+     * Dispatch the bridge-request to the appropriate classes.
      *
      * @param array $data
+     *
      * @return array $data
      */
     public function dispatch($data)

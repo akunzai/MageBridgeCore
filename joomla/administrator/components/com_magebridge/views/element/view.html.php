@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,15 +20,14 @@ defined('_JEXEC') or die();
 require_once 'view.common.php';
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package    MageBridge
  */
 class MageBridgeViewElement extends MageBridgeViewCommon
 {
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
      *

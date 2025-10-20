@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Authentication plugin
+ * Joomla! MageBridge - Authentication plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,9 +20,9 @@ defined('_JEXEC') or die('Restricted access');
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Authentication Plugin
+ * MageBridge Authentication Plugin.
  */
-class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
+class PlgAuthenticationMageBridge extends Joomla\CMS\Plugin\CMSPlugin
 {
     // MageBridge constants
     public const MAGEBRIDGE_AUTHENTICATION_FAILURE = 0;
@@ -30,12 +30,10 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     public const MAGEBRIDGE_AUTHENTICATION_ERROR = 2;
 
     /**
-     * Constructor
-     *
-     * @access public
+     * Constructor.
      *
      * @param object $subject
-     * @param array  $config
+     * @param array $config
      */
     public function __construct(&$subject, $config)
     {
@@ -44,12 +42,10 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated when an user tries to login
+     * Handle the event that is generated when an user tries to login.
      *
-     * @access public
-     *
-     * @param array  $credentials
-     * @param array  $options
+     * @param array $credentials
+     * @param array $options
      * @param object $response
      *
      * @return bool
@@ -140,12 +136,10 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Joomla! 1.5 alias
+     * Joomla! 1.5 alias.
      *
-     * @access public
-     *
-     * @param array  $credentials
-     * @param array  $options
+     * @param array $credentials
+     * @param array $options
      * @param object $response
      *
      * @return bool
@@ -156,9 +150,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return a MageBridge configuration parameter
-     *
-     * @access private
+     * Return a MageBridge configuration parameter.
      *
      * @param string $name
      *
@@ -170,11 +162,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return a MageBridge user-class
-     *
-     * @access private
-     *
-     * @param null
+     * Return a MageBridge user-class.
      *
      * @return mixed $value
      */
@@ -184,11 +172,7 @@ class PlgAuthenticationMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return whether MageBridge is available or not
-     *
-     * @access private
-     *
-     * @param null
+     * Return whether MageBridge is available or not.
      *
      * @return mixed $value
      */

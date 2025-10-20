@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -15,14 +16,12 @@
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Identifiable - allows models to have an ID
- *
- * @package Yireo
+ * Yireo Model Trait: Identifiable - allows models to have an ID.
  */
 trait YireoModelTraitFilterable
 {
     /**
-     * Method to get a filter from the user-state
+     * Method to get a filter from the user-state.
      *
      * @param string $filter
      * @param string $default
@@ -43,9 +42,8 @@ trait YireoModelTraitFilterable
     }
 
     /**
-     * Get the current filter name
+     * Get the current filter name.
      *
-     * @param      $filter
      * @param null $option
      *
      * @return string
@@ -60,11 +58,9 @@ trait YireoModelTraitFilterable
     }
 
     /**
-     * Method to set whether filtering is allowed
+     * Method to set whether filtering is allowed.
      *
      * @param bool
-     *
-     * @return null
      */
     public function setAllowFilter($allowFilter)
     {

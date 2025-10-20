@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,17 +20,17 @@ use Joomla\Utilities\ArrayHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge Single Sign On class
+ * Bridge Single Sign On class.
  */
 class MageBridgeModelUserSSO
 {
     /**
-     * Instance variable
+     * Instance variable.
      */
     protected static $_instance = null;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -45,7 +45,7 @@ class MageBridgeModelUserSSO
     protected $debug;
 
     /**
-     * Singleton
+     * Singleton.
      *
      * @return MageBridgeModelUserSSO $_instance
      */
@@ -69,7 +69,7 @@ class MageBridgeModelUserSSO
     }
 
     /**
-     * Method for logging in with Magento (Single Sign On)
+     * Method for logging in with Magento (Single Sign On).
      *
      * @param array $user
      *
@@ -133,7 +133,7 @@ class MageBridgeModelUserSSO
     }
 
     /**
-     * Method for logging out with Magento (Single Sign On)
+     * Method for logging out with Magento (Single Sign On).
      *
      * @param string $username
      *
@@ -174,9 +174,7 @@ class MageBridgeModelUserSSO
     }
 
     /**
-     * Method to check the SSO-request coming back from Magento
-     *
-     * @param null
+     * Method to check the SSO-request coming back from Magento.
      *
      * @return bool
      */

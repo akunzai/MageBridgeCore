@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,30 +14,29 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Zend_Server_Reflection_Node
+ * Zend_Server_Reflection_Node.
  */
 require_once 'Zend/Server/Reflection/Node.php';
 
 /**
- * Zend_Server_Reflection_Parameter
+ * Zend_Server_Reflection_Parameter.
  */
 require_once 'Zend/Server/Reflection/Parameter.php';
 
 /**
- * Zend_Server_Reflection_Prototype
+ * Zend_Server_Reflection_Prototype.
  */
 require_once 'Zend/Server/Reflection/Prototype.php';
 
 /**
- * Function/Method Reflection
+ * Function/Method Reflection.
  *
  * Decorates a ReflectionFunction. Allows setting and retrieving an alternate
  * 'service' name (i.e., the name to be used when calling via a service),
@@ -47,10 +46,10 @@ require_once 'Zend/Server/Reflection/Prototype.php';
  * method {@link Zend_Server_Reflection_Prototype prototypes}.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Reflection
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version $Id: Abstract.php 23320 2010-11-12 21:57:29Z alexander $
  */
 abstract class Zend_Server_Reflection_Function_Abstract
@@ -61,7 +60,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
     protected $_reflection;
 
     /**
-     * Additional arguments to pass to method on invocation
+     * Additional arguments to pass to method on invocation.
+     *
      * @var array
      */
     protected $_argv = [];
@@ -70,31 +70,36 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * Used to store extra configuration for the method (typically done by the
      * server class, e.g., to indicate whether or not to instantiate a class).
      * Associative array; access is as properties via {@link __get()} and
-     * {@link __set()}
+     * {@link __set()}.
+     *
      * @var array
      */
     protected $_config = [];
 
     /**
-     * Declaring class (needed for when serialization occurs)
+     * Declaring class (needed for when serialization occurs).
+     *
      * @var string
      */
     protected $_class;
 
     /**
-     * Function/method description
+     * Function/method description.
+     *
      * @var string
      */
     protected $_description = '';
 
     /**
-     * Namespace with which to prefix function/method name
+     * Namespace with which to prefix function/method name.
+     *
      * @var string
      */
     protected $_namespace;
 
     /**
-     * Prototypes
+     * Prototypes.
+     *
      * @var array
      */
     protected $_prototypes = [];
@@ -106,7 +111,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     private $_sigParamsDepth;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ReflectionFunction $r
      */
@@ -143,15 +148,13 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Create signature node tree
+     * Create signature node tree.
      *
      * Recursive method to build the signature node tree. Increments through
      * each array in {@link $_sigParams}, adding every value of the next level
      * to the current value (unless the current value is null).
      *
-     * @param Zend_Server_Reflection_Node $parent
      * @param int $level
-     * @return void
      */
     protected function _addTree(Zend_Server_Reflection_Node $parent, $level = 0)
     {
@@ -168,7 +171,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Build the signature tree
+     * Build the signature tree.
      *
      * Builds a signature tree starting at the return values and descending
      * through each method argument. Returns an array of
@@ -189,16 +192,14 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Build method signatures
+     * Build method signatures.
      *
      * Builds method signatures using the array of return types and the array of
      * parameters types
      *
      * @param array $return Array of return types
      * @param string $returnDesc Return value description
-     * @param array $params Array of arguments (each an array of types)
      * @param array $paramDesc Array of parameter descriptions
-     * @return void
      */
     protected function _buildSignatures($return, $returnDesc, $paramTypes, $paramDesc)
     {
@@ -250,14 +251,11 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Use code reflection to create method signatures
+     * Use code reflection to create method signatures.
      *
      * Determines the method help/description text from the function DocBlock
      * comment. Determines method signatures using a combination of
      * ReflectionFunction and parsing of DocBlock @param and @return values.
-     *
-     * @param ReflectionFunction $function
-     * @return void
      */
     protected function _reflect()
     {
@@ -369,10 +367,11 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
 
     /**
-     * Proxy reflection calls
+     * Proxy reflection calls.
      *
      * @param string $method
      * @param array $args
+     *
      * @return mixed
      */
     public function __call($method, $args)
@@ -386,12 +385,13 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Retrieve configuration parameters
+     * Retrieve configuration parameters.
      *
      * Values are retrieved by key from {@link $_config}. Returns null if no
      * value found.
      *
      * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)
@@ -404,13 +404,12 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Set configuration parameters
+     * Set configuration parameters.
      *
      * Values are stored by $key in {@link $_config}.
      *
      * @param string $key
      * @param mixed $value
-     * @return void
      */
     public function __set($key, $value)
     {
@@ -418,10 +417,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Set method's namespace
+     * Set method's namespace.
      *
      * @param string $namespace
-     * @return void
      */
     public function setNamespace($namespace)
     {
@@ -439,7 +437,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Return method's namespace
+     * Return method's namespace.
      *
      * @return string
      */
@@ -449,10 +447,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Set the description
+     * Set the description.
      *
      * @param string $string
-     * @return void
      */
     public function setDescription($string)
     {
@@ -465,9 +462,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Retrieve the description
-     *
-     * @return void
+     * Retrieve the description.
      */
     public function getDescription()
     {
@@ -476,7 +471,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Retrieve all prototypes as array of
-     * {@link Zend_Server_Reflection_Prototype Zend_Server_Reflection_Prototypes}
+     * {@link Zend_Server_Reflection_Prototype Zend_Server_Reflection_Prototypes}.
      *
      * @return array
      */
@@ -486,7 +481,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Retrieve additional invocation arguments
+     * Retrieve additional invocation arguments.
      *
      * @return array
      */
@@ -496,12 +491,10 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Wakeup from serialization
+     * Wakeup from serialization.
      *
      * Reflection needs explicit instantiation to work correctly. Re-instantiate
      * reflection object on wakeup.
-     *
-     * @return void
      */
     public function __wakeup()
     {

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.1
  */
 
@@ -18,9 +19,7 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/../loader.php';
 
 /**
- * Yireo Abstract View
- *
- * @package Yireo
+ * Yireo Abstract View.
  */
 class YireoAbstractView extends JViewLegacy
 {

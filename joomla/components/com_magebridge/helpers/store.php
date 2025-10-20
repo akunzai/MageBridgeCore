@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeStoreHelper
 {
     /**
-     * Instance variable
+     * Instance variable.
      */
     protected static $_instance = null;
 
@@ -37,11 +37,7 @@ class MageBridgeStoreHelper
     protected $app_value;
 
     /**
-     * Singleton
-     *
-     * @access public
-     *
-     * @param null
+     * Singleton.
      *
      * @return MageBridgeStoreHelper
      */
@@ -55,11 +51,7 @@ class MageBridgeStoreHelper
     }
 
     /**
-     * Method to get the current Magento application-type
-     *
-     * @param null
-     *
-     * @return null
+     * Method to get the current Magento application-type.
      */
     public function getAppType()
     {
@@ -71,11 +63,7 @@ class MageBridgeStoreHelper
     }
 
     /**
-     * Method to get the current Magento application-value
-     *
-     * @param null
-     *
-     * @return null
+     * Method to get the current Magento application-value.
      */
     public function getAppValue()
     {
@@ -87,11 +75,7 @@ class MageBridgeStoreHelper
     }
 
     /**
-     * Method to get the current Magento application-type
-     *
-     * @param null
-     *
-     * @return null
+     * Method to get the current Magento application-type.
      */
     private function setApp()
     {
@@ -101,7 +85,7 @@ class MageBridgeStoreHelper
         }
 
         // Initialize system variables
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Check if the current Menu-Item has something to say about this

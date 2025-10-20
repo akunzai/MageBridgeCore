@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,7 +17,7 @@ use Joomla\Filesystem\Folder;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge caching class
+ * Bridge caching class.
  */
 class MageBridgeModelCache
 {
@@ -27,27 +27,27 @@ class MageBridgeModelCache
     protected $request;
 
     /**
-     * Default cache directory
+     * Default cache directory.
      */
     protected $cache_folder = null;
 
     /**
-     * Default caching time
+     * Default caching time.
      */
     protected $cache_time = 300;
 
     /**
-     * Caching name to be used
+     * Caching name to be used.
      */
     protected $cache_name = null;
 
     /**
-     * Caching file to be used
+     * Caching file to be used.
      */
     protected $cache_file = null;
 
     /**
-     * List of pages that should never be cached
+     * List of pages that should never be cached.
      */
     private $deny_pages = [
         '^checkout',
@@ -59,13 +59,11 @@ class MageBridgeModelCache
     ];
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
      * @param $name string
      * @param $request string
      * @param @cache_time int
-     * @return null
      */
     public function __construct($name = '', $request = null, $cache_time = null)
     {
@@ -77,9 +75,8 @@ class MageBridgeModelCache
     }
 
     /**
-     * Method to validate whether the cache is allowed
+     * Method to validate whether the cache is allowed.
      *
-     * @param null
      * @return bool
      */
     public function validate()
@@ -109,9 +106,8 @@ class MageBridgeModelCache
     }
 
     /**
-     * Method to return the cached data
+     * Method to return the cached data.
      *
-     * @param null
      * @return mixed
      */
     public function load()
@@ -137,9 +133,10 @@ class MageBridgeModelCache
     }
 
     /**
-     * Method to store the data to cache
+     * Method to store the data to cache.
      *
      * @param mixed $data
+     *
      * @return bool
      */
     public function store($data)
@@ -158,9 +155,8 @@ class MageBridgeModelCache
     }
 
     /**
-     * Method to empty the cache
+     * Method to empty the cache.
      *
-     * @param null
      * @return mixed
      */
     public function flush()
@@ -173,9 +169,8 @@ class MageBridgeModelCache
     }
 
     /**
-     * Method to check whether caching is allowed
+     * Method to check whether caching is allowed.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,8 @@
 class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstract
 {
     /**
-     * Retrieve list of attribute sets
+     * Retrieve list of attribute sets.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getAttributeSets()
@@ -39,10 +37,8 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     }
 
     /**
-     * Retrieve list of attribute groups
+     * Retrieve list of attribute groups.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getAttributeGroups()
@@ -70,10 +66,8 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     }
 
     /**
-     * Retrieve list of attributes
+     * Retrieve list of attributes.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getAttributes($data = null)
@@ -133,10 +127,8 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     }
 
     /**
-     * Retrieve collection of attribute sets
+     * Retrieve collection of attribute sets.
      *
-     * @access protected
-     * @param null
      * @return array
      */
     protected function _getAttributeSets()
@@ -150,10 +142,8 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     }
 
     /**
-     * Retrieve a specific attributeset
+     * Retrieve a specific attributeset.
      *
-     * @access protected
-     * @param null
      * @return array
      */
     protected function _getAttributeSet($attributeSetId)

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for dealing with debugging
+ * Helper for dealing with debugging.
  */
 class MageBridgeDebugHelper
 {
@@ -32,14 +32,12 @@ class MageBridgeDebugHelper
     private $register;
 
     /**
-     *
      * @var string
      */
     private $request;
 
     /**
-     *
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     private $app;
 
@@ -75,7 +73,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Helper-method to set the debugging information
+     * Helper-method to set the debugging information.
      */
     public function addDebugBar()
     {
@@ -104,7 +102,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Add generic information
+     * Add generic information.
      */
     public function addGenericInformation()
     {
@@ -143,7 +141,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Add information per pages
+     * Add information per pages.
      */
     public function addPageInformation()
     {
@@ -181,7 +179,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Add store information
+     * Add store information.
      */
     public function addStore()
     {
@@ -191,7 +189,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Add category information
+     * Add category information.
      */
     public function addCurrentCategoryId()
     {
@@ -202,7 +200,7 @@ class MageBridgeDebugHelper
     }
 
     /**
-     * Add product information
+     * Add product information.
      */
     public function addCurrentProductId()
     {

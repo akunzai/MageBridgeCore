@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,21 +14,19 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Prototype.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Method prototype metadata
+ * Method prototype metadata.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -50,10 +48,9 @@ class Zend_Server_Method_Prototype
     protected $_parameters = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  null|array $options
-     * @return void
+     * @param array|null $options
      */
     public function __construct($options = null)
     {
@@ -63,9 +60,10 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Set return value
+     * Set return value.
      *
-     * @param  string $returnType
+     * @param string $returnType
+     *
      * @return Zend_Server_Method_Prototype
      */
     public function setReturnType($returnType)
@@ -75,7 +73,7 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Retrieve return type
+     * Retrieve return type.
      *
      * @return string
      */
@@ -85,9 +83,10 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Add a parameter
+     * Add a parameter.
      *
-     * @param  string $parameter
+     * @param string $parameter
+     *
      * @return Zend_Server_Method_Prototype
      */
     public function addParameter($parameter)
@@ -108,9 +107,8 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Add parameters
+     * Add parameters.
      *
-     * @param  array $parameter
      * @return Zend_Server_Method_Prototype
      */
     public function addParameters(array $parameters)
@@ -122,9 +120,8 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Set parameters
+     * Set parameters.
      *
-     * @param  array $parameters
      * @return Zend_Server_Method_Prototype
      */
     public function setParameters(array $parameters)
@@ -136,7 +133,7 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Retrieve parameters as list of types
+     * Retrieve parameters as list of types.
      *
      * @return array
      */
@@ -150,7 +147,7 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Get parameter objects
+     * Get parameter objects.
      *
      * @return array
      */
@@ -160,10 +157,11 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Retrieve a single parameter by name or index
+     * Retrieve a single parameter by name or index.
      *
-     * @param  string|int $index
-     * @return null|Zend_Server_Method_Parameter
+     * @param string|int $index
+     *
+     * @return Zend_Server_Method_Parameter|null
      */
     public function getParameter($index)
     {
@@ -180,9 +178,8 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Set object state from array
+     * Set object state from array.
      *
-     * @param  array $options
      * @return Zend_Server_Method_Prototype
      */
     public function setOptions(array $options)
@@ -197,7 +194,7 @@ class Zend_Server_Method_Prototype
     }
 
     /**
-     * Serialize to array
+     * Serialize to array.
      *
      * @return array
      */

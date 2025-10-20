@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Function to convert a system URL to a SEF URL
+ * Function to convert a system URL to a SEF URL.
  */
 function MagebridgeBuildRoute(&$query)
 {
@@ -186,7 +186,7 @@ function MagebridgeBuildRoute(&$query)
 }
 
 /**
- * Function to convert a SEF URL back to a system URL
+ * Function to convert a SEF URL back to a system URL.
  */
 function MagebridgeParseRoute($segments)
 {
@@ -206,7 +206,7 @@ function MagebridgeParseRoute($segments)
         return $vars;
     }
 
-    /** @var \Joomla\CMS\Application\CMSApplication */
+    /** @var Joomla\CMS\Application\CMSApplication */
     $app = Factory::getApplication();
     // Get the active menu item
     $menu = $app->getMenu('site');

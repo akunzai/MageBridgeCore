@@ -1,9 +1,6 @@
 <?php
 
 /**
- * @package	 Joomla.Libraries
- * @subpackage  Module
- *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license	 GNU General Public License version 2 or later; see LICENSE
  */
@@ -21,21 +18,19 @@ defined('JPATH_PLATFORM') or die;
 define('MAGEBRIDGE_MODULEHELPER_OVERRIDE', true);
 
 /**
- * Module helper class
+ * Module helper class.
  *
- * @package	 Joomla.Libraries
- * @subpackage  Module
  * @since	   1.5
  */
 abstract class JModuleHelper
 {
     /**
-     * Get module by name (real, eg 'Breadcrumbs' or folder, eg 'mod_breadcrumbs')
+     * Get module by name (real, eg 'Breadcrumbs' or folder, eg 'mod_breadcrumbs').
      *
-     * @param   string  $name   The name of the module
-     * @param   string  $title  The title of the module, optional
+     * @param string $name The name of the module
+     * @param string $title The title of the module, optional
      *
-     * @return  object  The Module object
+     * @return object The Module object
      *
      * @since   1.5
      */
@@ -78,11 +73,11 @@ abstract class JModuleHelper
     }
 
     /**
-     * Get modules by position
+     * Get modules by position.
      *
-     * @param   string  $position  The position of the module
+     * @param string $position The position of the module
      *
-     * @return  array  An array of module objects
+     * @return array An array of module objects
      *
      * @since   1.5
      */
@@ -123,9 +118,9 @@ abstract class JModuleHelper
      * the current menu item or all items, and the user meets the access level
      * requirements.
      *
-     * @param   string  $module  The module name
+     * @param string $module The module name
      *
-     * @return  bool See description for conditions.
+     * @return bool see description for conditions
      *
      * @since   1.5
      */
@@ -139,10 +134,10 @@ abstract class JModuleHelper
     /**
      * Render the module.
      *
-     * @param   object  $module   A module object.
-     * @param   array   $attribs  An array of attributes for the module (probably from the XML).
+     * @param object $module a module object
+     * @param array $attribs an array of attributes for the module (probably from the XML)
      *
-     * @return  string  The HTML content of the module output.
+     * @return string the HTML content of the module output
      *
      * @since   1.5
      */
@@ -158,7 +153,7 @@ abstract class JModuleHelper
             Profiler::getInstance('Application')->mark('beforeRenderModule ' . $module->module . ' (' . $module->title . ')');
         }
 
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
 
         // Record the scope.
@@ -250,18 +245,18 @@ abstract class JModuleHelper
     }
 
     /**
-     * Get the path to a layout for a module
+     * Get the path to a layout for a module.
      *
-     * @param   string  $module  The name of the module
-     * @param   string  $layout  The name of the module layout. If alternative layout, in the form template:filename.
+     * @param string $module The name of the module
+     * @param string $layout The name of the module layout. If alternative layout, in the form template:filename.
      *
-     * @return  string  The path to the module layout
+     * @return string The path to the module layout
      *
      * @since   1.5
      */
     public static function getLayoutPath($module, $layout = 'default')
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $template = $app->getTemplate();
         $defaultLayout = $layout;
@@ -292,7 +287,7 @@ abstract class JModuleHelper
     /**
      * Load published modules.
      *
-     * @return  array
+     * @return array
      *
      * @since   3.2
      */
@@ -304,7 +299,7 @@ abstract class JModuleHelper
             return $clean;
         }
 
-        /** @var \Joomla\CMS\Application\SiteApplication */
+        /** @var Joomla\CMS\Application\SiteApplication */
         $app = Factory::getApplication();
         $Itemid = $app->input->getInt('Itemid');
         $user = version_compare(JVERSION, '4.0.0', '<')
@@ -391,7 +386,7 @@ abstract class JModuleHelper
     }
 
     /**
-     * Module cache helper
+     * Module cache helper.
      *
      * Caching modes:
      * To be set in XML:
@@ -402,11 +397,11 @@ abstract class JModuleHelper
      * 'safeuri'	 Id created from $cacheparams->modeparams array,
      * 'id'		  Module sets own cache id's
      *
-     * @param   object  $module		Module object
-     * @param   object  $moduleparams  Module parameters
-     * @param   object  $cacheparams   Module cache parameters - id or url parameters, depending on the module cache mode
+     * @param object $module Module object
+     * @param object $moduleparams Module parameters
+     * @param object $cacheparams Module cache parameters - id or url parameters, depending on the module cache mode
      *
-     * @return  string
+     * @return string
      *
      * @see	 JFilterInput::clean()
      * @since   1.6

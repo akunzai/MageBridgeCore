@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Widget
+ * Joomla! module MageBridge: Widget.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -16,16 +16,15 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 
 /**
- * Helper-class for the module
+ * Helper-class for the module.
  */
-
 class ModMageBridgeWidgetHelper
 {
     /**
-     * Method to be called as soon as MageBridge is loaded
+     * Method to be called as soon as MageBridge is loaded.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return array
      */
     public static function register($params = null)
@@ -45,11 +44,9 @@ class ModMageBridgeWidgetHelper
     }
 
     /**
-     * Build output for the AJAX-layout
+     * Build output for the AJAX-layout.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
-     * @return void
+     * @param Joomla\Registry\Registry $params
      */
     public static function ajaxbuild($params = null)
     {
@@ -71,16 +68,16 @@ class ModMageBridgeWidgetHelper
 
         // Load the Ajax script
         $script = MageBridgeAjaxHelper::getScript($widgetName, 'magebridge-' . $widgetName);
-        /** @var \Joomla\CMS\Document\HtmlDocument */
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
         $document->addCustomTag('<script type="text/javascript">' . $script . '</script>');
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return string
      */
     public static function build($params = null)

@@ -97,8 +97,6 @@ class YireoFormFieldSelecti extends YireoFormFieldAbstract
 
     /*
      * Method to get the options for this field
-     *
-     * @param null
      * @return array
      */
     public function getOptions()

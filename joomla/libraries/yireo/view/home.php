@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -23,14 +24,12 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * Home View class
- *
- * @package Yireo
+ * Home View class.
  */
 class YireoViewHome extends YireoView
 {
     /**
-     * Identifier of the library-view
+     * Identifier of the library-view.
      */
     protected $_viewParent = 'home';
 
@@ -45,7 +44,7 @@ class YireoViewHome extends YireoView
     protected $current_version;
 
     /**
-     * Main constructor method
+     * Main constructor method.
      *
      * @param $config array
      */
@@ -71,11 +70,9 @@ class YireoViewHome extends YireoView
     }
 
     /**
-     * Main display method
+     * Main display method.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -93,7 +90,7 @@ class YireoViewHome extends YireoView
     }
 
     /**
-     * Helper-method to construct a specific icon
+     * Helper-method to construct a specific icon.
      *
      * @param string $view
      * @param string $text
@@ -124,12 +121,10 @@ class YireoViewHome extends YireoView
     }
 
     /**
-     * Helper-method to set the page title
+     * Helper-method to set the page title.
      *
      * @param string $title
      * @param string $class
-     *
-     * @return void
      */
     public function setTitle($title = null, $class = 'logo')
     {
@@ -140,7 +135,7 @@ class YireoViewHome extends YireoView
     }
 
     /**
-     * Helper-method to add checks to the homepage
+     * Helper-method to add checks to the homepage.
      */
     public function runChecks()
     {

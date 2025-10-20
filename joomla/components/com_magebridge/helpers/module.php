@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,18 +16,18 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for usage in Joomla!/MageBridge modules and templates
+ * Helper for usage in Joomla!/MageBridge modules and templates.
  */
 class MageBridgeModuleHelper extends JModuleHelper
 {
     /**
-     * Load all MageBridge-modules
+     * Load all MageBridge-modules.
      *
      * @return array
      */
     public static function loadMageBridgeModules()
     {
-        /** @var \Joomla\CMS\Application\SiteApplication */
+        /** @var Joomla\CMS\Application\SiteApplication */
         $application = Factory::getApplication();
 
         if (MageBridgeModelConfig::load('preload_all_modules') == 0 && $application->input->getInt('Itemid') != 0) {
@@ -61,11 +61,11 @@ class MageBridgeModuleHelper extends JModuleHelper
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
      * @param string $function
      * @param string $name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return mixed
      */

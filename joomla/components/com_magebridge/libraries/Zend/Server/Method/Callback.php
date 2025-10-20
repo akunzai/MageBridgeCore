@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,21 +14,19 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Callback.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Method callback metadata
+ * Method callback metadata.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -60,10 +58,9 @@ class Zend_Server_Method_Callback
     protected $_types = ['function', 'static', 'instance'];
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  null|array $options
-     * @return void
+     * @param array|null $options
      */
     public function __construct($options = null)
     {
@@ -73,9 +70,8 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Set object state from array of options
+     * Set object state from array of options.
      *
-     * @param  array $options
      * @return Zend_Server_Method_Callback
      */
     public function setOptions(array $options)
@@ -90,9 +86,10 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Set callback class
+     * Set callback class.
      *
-     * @param  string $class
+     * @param string $class
+     *
      * @return Zend_Server_Method_Callback
      */
     public function setClass($class)
@@ -105,7 +102,7 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Get callback class
+     * Get callback class.
      *
      * @return string|null
      */
@@ -115,9 +112,10 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Set callback function
+     * Set callback function.
      *
-     * @param  string $function
+     * @param string $function
+     *
      * @return Zend_Server_Method_Callback
      */
     public function setFunction($function)
@@ -128,9 +126,9 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Get callback function
+     * Get callback function.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getFunction()
     {
@@ -138,9 +136,10 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Set callback class method
+     * Set callback class method.
      *
-     * @param  string $method
+     * @param string $method
+     *
      * @return Zend_Server_Method_Callback
      */
     public function setMethod($method)
@@ -150,9 +149,9 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Get callback class  method
+     * Get callback class  method.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getMethod()
     {
@@ -160,11 +159,13 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Set callback type
+     * Set callback type.
      *
-     * @param  string $type
-     * @return Zend_Server_Method_Callback
+     * @param string $type
+     *
      * @throws Zend_Server_Exception
+     *
+     * @return Zend_Server_Method_Callback
      */
     public function setType($type)
     {
@@ -177,7 +178,7 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Get callback type
+     * Get callback type.
      *
      * @return string
      */
@@ -187,7 +188,7 @@ class Zend_Server_Method_Callback
     }
 
     /**
-     * Cast callback to array
+     * Cast callback to array.
      *
      * @return array
      */

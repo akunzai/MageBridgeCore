@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,17 +20,17 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewUsergroup extends YireoViewItem
 {
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $form;
 
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $params_form;
 
@@ -40,11 +40,9 @@ class MageBridgeViewUsergroup extends YireoViewItem
     protected $fields;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -74,9 +72,7 @@ class MageBridgeViewUsergroup extends YireoViewItem
     }
 
     /**
-     * Get the HTML-field for the ordering
-     *
-     * @param null
+     * Get the HTML-field for the ordering.
      *
      * @return string
      */
@@ -86,9 +82,7 @@ class MageBridgeViewUsergroup extends YireoViewItem
     }
 
     /**
-     * Get the HTML-field for the Joomla! usergroup
-     *
-     * @param null
+     * Get the HTML-field for the Joomla! usergroup.
      *
      * @return string
      */
@@ -100,9 +94,7 @@ class MageBridgeViewUsergroup extends YireoViewItem
     }
 
     /**
-     * Get the HTML-field for the Magento customer group
-     *
-     * @param null
+     * Get the HTML-field for the Magento customer group.
      *
      * @return string
      */
@@ -112,11 +104,7 @@ class MageBridgeViewUsergroup extends YireoViewItem
     }
 
     /**
-     * Shortcut method to build the bridge for this page
-     *
-     * @param null
-     *
-     * @return null
+     * Shortcut method to build the bridge for this page.
      */
     public function preBuildBridge()
     {

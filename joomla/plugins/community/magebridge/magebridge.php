@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - JomSocial plugin
+ * Joomla! MageBridge - JomSocial plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  *
  * Missing events:
@@ -32,16 +32,14 @@ class plgCommunityMageBridge extends CApplications
     public $_user = null;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     private $params;
 
     /**
-     * Load the parameters
+     * Load the parameters.
      *
-     * @access private
-     * @param null
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -49,11 +47,9 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Load the parameters of the User-plugin
+     * Load the parameters of the User-plugin.
      *
-     * @access private
-     * @param null
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     private function getUserParams()
     {
@@ -64,10 +60,8 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Return the MageBridge user-object
+     * Return the MageBridge user-object.
      *
-     * @access private
-     * @param string $name
      * @return mixed $value
      */
     private function getUser()
@@ -76,11 +70,9 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * JomSocial event "onUserDetailsUpdate"
+     * JomSocial event "onUserDetailsUpdate".
      *
-     * @access public
-     * @param \Joomla\CMS\User\User $user
-     * @return null
+     * @param Joomla\CMS\User\User $user
      */
     public function onUserDetailsUpdate($user = null)
     {
@@ -88,7 +80,7 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * JomSocial event "onAfterProfileUpdate"
+     * JomSocial event "onAfterProfileUpdate".
      */
     public function onAfterProfileUpdate($user_id, $update_success = false)
     {
@@ -110,7 +102,7 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * JomSocial event "onProfileCreate"
+     * JomSocial event "onProfileCreate".
      */
     public function onProfileCreate($user = null)
     {
@@ -121,11 +113,7 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * JomSocial event "onSystemStart"
-     *
-     * @access public
-     * @param null
-     * @return null
+     * JomSocial event "onSystemStart".
      */
     public function onSystemStart()
     {
@@ -136,11 +124,7 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Helper-method to show the tab
-     *
-     * @access private
-     * @param null
-     * @return null
+     * Helper-method to show the tab.
      */
     private function showTab()
     {
@@ -167,10 +151,8 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Helper method to read the tab-settings from the connectors-configuration file
+     * Helper method to read the tab-settings from the connectors-configuration file.
      *
-     * @access private
-     * @param null
      * @return object
      */
     private function getTab()
@@ -191,10 +173,10 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Helper-method to get a MageBridge link
+     * Helper-method to get a MageBridge link.
      *
-     * @access private
      * @param string $request
+     *
      * @return string
      */
     private function getLink($request)
@@ -203,13 +185,11 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Helper-method to add a link to the JomSocial MageBridge-tab
+     * Helper-method to add a link to the JomSocial MageBridge-tab.
      *
-     * @access private
      * @param string $request
      * @param string $name
      * @param string $title
-     * @return null
      */
     private function addLink($request, $name, $title)
     {
@@ -218,10 +198,10 @@ class plgCommunityMageBridge extends CApplications
     }
 
     /**
-     * Helper method to sync the user
+     * Helper method to sync the user.
      *
-     * @access private
-     * @param \Joomla\CMS\User\User $user
+     * @param Joomla\CMS\User\User $user
+     *
      * @return bool
      */
     private function syncUser($user = null)

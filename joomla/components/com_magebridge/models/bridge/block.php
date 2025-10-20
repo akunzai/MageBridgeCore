@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -18,12 +18,12 @@ use Joomla\CMS\Router\Route;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
 {
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
      *
@@ -35,10 +35,10 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      *
      * @param string $name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return mixed
      */
@@ -49,7 +49,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Check wheather this block is cachable
+     * Check wheather this block is cachable.
      *
      * @param string $name
      *
@@ -67,10 +67,10 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to return a specific block
+     * Method to return a specific block.
      *
      * @param string $block_name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return string
      */
@@ -143,7 +143,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to decode the block-output
+     * Method to decode the block-output.
      *
      * @param string $block_data
      *
@@ -157,7 +157,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to filter the HTML with the MageBridge URL filter but also generic Content Filters
+     * Method to filter the HTML with the MageBridge URL filter but also generic Content Filters.
      *
      * @param string $html
      *
@@ -202,9 +202,7 @@ class MageBridgeModelBridgeBlock extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to get a list of Content Plugins except the MageBridge Content Plugins
-     *
-     * @param null
+     * Method to get a list of Content Plugins except the MageBridge Content Plugins.
      *
      * @return array
      */

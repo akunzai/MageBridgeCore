@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -25,28 +26,24 @@ require_once dirname(__FILE__) . '/../loader.php';
 
 /**
  * Yireo Model
- * Parent class for models that use the full-blown MVC pattern
- *
- * @package Yireo
+ * Parent class for models that use the full-blown MVC pattern.
  */
 class YireoModelItem extends YireoDataModel
 {
     /**
-     * Trait to implement checkout behaviour
+     * Trait to implement checkout behaviour.
      */
     use YireoModelTraitCheckable;
 
     /**
-     * Trait to implement filter behaviour
+     * Trait to implement filter behaviour.
      */
     use YireoModelTraitFilterable;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -72,7 +69,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     protected function initParams()
     {
@@ -92,7 +89,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Inititalize system variables
+     * Inititalize system variables.
      */
     protected function initSingle()
     {
@@ -110,12 +107,13 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @param bool $forceNew
      *
+     * @throws Yireo\Exception\Model\NotFound
+     *
      * @return array
-     * @throws \Yireo\Exception\Model\NotFound
      */
     public function getData($forceNew = false)
     {
@@ -168,7 +166,7 @@ class YireoModelItem extends YireoDataModel
             $stateField = $this->table->getStateField();
 
             if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
-                throw new \Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
+                throw new Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
             }
 
             // Fill in non-existing fields
@@ -188,7 +186,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to store the model
+     * Method to store the model.
      *
      * @param mixed $data
      *
@@ -337,7 +335,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to remove multiple items
+     * Method to remove multiple items.
      *
      * @param array $cid
      *
@@ -379,10 +377,10 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to (un)publish an item
+     * Method to (un)publish an item.
      *
      * @param array $cid
-     * @param int   $publish
+     * @param int $publish
      *
      * @return bool
      */
@@ -398,11 +396,11 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to move an item
+     * Method to move an item.
      *
-     * @param mixed  $direction
+     * @param mixed $direction
      * @param string $field_name
-     * @param int    $field_id
+     * @param int $field_id
      *
      * @return bool
      */
@@ -423,9 +421,9 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to reorder items
+     * Method to reorder items.
      *
-     * @param array  $cid
+     * @param array $cid
      * @param string $order
      *
      * @return bool
@@ -473,7 +471,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to increment the hit counter for the item
+     * Method to increment the hit counter for the item.
      *
      * @return bool
      */
@@ -489,9 +487,9 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to toggle a certain field
+     * Method to toggle a certain field.
      *
-     * @param int    $id
+     * @param int $id
      * @param string $name
      * @param string $value
      *
@@ -516,10 +514,10 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to add a new WHERE argument
+     * Method to add a new WHERE argument.
      *
-     * @param mixed  $where WHERE statement in the form of an array ($name, $value) or string
-     * @param string $type  Type of WHERE statement. Either "is" or "like".
+     * @param mixed $where WHERE statement in the form of an array ($name, $value) or string
+     * @param string $type Type of WHERE statement. Either "is" or "like".
      *
      * @return $this
      */
@@ -529,7 +527,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to add an extra query argument
+     * Method to add an extra query argument.
      *
      * @param string $extra
      */
@@ -539,7 +537,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to get empty fields
+     * Method to get empty fields.
      *
      * @return array
      */
@@ -560,7 +558,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Method to initialise the data
+     * Method to initialise the data.
      *
      * @return bool
      */
@@ -584,7 +582,7 @@ class YireoModelItem extends YireoDataModel
     }
 
     /**
-     * Check whether this record can be edited
+     * Check whether this record can be edited.
      *
      * @param array $data
      *

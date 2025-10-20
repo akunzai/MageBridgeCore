@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -21,33 +22,29 @@ require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
  * Yireo Abstract Model
- * Parent class to easily maintain backwards compatibility
- *
- * @package Yireo
+ * Parent class to easily maintain backwards compatibility.
  */
 class YireoAbstractModel extends JModelLegacy
 {
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitConfigurable;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\CMS\Input\Input
+     * @var Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -61,14 +58,14 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * Handle deprecated variables
+     * Handle deprecated variables.
      */
     protected function handleAbstractDeprecated()
     {
     }
 
     /**
-     * @return \Joomla\CMS\Application\CMSApplication
+     * @return Joomla\CMS\Application\CMSApplication
      */
     public function getApp()
     {
@@ -76,7 +73,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param \Joomla\CMS\Application\CMSApplication $app
+     * @param Joomla\CMS\Application\CMSApplication $app
      */
     public function setApp($app)
     {
@@ -84,7 +81,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @return \Joomla\CMS\Input\Input
+     * @return Joomla\CMS\Input\Input
      */
     public function getInput()
     {
@@ -92,7 +89,7 @@ class YireoAbstractModel extends JModelLegacy
     }
 
     /**
-     * @param \Joomla\CMS\Input\Input $input
+     * @param Joomla\CMS\Input\Input $input
      */
     public function setInput($input)
     {

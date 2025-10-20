@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Magento Bridge
+ * Magento Bridge.
  *
  * @author Yireo
- * @package Magento Bridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 

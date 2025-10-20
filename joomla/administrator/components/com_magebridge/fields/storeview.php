@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,19 +20,17 @@ defined('JPATH_BASE') or die();
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Form Field-class for selecting Magento store-groups
+ * Form Field-class for selecting Magento store-groups.
  */
 class MagebridgeFormFieldStoreview extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'Magento storeview';
 
     /**
-     * Method to construct the HTML of this element
-     *
-     * @param null
+     * Method to construct the HTML of this element.
      *
      * @return string
      */
@@ -73,9 +71,7 @@ class MagebridgeFormFieldStoreview extends MageBridgeFormFieldAbstract
     }
 
     /**
-     * Helper-method to get a list of groups from the API
-     *
-     * @param null
+     * Helper-method to get a list of groups from the API.
      *
      * @return array
      */

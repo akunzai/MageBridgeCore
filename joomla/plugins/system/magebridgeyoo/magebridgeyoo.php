@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - YOOtheme System plugin
+ * Joomla! MageBridge - YOOtheme System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -19,16 +19,12 @@ use Joomla\CMS\Factory;
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge System Plugin
+ * MageBridge System Plugin.
  */
-class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeYoo extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterDispatch()
     {
@@ -38,7 +34,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
         }
 
         // Load variables
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend
@@ -166,11 +162,7 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onAfterRender
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRender.
      */
     public function onAfterRender()
     {
@@ -188,11 +180,9 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Load the parameters
+     * Load the parameters.
      *
-     * @access private
-     * @param null
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -200,10 +190,8 @@ class plgSystemMageBridgeYoo extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
+     * Simple check to see if MageBridge exists.
      *
-     * @access private
-     * @param null
      * @return bool
      */
     private function isEnabled()

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -14,7 +14,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for usage in Joomla!/MageBridge plugins
+ * Helper for usage in Joomla!/MageBridge plugins.
  */
 class MageBridgePluginHelper
 {
@@ -39,7 +39,7 @@ class MageBridgePluginHelper
     private $deniedEvents = [];
 
     /**
-     * Singleton method
+     * Singleton method.
      *
      * @return MageBridgePluginHelper
      */
@@ -62,10 +62,10 @@ class MageBridgePluginHelper
     }
 
     /**
-     * Helper-method to determine if it's possible to run this event
+     * Helper-method to determine if it's possible to run this event.
      *
      * @param string $event
-     * @param array  $options
+     * @param array $options
      *
      * @return bool
      */

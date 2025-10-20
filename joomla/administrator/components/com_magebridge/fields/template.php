@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,19 +19,17 @@ defined('JPATH_BASE') or die();
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Form Field-class for selecting a Magento theme
+ * Form Field-class for selecting a Magento theme.
  */
 class MagebridgeFormFieldTemplate extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'Joomla! template';
 
     /**
-     * Method to get the output of this element
-     *
-     * @param null
+     * Method to get the output of this element.
      *
      * @return string
      */

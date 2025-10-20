@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,36 +14,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Cache.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /** Zend_Server_Cache */
 require_once 'Zend/Server/Cache.php';
 
 /**
- * Zend_Json_Server_Cache: cache Zend_Json_Server server definition and SMD
+ * Zend_Json_Server_Cache: cache Zend_Json_Server server definition and SMD.
  *
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
 class Zend_Json_Server_Cache extends Zend_Server_Cache
 {
     /**
-     * Cache a service map description (SMD) to a file
+     * Cache a service map description (SMD) to a file.
      *
      * Returns true on success, false on failure
      *
-     * @param  string $filename
-     * @param  Zend_Json_Server $server
+     * @param string $filename
+     *
      * @return bool
      */
     public static function saveSmd($filename, Zend_Json_Server $server)
@@ -61,12 +59,13 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
     }
 
     /**
-     * Retrieve a cached SMD
+     * Retrieve a cached SMD.
      *
      * On success, returns the cached SMD (a JSON string); an failure, returns
      * bool false.
      *
-     * @param  string $filename
+     * @param string $filename
+     *
      * @return string|false
      */
     public static function getSmd($filename)
@@ -86,9 +85,10 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
     }
 
     /**
-     * Delete a file containing a cached SMD
+     * Delete a file containing a cached SMD.
      *
-     * @param  string $filename
+     * @param string $filename
+     *
      * @return bool
      */
     public static function deleteSmd($filename)

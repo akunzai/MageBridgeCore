@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  *
  * The MageBridge register contains gathered data from Joomla!, and is sent through the bridge
@@ -42,29 +42,27 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge register
+ * Bridge register.
  */
 class MageBridgeModelRegister
 {
     /**
-     * Singleton
+     * Singleton.
      */
     protected static $_instance = null;
 
     /**
-     * Registry array
+     * Registry array.
      */
     private $data = [];
 
     /**
-     * Constants defining the status of a segment
+     * Constants defining the status of a segment.
      */
     public const MAGEBRIDGE_SEGMENT_STATUS_SYNCED = 1;
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeModelRegister
      */
@@ -79,10 +77,8 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to initialize the registrer
-     *
-     * @param null
-     * $return null
+     * Method to initialize the registrer.
+     * $return null.
      */
     public function init()
     {
@@ -91,12 +87,12 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to add a segment to the register
+     * Method to add a segment to the register.
      *
      * @param string $type
      * @param string $name
-     * @param mixed  $arguments
-     * $return string $id
+     * @param mixed $arguments
+     *                         $return string $id
      */
     public function add($type = null, $name = null, $arguments = null)
     {
@@ -117,7 +113,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to get a segment value from the register by its ID
+     * Method to get a segment value from the register by its ID.
      *
      * @param string $id
      *
@@ -137,7 +133,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Fetch the data from segment by its ID
+     * Fetch the data from segment by its ID.
      *
      * @param string $id
      *
@@ -152,7 +148,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to get a segment value from the register
+     * Method to get a segment value from the register.
      *
      * @param string $type
      * @param string $name
@@ -200,11 +196,11 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Fetch the data from segment
+     * Fetch the data from segment.
      *
      * @param string $type
      * @param string $name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      * @param string $id
      *
      * @return mixed
@@ -225,7 +221,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to remove a request from the register
+     * Method to remove a request from the register.
      *
      * @param string $type
      * @param string $name
@@ -248,9 +244,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to clean the register
-     *
-     * @param null
+     * Method to clean the register.
      *
      * @return $this
      */
@@ -262,9 +256,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to fetch the entire register
-     *
-     * @param null
+     * Method to fetch the entire register.
      *
      * @return array
      */
@@ -274,9 +266,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to return the pending register-entries
-     *
-     * @param null
+     * Method to return the pending register-entries.
      *
      * @return array
      */
@@ -318,7 +308,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to correct the request URI depending on what is asked
+     * Method to correct the request URI depending on what is asked.
      *
      * @param array $data
      *
@@ -352,11 +342,9 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to return the pending register-entries
+     * Method to return the pending register-entries.
      *
      * @param array $data
-     *
-     * @return void
      */
     public function merge($data)
     {
@@ -410,11 +398,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to load cache data into the register
-     *
-     * @param null
-     *
-     * @return null
+     * Method to load cache data into the register.
      */
     public function loadCache()
     {
@@ -451,9 +435,7 @@ class MageBridgeModelRegister
     }
 
     /**
-     * Method to return the register as an array
-     *
-     * @param null
+     * Method to return the register as an array.
      *
      * @return string
      */

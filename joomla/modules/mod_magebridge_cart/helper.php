@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Shopping Cart
+ * Joomla! module MageBridge: Shopping Cart.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -14,16 +14,15 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper-class for the module
+ * Helper-class for the module.
  */
-
 class ModMageBridgeCartHelper
 {
     /**
-     * Method to be called once the MageBridge is loaded
+     * Method to be called once the MageBridge is loaded.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return array
      */
     public static function register($params = null)
@@ -48,10 +47,10 @@ class ModMageBridgeCartHelper
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return string
      */
     public static function build($params = null)

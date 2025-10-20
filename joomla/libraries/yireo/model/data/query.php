@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -17,19 +18,17 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 
 /**
- * Yireo Model Data Query
- *
- * @package Yireo
+ * Yireo Model Data Query.
  */
 class YireoModelDataQuery
 {
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitIdentifiable;
 
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitConfigurable;
 
@@ -44,17 +43,17 @@ class YireoModelDataQuery
     protected $tableAlias;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var \Joomla\Database\DatabaseQuery
+     * @var Joomla\Database\DatabaseQuery
      */
     protected $query;
 
@@ -96,9 +95,9 @@ class YireoModelDataQuery
     ];
 
     /**
-     * YireoModelDataQuery constructor
+     * YireoModelDataQuery constructor.
      *
-     * @param $table      YireoTable
+     * @param $table YireoTable
      * @param $tableAlias string
      */
     public function __construct($table, $tableAlias)
@@ -111,11 +110,11 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to build the query
+     * Method to build the query.
      *
-     * @param null|\Joomla\Database\DatabaseQuery $query
+     * @param Joomla\Database\DatabaseQuery|null $query
      *
-     * @return \Joomla\Database\DatabaseQuery
+     * @return Joomla\Database\DatabaseQuery
      */
     public function build($query = null)
     {
@@ -147,9 +146,6 @@ class YireoModelDataQuery
         return $this->query;
     }
 
-    /**
-     *
-     */
     protected function getSelectFields()
     {
         $availableFields = $this->table->getDatabaseFields();
@@ -218,7 +214,7 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to build the query WHERE segment
+     * Method to build the query WHERE segment.
      *
      * @return $this
      */
@@ -282,7 +278,7 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to build the query ORDER BY segment
+     * Method to build the query ORDER BY segment.
      *
      * @return $this
      */
@@ -314,7 +310,7 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to build the query GROUP BY segment
+     * Method to build the query GROUP BY segment.
      *
      * @return string
      */
@@ -368,10 +364,10 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to add a new WHERE argument
+     * Method to add a new WHERE argument.
      *
-     * @param mixed  $where WHERE statement in the form of an array ($name, $value) or string
-     * @param string $type  Type of WHERE statement. Either "is" or "like".
+     * @param mixed $where WHERE statement in the form of an array ($name, $value) or string
+     * @param string $type Type of WHERE statement. Either "is" or "like".
      *
      * @return $this
      */
@@ -397,7 +393,7 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to add a new ORDER BY argument
+     * Method to add a new ORDER BY argument.
      *
      * @param string $orderby
      *
@@ -423,7 +419,7 @@ class YireoModelDataQuery
     }
 
     /**
-     * Method to add a new GROUP BY argument
+     * Method to add a new GROUP BY argument.
      *
      * @param string $groupby
      *
@@ -448,9 +444,6 @@ class YireoModelDataQuery
         return $this;
     }
 
-    /**
-     * @param $model
-     */
     public function setModel($model)
     {
         $this->model = $model;

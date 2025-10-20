@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   1.0.0
  */
 
@@ -24,9 +25,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * List View class
- *
- * @package Yireo
+ * List View class.
  */
 class YireoViewList extends YireoView
 {
@@ -41,37 +40,35 @@ class YireoViewList extends YireoView
     protected $fields;
 
     /**
-     * Identifier of the library-view
+     * Identifier of the library-view.
      *
      * @var string
      */
     protected $_viewParent = 'list';
 
     /**
-     * Flag to determine whether to load edit/copy/new buttons
+     * Flag to determine whether to load edit/copy/new buttons.
      *
      * @var bool
      */
     protected $loadToolbarEdit = true;
 
     /**
-     * Flag to determine whether to load delete buttons
+     * Flag to determine whether to load delete buttons.
      *
      * @var bool
      */
     protected $loadToolbarDelete = true;
 
     /**
-     * Pagination
+     * Pagination.
      *
-     * @var \Joomla\CMS\Pagination\Pagination
+     * @var Joomla\CMS\Pagination\Pagination
      */
     protected $pagination = null;
 
     /**
-     * Main constructor method
-     *
-     * @return void
+     * Main constructor method.
      */
     public function __construct($config = [])
     {
@@ -83,11 +80,9 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Main display method
+     * Main display method.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -131,12 +126,12 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Method to allow toggling a certain field
+     * Method to allow toggling a certain field.
      *
-     * @param string  $name
-     * @param string  $value
+     * @param string $name
+     * @param string $value
      * @param bool $ajax
-     * @param int     $id
+     * @param int $id
      *
      * @return string
      */
@@ -159,7 +154,7 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Try to load the buttons for the toolbar
+     * Try to load the buttons for the toolbar.
      *
      * @return bool
      */
@@ -187,10 +182,10 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Method to return the checkedout grid-box
+     * Method to return the checkedout grid-box.
      *
      * @param object $item
-     * @param int    $i
+     * @param int $i
      *
      * @return string
      */
@@ -219,10 +214,10 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Method to return the checkbox to do something
+     * Method to return the checkbox to do something.
      *
      * @param object $item
-     * @param int    $i
+     * @param int $i
      *
      * @return string
      */
@@ -234,11 +229,11 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Helper method to return the published grid-box
+     * Helper method to return the published grid-box.
      *
      * @param object $item
-     * @param int    $i
-     * @param mixed  $model
+     * @param int $i
+     * @param mixed $model
      *
      * @return string
      */
@@ -274,7 +269,7 @@ class YireoViewList extends YireoView
     }
 
     /**
-     * Method to return whether an item is checked out or not
+     * Method to return whether an item is checked out or not.
      *
      * @param object $item
      *

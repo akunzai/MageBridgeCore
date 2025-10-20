@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.1
  */
 
@@ -24,71 +25,67 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/../loader.php';
 
 /**
- * Yireo Common View
- *
- * @package Yireo
+ * Yireo Common View.
  */
 class YireoCommonView extends YireoAbstractView
 {
     /**
-     * Trait to implement ID behavior
+     * Trait to implement ID behavior.
      */
     use YireoModelTraitConfigurable;
 
     /**
-     * Array of template-paths to look for layout-files
+     * Array of template-paths to look for layout-files.
      */
     protected $templatePaths = [];
 
     /**
-     * Flag to determine whether this view is a single-view
+     * Flag to determine whether this view is a single-view.
      */
     protected $_single = null;
 
     /**
-     * Identifier of the library-view
+     * Identifier of the library-view.
      */
     protected $_viewParent = 'default';
 
     /**
-     * Default task
+     * Default task.
      */
     protected $_task = null;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\CMS\Input\Input
+     * @var Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * @var \Joomla\CMS\Document\HtmlDocument
+     * @var Joomla\CMS\Document\HtmlDocument
      */
     protected $doc;
 
     /**
-     * @var \Joomla\CMS\User\User
+     * @var Joomla\CMS\User\User
      */
     protected $user;
 
     /**
-     * @var \Joomla\CMS\Uri\Uri
+     * @var Uri
      */
     protected $uri;
 
     /**
-     * Main constructor method
-     *
-     * @subpackage Yireo
+     * Main constructor method.
      *
      * @param array $config
      */
@@ -125,7 +122,7 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Helper method to determine whether this is a new entry or not
+     * Helper method to determine whether this is a new entry or not.
      *
      * @return bool
      */
@@ -147,14 +144,10 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to set the page title
-     *
-     * @subpackage Yireo
+     * Helper-method to set the page title.
      *
      * @param string $title
      * @param string $class
-     *
-     * @return null
      */
     protected function setTitle($title = null, $class = 'logo')
     {
@@ -185,11 +178,7 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to set the page title
-     *
-     * @subpackage Yireo
-     *
-     * @return null
+     * Helper-method to set the page title.
      */
     public function setMenu()
     {
@@ -234,13 +223,9 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Add a specific CSS-stylesheet to this page
-     *
-     * @subpackage Yireo
+     * Add a specific CSS-stylesheet to this page.
      *
      * @param string $stylesheet
-     *
-     * @return void
      */
     public function addCss($stylesheet)
     {
@@ -279,13 +264,9 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Add a specific JavaScript-script to this page
-     *
-     * @subpackage Yireo
+     * Add a specific JavaScript-script to this page.
      *
      * @param string $script
-     *
-     * @return null
      */
     public function addJs($script)
     {
@@ -324,11 +305,9 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * Add a folder to the template-search path
+     * Add a folder to the template-search path.
      *
-     * @subpackage Yireo
-     *
-     * @param string  $path
+     * @param string $path
      * @param bool $first
      *
      * @return bool
@@ -359,10 +338,10 @@ class YireoCommonView extends YireoAbstractView
     }
 
     /**
-     * An override of the original JView-function to allow template files across multiple layouts
+     * An override of the original JView-function to allow template files across multiple layouts.
      *
      * @param string $file
-     * @param array  $variables
+     * @param array $variables
      *
      * @return string
      */

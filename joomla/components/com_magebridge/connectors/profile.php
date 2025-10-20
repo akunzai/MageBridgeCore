@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,27 +17,23 @@ use Joomla\CMS\Plugin\PluginHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Profile-connector class
- *
- * @package MageBridge
+ * MageBridge Profile-connector class.
  */
 class MageBridgeConnectorProfile extends MageBridgeConnector
 {
     /**
-     * Singleton variable
+     * Singleton variable.
      */
     private static $_instance = null;
 
     /**
-     * Constants
+     * Constants.
      */
     public const CONVERT_TO_JOOMLA = 1;
     public const CONVERT_TO_MAGENTO = 2;
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeConnectorProfile
      */
@@ -51,9 +47,9 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
     }
 
     /**
-     * Method to do something when changing the profile from Magento
+     * Method to do something when changing the profile from Magento.
      *
-     * @param \Joomla\CMS\User\User $user
+     * @param Joomla\CMS\User\User $user
      * @param array $customer
      * @param array $address
      *
@@ -75,7 +71,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
     }
 
     /**
-     * Method to execute when the user-data need to be synced
+     * Method to execute when the user-data need to be synced.
      *
      * @param array $user
      *
@@ -105,7 +101,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
     }
 
     /**
-     * Method to execute when the profile is saved
+     * Method to execute when the profile is saved.
      *
      * @param int $user_id
      *

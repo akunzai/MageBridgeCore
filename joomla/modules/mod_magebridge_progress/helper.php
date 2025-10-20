@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Progress Block
+ * Joomla! module MageBridge: Progress Block.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -14,17 +14,14 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper-class for the module
+ * Helper-class for the module.
  */
-
 class ModMageBridgeProgressHelper
 {
     /**
-     * Method to be called once the MageBridge is loaded
+     * Method to be called once the MageBridge is loaded.
      *
-     * @access public
-     *
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -42,11 +39,9 @@ class ModMageBridgeProgressHelper
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
-     * @access public
-     *
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
      *
      * @return string
      */

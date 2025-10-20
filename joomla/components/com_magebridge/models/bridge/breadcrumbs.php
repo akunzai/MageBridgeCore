@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,14 +18,15 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
 {
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
+     *
      * @return object
      */
     public static function getInstance($name = null)
@@ -34,7 +35,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      */
     public function getResponseData()
     {
@@ -42,7 +43,7 @@ class MageBridgeModelBridgeBreadcrumbs extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to set the breadcrumbs
+     * Method to set the breadcrumbs.
      */
     public function setBreadcrumbs()
     {

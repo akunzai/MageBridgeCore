@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -14,21 +14,19 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge configuration class
+ * Bridge configuration class.
  */
 class MageBridgeModelConfigDefaults
 {
     /**
-     * Array of default values
+     * Array of default values.
      *
      * @var array
      */
     protected $_defaults = [];
 
     /**
-     * Constructor
-     *
-     * @param null
+     * Constructor.
      *
      * @retun array
      */

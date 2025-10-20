@@ -18,7 +18,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('_JEXEC') or die();
 
 /**
- * Yireo View Helper
+ * Yireo View Helper.
  */
 class YireoHelperView
 {
@@ -119,7 +119,7 @@ class YireoHelperView
      */
     public static function ajax($url = null, $div = null)
     {
-        /** @var \Joomla\CMS\Document\HtmlDocument */
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
         if (stristr(get_class($document), 'html') == false) {
             return false;

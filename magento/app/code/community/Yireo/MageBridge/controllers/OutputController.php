@@ -1,26 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge output tests
+ * MageBridge output tests.
  */
 class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Output test 1
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 1.
      */
     public function test1Action()
     {
@@ -28,11 +24,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 2
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 2.
      */
     public function test2Action()
     {
@@ -41,11 +33,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 3
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 3.
      */
     public function test3Action()
     {
@@ -54,11 +42,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 4
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 4.
      */
     public function test4Action()
     {
@@ -67,11 +51,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 5
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 5.
      */
     public function test5Action()
     {
@@ -82,11 +62,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 6
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 6.
      */
     public function test6Action()
     {
@@ -99,11 +75,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 7
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 7.
      */
     public function test7Action()
     {
@@ -112,11 +84,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 8
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 8.
      */
     public function test8Action()
     {
@@ -125,11 +93,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 9
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 9.
      */
     public function test9Action()
     {
@@ -138,11 +102,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 10
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 10.
      */
     public function test10Action()
     {
@@ -154,11 +114,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 11
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 11.
      */
     public function test11Action()
     {
@@ -181,11 +137,7 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
     }
 
     /**
-     * Output test 12
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Output test 12.
      */
     public function test12Action()
     {

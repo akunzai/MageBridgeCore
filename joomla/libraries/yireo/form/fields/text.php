@@ -24,12 +24,12 @@ include_once JPATH_LIBRARIES . '/joomla/form/fields/text.php';
 class YireoFormFieldText extends JFormFieldText
 {
     /**
-     * @param SimpleXMLElement $element
-     * @param mixed            $value
-     * @param null             $group
+     * @param mixed $value
+     * @param null $group
+     *
+     * @throws Exception
      *
      * @return bool
-     * @throws Exception
      */
     public function setup(SimpleXMLElement $element, $value, $group = null)
     {

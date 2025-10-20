@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,27 +19,25 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Parent plugin-class
+ * Parent plugin-class.
  */
 class MageBridgePluginProduct extends MageBridgePlugin
 {
     /**
-     * Deprecated variable to migrate from the original connector-architecture to new Product Plugins
+     * Deprecated variable to migrate from the original connector-architecture to new Product Plugins.
      */
     protected $connector_field = null;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access      protected
-     *
-     * @param       object $subject The object to observe
-     * @param       array  $config  An array that holds the plugin configuration
+     * @param object $subject The object to observe
+     * @param array $config An array that holds the plugin configuration
      */
     public function __construct(&$subject, $config)
     {
@@ -50,9 +48,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
-     *
-     * @param null
+     * Method to check whether this plugin is enabled or not.
      *
      * @return bool
      */
@@ -62,10 +58,10 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * Method to manipulate the MageBridge Product Relation backend-form
+     * Method to manipulate the MageBridge Product Relation backend-form.
      *
-     * @param \Joomla\CMS\Form\Form $form The form to be altered
-     * @param \Joomla\CMS\Form\Form $data The associated data for the form
+     * @param Joomla\CMS\Form\Form $form The form to be altered
+     * @param Joomla\CMS\Form\Form $data The associated data for the form
      *
      * @return bool
      */
@@ -96,7 +92,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * Method to manipulate the MageBridge Product Relation backend-form
+     * Method to manipulate the MageBridge Product Relation backend-form.
      *
      * @param object $connector The connector-row
      *
@@ -126,7 +122,7 @@ class MageBridgePluginProduct extends MageBridgePlugin
     }
 
     /**
-     * @param \Joomla\CMS\Form\Form $form
+     * @param Joomla\CMS\Form\Form $form
      */
     protected function loadFormFile(&$form)
     {

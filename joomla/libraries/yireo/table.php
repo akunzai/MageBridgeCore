@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -24,49 +25,49 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/loader.php';
 
 /**
- * Common Table class
+ * Common Table class.
  */
-class YireoTable extends \Joomla\CMS\Table\Table
+class YireoTable extends Joomla\CMS\Table\Table
 {
     /**
-     * List of fields to include in the Table-instance
+     * List of fields to include in the Table-instance.
      *
      * @protected array
      */
     protected $_fields = [];
 
     /**
-     * List of default values for database fields
+     * List of default values for database fields.
      *
      * @protected array
      */
     protected $_defaults = [];
 
     /**
-     * List of required fields that can not be left empty
+     * List of required fields that can not be left empty.
      *
      * @protected array
      */
     protected $_required = [];
 
     /**
-     * List of fields that can not have duplicates in the existing table
+     * List of fields that can not have duplicates in the existing table.
      *
      * @protected array
      */
     protected $_noduplicate = [];
 
     /**
-     * Flag to enable debugging
+     * Flag to enable debugging.
      */
     protected $_debug = false;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param string    $table_name
-     * @param string    $primary_key
-     * @param \Joomla\Database\DatabaseDriver $db
+     * @param string $table_name
+     * @param string $primary_key
+     * @param Joomla\Database\DatabaseDriver $db
      */
     public function __construct($table_name, $primary_key, $db)
     {
@@ -99,12 +100,13 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Bind method
+     * Bind method.
      *
-     * @param array  $array
+     * @param array $array
      * @param string $ignore
      *
      * @return mixed
+     *
      * @see        JTable:bind
      */
     public function bind($array, $ignore = '')
@@ -132,9 +134,6 @@ class YireoTable extends \Joomla\CMS\Table\Table
         return parent::bind($array, $ignore);
     }
 
-    /**
-     * @param $array
-     */
     protected function bindDefaults(&$array)
     {
         // Add fields that are defined in this table by default, but are not set to bound
@@ -147,9 +146,6 @@ class YireoTable extends \Joomla\CMS\Table\Table
         }
     }
 
-    /**
-     * @param $array
-     */
     protected function bindCid(&$array)
     {
         // Set cid[] as primary key
@@ -160,9 +156,6 @@ class YireoTable extends \Joomla\CMS\Table\Table
         }
     }
 
-    /**
-     * @param $array
-     */
     protected function bindParams(&$array)
     {
         // Convert the parameter array to a flat string
@@ -173,9 +166,6 @@ class YireoTable extends \Joomla\CMS\Table\Table
         }
     }
 
-    /**
-     * @param $array
-     */
     protected function bindAlias(&$array)
     {
         // Generate an alias if it is empty, but if a title exists
@@ -191,7 +181,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Overloaded check method to ensure data integrity
+     * Overloaded check method to ensure data integrity.
      *
      * @return bool
      */
@@ -215,9 +205,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Overloaded store method to debug query-failures
-     *
-     * @param $updateNulls
+     * Overloaded store method to debug query-failures.
      *
      * @return bool
      */
@@ -244,7 +232,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to check if a required value is set or not
+     * Helper-method to check if a required value is set or not.
      *
      * @param string $field
      *
@@ -260,7 +248,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to check for duplicate values in the table
+     * Helper-method to check for duplicate values in the table.
      *
      * @param string $field
      *
@@ -285,7 +273,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get the latest insert ID
+     * Helper-method to get the latest insert ID.
      *
      * @return int
      */
@@ -300,7 +288,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get all fields from this table
+     * Helper-method to get all fields from this table.
      *
      * @return array
      */
@@ -321,7 +309,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get all fields from this table
+     * Helper-method to get all fields from this table.
      *
      * @param string $tableName
      *
@@ -329,7 +317,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
      */
     public static function getCachedDatabaseFields($tableName)
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var Joomla\Database\DatabaseDriver $db */
         $db = Factory::getDbo();
         $db->setQuery('SHOW FIELDS FROM `' . $tableName . '`');
         $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray();
@@ -338,7 +326,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get the default ORDER BY value (depending on the present fields)
+     * Helper-method to get the default ORDER BY value (depending on the present fields).
      *
      * @param mixed $check
      *
@@ -363,7 +351,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get all fields from this table
+     * Helper-method to get all fields from this table.
      *
      * @return array
      */
@@ -373,7 +361,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get the state-field
+     * Helper-method to get the state-field.
      *
      * @return array
      */
@@ -391,7 +379,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to get the default ORDER BY value (depending on the present fields)
+     * Helper-method to get the default ORDER BY value (depending on the present fields).
      *
      * @return array
      */
@@ -408,7 +396,7 @@ class YireoTable extends \Joomla\CMS\Table\Table
     }
 
     /**
-     * Helper-method to turn an array into a CSV-list
+     * Helper-method to turn an array into a CSV-list.
      *
      * @return array
      */

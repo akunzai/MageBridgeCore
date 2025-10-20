@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,13 +18,13 @@ use Joomla\CMS\Version;
 defined('_JEXEC') or die();
 
 /**
- * Class run when installing/upgrading/removing MageBridge
+ * Class run when installing/upgrading/removing MageBridge.
  */
 if (class_exists('com_magebridgeInstallerScript') == false) {
     class com_magebridgeInstallerScript
     {
         /**
-         * Postflight method
+         * Postflight method.
          */
         public function postflight($action, $installer)
         {
@@ -41,7 +41,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when updating MageBridge
+         * Method run when updating MageBridge.
          */
         public function doUpdate()
         {
@@ -73,7 +73,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when installing MageBridge
+         * Method run when installing MageBridge.
          */
         public function doInstall()
         {
@@ -103,7 +103,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when uninstalling MageBridge
+         * Method run when uninstalling MageBridge.
          */
         public function doUninstall()
         {

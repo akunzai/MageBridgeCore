@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - User plugin
+ * Joomla! MageBridge - User plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com/
  */
 
@@ -20,12 +20,12 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge User Plugin
+ * MageBridge User Plugin.
  */
 class PlgUserMageBridge extends MageBridgePlugin
 {
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -45,7 +45,7 @@ class PlgUserMageBridge extends MageBridgePlugin
     private $original_data = [];
 
     /**
-     * Initialization function
+     * Initialization function.
      */
     protected function initialize()
     {
@@ -55,13 +55,11 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserAfterDelete
+     * Event onUserAfterDelete.
      *
-     * @param array  $user
-     * @param bool   $success
+     * @param array $user
+     * @param bool $success
      * @param string $msg
-     *
-     * @return null
      */
     public function onUserAfterDelete($user, $success, $msg = '')
     {
@@ -79,10 +77,10 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserBeforeSave
+     * Event onUserBeforeSave.
      *
      * @param array $oldUser
-     * @param bool  $isnew
+     * @param bool $isnew
      * @param array $newUser
      *
      * @return bool
@@ -101,11 +99,11 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserAfterSave
+     * Event onUserAfterSave.
      *
-     * @param array  $user
-     * @param bool   $isnew
-     * @param bool   $success
+     * @param array $user
+     * @param bool $isnew
+     * @param bool $success
      * @param string $msg
      *
      * @return bool
@@ -163,7 +161,7 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserLogin
+     * Event onUserLogin.
      *
      * @param array $user
      * @param array $options
@@ -193,7 +191,7 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserAfterLogin
+     * Event onUserAfterLogin.
      *
      * @param array $options
      *
@@ -225,7 +223,7 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserLogout
+     * Event onUserLogout.
      *
      * @param array $user
      * @param array $options
@@ -276,7 +274,7 @@ class PlgUserMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onUserAfterLogout
+     * Event onUserAfterLogout.
      *
      * @param array $options
      *

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -18,17 +19,15 @@ use Joomla\CMS\Form\Form;
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Formable - allows models to have a form
- *
- * @package Yireo
+ * Yireo Model Trait: Formable - allows models to have a form.
  */
 trait YireoModelTraitFormable
 {
     /**
-     * Method to get a XML-based form
+     * Method to get a XML-based form.
      *
      * @param array $data
-     * @param bool  $loadData
+     * @param bool $loadData
      *
      * @return mixed
      */
@@ -64,9 +63,9 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Allow usage of this form
+     * Allow usage of this form.
      *
-     * @return false|\Joomla\CMS\Form\Form
+     * @return false|Form
      */
     protected function loadForm()
     {
@@ -98,7 +97,7 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Get the form name
+     * Get the form name.
      *
      * @return string
      */
@@ -114,7 +113,7 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Detect the XML file containing the form
+     * Detect the XML file containing the form.
      *
      * @return string
      */
@@ -131,11 +130,9 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Get the JForm object from an XML file
+     * Get the JForm object from an XML file.
      *
-     * @param $xmlFile
-     *
-     * @return \Joomla\CMS\Form\Form
+     * @return Form
      */
     protected function getFormFromXml($xmlFile)
     {
@@ -143,7 +140,7 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Method to temporarily store an object in the current session
+     * Method to temporarily store an object in the current session.
      *
      * @param array $data
      */
@@ -154,7 +151,7 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Method to temporarily store an object in the current session
+     * Method to temporarily store an object in the current session.
      */
     public function loadTmpSession()
     {
@@ -175,7 +172,7 @@ trait YireoModelTraitFormable
     }
 
     /**
-     * Method to temporarily store an object in the current session
+     * Method to temporarily store an object in the current session.
      */
     public function resetTmpSession()
     {

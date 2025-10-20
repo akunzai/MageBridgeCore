@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,33 +17,33 @@ use Joomla\CMS\Pagination\Pagination;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Users model
+ * MageBridge Users model.
  */
 class MagebridgeModelUsers extends YireoCommonModel
 {
     /**
-     * Data array
+     * Data array.
      *
      * @var array
      */
     public $_data = null;
 
     /**
-     * Data total
+     * Data total.
      *
-     * @var integer
+     * @var int
      */
     public $_total = null;
 
     /**
-     * Pagination object
+     * Pagination object.
      *
      * @var object
      */
     public $_pagination = null;
 
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function __construct()
     {
@@ -61,7 +61,7 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to get items data
+     * Method to get items data.
      *
      * @return array
      */
@@ -77,9 +77,9 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to get the total number of items
+     * Method to get the total number of items.
      *
-     * @return integer
+     * @return int
      */
     public function getTotal()
     {
@@ -93,7 +93,7 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to get a pagination object for the items
+     * Method to get a pagination object for the items.
      *
      * @return Pagination
      */
@@ -108,7 +108,7 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to build the database query
+     * Method to build the database query.
      *
      * @return string
      */
@@ -124,7 +124,7 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to build the orderby-segments
+     * Method to build the orderby-segments.
      *
      * @return string
      */
@@ -145,7 +145,7 @@ class MagebridgeModelUsers extends YireoCommonModel
     }
 
     /**
-     * Method to build the where-segments
+     * Method to build the where-segments.
      *
      * @return string
      */

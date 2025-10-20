@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Abstract proxy class
+ * Abstract proxy class.
  */
 abstract class MageBridgeModelProxyAbstract
 {
@@ -27,17 +27,17 @@ abstract class MageBridgeModelProxyAbstract
     public const CONNECTION_ERROR = 1;
 
     /**
-     * Counter for how many times we connect to Magento
+     * Counter for how many times we connect to Magento.
      */
     protected $count = 2;
 
     /**
-     * State of connection
+     * State of connection.
      */
     protected $state = '';
 
     /**
-     * Initialization flag
+     * Initialization flag.
      */
     protected $init = self::CONNECTION_FALSE;
 
@@ -52,7 +52,7 @@ abstract class MageBridgeModelProxyAbstract
     protected $debug;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -62,12 +62,12 @@ abstract class MageBridgeModelProxyAbstract
     protected $helper;
 
     /**
-     * @var \Joomla\CMS\Input\Input
+     * @var Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     protected $config;
 
@@ -77,7 +77,7 @@ abstract class MageBridgeModelProxyAbstract
     protected $user;
 
     /**
-     * Method to fetch the data
+     * Method to fetch the data.
      *
      * @return MageBridgeModelProxy
      */
@@ -93,7 +93,7 @@ abstract class MageBridgeModelProxyAbstract
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -114,7 +114,7 @@ abstract class MageBridgeModelProxyAbstract
 
 
     /**
-     * Encode data for transmission
+     * Encode data for transmission.
      *
      * @param mixed $data
      *
@@ -155,7 +155,7 @@ abstract class MageBridgeModelProxyAbstract
     }
 
     /**
-     * Decode data after transmission
+     * Decode data after transmission.
      *
      * @param string $data
      *
@@ -177,7 +177,7 @@ abstract class MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set the current proxy state
+     * Method to set the current proxy state.
      *
      * @param string $state
      */
@@ -187,7 +187,7 @@ abstract class MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the current proxy state
+     * Method to get the current proxy state.
      *
      * @return mixed
      */

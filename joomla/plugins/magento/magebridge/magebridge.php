@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Magento plugin
+ * Joomla! MageBridge - Magento plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,17 +20,17 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Magento Plugin
+ * MageBridge Magento Plugin.
  */
-class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
+class PlgMagentoMageBridge extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * @var \Joomla\CMS\Application\WebApplication
+     * @var Joomla\CMS\Application\WebApplication
      */
     protected $app;
 
     /**
-     * Get the MageBridge user-class
+     * Get the MageBridge user-class.
      *
      * @return MageBridgeModelUser
      */
@@ -40,7 +40,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after a customer is deleted (JSON-RPC)
+     * Handle the event that is generated after a customer is deleted (JSON-RPC).
      *
      * @param array $arguments
      *
@@ -65,7 +65,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after a customer logs out (bridge-response)
+     * Handle the event that is generated after a customer logs out (bridge-response).
      *
      * @param array $arguments
      *
@@ -100,7 +100,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated when a customer logs in (JSON-RPC)
+     * Handle the event that is generated when a customer logs in (JSON-RPC).
      *
      * @param array $arguments
      *
@@ -128,7 +128,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after a customer logs in (passed into the bridge-response)
+     * Handle the event that is generated after a customer logs in (passed into the bridge-response).
      *
      * @param array $arguments
      *
@@ -171,7 +171,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after a customer is saved in Magento (JSON-RPC)
+     * Handle the event that is generated after a customer is saved in Magento (JSON-RPC).
      *
      * @param array $arguments
      *
@@ -306,7 +306,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after an order is saved in Magento (JSON-RPC)
+     * Handle the event that is generated after an order is saved in Magento (JSON-RPC).
      *
      * @param array $arguments
      *
@@ -342,7 +342,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after a newsletter subscriber is changed in Magento
+     * Handle the event that is generated after a newsletter subscriber is changed in Magento.
      *
      * @param array $arguments
      *
@@ -365,7 +365,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after an order is saved in Magento (RPC)
+     * Handle the event that is generated after an order is saved in Magento (RPC).
      *
      * @param array $arguments
      *
@@ -406,7 +406,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event that is generated after an order is completed in Magento (RPC)
+     * Handle the event that is generated after an order is completed in Magento (RPC).
      *
      * @param array $arguments
      *
@@ -442,7 +442,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return a MageBridge configuration parameter
+     * Return a MageBridge configuration parameter.
      *
      * @param string $name
      *
@@ -454,7 +454,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Helper function to determine the right username
+     * Helper function to determine the right username.
      *
      * @param mixed $user
      * @param array $customer
@@ -483,7 +483,7 @@ class PlgMagentoMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Helper function to determine the right name
+     * Helper function to determine the right name.
      *
      * @param mixed $user
      * @param array $customer
