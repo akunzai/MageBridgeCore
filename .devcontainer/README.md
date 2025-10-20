@@ -3,7 +3,7 @@
 ## Requirements
 
 - [Docker Engine](https://docs.docker.com/install/)
-- [Docker Compose V2](https://docs.docker.com/compose/cli-command/)
+- [Docker Compose](https://docs.docker.com/compose/cli-command/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - Bash
 
@@ -13,18 +13,26 @@
 # set up TLS certs in Host
 mkdir -p .secrets
 mkcert -cert-file .secrets/cert.pem -key-file .secrets/key.pem '*.dev.local'
+cp "$(mkcert -CAROOT)/rootCA.pem" .secrets/ca.pem
 
 # set up hosts in Host
 echo "127.0.0.1 www.dev.local store.dev.local" | sudo tee -a /etc/hosts
 
-# starting container or open folder in container
+# starting container
 docker compose up -d
 
-# install OpenMage
+# starting container for debug
+# > use VSCode to attach running joomla container for Xdebug
+docker compose -f compose.yml -f compose.debug.yml up -d
+
+# install or update the OpenMage module
 ./openmage/install.sh
 
-# install the Joomla! (requires Joomla! version >= 4.3)
+# install or update the Joomla extension
 ./joomla/install.sh
+
+# force re-install the Joomla extension
+./joomla/install.sh --force
 ```
 
 ## Admin URLs

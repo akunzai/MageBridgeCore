@@ -1,6 +1,13 @@
 #!/bin/env bash
 set -e
 
+# Trust custom CA certificate if provided via Docker secret
+if [[ -f /run/secrets/ca.pem ]]; then
+    # Install CA certificate to system trust store
+    cp /run/secrets/ca.pem /usr/local/share/ca-certificates/mkcert-ca.crt
+    update-ca-certificates 2>/dev/null || true
+fi
+
 if [[ "$1" == apache2* ]]; then
     uid="$(id -u)"
     gid="$(id -g)"
