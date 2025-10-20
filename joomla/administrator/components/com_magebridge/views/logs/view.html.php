@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,19 +19,16 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewLogs extends YireoViewList
 {
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -60,7 +57,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to return the HTML-field for log-origin
+     * Helper-method to return the HTML-field for log-origin.
      *
      * @param string $current
      *
@@ -87,7 +84,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to return the HTML-field for log-address
+     * Helper-method to return the HTML-field for log-address.
      *
      * @param string $current
      *
@@ -114,9 +111,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to return a list of log-types
-     *
-     * @param null
+     * Helper-method to return a list of log-types.
      *
      * @return array
      */
@@ -135,7 +130,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to return the HTML-field for log-types
+     * Helper-method to return the HTML-field for log-types.
      *
      * @param string $current
      *
@@ -156,7 +151,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to return the title for a specific log-type
+     * Helper-method to return the title for a specific log-type.
      *
      * @param string $type
      *
@@ -175,9 +170,7 @@ class MageBridgeViewLogs extends YireoViewList
     }
 
     /**
-     * Helper-method to count the total number of logs
-     *
-     * @param null
+     * Helper-method to count the total number of logs.
      *
      * @return int
      */

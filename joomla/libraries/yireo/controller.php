@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -26,49 +27,47 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/loader.php';
 
 /**
- * Yireo Controller
- *
- * @package Yireo
+ * Yireo Controller.
  */
 class YireoController extends YireoCommonController
 {
     /**
-     * Value of the minimum supported PHP version
+     * Value of the minimum supported PHP version.
      *
      * @constant
      */
     public const PHP_SUPPORTED_VERSION = '7.4.0';
 
     /**
-     * Unique identifier
+     * Unique identifier.
      *
      * @var int
      */
     protected $id = 0;
 
     /**
-     * Value of the default View to use
+     * Value of the default View to use.
      *
      * @protected string
      */
     protected $default_view = 'home';
 
     /**
-     * Value of the current model
+     * Value of the current model.
      *
      * @protected object
      */
     protected $model;
 
     /**
-     * Boolean to allow or disallow frontend editing
+     * Boolean to allow or disallow frontend editing.
      *
      * @protected bool
      */
     protected $frontend_edit = false;
 
     /**
-     * List of allowed tasks
+     * List of allowed tasks.
      *
      * @protected array
      */
@@ -77,7 +76,7 @@ class YireoController extends YireoCommonController
     ];
 
     /**
-     * List of POST-values that should be allowed to contain raw content
+     * List of POST-values that should be allowed to contain raw content.
      *
      * @protected array
      */
@@ -88,7 +87,7 @@ class YireoController extends YireoCommonController
     ];
 
     /**
-     * List of relations between Views
+     * List of relations between Views.
      *
      * @protected int
      */
@@ -100,7 +99,7 @@ class YireoController extends YireoCommonController
     ];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -113,7 +112,7 @@ class YireoController extends YireoCommonController
 
         // Allow or disallow frontend editing
         if ($this->app->isClient('site') && in_array($this->input->getCmd('task', 'display'), $this->allow_tasks) == false) {
-            throw new \Yireo\Exception\Controller\IllegalRequest(Text::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST') . ' = ' . $this->input->getCmd('task'));
+            throw new Yireo\Exception\Controller\IllegalRequest(Text::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST') . ' = ' . $this->input->getCmd('task'));
         }
 
         // Check for ACLs in backend
@@ -129,12 +128,12 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Display the current page
+     * Display the current page.
      *
      * @param bool $cachable
      * @param bool $urlparams
      *
-     * @return \Joomla\CMS\MVC\Controller\BaseController
+     * @return Joomla\CMS\MVC\Controller\BaseController
      */
     public function display($cachable = false, $urlparams = false)
     {
@@ -151,7 +150,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'add'
+     * Handle the task 'add'.
      */
     public function add()
     {
@@ -160,7 +159,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'edit'
+     * Handle the task 'edit'.
      */
     public function edit()
     {
@@ -173,7 +172,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'copy'
+     * Handle the task 'copy'.
      */
     public function copy()
     {
@@ -182,7 +181,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Load the POST data
+     * Load the POST data.
      *
      * @return array
      */
@@ -193,7 +192,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'store'
+     * Handle the task 'store'.
      *
      * @param array $post
      *
@@ -267,7 +266,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'save'
+     * Handle the task 'save'.
      */
     public function save()
     {
@@ -291,7 +290,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'apply'
+     * Handle the task 'apply'.
      */
     public function apply()
     {
@@ -312,7 +311,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'savenew'
+     * Handle the task 'savenew'.
      */
     public function savenew()
     {
@@ -327,7 +326,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'saveandcopy'
+     * Handle the task 'saveandcopy'.
      */
     public function saveandcopy()
     {
@@ -351,7 +350,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'saveascopy'
+     * Handle the task 'saveascopy'.
      */
     public function saveascopy()
     {
@@ -371,7 +370,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'remove'
+     * Handle the task 'remove'.
      */
     public function remove()
     {
@@ -402,7 +401,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'publish'
+     * Handle the task 'publish'.
      */
     public function publish()
     {
@@ -431,7 +430,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'unpublish'
+     * Handle the task 'unpublish'.
      */
     public function unpublish()
     {
@@ -466,7 +465,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'cancel'
+     * Handle the task 'cancel'.
      */
     public function cancel()
     {
@@ -484,7 +483,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'orderup'
+     * Handle the task 'orderup'.
      */
     public function orderup()
     {
@@ -500,7 +499,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'orderdown'
+     * Handle the task 'orderdown'.
      */
     public function orderdown()
     {
@@ -516,7 +515,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'saveorder'
+     * Handle the task 'saveorder'.
      */
     public function saveorder()
     {
@@ -559,7 +558,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'vote'
+     * Handle the task 'vote'.
      */
     public function vote()
     {
@@ -592,7 +591,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Handle the task 'toggle'
+     * Handle the task 'toggle'.
      */
     public function toggle()
     {
@@ -616,7 +615,7 @@ class YireoController extends YireoCommonController
         $this->doRedirect();
     }
 
-    /** Helper function to set the form page
+    /** Helper function to set the form page.
      *
      * @return bool
      */
@@ -650,7 +649,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Helper function to load the current model
+     * Helper function to load the current model.
      *
      * @return YireoModel
      */
@@ -677,7 +676,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Helper function to het the plural form of a word
+     * Helper function to het the plural form of a word.
      *
      * @param string $name
      *
@@ -703,7 +702,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Helper function to get the singular form of a word
+     * Helper function to get the singular form of a word.
      *
      * @param string $name
      *
@@ -729,10 +728,10 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Method to set the proper redirect
+     * Method to set the proper redirect.
      *
      * @param string $view
-     * @param array  $variables
+     * @param array $variables
      *
      * @return bool
      */
@@ -773,7 +772,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Manually set the ID
+     * Manually set the ID.
      *
      * @param int
      */
@@ -783,7 +782,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Method to get the current ID
+     * Method to get the current ID.
      *
      * @return int
      */
@@ -815,7 +814,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Method to get the selected IDs
+     * Method to get the selected IDs.
      *
      * @return array
      */
@@ -836,7 +835,7 @@ class YireoController extends YireoCommonController
     }
 
     /**
-     * Method to check whether the current PHP version is supported
+     * Method to check whether the current PHP version is supported.
      */
     protected function showPhpSupported()
     {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,10 +17,9 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_COMPONENT . '/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewOffline extends MageBridgeView
 {
@@ -30,7 +29,7 @@ class MageBridgeViewOffline extends MageBridgeView
     protected $offline_message;
 
     /**
-     * Method to display the requested view
+     * Method to display the requested view.
      */
     public function display($tpl = null)
     {

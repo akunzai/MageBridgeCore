@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (https://www.yireo.com/)
- * @package   YireoLib
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com/
  */
 
@@ -17,14 +17,12 @@ namespace Yireo\System;
 defined('_JEXEC') or die();
 
 /**
- * Class Autoloader
- *
- * @package Yireo\System
+ * Class Autoloader.
  */
 class Autoloader
 {
     /**
-     * Mapping of legacy classes
+     * Mapping of legacy classes.
      */
     protected $mapping = [
         'YireoRouteQuery'         => 'route/query',
@@ -41,9 +39,7 @@ class Autoloader
     ];
 
     /**
-     * Main autoloading function
-     *
-     * @param $className
+     * Main autoloading function.
      *
      * @return bool
      */
@@ -70,9 +66,7 @@ class Autoloader
     }
 
     /**
-     * Autoloading function for namespaced classes
-     *
-     * @param $className
+     * Autoloading function for namespaced classes.
      *
      * @return bool
      */
@@ -100,9 +94,7 @@ class Autoloader
     }
 
     /**
-     * Autoloading function for legacy classes
-     *
-     * @param $className
+     * Autoloading function for legacy classes.
      *
      * @return bool
      */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,20 +14,21 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Definition.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Server methods metadata
+ * Server methods metadata.
  *
  * @todo	   Implement iterator
+ *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -44,10 +45,9 @@ class Zend_Server_Definition implements Countable, Iterator
     protected $_overwriteExistingMethods = false;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  null|array $methods
-     * @return void
+     * @param array|null $methods
      */
     public function __construct($methods = null)
     {
@@ -57,10 +57,9 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Set flag indicating whether or not overwriting existing methods is allowed
+     * Set flag indicating whether or not overwriting existing methods is allowed.
      *
      * @param mixed $flag
-     * @return void
      */
     public function setOverwriteExistingMethods($flag)
     {
@@ -69,12 +68,14 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Add method to definition
+     * Add method to definition.
      *
-     * @param  array|Zend_Server_Method_Definition $method
-     * @param  null|string $name
-     * @return Zend_Server_Definition
+     * @param array|Zend_Server_Method_Definition $method
+     * @param string|null $name
+     *
      * @throws Zend_Server_Exception if duplicate or invalid method provided
+     *
+     * @return Zend_Server_Definition
      */
     public function addMethod($method, $name = null)
     {
@@ -108,9 +109,10 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Add multiple methods
+     * Add multiple methods.
      *
-     * @param  array $methods Array of Zend_Server_Method_Definition objects or arrays
+     * @param array $methods Array of Zend_Server_Method_Definition objects or arrays
+     *
      * @return Zend_Server_Definition
      */
     public function addMethods(array $methods)
@@ -122,9 +124,10 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Set all methods at once (overwrite)
+     * Set all methods at once (overwrite).
      *
-     * @param  array $methods Array of Zend_Server_Method_Definition objects or arrays
+     * @param array $methods Array of Zend_Server_Method_Definition objects or arrays
+     *
      * @return Zend_Server_Definition
      */
     public function setMethods(array $methods)
@@ -137,7 +140,8 @@ class Zend_Server_Definition implements Countable, Iterator
     /**
      * Does the definition have the given method?
      *
-     * @param  string $method
+     * @param string $method
+     *
      * @return bool
      */
     public function hasMethod($method)
@@ -146,10 +150,11 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Get a given method definition
+     * Get a given method definition.
      *
-     * @param  string $method
-     * @return null|Zend_Server_Method_Definition
+     * @param string $method
+     *
+     * @return Zend_Server_Method_Definition|null
      */
     public function getMethod($method)
     {
@@ -160,7 +165,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Get all method definitions
+     * Get all method definitions.
      *
      * @return array Array of Zend_Server_Method_Definition objects
      */
@@ -170,9 +175,10 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Remove a method definition
+     * Remove a method definition.
      *
-     * @param  string $method
+     * @param string $method
+     *
      * @return Zend_Server_Definition
      */
     public function removeMethod($method)
@@ -184,7 +190,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Clear all method definitions
+     * Clear all method definitions.
      *
      * @return Zend_Server_Definition
      */
@@ -195,7 +201,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Cast definition to an array
+     * Cast definition to an array.
      *
      * @return array
      */
@@ -209,9 +215,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Countable: count of methods
-     *
-     * @return int
+     * Countable: count of methods.
      */
     public function count(): int
     {
@@ -219,9 +223,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Iterator: current item
-     *
-     * @return mixed
+     * Iterator: current item.
      */
     public function current(): mixed
     {
@@ -229,7 +231,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Iterator: current item key
+     * Iterator: current item key.
      *
      * @return int|string
      */
@@ -239,9 +241,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Iterator: advance to next method
-     *
-     * @return void
+     * Iterator: advance to next method.
      */
     public function next(): void
     {
@@ -249,9 +249,7 @@ class Zend_Server_Definition implements Countable, Iterator
     }
 
     /**
-     * Iterator: return to first method
-     *
-     * @return void
+     * Iterator: return to first method.
      */
     public function rewind(): void
     {
@@ -260,8 +258,6 @@ class Zend_Server_Definition implements Countable, Iterator
 
     /**
      * Iterator: is the current index valid?
-     *
-     * @return bool
      */
     public function valid(): bool
     {

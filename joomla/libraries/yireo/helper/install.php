@@ -26,7 +26,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * Yireo Install Helper
+ * Yireo Install Helper.
  */
 class YireoHelperInstall
 {
@@ -55,11 +55,9 @@ class YireoHelperInstall
     }
 
     /**
-     * @param $url
-     * @param $label
+     * @throws Exception
      *
      * @return bool
-     * @throws Exception
      */
     public static function installExtension($url, $label)
     {

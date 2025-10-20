@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Menu
+ * Joomla! module MageBridge: Menu.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -14,16 +14,15 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper-class for the module
+ * Helper-class for the module.
  */
-
 class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 {
     /**
-     * Method to get the API-arguments based upon the module parameters
+     * Method to get the API-arguments based upon the module parameters.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return array
      */
     public static function getArguments($params = null)
@@ -47,10 +46,10 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Method to be called once the MageBridge is loaded
+     * Method to be called once the MageBridge is loaded.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return array
      */
     public static function register($params = null)
@@ -61,10 +60,10 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
+     *
      * @return mixed
      */
     public static function build($params = null)
@@ -75,11 +74,11 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Helper-method to return a specified root-category from a tree
+     * Helper-method to return a specified root-category from a tree.
      *
-     * @access public
      * @param array $tree
      * @param int $root_id
+     *
      * @return array
      */
     public static function setRoot($tree = null, $root_id = null)
@@ -108,11 +107,11 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Parse the categories of a tree for display
+     * Parse the categories of a tree for display.
      *
-     * @access public
      * @param array $tree
      * @param int $endLevel
+     *
      * @return mixed
      */
     public static function parseTree($tree, $startLevel = 1, $endLevel = 99)
@@ -180,14 +179,14 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Helper-method to return a CSS-class string
+     * Helper-method to return a CSS-class string.
      *
-     * @access public
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
      * @param array $item
      * @param int $level
      * @param int $counter
      * @param array $tree
+     *
      * @return string
      */
     public static function getCssClass($params, $item, $level, $counter, $tree)
@@ -244,10 +243,8 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Helper-method to return the current category ID
+     * Helper-method to return the current category ID.
      *
-     * @access public
-     * @param null
      * @return int
      */
     public static function getCurrentCategoryId()
@@ -263,10 +260,8 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
     }
 
     /**
-     * Helper-method to return the current category path
+     * Helper-method to return the current category path.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public static function getCurrentCategoryPath()

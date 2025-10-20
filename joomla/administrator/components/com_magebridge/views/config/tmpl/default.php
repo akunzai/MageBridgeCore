@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die('Restricted access');
 
 HTMLHelper::_('jquery.framework');
-/** @var \Joomla\CMS\Form\Form */
+/** @var Joomla\CMS\Form\Form */
 $form = $this->form;
 $fieldSets = $form->getFieldsets();
 $activeTabName = array_key_first($fieldSets);

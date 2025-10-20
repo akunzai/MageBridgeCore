@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ class Yireo_MageBridge_Block_Settings_Other extends Mage_Core_Block_Template
     /*
      * Constructor method
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function _construct()
     {

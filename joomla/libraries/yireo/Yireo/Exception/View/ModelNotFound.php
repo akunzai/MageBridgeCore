@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (https://www.yireo.com/)
- * @package   YireoLib
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com/
  */
 
@@ -17,9 +17,7 @@ namespace Yireo\Exception\View;
 defined('_JEXEC') or die();
 
 /**
- * Class NotFound
- *
- * @package Yireo\Exception\View
+ * Class NotFound.
  */
 class ModelNotFound extends \Exception
 {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Progress
+ * Joomla! module MageBridge: Progress.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 

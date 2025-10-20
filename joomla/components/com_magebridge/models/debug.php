@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -29,7 +29,7 @@ define('MAGEBRIDGE_DEBUG_ORIGIN_JOOMLA_JSONRPC', 'joomla_jsonrpc');
 define('MAGEBRIDGE_DEBUG_ORIGIN_MAGENTO_JSONRPC', 'magento_jsonrpc');
 
 /**
- * Bridge debugging class
+ * Bridge debugging class.
  */
 class MageBridgeModelDebug
 {
@@ -39,17 +39,17 @@ class MageBridgeModelDebug
     public const MAGEBRIDGE_DEBUG_ORIGIN_MAGENTO_JSONRPC = 'magento_jsonrpc';
 
     /**
-     * Singleton
+     * Singleton.
      */
     protected static $_instance = null;
 
     /**
-     * Data
+     * Data.
      */
     private $_data = [];
 
     /**
-     * Method to fetch the data
+     * Method to fetch the data.
      *
      * @return MageBridgeModelDebug
      */
@@ -63,7 +63,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to initialize debugging
+     * Method to initialize debugging.
      */
     public static function init()
     {
@@ -79,7 +79,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to run before the build
+     * Method to run before the build.
      */
     public static function beforeBuild()
     {
@@ -96,7 +96,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to get the data
+     * Method to get the data.
      *
      * @return array
      */
@@ -106,7 +106,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to fetch debug-data from the other side of the bridge
+     * Method to fetch debug-data from the other side of the bridge.
      */
     public function getBridgeData()
     {
@@ -129,7 +129,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to clean all data
+     * Method to clean all data.
      */
     public function clean()
     {
@@ -137,7 +137,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to get the debug origin
+     * Method to get the debug origin.
      *
      * @param string $value
      *
@@ -155,13 +155,13 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Generic method to add a message
+     * Generic method to add a message.
      *
-     * @param int    $type
+     * @param int $type
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
+     * @param int $time
      *
      * @return bool
      */
@@ -207,14 +207,12 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add a notice
+     * Method to add a notice.
      *
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function notice($message = null, $section = null, $origin = null, $time = null)
     {
@@ -222,14 +220,12 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add a warning
+     * Method to add a warning.
      *
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function warning($message = null, $section = null, $origin = null, $time = null)
     {
@@ -237,14 +233,12 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add an error
+     * Method to add an error.
      *
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function error($message = null, $section = null, $origin = null, $time = null)
     {
@@ -252,15 +246,13 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add a trace
+     * Method to add a trace.
      *
      * @param string $message
-     * @param mixed  $variable
+     * @param mixed $variable
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function trace($message = null, $variable = null, $section = null, $origin = null, $time = null)
     {
@@ -272,14 +264,12 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add feedback for the user-GUI
+     * Method to add feedback for the user-GUI.
      *
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function feedback($message = null, $section = null, $origin = null, $time = null)
     {
@@ -287,14 +277,12 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to add profiling-data
+     * Method to add profiling-data.
      *
      * @param string $message
      * @param string $section
      * @param string $origin
-     * @param int    $time
-     *
-     * @return null
+     * @param int $time
      */
     public function profiler($message = null, $section = null, $origin = null, $time = null)
     {
@@ -302,7 +290,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to determine if debugging is needed
+     * Method to determine if debugging is needed.
      *
      * @return bool
      */
@@ -333,11 +321,9 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to write all messages to a logfile
+     * Method to write all messages to a logfile.
      *
      * @param array $data
-     *
-     * @return null
      */
     private function _add($data)
     {
@@ -381,9 +367,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Method to write all messages to a logfile
-     *
-     * @access private
+     * Method to write all messages to a logfile.
      *
      * @param array $data
      *
@@ -420,12 +404,9 @@ class MageBridgeModelDebug
     }
 
     /**
-     *
-     * Method to write all messages to the database table
+     * Method to write all messages to the database table.
      *
      * @param array $data
-     *
-     * @return null
      */
     private function _writeDb($data = null)
     {
@@ -463,7 +444,7 @@ class MageBridgeModelDebug
     }
 
     /**
-     * Helper method to generate a unique ID for this session
+     * Helper method to generate a unique ID for this session.
      *
      * @param int $length
      *

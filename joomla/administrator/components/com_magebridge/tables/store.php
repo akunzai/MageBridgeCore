@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,14 +16,14 @@ use Joomla\Registry\Registry;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Table class
+ * MageBridge Table class.
  */
 class MagebridgeTableStore extends YireoTable
 {
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param \Joomla\Database\DatabaseDriver $db
+     * @param Joomla\Database\DatabaseDriver $db
      */
     public function __construct(&$db)
     {
@@ -31,12 +31,13 @@ class MagebridgeTableStore extends YireoTable
     }
 
     /**
-     * Bind method
+     * Bind method.
      *
-     * @param array  $array
+     * @param array $array
      * @param string $ignore
      *
      * @return mixed
+     *
      * @see JTable:bind
      */
     public function bind($array, $ignore = '')

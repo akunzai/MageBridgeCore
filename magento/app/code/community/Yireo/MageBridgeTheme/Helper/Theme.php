@@ -1,23 +1,20 @@
 <?php
 
 /**
- * MageBridgeTheme
+ * MageBridgeTheme.
  *
  * @author Yireo
- * @package MageBridgeTheme
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
 {
     /*
      * Helper-method to get the setting "magebridge/theme/product_image_class"
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getProductImageClass()
     {
@@ -27,9 +24,7 @@ class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get the setting "magebridge/theme/product_image_rel"
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getProductImageRelation()
     {
@@ -39,9 +34,7 @@ class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get the setting "magebridge/theme/product_image_size"
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getProductImageSize()
     {
@@ -51,9 +44,7 @@ class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get the setting "magebridge/theme/product_thumb_size"
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getProductThumbSize()
     {
@@ -63,9 +54,7 @@ class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get the setting "magebridge/theme/product_image_max_size"
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getProductImageMaxSize()
     {
@@ -75,9 +64,7 @@ class Yireo_MageBridgeTheme_Helper_Theme extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get subcategories of a specific category
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function getCategoryChilds()
     {

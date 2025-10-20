@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,23 +14,22 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Parameter Reflection
+ * Parameter Reflection.
  *
  * Decorates a ReflectionParameter to allow setting the parameter type
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Reflection
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version $Id: Parameter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Server_Reflection_Parameter
@@ -41,27 +40,29 @@ class Zend_Server_Reflection_Parameter
     protected $_reflection;
 
     /**
-     * Parameter position
+     * Parameter position.
+     *
      * @var int
      */
     protected $_position;
 
     /**
-     * Parameter type
+     * Parameter type.
+     *
      * @var string
      */
     protected $_type;
 
     /**
-     * Parameter description
+     * Parameter description.
+     *
      * @var string
      */
     protected $_description;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param ReflectionParameter $r
      * @param string $type Parameter type
      * @param string $description Parameter description
      */
@@ -73,10 +74,11 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Proxy reflection calls
+     * Proxy reflection calls.
      *
      * @param string $method
      * @param array $args
+     *
      * @return mixed
      */
     public function __call($method, $args)
@@ -90,7 +92,7 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Retrieve parameter type
+     * Retrieve parameter type.
      *
      * @return string
      */
@@ -100,10 +102,9 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Set parameter type
+     * Set parameter type.
      *
      * @param string|null $type
-     * @return void
      */
     public function setType($type)
     {
@@ -116,7 +117,7 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Retrieve parameter description
+     * Retrieve parameter description.
      *
      * @return string
      */
@@ -126,10 +127,9 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Set parameter description
+     * Set parameter description.
      *
      * @param string|null $description
-     * @return void
      */
     public function setDescription($description)
     {
@@ -142,10 +142,9 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Set parameter position
+     * Set parameter position.
      *
      * @param int $index
-     * @return void
      */
     public function setPosition($index)
     {
@@ -153,7 +152,7 @@ class Zend_Server_Reflection_Parameter
     }
 
     /**
-     * Return parameter position
+     * Return parameter position.
      *
      * @return int
      */

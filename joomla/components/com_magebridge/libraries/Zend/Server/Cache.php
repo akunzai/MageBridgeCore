@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,19 +14,19 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Cache.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Zend_Server_Cache: cache server definitions
+ * Zend_Server_Cache: cache server definitions.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -46,8 +46,8 @@ class Zend_Server_Cache
      * Returns false on any error (typically, inability to write to file), true
      * on success.
      *
-     * @param  string $filename
-     * @param  Zend_Server_Interface $server
+     * @param string $filename
+     *
      * @return bool
      */
     public static function save($filename, Zend_Server_Interface $server)
@@ -78,7 +78,7 @@ class Zend_Server_Cache
     }
 
     /**
-     * Load server definition from a file
+     * Load server definition from a file.
      *
      * Unserializes a stored server definition from $filename. Returns false if
      * it fails in any way, true on success.
@@ -104,8 +104,8 @@ class Zend_Server_Cache
      * echo $response;
      * </code>
      *
-     * @param  string $filename
-     * @param  Zend_Server_Interface $server
+     * @param string $filename
+     *
      * @return bool
      */
     public static function get($filename, Zend_Server_Interface $server)
@@ -131,9 +131,10 @@ class Zend_Server_Cache
     }
 
     /**
-     * Remove a cache file
+     * Remove a cache file.
      *
-     * @param  string $filename
+     * @param string $filename
+     *
      * @return bool
      */
     public static function delete($filename)

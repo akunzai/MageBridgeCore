@@ -1,22 +1,19 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
 {
     /**
-     * Helper-method to check whether caching is enabled
+     * Helper-method to check whether caching is enabled.
      *
-     * @access public
-     * @param null
      * @return bool
      */
     public function enabled()
@@ -28,10 +25,8 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Helper-method to return an unique identifier for the current page
+     * Helper-method to return an unique identifier for the current page.
      *
-     * @access public
-     * @param null
      * @return string
      */
     public function getPageId()
@@ -49,10 +44,10 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Listen to the event core_block_abstract_to_html_before
+     * Listen to the event core_block_abstract_to_html_before.
      *
-     * @access public
      * @parameter Varien_Event_Observer $observer
+     *
      * @return $this
      */
     public function allowCaching($block, $page)

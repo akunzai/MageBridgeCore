@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -15,14 +16,12 @@
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Formable - allows models to have a form
- *
- * @package Yireo
+ * Yireo Model Trait: Formable - allows models to have a form.
  */
 trait YireoModelTraitLimitable
 {
     /**
-     * Method to initialize the limit parameter
+     * Method to initialize the limit parameter.
      *
      * @param string $limit
      */
@@ -40,7 +39,7 @@ trait YireoModelTraitLimitable
     }
 
     /**
-     * Method to initialize the limitstart parameter\
+     * Method to initialize the limitstart parameter\.
      *
      * @param string $limitStart
      */
@@ -58,7 +57,7 @@ trait YireoModelTraitLimitable
     }
 
     /**
-     * Reset the limit parameters
+     * Reset the limit parameters.
      */
     public function resetLimits()
     {
@@ -67,11 +66,9 @@ trait YireoModelTraitLimitable
     }
 
     /**
-     * Method to set whether the query should use LIMIT or not
+     * Method to set whether the query should use LIMIT or not.
      *
      * @param bool
-     *
-     * @return null
      */
     public function setLimitQuery($bool)
     {

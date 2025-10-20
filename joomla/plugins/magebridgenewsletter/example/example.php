@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge Newsletter plugin - Example
+ * MageBridge Newsletter plugin - Example.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,16 +17,16 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Newsletter Plugin - Example
+ * MageBridge Newsletter Plugin - Example.
  */
 class plgMageBridgeNewsletterExample extends MageBridgePlugin
 {
     /**
-     * Event "onNewsletterSubscribe"
+     * Event "onNewsletterSubscribe".
      *
-     * @access public
      * @param object $user Joomla! user object
      * @param tinyint $state Whether the user is subscribed or not (0 for no, 1 for yes)
+     *
      * @return bool
      */
     public function onNewsletterSubscribe($user, $state)
@@ -42,9 +42,8 @@ class plgMageBridgeNewsletterExample extends MageBridgePlugin
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     protected function isEnabled()

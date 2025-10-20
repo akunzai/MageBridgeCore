@@ -1,12 +1,12 @@
 <?php
 
 /**
- * JoomlaApi
+ * JoomlaApi.
  *
  * @author Yireo
- * @package JoomlaApi
  * @copyright Copyright 2016
  * @license Open Source License v3
+ *
  * @link https://www.yireo.com
  */
 /*

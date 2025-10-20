@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -20,19 +21,17 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * Yireo Data Model
- *
- * @package Yireo
+ * Yireo Data Model.
  */
 class YireoDataModel extends YireoCommonModel
 {
     /**
-     * Trait to implement debugging behaviour
+     * Trait to implement debugging behaviour.
      */
     use YireoModelTraitDebuggable;
 
     /**
-     * Trait to implement table behaviour
+     * Trait to implement table behaviour.
      */
     use YireoModelTraitTable;
 
@@ -42,7 +41,7 @@ class YireoDataModel extends YireoCommonModel
     protected $data;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     protected $params;
 
@@ -52,11 +51,9 @@ class YireoDataModel extends YireoCommonModel
     protected $query;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -95,21 +92,19 @@ class YireoDataModel extends YireoCommonModel
         return $this->query;
     }
 
-    /**
-     * @param $query
-     */
     public function setQuery($query)
     {
         $this->query = $query;
     }
 
     /**
-     * Method to override a default user-state value
+     * Method to override a default user-state value.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return bool
+     *
      * @todo Code smell
      */
     public function overrideUserState($key, $value)
@@ -135,7 +130,7 @@ class YireoDataModel extends YireoCommonModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @param bool $forceNew
      *
@@ -147,8 +142,6 @@ class YireoDataModel extends YireoCommonModel
     }
 
     /**
-     * @param $name
-     *
      * @return bool|mixed
      */
     public function getDataByName($name = null)
@@ -161,7 +154,7 @@ class YireoDataModel extends YireoCommonModel
     }
 
     /**
-     * Method to fetch database-results
+     * Method to fetch database-results.
      *
      * @param string $query
      * @param string $type : object|objectList|result
@@ -182,12 +175,13 @@ class YireoDataModel extends YireoCommonModel
     }
 
     /**
-     * Method to fetch database-results
+     * Method to fetch database-results.
      *
      * @param string $query
      * @param string $type : object|objectList|result
      *
      * @throws Exception
+     *
      * @return mixed
      */
     public function _getDbResult($query, $type = 'object')

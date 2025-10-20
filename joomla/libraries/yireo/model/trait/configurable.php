@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -15,9 +16,7 @@
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Configurable - allows models to have a configuration
- *
- * @package Yireo
+ * Yireo Model Trait: Configurable - allows models to have a configuration.
  */
 trait YireoModelTraitConfigurable
 {
@@ -50,9 +49,6 @@ trait YireoModelTraitConfigurable
     }
 
     /**
-     * @param $name
-     * @param $default
-     *
      * @return bool|mixed
      */
     public function getConfig($name = null, $default = false)

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -21,7 +21,7 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewUsers extends MageBridgeView
 {
@@ -36,16 +36,14 @@ class MageBridgeViewUsers extends MageBridgeView
     protected $items;
 
     /**
-     * @var \Joomla\CMS\Pagination\Pagination
+     * @var Joomla\CMS\Pagination\Pagination
      */
     protected $pagination;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -123,10 +121,10 @@ class MageBridgeViewUsers extends MageBridgeView
     }
 
     /**
-     * Method to return the checkbox to do something
+     * Method to return the checkbox to do something.
      *
      * @param object $item
-     * @param int    $i
+     * @param int $i
      *
      * @return string
      */
@@ -138,11 +136,9 @@ class MageBridgeViewUsers extends MageBridgeView
     }
 
     /**
-     * Method to get a list of matching Magento users
+     * Method to get a list of matching Magento users.
      *
      * @param array $jusers
-     *
-     * @return null
      */
     private function getMagentoUsers($jusers = null)
     {

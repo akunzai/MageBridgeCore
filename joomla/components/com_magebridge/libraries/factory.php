@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -20,12 +20,12 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridge
 {
     /**
-     * Method to get the current bridge-instance
+     * Method to get the current bridge-instance.
      */
     public static function getBridge()
     {
@@ -33,7 +33,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the MageBridge configuration
+     * Method to get the MageBridge configuration.
      */
     public static function getConfig()
     {
@@ -41,7 +41,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the current register-instance
+     * Method to get the current register-instance.
      */
     public static function getRegister()
     {
@@ -49,7 +49,7 @@ class MageBridge
     }
 
     /**
-     * Method to handle Magento events
+     * Method to handle Magento events.
      */
     public static function setEvents($data = null)
     {
@@ -57,7 +57,7 @@ class MageBridge
     }
 
     /**
-     * Methot to set the breadcrumbs
+     * Methot to set the breadcrumbs.
      */
     public static function setBreadcrumbs()
     {
@@ -65,7 +65,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the headers
+     * Method to get the headers.
      */
     public static function getHeaders()
     {
@@ -73,7 +73,7 @@ class MageBridge
     }
 
     /**
-     * Method to set the headers
+     * Method to set the headers.
      */
     public static function setHeaders()
     {
@@ -81,7 +81,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the category tree
+     * Method to get the category tree.
      */
     public static function getCatalogTree()
     {
@@ -89,7 +89,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the products by tag
+     * Method to get the products by tag.
      */
     public static function getProductsByTags($tags = [])
     {
@@ -97,7 +97,7 @@ class MageBridge
     }
 
     /**
-     * Method to get a specific API resource
+     * Method to get a specific API resource.
      */
     public static function getAPI($resource = null, $id = null)
     {
@@ -106,7 +106,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the Magento debug-instance
+     * Method to get the Magento debug-instance.
      */
     public static function getDebug()
     {
@@ -114,7 +114,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the Magento debug-messages
+     * Method to get the Magento debug-messages.
      */
     public static function getDebugData()
     {
@@ -122,7 +122,7 @@ class MageBridge
     }
 
     /**
-     * Method to return the block-instance
+     * Method to return the block-instance.
      */
     public static function getBlock()
     {
@@ -130,7 +130,7 @@ class MageBridge
     }
 
     /**
-     * Method to return a specific block
+     * Method to return a specific block.
      */
     public static function getBlockData($block_name)
     {
@@ -138,7 +138,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the meta-request instance
+     * Method to get the meta-request instance.
      */
     public static function getMeta()
     {
@@ -146,7 +146,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the meta-request data
+     * Method to get the meta-request data.
      */
     public static function getMetaData()
     {
@@ -154,7 +154,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the user-request instance
+     * Method to get the user-request instance.
      */
     public static function getUser()
     {
@@ -162,7 +162,7 @@ class MageBridge
     }
 
     /**
-     * Method to get the meta-request data
+     * Method to get the meta-request data.
      */
     public static function getUserData()
     {
@@ -170,7 +170,7 @@ class MageBridge
     }
 
     /**
-     * Method to display a link for adding Simple Products to cart
+     * Method to display a link for adding Simple Products to cart.
      */
     public static function addToCartUrl($product_id, $quantity = 1, $options = [], $return_url = null)
     {
@@ -199,7 +199,7 @@ class MageBridge
     }
 
     /**
-     * Method to load ProtoType
+     * Method to load ProtoType.
      */
     public static function loadPrototype()
     {
@@ -207,7 +207,7 @@ class MageBridge
     }
 
     /**
-     * Method to load jQuery
+     * Method to load jQuery.
      */
     public static function loadJquery()
     {
@@ -215,7 +215,7 @@ class MageBridge
     }
 
     /**
-     * Create a specific MageBridge route
+     * Create a specific MageBridge route.
      */
     public static function route($request = null, $xhtml = null)
     {
@@ -223,7 +223,7 @@ class MageBridge
     }
 
     /**
-     * Register a segment in the bridge
+     * Register a segment in the bridge.
      */
     public static function register($type = null, $name = null, $arguments = null)
     {
@@ -231,7 +231,7 @@ class MageBridge
     }
 
     /**
-     * Build the bridge
+     * Build the bridge.
      */
     public static function build()
     {
@@ -239,7 +239,7 @@ class MageBridge
     }
 
     /**
-     * Fetch a segment from the bridge
+     * Fetch a segment from the bridge.
      */
     public static function get($id = null)
     {
@@ -247,7 +247,7 @@ class MageBridge
     }
 
     /**
-     * Method to encrypt a string
+     * Method to encrypt a string.
      */
     public static function encrypt($string)
     {
@@ -255,7 +255,7 @@ class MageBridge
     }
 
     /**
-     * Method to decrypt a string
+     * Method to decrypt a string.
      */
     public static function decrypt($string)
     {
@@ -263,7 +263,7 @@ class MageBridge
     }
 
     /**
-     * Method to detect whether the current URL is the JSON-RPC URL
+     * Method to detect whether the current URL is the JSON-RPC URL.
      */
     public static function isApiPage()
     {

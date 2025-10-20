@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Software License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,8 @@
 class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
 {
     /**
-     * Method to list all current events
+     * Method to list all current events.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getEvents()
@@ -59,10 +57,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <address_save_after>
+     * Method fired on the event <address_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function addressSaveAfter($observer)
@@ -82,10 +80,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <admin_session_user_login_success>
+     * Method fired on the event <admin_session_user_login_success>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function adminSessionUserLoginSuccess($observer)
@@ -105,10 +103,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <adminhtml_customer_save_before>
+     * Method fired on the event <adminhtml_customer_save_before>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function adminhtmlCustomerSaveBefore($observer)
@@ -117,10 +115,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <adminhtml_customer_save_after>
+     * Method fired on the event <adminhtml_customer_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function adminhtmlCustomerSaveAfter($observer)
@@ -160,10 +158,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <adminhtml_customer_delete_after>
+     * Method fired on the event <adminhtml_customer_delete_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function adminhtmlCustomerDeleteAfter($observer)
@@ -200,10 +198,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_product_is_salable_before>
+     * Method fired on the event <catalog_product_is_salable_before>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogProductIsSalableBefore($observer)
@@ -223,10 +221,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_product_save_after>
+     * Method fired on the event <catalog_product_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogProductSaveAfter($observer)
@@ -246,10 +244,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_product_delete_after>
+     * Method fired on the event <catalog_product_delete_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogProductDeleteAfter($observer)
@@ -269,10 +267,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_category_save_after>
+     * Method fired on the event <catalog_category_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogCategorySaveAfter($observer)
@@ -292,10 +290,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_category_delete_after>
+     * Method fired on the event <catalog_category_delete_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogCategoryDeleteAfter($observer)
@@ -315,10 +313,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <catalog_product_status_update>
+     * Method fired on the event <catalog_product_status_update>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function catalogProductStatusUpdate($observer)
@@ -340,10 +338,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <checkout_cart_add_product_complete>
+     * Method fired on the event <checkout_cart_add_product_complete>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function checkoutCartAddProductComplete($observer)
@@ -366,10 +364,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <checkout_controller_onepage_save_shipping_method>
+     * Method fired on the event <checkout_controller_onepage_save_shipping_method>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function checkoutControllerOnepageSaveShippingMethod($observer)
@@ -392,10 +390,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <checkout_onepage_controller_success_action>
+     * Method fired on the event <checkout_onepage_controller_success_action>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function checkoutOnepageControllerSuccessAction($observer)
@@ -417,10 +415,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <checkout_type_onepage_save_order_after>
+     * Method fired on the event <checkout_type_onepage_save_order_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function checkoutTypeOnepageSaveOrderAfter($observer)
@@ -444,10 +442,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <controller_action_predispatch>
+     * Method fired on the event <controller_action_predispatch>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function controllerActionPredispatch($observer)
@@ -503,10 +501,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <controller_action_layout_render_before>
+     * Method fired on the event <controller_action_layout_render_before>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function controllerActionLayoutRenderBefore($observer)
@@ -516,10 +514,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <controller_action_layout_load_before>
+     * Method fired on the event <controller_action_layout_load_before>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function controllerActionLayoutLoadBefore($observer)
@@ -529,10 +527,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <customer_delete_after>
+     * Method fired on the event <customer_delete_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function customerDeleteAfter($observer)
@@ -577,10 +575,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <customer_login>
+     * Method fired on the event <customer_login>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function customerLogin($observer)
@@ -621,10 +619,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <customer_logout>
+     * Method fired on the event <customer_logout>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function customerLogout($observer)
@@ -656,10 +654,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <customer_save_after>
+     * Method fired on the event <customer_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function customerSaveAfter($observer)
@@ -701,10 +699,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <customer_save_before>
+     * Method fired on the event <customer_save_before>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function customerSaveBefore($observer)
@@ -713,10 +711,8 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <joomla_on_after_delete_user>
+     * Method fired on the event <joomla_on_after_delete_user>.
      *
-     * @access public
-     * @param Varien_Event_Observer $observer
      * @return Yireo_MageBridge_Model_Observer
      */
     public function joomlaOnAfterDeleteUser($arguments)
@@ -725,10 +721,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <newsletter_subscriber_save_after>
+     * Method fired on the event <newsletter_subscriber_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function newsletterSubscriberSaveAfter($observer)
@@ -760,10 +756,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <sales_convert_order_to_quote>
+     * Method fired on the event <sales_convert_order_to_quote>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function salesConvertOrderToQuote($observer)
@@ -787,10 +783,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <sales_order_place_after>
+     * Method fired on the event <sales_order_place_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function salesOrderPlaceAfter($observer)
@@ -817,10 +813,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method fired on the event <sales_order_save_after>
+     * Method fired on the event <sales_order_save_after>.
      *
-     * @access public
      * @param Varien_Event_Observer $observer
+     *
      * @return Yireo_MageBridge_Model_Observer
      */
     public function salesOrderSaveAfter($observer)
@@ -862,12 +858,12 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method that adds this event to the Joomla! bridge-reply
+     * Method that adds this event to the Joomla! bridge-reply.
      *
-     * @access public
      * @param string $group
      * @param string $event
      * @param mixed $arguments
+     *
      * @return bool
      */
     public function addEvent($group = null, $event = null, $arguments = null)
@@ -888,11 +884,11 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method that forwards the event to Joomla! straight-away through RPC
+     * Method that forwards the event to Joomla! straight-away through RPC.
      *
-     * @access public
      * @param string $event
      * @param mixed $arguments
+     *
      * @return bool
      */
     public function fireEvent($event = null, $arguments = null)
@@ -934,10 +930,10 @@ class Yireo_MageBridge_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Method to check if an event is enabled or not
+     * Method to check if an event is enabled or not.
      *
-     * @access public
      * @param string $event
+     *
      * @return bool
      */
     public function isEnabled($event)

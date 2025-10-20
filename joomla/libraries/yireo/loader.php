@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -33,4 +34,4 @@ if (!class_exists('\Yireo\System\Autoloader')) {
 }
 
 // Add our own loader-function to SPL
-spl_autoload_register([new \Yireo\System\Autoloader(), 'load']);
+spl_autoload_register([new Yireo\System\Autoloader(), 'load']);

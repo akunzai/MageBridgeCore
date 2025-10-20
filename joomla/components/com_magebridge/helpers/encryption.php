@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -14,18 +14,19 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Class MageBridgeEncryptionHelper - Helper for encoding and encrypting
+ * Class MageBridgeEncryptionHelper - Helper for encoding and encrypting.
  *
  * @since 1.0
  */
 class MageBridgeEncryptionHelper
 {
     /**
-     * Simple Base64 encoding
+     * Simple Base64 encoding.
      *
      * @param mixed $string
      *
      * @return string
+     *
      * @since 1.0
      */
     public static function base64_encode($string = null)
@@ -34,11 +35,12 @@ class MageBridgeEncryptionHelper
     }
 
     /**
-     * Simple Base64 decoding
+     * Simple Base64 decoding.
      *
      * @param mixed $string
      *
      * @return string
+     *
      * @since 1.0
      */
     public static function base64_decode($string = null)
@@ -52,6 +54,7 @@ class MageBridgeEncryptionHelper
 
     /**
      * @return mixed
+     *
      * @since 1.0
      */
     public static function getEncryptionKey()
@@ -61,11 +64,12 @@ class MageBridgeEncryptionHelper
     }
 
     /**
-     * Return an encryption key
+     * Return an encryption key.
      *
      * @param string $string
      *
      * @return string
+     *
      * @since 1.0
      */
     public static function getSaltedKey($string)
@@ -77,11 +81,12 @@ class MageBridgeEncryptionHelper
     }
 
     /**
-     * Encrypt data for security
+     * Encrypt data for security.
      *
      * @param mixed $data
      *
      * @return string
+     *
      * @since 1.0
      */
     public static function encrypt($data)
@@ -120,11 +125,12 @@ class MageBridgeEncryptionHelper
     }
 
     /**
-     * Decrypt data after encryption
+     * Decrypt data after encryption.
      *
      * @param string $data
      *
      * @return mixed
+     *
      * @since 1.0
      */
     public static function decrypt($data)

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Constructor method
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function _construct()
     {
@@ -32,9 +30,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Helper method to get all current API details
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getApiDetails()
     {
@@ -98,9 +94,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Helper method to get the current value of the Joomla! API URL
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiUrl()
     {
@@ -110,9 +104,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Helper method to get the currently configured Joomla! API user
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiUser()
     {
@@ -122,9 +114,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Helper method to get the currently configured Joomla! API key
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiKey()
     {
@@ -134,9 +124,7 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
     /*
      * Return the browse URL
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getBrowseUrl($scope, $id)
     {

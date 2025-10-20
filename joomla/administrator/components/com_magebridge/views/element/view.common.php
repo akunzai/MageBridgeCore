@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -22,10 +22,9 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package    MageBridge
  */
 class MageBridgeViewCommon extends MageBridgeView
 {
@@ -70,11 +69,9 @@ class MageBridgeViewCommon extends MageBridgeView
     protected $widgets;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -91,7 +88,7 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Initialize the AJAX-layout
+     * Initialize the AJAX-layout.
      */
     public function doAjaxLayout()
     {
@@ -134,7 +131,7 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Initialize the category-layout
+     * Initialize the category-layout.
      */
     public function doCategoryLayout()
     {
@@ -183,7 +180,7 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Initialize the widget-layout
+     * Initialize the widget-layout.
      */
     public function doWidgetLayout()
     {
@@ -211,7 +208,7 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Initialize the customer-layout
+     * Initialize the customer-layout.
      */
     public function doCustomerLayout()
     {
@@ -239,7 +236,7 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Initialize the product-layout
+     * Initialize the product-layout.
      */
     public function doProductLayout()
     {
@@ -267,10 +264,10 @@ class MageBridgeViewCommon extends MageBridgeView
     }
 
     /**
-     * Helper-method to set pagination
+     * Helper-method to set pagination.
      *
      * @param string $type
-     * @param array  $items
+     * @param array $items
      *
      * @return array
      */

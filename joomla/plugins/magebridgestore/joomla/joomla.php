@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge Store plugin - Joomla
+ * MageBridge Store plugin - Joomla.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,23 +16,21 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 
 /**
- * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! joomla
- *
- * @package MageBridge
+ * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! joomla.
  */
 class plgMageBridgeStoreJoomla extends MageBridgePluginStore
 {
     /**
-     * Deprecated variable to migrate from the original connector-architecture to new Store Plugins
+     * Deprecated variable to migrate from the original connector-architecture to new Store Plugins.
      */
     protected $connector_field = 'joomla_language';
 
     /**
-     * Event "onMageBridgeValidate"
+     * Event "onMageBridgeValidate".
      *
-     * @access public
      * @param array $actions
      * @param object $condition
+     *
      * @return bool
      */
     public function onMageBridgeValidate($actions = null, $condition = null)
@@ -58,9 +56,8 @@ class plgMageBridgeStoreJoomla extends MageBridgePluginStore
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()

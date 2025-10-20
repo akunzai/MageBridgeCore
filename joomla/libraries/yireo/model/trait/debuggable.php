@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -17,9 +18,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 
 /**
- * Yireo Model Trait: Identifiable - allows models to have an ID
- *
- * @package Yireo
+ * Yireo Model Trait: Identifiable - allows models to have an ID.
  */
 trait YireoModelTraitDebuggable
 {
@@ -41,7 +40,7 @@ trait YireoModelTraitDebuggable
     }
 
     /**
-     * Method to get a debug-message of the latest query
+     * Method to get a debug-message of the latest query.
      *
      * @return string
      */

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Magento plugin
+ * Joomla! MageBridge - Magento plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,12 +17,12 @@ defined('_JEXEC') or die('Restricted access');
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge MageBridge Plugin
+ * MageBridge MageBridge Plugin.
  */
 class PlgMagebridgeMagebridge extends MageBridgePlugin
 {
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -32,7 +32,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     protected $bridge;
 
     /**
-     * Initialization function
+     * Initialization function.
      */
     protected function initialize()
     {
@@ -40,7 +40,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Return a MageBridge configuration parameter
+     * Return a MageBridge configuration parameter.
      *
      * @param string $name
      *
@@ -52,10 +52,10 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Event onBeforeDisplayBlock
+     * Event onBeforeDisplayBlock.
      *
      * @param string $block_name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      * @param string $block_data
      */
     public function onBeforeDisplayBlock(&$block_name, $arguments, &$block_data)
@@ -63,7 +63,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Event onBeforeBuildMageBridge
+     * Event onBeforeBuildMageBridge.
      */
     public function onBeforeBuildMageBridge()
     {
@@ -91,7 +91,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Event onAfterBuildMageBridge
+     * Event onAfterBuildMageBridge.
      */
     public function onAfterBuildMageBridge()
     {
@@ -103,7 +103,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Perform a delayed redirect
+     * Perform a delayed redirect.
      */
     private function doDelayedRedirect()
     {
@@ -117,7 +117,7 @@ class PlgMagebridgeMagebridge extends MageBridgePlugin
     }
 
     /**
-     * Perform a delayed login
+     * Perform a delayed login.
      */
     private function doDelayedLogin()
     {

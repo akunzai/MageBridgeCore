@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -15,9 +15,6 @@ use Joomla\CMS\Factory;
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * @package MageBridge
- */
 class MageBridgeControllerApi extends YireoAbstractController
 {
     public function run()
@@ -51,10 +48,7 @@ class MageBridgeControllerApi extends YireoAbstractController
     }
 
     /**
-     * Method to dispatch the incoming request to various parts of the bridge
-     *
-     * @param null
-     * @return null
+     * Method to dispatch the incoming request to various parts of the bridge.
      */
     protected function dispatch($data)
     {

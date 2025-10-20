@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,17 +14,17 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Error.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
  * @category   Zend
- * @package	Zend_Json
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -38,7 +38,8 @@ class Zend_Json_Server_Error
     public const ERROR_OTHER		   = -32000;
 
     /**
-     * Allowed error codes
+     * Allowed error codes.
+     *
      * @var array
      */
     protected $_allowedCodes = [
@@ -51,30 +52,32 @@ class Zend_Json_Server_Error
     ];
 
     /**
-     * Current code
+     * Current code.
+     *
      * @var int
      */
     protected $_code = -32000;
 
     /**
-     * Error data
+     * Error data.
+     *
      * @var mixed
      */
     protected $_data;
 
     /**
-     * Error message
+     * Error message.
+     *
      * @var string
      */
     protected $_message;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  string $message
-     * @param  int $code
-     * @param  mixed $data
-     * @return void
+     * @param string $message
+     * @param int $code
+     * @param mixed $data
      */
     public function __construct($message = null, $code = -32000, $data = null)
     {
@@ -84,9 +87,10 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Set error code
+     * Set error code.
      *
-     * @param  int $code
+     * @param int $code
+     *
      * @return Zend_Json_Server_Error
      */
     public function setCode($code)
@@ -106,7 +110,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Get error code
+     * Get error code.
      *
      * @return int|null
      */
@@ -116,9 +120,10 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Set error message
+     * Set error message.
      *
-     * @param  string $message
+     * @param string $message
+     *
      * @return Zend_Json_Server_Error
      */
     public function setMessage($message)
@@ -132,7 +137,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Get error message
+     * Get error message.
      *
      * @return string
      */
@@ -142,9 +147,10 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Set error data
+     * Set error data.
      *
-     * @param  mixed $data
+     * @param mixed $data
+     *
      * @return Zend_Json_Server_Error
      */
     public function setData($data)
@@ -154,7 +160,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Get error data
+     * Get error data.
      *
      * @return mixed
      */
@@ -164,7 +170,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Cast error to array
+     * Cast error to array.
      *
      * @return array
      */
@@ -178,7 +184,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Cast error to JSON
+     * Cast error to JSON.
      *
      * @return string
      */
@@ -189,7 +195,7 @@ class Zend_Json_Server_Error
     }
 
     /**
-     * Cast to string (JSON)
+     * Cast to string (JSON).
      *
      * @return string
      */

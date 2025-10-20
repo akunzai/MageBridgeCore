@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,30 +14,28 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge caching class
+ * Bridge caching class.
  */
 class MageBridgeModelCacheBlock extends MageBridgeModelCache
 {
     /**
-     * Name of the block to be cached
+     * Name of the block to be cached.
      */
     private $block = null;
 
     /**
-     * Name of the block to be cached
+     * Name of the block to be cached.
      */
     private $allowed_blocks = [
         'content',
     ];
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
      * @param $block string
      * @param $request string
      * @param @cache_time int
-     * @return null
      */
     public function __construct($block = '', $request = null, $cache_time = null)
     {
@@ -46,9 +44,8 @@ class MageBridgeModelCacheBlock extends MageBridgeModelCache
     }
 
     /**
-     * Method to validate whether the cache is allowed
+     * Method to validate whether the cache is allowed.
      *
-     * @param null
      * @return bool
      */
     public function validate()
@@ -65,9 +62,10 @@ class MageBridgeModelCacheBlock extends MageBridgeModelCache
     }
 
     /**
-     * Method to store the data to cache
+     * Method to store the data to cache.
      *
      * @param mixed $data
+     *
      * @return bool
      */
     public function store($data)

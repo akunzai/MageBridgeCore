@@ -1,26 +1,25 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Model_System_Config_Source_Customer_Group_Multiselect
 {
     /**
-     * Customer groups options array
+     * Customer groups options array.
      *
-     * @var null|array
+     * @var array|null
      */
     protected $_options;
 
     /**
-     * Retrieve customer groups as array
+     * Retrieve customer groups as array.
      *
      * @return array
      */

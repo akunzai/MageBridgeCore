@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,16 +20,12 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/controller.php';
 
 /**
- * MageBridge Controller
+ * MageBridge Controller.
  */
 class MageBridgeControllerUsers extends MageBridgeController
 {
     /**
-     * Method to export users to CSV
-     *
-     * @param null
-     *
-     * @return null
+     * Method to export users to CSV.
      */
     public function import()
     {
@@ -38,11 +34,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     }
 
     /**
-     * Method to export users to CSV
-     *
-     * @param null
-     *
-     * @return null
+     * Method to export users to CSV.
      */
     public function export()
     {
@@ -86,9 +78,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     }
 
     /**
-     * Method to handle the upload of a new CSV-file
-     *
-     * @param null
+     * Method to handle the upload of a new CSV-file.
      *
      * @return array
      */
@@ -156,9 +146,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     }
 
     /**
-     * Method to get all the users
-     *
-     * @param null
+     * Method to get all the users.
      *
      * @return array
      */
@@ -171,9 +159,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     }
 
     /**
-     * Method to get all CSV output
-     *
-     * @param null
+     * Method to get all CSV output.
      *
      * @return string
      */
@@ -203,7 +189,7 @@ class MageBridgeControllerUsers extends MageBridgeController
     }
 
     /**
-     * Method to parse an individual CSV-line
+     * Method to parse an individual CSV-line.
      *
      * @param string
      *

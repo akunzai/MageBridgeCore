@@ -1,52 +1,52 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge model serving as main bridge-resources which primarily handles the Magento configuration
+ * MageBridge model serving as main bridge-resources which primarily handles the Magento configuration.
  */
 class Yireo_MageBridge_Model_Core
 {
     /**
-     * Bridge-request
+     * Bridge-request.
      */
     protected $_request = [];
 
     /**
-     * Bridge-request
+     * Bridge-request.
      */
     protected $_response = [];
 
     /**
-     * Meta-data
+     * Meta-data.
      */
     protected $_meta = [];
 
     /**
-     * Magento configuration
+     * Magento configuration.
      */
     protected $_mage_config = [];
 
     /**
-     * System events
+     * System events.
      */
     protected $_events = [];
 
     /**
-     * Flag to enable event forwarding
+     * Flag to enable event forwarding.
      */
     protected $_enable_events = true;
 
     /**
-     * Flag for forcing preoutput
+     * Flag for forcing preoutput.
      */
     protected $_force_preoutput = false;
 
@@ -56,7 +56,7 @@ class Yireo_MageBridge_Model_Core
     private $_current_version = null;
 
     /**
-     * Initialize the bridge-core
+     * Initialize the bridge-core.
      *
      * @param array $meta
      * @param array $request
@@ -133,7 +133,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Disable the form key if configured
+     * Disable the form key if configured.
      *
      * @return bool
      */
@@ -156,7 +156,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Post-login a Joomla! user
+     * Post-login a Joomla! user.
      *
      * @return bool
      */
@@ -182,7 +182,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Workaround for persistent logins
+     * Workaround for persistent logins.
      *
      * @return bool
      */
@@ -213,7 +213,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Rewrite non SEF URLs
+     * Rewrite non SEF URLs.
      */
     protected function rewriteNonSefUrls()
     {
@@ -272,7 +272,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Set the current store of this request
+     * Set the current store of this request.
      *
      * @exception Exception
      */
@@ -287,7 +287,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Manual hack to set the right continue-shopping URL to the HTTP_REFERER, even if it isn't "internal"
+     * Manual hack to set the right continue-shopping URL to the HTTP_REFERER, even if it isn't "internal".
      *
      * @return bool
      */
@@ -313,9 +313,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Manual hack to set the right customer-redirect URL
+     * Manual hack to set the right customer-redirect URL.
      *
      * @throws Mage_Core_Exception
+     *
      * @return bool
      */
     protected function setCustomerRedirectUrl()
@@ -347,7 +348,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Manual hack to set the right customer-redirect URL
+     * Manual hack to set the right customer-redirect URL.
      */
     protected function redirectContinueShoppingToPreviousUrl()
     {
@@ -369,9 +370,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to change the regular Magento configuration as needed
-     *
-     * @return void
+     * Method to change the regular Magento configuration as needed.
      */
     public function setConfig()
     {
@@ -399,9 +398,6 @@ class Yireo_MageBridge_Model_Core
         }
     }
 
-    /**
-     * @param Mage_Core_Model_Store $store
-     */
     protected function setConfigPerStore(Mage_Core_Model_Store $store)
     {
         //Mage::getSingleton('magebridge/debug')->notice('Override store configuration "'.$store->getCode().'"');
@@ -437,7 +433,7 @@ class Yireo_MageBridge_Model_Core
              * $base_media_url = str_replace($base_url, $proxy, $base_media_url);
              * $base_skin_url = str_replace($base_url, $proxy, $base_skin_url);
              * $base_js_url = str_replace($base_url, $proxy, $base_js_url);
-             * }
+             * }.
              */
 
             // Set the main URL to Joomla! instead of Magento
@@ -521,13 +517,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to set the current URL to the MageBridge SEF URL
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Method to set the current URL to the MageBridge SEF URL.
      */
     public function setSefUrl()
     {
@@ -549,13 +539,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to save metadata in the Magento Configuration
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Method to save metadata in the Magento Configuration.
      */
     public function saveMetaData()
     {
@@ -593,7 +577,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Automatically save allowed IPs settings
+     * Automatically save allowed IPs settings.
      *
      * @return bool
      */
@@ -621,9 +605,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to cache API-details in the Magento configuration
-     *
-     * @access public
+     * Method to cache API-details in the Magento configuration.
      *
      * @param string $key
      * @param string $value
@@ -685,11 +667,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to get the currently defined API-user
-     *
-     * @access public
-     *
-     * @param null
+     * Method to get the currently defined API-user.
      *
      * @return Mage_Api_Model_User
      */
@@ -710,13 +688,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to authenticate usage of the MageBridge API
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Method to authenticate usage of the MageBridge API.
      */
     public function authenticate($api_user, $api_key)
     {
@@ -748,11 +720,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to catch premature output in case of AJAX-stuff
-     *
-     * @access public
-     *
-     * @param null
+     * Method to catch premature output in case of AJAX-stuff.
      *
      * @return bool
      */
@@ -889,9 +857,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to output the regular bridge-data through JSON
-     *
-     * @access public
+     * Method to output the regular bridge-data through JSON.
      *
      * @param bool $complete
      *
@@ -927,13 +893,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to close the bridge and add the final data
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Method to close the bridge and add the final data.
      */
     public function closeBridge()
     {
@@ -976,8 +936,6 @@ class Yireo_MageBridge_Model_Core
     /**
      * Helper-function to parse Magento output for usage in Joomla!
      *
-     * @access public
-     *
      * @param string $string
      *
      * @return string
@@ -989,11 +947,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return information on the current Magento configuration
-     *
-     * @access public
-     *
-     * @param null
+     * Return information on the current Magento configuration.
      *
      * @return string
      */
@@ -1076,14 +1030,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Set Magento config-data to return through the bridge
-     *
-     * @access public
+     * Set Magento config-data to return through the bridge.
      *
      * @param string $name
      * @param string $value
-     *
-     * @return void
      */
     public function setMageConfig($name, $value)
     {
@@ -1091,11 +1041,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the current URL
-     *
-     * @access public
-     *
-     * @param null
+     * Return the current URL.
      *
      * @return string
      */
@@ -1105,11 +1051,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the path to the Magento Admin Panel
-     *
-     * @access public
-     *
-     * @param null
+     * Return the path to the Magento Admin Panel.
      *
      * @return string
      */
@@ -1122,11 +1064,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the current page layout for the Magento theme
-     *
-     * @access public
-     *
-     * @param null
+     * Return the current page layout for the Magento theme.
      *
      * @return string
      */
@@ -1141,9 +1079,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the Front-controller
-     *
-     * @access public
+     * Helper-method to get the Front-controller.
      *
      * @param bool $norender
      *
@@ -1228,11 +1164,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the bridge-request
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the bridge-request.
      *
      * @return array
      */
@@ -1242,11 +1174,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the bridge-response
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the bridge-response.
      *
      * @return array
      */
@@ -1256,13 +1184,9 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the bridge-response
-     *
-     * @access public
+     * Helper-method to set the bridge-response.
      *
      * @param array $data
-     *
-     * @return null
      */
     public function setResponseData($data)
     {
@@ -1270,14 +1194,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to add some data to the bridge-response
-     *
-     * @access public
+     * Helper-method to add some data to the bridge-response.
      *
      * @param string $name
      * @param array $data
-     *
-     * @return null
      */
     public function addResponseData($name, $data)
     {
@@ -1286,9 +1206,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the meta-data
-     *
-     * @access public
+     * Helper-method to get the meta-data.
      *
      * @param string $name
      *
@@ -1306,14 +1224,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the meta-data
-     *
-     * @access public
+     * Helper-method to set the meta-data.
      *
      * @param string $name
      * @param mixed $value
-     *
-     * @return null
      */
     public function setMetaData($name = null, $value = null)
     {
@@ -1322,11 +1236,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the flag for preoutput-forcing
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the flag for preoutput-forcing.
      *
      * @return array
      */
@@ -1336,13 +1246,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the flag for preoutput-forcing
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Helper-method to set the flag for preoutput-forcing.
      */
     public function setForcePreoutput($force_preoutput)
     {
@@ -1350,11 +1254,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the system events from the session and clean up afterwards
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the system events from the session and clean up afterwards.
      *
      * @return array
      */
@@ -1366,13 +1266,9 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the system events
-     *
-     * @access public
+     * Helper-method to set the system events.
      *
      * @param array
-     *
-     * @return void
      */
     public function setEvents($events)
     {
@@ -1381,11 +1277,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the Joomla! SEF URL from the meta-data
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the Joomla! SEF URL from the meta-data.
      *
      * @return string
      */
@@ -1399,7 +1291,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the requested store-name from the meta-data
+     * Helper-method to get the requested store-name from the meta-data.
      *
      * @return string
      */
@@ -1409,7 +1301,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the requested store-name from the meta-data
+     * Helper-method to get the requested store-name from the meta-data.
      *
      * @return Mage_Core_Model_Store
      */
@@ -1419,7 +1311,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the current session ID
+     * Return the current session ID.
      *
      * @return string
      */
@@ -1429,7 +1321,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Encrypt data for security
+     * Encrypt data for security.
      *
      * @param mixed $data
      *
@@ -1443,7 +1335,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Decrypt data after encryption
+     * Decrypt data after encryption.
      *
      * @param mixed $data
      *
@@ -1457,7 +1349,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Determine whether event forwarding is enabled
+     * Determine whether event forwarding is enabled.
      *
      * @return bool
      */
@@ -1467,7 +1359,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Disable event forwarding
+     * Disable event forwarding.
      *
      * @return bool
      */
@@ -1480,9 +1372,7 @@ class Yireo_MageBridge_Model_Core
     /*
      * Method to get the current MageBridge-version
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getCurrentVersion()
     {

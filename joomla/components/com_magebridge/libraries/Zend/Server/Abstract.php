@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,48 +14,48 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /** Zend_Server_Interface */
 require_once 'Zend/Server/Interface.php';
 
 /**
- * Zend_Server_Definition
+ * Zend_Server_Definition.
  */
 require_once 'Zend/Server/Definition.php';
 
 /**
- * Zend_Server_Method_Definition
+ * Zend_Server_Method_Definition.
  */
 require_once 'Zend/Server/Method/Definition.php';
 
 /**
- * Zend_Server_Method_Callback
+ * Zend_Server_Method_Callback.
  */
 require_once 'Zend/Server/Method/Callback.php';
 
 /**
- * Zend_Server_Method_Prototype
+ * Zend_Server_Method_Prototype.
  */
 require_once 'Zend/Server/Method/Prototype.php';
 
 /**
- * Zend_Server_Method_Parameter
+ * Zend_Server_Method_Parameter.
  */
 require_once 'Zend/Server/Method/Parameter.php';
 
 /**
- * Zend_Server_Abstract
+ * Zend_Server_Abstract.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
@@ -71,11 +71,9 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     protected $_table;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * Setup server description
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -84,7 +82,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     }
 
     /**
-     * Returns a list of registered methods
+     * Returns a list of registered methods.
      *
      * Returns an array of method definitions.
      *
@@ -96,9 +94,8 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     }
 
     /**
-     * Build callback for method signature
+     * Build callback for method signature.
      *
-     * @param  Zend_Server_Reflection_Function_Abstract $reflection
      * @return Zend_Server_Method_Callback
      */
     protected function _buildCallback(Zend_Server_Reflection_Function_Abstract $reflection)
@@ -116,12 +113,13 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     }
 
     /**
-     * Build a method signature
+     * Build a method signature.
      *
-     * @param  Zend_Server_Reflection_Function_Abstract $reflection
-     * @param  null|string|object $class
-     * @return Zend_Server_Method_Definition
+     * @param string|object|null $class
+     *
      * @throws Zend_Server_Exception on duplicate entry
+     *
+     * @return Zend_Server_Method_Definition
      */
     protected function _buildSignature(Zend_Server_Reflection_Function_Abstract $reflection, $class = null)
     {
@@ -164,10 +162,8 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     }
 
     /**
-     * Dispatch method
+     * Dispatch method.
      *
-     * @param  Zend_Server_Method_Definition $invocable
-     * @param  array $params
      * @return mixed
      */
     protected function _dispatch(Zend_Server_Method_Definition $invocable, array $params)
@@ -201,9 +197,10 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     }
 
     /**
-     * Map PHP type to protocol type
+     * Map PHP type to protocol type.
      *
-     * @param  string $type
+     * @param string $type
+     *
      * @return string
      */
     abstract protected function _fixType($type);

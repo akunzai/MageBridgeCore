@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,13 +16,10 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die();
 
 /**
- * Loader-class to load all other MageBridge classes
+ * Loader-class to load all other MageBridge classes.
  */
 class MageBridge_Autoloader
 {
-    /**
-     *
-     */
     public function loadAll()
     {
         // Load the Joomla autoloader
@@ -41,7 +38,7 @@ class MageBridge_Autoloader
     }
 
     /**
-     * Load the generic Yireo library
+     * Load the generic Yireo library.
      */
     public function loadYireoAutoloader()
     {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Controller
- *
- * @package MageBridge
+ * MageBridge Controller.
  */
 class MageBridgeController extends YireoAbstractController
 {
@@ -30,7 +28,7 @@ class MageBridgeController extends YireoAbstractController
     protected $bridge;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -64,9 +62,6 @@ class MageBridgeController extends YireoAbstractController
         $this->handleCustomerAddressDelete();
     }
 
-    /**
-     *
-     */
     protected function handleCustomerAddressDelete()
     {
         $uri         = Uri::current();
@@ -117,7 +112,7 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Method to redirect back to the request URI itself
+     * Method to redirect back to the request URI itself.
      */
     public function returnToRequestUri()
     {
@@ -126,7 +121,7 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Forbidden task
+     * Forbidden task.
      *
      * @param string $message
      */
@@ -137,12 +132,10 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Default method showing a JView
+     * Default method showing a JView.
      *
      * @param bool $cachable
      * @param bool $urlparams
-     *
-     * @return null
      */
     public function display($cachable = false, $urlparams = false)
     {
@@ -195,9 +188,7 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Method to check SSO coming from Magento
-     *
-     * @return null
+     * Method to check SSO coming from Magento.
      */
     public function ssoCheck()
     {
@@ -215,9 +206,7 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Method to check SSO coming from Magento
-     *
-     * @return null
+     * Method to check SSO coming from Magento.
      */
     public function proxy()
     {
@@ -227,9 +216,7 @@ class MageBridgeController extends YireoAbstractController
     }
 
     /**
-     * Method to switch Magento store by POST
-     *
-     * @return null
+     * Method to switch Magento store by POST.
      */
     public function switchStores()
     {

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -33,40 +34,39 @@ require_once 'model/trait/table.php';
 
 /**
  * Yireo Model
- * Parent class for models that use the full-blown MVC pattern
+ * Parent class for models that use the full-blown MVC pattern.
  *
- * @package    Yireo
  * @deprecated Use YireoModelItem or YireoModelItems instead
  */
 class YireoModel extends YireoCommonModel
 {
     /**
-     * Trait to implement debugging behaviour
+     * Trait to implement debugging behaviour.
      */
     use YireoModelTraitDebuggable;
 
     /**
-     * Trait to implement table behaviour
+     * Trait to implement table behaviour.
      */
     use YireoModelTraitTable;
 
     /**
-     * Trait to implement checkout behaviour
+     * Trait to implement checkout behaviour.
      */
     use YireoModelTraitCheckable;
 
     /**
-     * Trait to implement pagination behaviour
+     * Trait to implement pagination behaviour.
      */
     use YireoModelTraitPaginable;
 
     /**
-     * Trait to implement filter behaviour
+     * Trait to implement filter behaviour.
      */
     use YireoModelTraitFilterable;
 
     /**
-     * Trait to implement filter behaviour
+     * Trait to implement filter behaviour.
      */
     use YireoModelTraitLimitable;
 
@@ -76,79 +76,77 @@ class YireoModel extends YireoCommonModel
     protected $data;
 
     /**
-     * Ordering field
+     * Ordering field.
      *
      * @var string
      */
     protected $_ordering = null;
 
     /**
-     * Where segments
+     * Where segments.
      *
      * @var array
      */
     protected $where = [];
 
     /**
-     * Order-by segments
+     * Order-by segments.
      *
      * @var array
      */
     protected $_orderby = [];
 
     /**
-     * Group-by segments
+     * Group-by segments.
      *
      * @var array
      */
     protected $_groupby = [];
 
     /**
-     * Extra query segments
+     * Extra query segments.
      *
      * @var array
      */
     protected $_extra = [];
 
     /**
-     * Extra select fields
+     * Extra select fields.
      *
      * @var array
      */
     protected $_extraFields = [];
 
     /**
-     * Order-by default-value
+     * Order-by default-value.
      *
      * @var string
      */
     protected $_orderby_default = null;
 
     /**
-     * Order-by default-title
+     * Order-by default-title.
      *
      * @var string
      */
     protected $_orderby_title = null;
 
     /**
-     * List of fields to auto-convert into column-separated fields
+     * List of fields to auto-convert into column-separated fields.
      *
      * @var array
      */
     protected $_columnFields = [];
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     protected $params;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -196,8 +194,6 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * @param $name
-     *
      * @return bool|mixed
      */
     public function getDataByName($name = null)
@@ -210,7 +206,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to fetch database-results
+     * Method to fetch database-results.
      *
      * @param string $query
      * @param string $type : object|objectList|result
@@ -231,12 +227,13 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to fetch database-results
+     * Method to fetch database-results.
      *
      * @param string $query
      * @param string $type : object|objectList|result
      *
      * @throws Exception
+     *
      * @return mixed
      */
     public function _getDbResult($query, $type = 'object')
@@ -263,7 +260,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Initialize ORDER BY details
+     * Initialize ORDER BY details.
      */
     protected function initOrderBy()
     {
@@ -287,7 +284,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     protected function initParams()
     {
@@ -301,7 +298,7 @@ class YireoModel extends YireoCommonModel
             return $this->params;
         }
 
-        /** @var \Joomla\CMS\Application\SiteApplication */
+        /** @var Joomla\CMS\Application\SiteApplication */
         $siteApp = $this->app;
         $this->params = $siteApp->getParams($this->getConfig('option'));
 
@@ -309,7 +306,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Inititalize system variables
+     * Inititalize system variables.
      */
     protected function initSingle()
     {
@@ -327,7 +324,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Inititalize system variables
+     * Inititalize system variables.
      */
     protected function initPlural()
     {
@@ -348,7 +345,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Handle deprecated variables
+     * Handle deprecated variables.
      */
     protected function handleModelDeprecated()
     {
@@ -356,7 +353,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to override a default user-state value
+     * Method to override a default user-state value.
      *
      * @param string $key
      * @param mixed $value
@@ -370,7 +367,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @param bool $forceNew
      *
@@ -420,7 +417,7 @@ class YireoModel extends YireoCommonModel
                 $stateField = $this->table->getStateField();
 
                 if ($this->app->isClient('site') && isset($data->$stateField) && $data->$stateField == 0) {
-                    throw new \Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
+                    throw new Yireo\Exception\Model\NotFound(Text::_('LIB_YIREO_MODEL_NOT_FOUND'));
                 }
 
                 // Fill in non-existing fields
@@ -566,7 +563,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to store the model
+     * Method to store the model.
      *
      * @param mixed $data
      *
@@ -706,7 +703,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to remove multiple items
+     * Method to remove multiple items.
      *
      * @param array $cid
      *
@@ -748,7 +745,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to (un)publish an item
+     * Method to (un)publish an item.
      *
      * @param array $cid
      * @param int $publish
@@ -773,7 +770,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to move an item
+     * Method to move an item.
      *
      * @param mixed $direction
      * @param string $field_name
@@ -797,7 +794,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to reorder items
+     * Method to reorder items.
      *
      * @param array $cid
      * @param string $order
@@ -847,7 +844,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to increment the hit counter for the item
+     * Method to increment the hit counter for the item.
      *
      * @return bool
      */
@@ -863,7 +860,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to toggle a certain field
+     * Method to toggle a certain field.
      *
      * @param int $id
      * @param string $name
@@ -890,7 +887,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to build the query
+     * Method to build the query.
      *
      * @param string $query
      *
@@ -986,7 +983,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to build the query ORDER BY segment
+     * Method to build the query ORDER BY segment.
      *
      * @return string
      */
@@ -1012,7 +1009,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to build the query GROUP BY segment
+     * Method to build the query GROUP BY segment.
      *
      * @return string
      */
@@ -1038,7 +1035,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to build the query WHERE segment
+     * Method to build the query WHERE segment.
      *
      * @return string
      */
@@ -1103,7 +1100,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to build an extra query segment
+     * Method to build an extra query segment.
      *
      * @return string
      */
@@ -1117,7 +1114,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to add a new ORDER BY argument
+     * Method to add a new ORDER BY argument.
      *
      * @param string $orderby
      *
@@ -1151,7 +1148,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to add a new GROUP BY argument
+     * Method to add a new GROUP BY argument.
      *
      * @param string $groupby
      *
@@ -1181,7 +1178,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to add a new WHERE argument
+     * Method to add a new WHERE argument.
      *
      * @param mixed $where WHERE statement in the form of an array ($name, $value) or string
      * @param string $type Type of WHERE statement. Either "is" or "like".
@@ -1210,7 +1207,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to add an extra query argument
+     * Method to add an extra query argument.
      *
      * @param string $extra
      */
@@ -1222,7 +1219,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to get the ordering query
+     * Method to get the ordering query.
      *
      * @return string
      */
@@ -1232,7 +1229,7 @@ class YireoModel extends YireoCommonModel
             return false;
         }
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var Joomla\Database\DatabaseDriver $db */
         $db = $this->db;
 
         $query = $db->getQuery(true);
@@ -1245,7 +1242,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to get empty fields
+     * Method to get empty fields.
      *
      * @return array
      */
@@ -1266,7 +1263,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to initialise the data
+     * Method to initialise the data.
      *
      * @return bool
      */
@@ -1296,7 +1293,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Check whether this record can be edited
+     * Check whether this record can be edited.
      *
      * @param array $data
      *
@@ -1313,7 +1310,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to determine whether this model is singular or not
+     * Method to determine whether this model is singular or not.
      *
      * @return bool
      */
@@ -1329,7 +1326,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to determine whether this model is plural or not
+     * Method to determine whether this model is plural or not.
      *
      * @return bool
      */
@@ -1343,7 +1340,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to get the default ORDER BY value
+     * Method to get the default ORDER BY value.
      *
      * @return string
      */
@@ -1353,9 +1350,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to reset all filters
-     *
-     * @return void
+     * Method to reset all filters.
      */
     public function resetFilters()
     {
@@ -1367,7 +1362,7 @@ class YireoModel extends YireoCommonModel
     }
 
     /**
-     * Method to check if any errors are set
+     * Method to check if any errors are set.
      *
      * @return bool
      */

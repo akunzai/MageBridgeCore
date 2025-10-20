@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -21,17 +21,17 @@ defined('JPATH_BASE') or die();
 // Import the MageBridge autoloader
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 /**
- * Form Field-class for selecting Magento CSS-stylesheets
+ * Form Field-class for selecting Magento CSS-stylesheets.
  */
 class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'Magento stylesheets';
 
     /**
-     * Method to get the output of this element
+     * Method to get the output of this element.
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
     }
 
     /**
-     * Method to get the HTML of the disable_css_mage element
+     * Method to get the HTML of the disable_css_mage element.
      *
      * @return string
      */
@@ -89,9 +89,9 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
     }
 
     /**
-     * Method to get the HTML of the disable_css_all element
+     * Method to get the HTML of the disable_css_all element.
      *
-     * @param array  $options
+     * @param array $options
      *
      * @return string
      */
@@ -118,7 +118,7 @@ class MagebridgeFormFieldStylesheets extends MageBridgeFormFieldAbstract
     }
 
     /**
-     * Method to get a list of scripts from the API
+     * Method to get a list of scripts from the API.
      *
      * @return array
      */

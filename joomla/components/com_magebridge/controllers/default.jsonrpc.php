@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,9 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 
 /**
  * MageBridge JSON-RPC Controller
- * Example: index.php?option=com_magebridge&view=jsonrpc&task=call
- *
- * @package MageBridge
+ * Example: index.php?option=com_magebridge&view=jsonrpc&task=call.
  */
 class MageBridgeControllerJsonrpc extends YireoAbstractController
 {
@@ -43,7 +41,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Method to make a JSON-RPC call
+     * Method to make a JSON-RPC call.
      */
     public function call()
     {
@@ -83,7 +81,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Method to display a listing of all API-methods
+     * Method to display a listing of all API-methods.
      */
     public function servicemap()
     {
@@ -97,11 +95,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Helper method to get the JSON-RPC server object
-     *
-     * @param null
-     *
-     * @return null
+     * Helper method to get the JSON-RPC server object.
      */
     private function init()
     {
@@ -125,11 +119,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Helper method to close this call
-     *
-     * @param null
-     *
-     * @return null
+     * Helper method to close this call.
      */
     private function close()
     {
@@ -137,12 +127,10 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Helper method to authenticate this API call
+     * Helper method to authenticate this API call.
      *
      * @param string $message
      * @param int $code
-     *
-     * @return null
      */
     private function error($message, $code = 500)
     {
@@ -170,7 +158,7 @@ class MageBridgeControllerJsonrpc extends YireoAbstractController
     }
 
     /**
-     * Helper method to authenticate this API call
+     * Helper method to authenticate this API call.
      *
      * @param array $auth
      *

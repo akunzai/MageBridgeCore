@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 /*
@@ -31,7 +31,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     protected $app;
 
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -43,7 +43,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the header of this page
+     * Helper to return the header of this page.
      *
      * @param string $title
      *
@@ -55,7 +55,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the menu
+     * Helper to return the menu.
      *
      * @return string
      */
@@ -83,7 +83,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     }
 
     /**
-     * Return the API-details
+     * Return the API-details.
      *
      * @return string
      */
@@ -109,8 +109,9 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     }
 
     /**
-     * @return array
      * @throws Mage_Core_Exception
+     *
+     * @return array
      */
     protected function determineScope()
     {
@@ -139,8 +140,6 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     }
 
     /**
-     * @param $apiHost
-     *
      * @return mixed
      */
     protected function filterApiHost($apiUrl)

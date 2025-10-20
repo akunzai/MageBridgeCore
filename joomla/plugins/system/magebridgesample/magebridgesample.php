@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge Sample - System plugin
+ * Joomla! MageBridge Sample - System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,16 +14,15 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Sample System Plugin
+ * MageBridge Sample System Plugin.
  */
-class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeSample extends Joomla\CMS\Plugin\CMSPlugin
 {
     protected $magebridge_register_id = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
      * @param object $subject
      * @param array $config
      */
@@ -34,11 +33,7 @@ class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onAfterInitialise
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterInitialise.
      */
     public function onAfterInitialise()
     {
@@ -47,22 +42,14 @@ class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onAfterRoute
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRoute.
      */
     public function onAfterRoute()
     {
     }
 
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterDispatch()
     {
@@ -70,11 +57,7 @@ class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
 
 
     /**
-     * Event onAfterRender
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRender.
      */
     public function onAfterRender()
     {

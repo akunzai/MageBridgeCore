@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,16 +16,14 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge helper
+ * Bridge helper.
  */
 class MageBridgeBridgeHelper
 {
     /**
-     * Method to return all cookies that are allowed to pass between Joomla! and Magento
+     * Method to return all cookies that are allowed to pass between Joomla! and Magento.
      *
      * @static
-     *
-     * @param null
      *
      * @return array
      */
@@ -58,8 +56,6 @@ class MageBridgeBridgeHelper
     }
 
     /**
-     * @param $cookieName
-     *
      * @return bool
      */
     public static function isCookieNameAllowed($cookieName)

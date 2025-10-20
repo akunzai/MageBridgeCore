@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.1
  */
 
@@ -26,57 +27,56 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/loader.php';
 
 /**
- * Yireo View
+ * Yireo View.
  *
- * @package    Yireo
  * @deprecated Use a subclass instead
  */
 class YireoView extends YireoCommonView
 {
     /**
-     * Array of HTML-lists for usage in the layout-file
+     * Array of HTML-lists for usage in the layout-file.
      *
      * @var array
      */
     protected $lists = [];
 
     /**
-     * Array of HTML-grid-elements for usage in the layout-file
+     * Array of HTML-grid-elements for usage in the layout-file.
      *
      * @var array
      */
     protected $grid = [];
 
     /**
-     * Flag to determine whether to autoclean item-properties or not
+     * Flag to determine whether to autoclean item-properties or not.
      *
      * @var bool
      */
     protected $autoclean = false;
 
     /**
-     * Flag to determine whether to load the menu
+     * Flag to determine whether to load the menu.
      *
      * @var bool
      */
     protected $loadToolbar = true;
 
     /**
-     * Flag to prepare the display-data
+     * Flag to prepare the display-data.
      *
      * @var bool
      */
     protected $prepare_display = true;
 
     /**
-     * The pagination object
+     * The pagination object.
      *
-     * @var \Joomla\CMS\Pagination\Pagination
+     * @var Joomla\CMS\Pagination\Pagination
      */
     protected $pagination;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     protected $params;
 
@@ -96,7 +96,7 @@ class YireoView extends YireoCommonView
     protected $model;
 
     /**
-     * @var null|YireoTable
+     * @var YireoTable|null
      */
     protected $table;
 
@@ -106,14 +106,12 @@ class YireoView extends YireoCommonView
     protected $total;
 
     /**
-     * @var null|\Joomla\CMS\Form\Form
+     * @var Joomla\CMS\Form\Form|null
      */
     protected $form;
 
     /**
-     * Main constructor method
-     *
-     * @subpackage Yireo
+     * Main constructor method.
      *
      * @param array $config
      */
@@ -127,7 +125,7 @@ class YireoView extends YireoCommonView
             if ($this->app->isClient('site') == false) {
                 $this->params = ComponentHelper::getParams($this->getConfig('option'));
             } else {
-                /** @var \Joomla\CMS\Application\SiteApplication */
+                /** @var Joomla\CMS\Application\SiteApplication */
                 $siteApp = $this->app;
                 $this->params = $siteApp->getParams($this->getConfig('option'));
             }
@@ -196,11 +194,9 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Main display method
+     * Main display method.
      *
      * @param string $tpl
-     *
-     * @return  void
      */
     public function display($tpl = null)
     {
@@ -216,9 +212,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Method to prepare for displaying
-     *
-     * @subpackage Yireo
+     * Method to prepare for displaying.
      */
     public function prepareDisplay()
     {
@@ -275,9 +269,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper-method to set a specific filter
-     *
-     * @subpackage Yireo
+     * Helper-method to set a specific filter.
      *
      * @param string $filter
      * @param string $default
@@ -298,7 +290,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper-method to get multiple items from the MVC-model
+     * Helper-method to get multiple items from the MVC-model.
      *
      * @return array
      */
@@ -342,10 +334,11 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper-method to get a single item from the MVC-model
+     * Helper-method to get a single item from the MVC-model.
+     *
+     * @throws Yireo\Exception\View\ModelNotFound
      *
      * @return object
-     * @throws \Yireo\Exception\View\ModelNotFound
      */
     protected function fetchItem()
     {
@@ -357,7 +350,7 @@ class YireoView extends YireoCommonView
         $this->model = $this->getModel(null, false);
 
         if (empty($this->model)) {
-            throw new \Yireo\Exception\View\ModelNotFound('Unable to find YireoModel');
+            throw new Yireo\Exception\View\ModelNotFound('Unable to find YireoModel');
         }
 
         // Determine if this is a new item or not
@@ -402,7 +395,6 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     *
      * @return bool
      */
     private function autocleanItem()
@@ -457,8 +449,6 @@ class YireoView extends YireoCommonView
         }
     }
 
-    /**
-     */
     private function assignListOrdering()
     {
         $ordering = (method_exists($this->model, 'getOrderByDefault')) ? $this->model->getOrderByDefault() : null;
@@ -471,7 +461,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Add the AJAX-script to the page
+     * Add the AJAX-script to the page.
      *
      * @param string $url
      * @param string $div
@@ -484,7 +474,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Add the AJAX-script to the page
+     * Add the AJAX-script to the page.
      */
     public function getAjaxFunction()
     {
@@ -509,7 +499,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Automatically decode HTML-characters from specified item-fields
+     * Automatically decode HTML-characters from specified item-fields.
      *
      * @param bool $autoclean
      */
@@ -519,14 +509,14 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Overload the original method
+     * Overload the original method.
      *
      * @param string $name
      * @param bool $generateFatalError
      *
-     * @return mixed
+     * @throws Yireo\Exception\View\ModelNotFound
      *
-     * @throws \Yireo\Exception\View\ModelNotFound
+     * @return mixed
      */
     public function getModel($name = null, $generateFatalError = true)
     {
@@ -558,7 +548,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper method to display a certain grid-header
+     * Helper method to display a certain grid-header.
      *
      * @param string $type
      * @param string $title
@@ -579,7 +569,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Helper method to display a certain grid-cell
+     * Helper method to display a certain grid-cell.
      *
      * @param string $type
      * @param object $item
@@ -618,7 +608,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Method to return img-tag for a certain image, if that image exists
+     * Method to return img-tag for a certain image, if that image exists.
      *
      * @param string $name
      *
@@ -641,10 +631,11 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Override original method
+     * Override original method.
      *
-     * @return  string|bool  The name of the model
      * @throws Exception
+     *
+     * @return string|bool The name of the model
      */
     public function getName()
     {
@@ -664,12 +655,10 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Add a layout to this view
+     * Add a layout to this view.
      *
      * @param string $name
      * @param array $variables
-     *
-     * @return void
      */
     public function loadLayout($name = null, $variables = [])
     {
@@ -685,7 +674,7 @@ class YireoView extends YireoCommonView
     }
 
     /**
-     * Return a common prefix for all layouts in this component
+     * Return a common prefix for all layouts in this component.
      *
      * @return string
      */

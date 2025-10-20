@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridgeRedirect
+ * MageBridgeRedirect.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,7 +16,7 @@
 class Yireo_MageBridgeRedirect_Model_Observer
 {
     /**
-     * Event "controller_action_predispatch"
+     * Event "controller_action_predispatch".
      */
     public function controllerActionPredispatch($observer)
     {

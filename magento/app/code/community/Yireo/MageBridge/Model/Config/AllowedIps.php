@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,19 +14,17 @@
 use Mage_Core_Model_Store as Store;
 
 /**
- * Model for configuration value "allowed_ips", determining which IPs are allowed to connect to MageBridge
+ * Model for configuration value "allowed_ips", determining which IPs are allowed to connect to MageBridge.
  */
 class Yireo_MageBridge_Model_Config_AllowedIps
 {
     /**
-     * @var \Yireo\MageBridge\Utilities\Config
+     * @var Yireo\MageBridge\Utilities\Config
      */
     protected $storeConfig;
 
     /**
-     * Yireo_MageBridge_Model_Config_AllowedHosts constructor
-     *
-     * @param Store $store
+     * Yireo_MageBridge_Model_Config_AllowedHosts constructor.
      */
     public function __construct(Store $store)
     {
@@ -34,7 +32,7 @@ class Yireo_MageBridge_Model_Config_AllowedIps
         $autoLoader = Mage::helper('magebridge/autoloader');
         $autoLoader->load();
 
-        $this->storeConfig = new \Yireo\MageBridge\Utilities\Config($store);
+        $this->storeConfig = new Yireo\MageBridge\Utilities\Config($store);
     }
 
     /**
@@ -46,8 +44,6 @@ class Yireo_MageBridge_Model_Config_AllowedIps
     }
 
     /**
-     * @param $url
-     *
      * @return array
      */
     public function appendUrlAsIp($url)
@@ -74,7 +70,6 @@ class Yireo_MageBridge_Model_Config_AllowedIps
     }
 
     /**
-     * @param $host
      * @return bool
      */
     public function isHostAllowed($host)

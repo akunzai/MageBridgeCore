@@ -1,23 +1,20 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Helper_Test extends Mage_Core_Helper_Abstract
 {
     /*
      * Return whether the current page is seen as an internal page or not
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function isInternalPage()
     {

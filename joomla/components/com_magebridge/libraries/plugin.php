@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,9 +19,9 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Parent plugin-class
+ * Parent plugin-class.
  */
-class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
+class MageBridgePlugin extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * @var MageBridgeModelDebug
@@ -29,10 +29,10 @@ class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
     protected $debug;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param   object &$subject
-     * @param   array  $config
+     * @param object &$subject
+     * @param array $config
      */
     public function __construct(&$subject, $config = [])
     {
@@ -41,7 +41,7 @@ class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Initialization function
+     * Initialization function.
      */
     protected function initialize()
     {
@@ -49,7 +49,7 @@ class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return a MageBridge configuration parameter
+     * Return a MageBridge configuration parameter.
      *
      * @param string $name
      *
@@ -61,7 +61,7 @@ class MageBridgePlugin extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Method to check whether a specific component is there
+     * Method to check whether a specific component is there.
      *
      * @param string $component
      *

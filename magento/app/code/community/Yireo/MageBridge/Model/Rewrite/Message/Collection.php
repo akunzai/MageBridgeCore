@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,9 @@
 class Yireo_MageBridge_Model_Rewrite_Message_Collection extends Mage_Core_Model_Message_Collection
 {
     /**
-     * Adding new message to collection
+     * Adding new message to collection.
      *
-     * @param   Mage_Core_Model_Message_Abstract $message
-     * @return  Mage_Core_Model_Message_Collection
+     * @return Mage_Core_Model_Message_Collection
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -46,7 +45,7 @@ class Yireo_MageBridge_Model_Rewrite_Message_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Retrieve messages collection
+     * Retrieve messages collection.
      *
      * @return Mage_Core_Model_Message_Collection
      */

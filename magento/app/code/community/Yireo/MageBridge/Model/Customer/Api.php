@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,10 @@
 class Yireo_MageBridge_Model_Customer_Api extends Mage_Api_Model_Resource_Abstract
 {
     /**
-     * Retrieve list of customers with basic info
+     * Retrieve list of customers with basic info.
      *
-     * @access public
      * @param array $arguments
+     *
      * @return array
      */
     public function items($arguments = null)

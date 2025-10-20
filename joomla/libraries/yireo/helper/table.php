@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)).'/loader.php';
 
 /**
- * Yireo Table Helper
+ * Yireo Table Helper.
  */
 class YireoHelperTable
 {

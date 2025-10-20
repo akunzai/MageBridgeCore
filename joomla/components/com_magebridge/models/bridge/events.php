@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,14 +17,15 @@ use Joomla\CMS\Plugin\PluginHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeEvents extends MageBridgeModelBridgeSegment
 {
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
+     *
      * @return object
      */
     public static function getInstance($name = null)
@@ -33,7 +34,7 @@ class MageBridgeModelBridgeEvents extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      */
     public function getResponseData()
     {
@@ -41,7 +42,7 @@ class MageBridgeModelBridgeEvents extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to handle Magento events
+     * Method to handle Magento events.
      */
     public function setEvents($events = null)
     {

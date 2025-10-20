@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,21 +14,19 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Definition.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Method definition metadata
+ * Method definition metadata.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -55,7 +53,7 @@ class Zend_Server_Method_Definition
     protected $_name;
 
     /**
-     * @var null|object
+     * @var object|null
      */
     protected $_object;
 
@@ -65,10 +63,9 @@ class Zend_Server_Method_Definition
     protected $_prototypes = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  null|array $options
-     * @return void
+     * @param array|null $options
      */
     public function __construct($options = null)
     {
@@ -78,9 +75,8 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set object state from options
+     * Set object state from options.
      *
-     * @param  array $options
      * @return Zend_Server_Method_Definition
      */
     public function setOptions(array $options)
@@ -95,9 +91,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set method name
+     * Set method name.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return Zend_Server_Method_Definition
      */
     public function setName($name)
@@ -107,7 +104,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Get method name
+     * Get method name.
      *
      * @return string
      */
@@ -117,9 +114,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set method callback
+     * Set method callback.
      *
-     * @param  array|Zend_Server_Method_Callback $callback
+     * @param array|Zend_Server_Method_Callback $callback
+     *
      * @return Zend_Server_Method_Definition
      */
     public function setCallback($callback)
@@ -136,7 +134,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Get method callback
+     * Get method callback.
      *
      * @return Zend_Server_Method_Callback
      */
@@ -146,9 +144,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Add prototype to method definition
+     * Add prototype to method definition.
      *
-     * @param  array|Zend_Server_Method_Prototype $prototype
+     * @param array|Zend_Server_Method_Prototype $prototype
+     *
      * @return Zend_Server_Method_Definition
      */
     public function addPrototype($prototype)
@@ -165,9 +164,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Add multiple prototypes at once
+     * Add multiple prototypes at once.
      *
-     * @param  array $prototypes Array of Zend_Server_Method_Prototype objects or arrays
+     * @param array $prototypes Array of Zend_Server_Method_Prototype objects or arrays
+     *
      * @return Zend_Server_Method_Definition
      */
     public function addPrototypes(array $prototypes)
@@ -179,9 +179,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set all prototypes at once (overwrites)
+     * Set all prototypes at once (overwrites).
      *
-     * @param  array $prototypes Array of Zend_Server_Method_Prototype objects or arrays
+     * @param array $prototypes Array of Zend_Server_Method_Prototype objects or arrays
+     *
      * @return Zend_Server_Method_Definition
      */
     public function setPrototypes(array $prototypes)
@@ -192,7 +193,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Get all prototypes
+     * Get all prototypes.
      *
      * @return array $prototypes Array of Zend_Server_Method_Prototype objects or arrays
      */
@@ -202,9 +203,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set method help
+     * Set method help.
      *
-     * @param  string $methodHelp
+     * @param string $methodHelp
+     *
      * @return Zend_Server_Method_Definition
      */
     public function setMethodHelp($methodHelp)
@@ -214,7 +216,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Get method help
+     * Get method help.
      *
      * @return string
      */
@@ -224,9 +226,10 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set object to use with method calls
+     * Set object to use with method calls.
      *
-     * @param  object $object
+     * @param object $object
+     *
      * @return Zend_Server_Method_Definition
      */
     public function setObject($object)
@@ -240,9 +243,9 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Get object to use with method calls
+     * Get object to use with method calls.
      *
-     * @return null|object
+     * @return object|null
      */
     public function getObject()
     {
@@ -250,9 +253,8 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Set invoke arguments
+     * Set invoke arguments.
      *
-     * @param  array $invokeArguments
      * @return Zend_Server_Method_Definition
      */
     public function setInvokeArguments(array $invokeArguments)
@@ -262,7 +264,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Retrieve invoke arguments
+     * Retrieve invoke arguments.
      *
      * @return array
      */
@@ -272,7 +274,7 @@ class Zend_Server_Method_Definition
     }
 
     /**
-     * Serialize to array
+     * Serialize to array.
      *
      * @return array
      */

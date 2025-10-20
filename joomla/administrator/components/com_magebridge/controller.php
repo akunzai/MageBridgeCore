@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,14 +20,12 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Controller
+ * MageBridge Controller.
  */
 class MageBridgeController extends YireoController
 {
     /**
-     * Constructor
-     *
-     * @package MageBridge
+     * Constructor.
      */
     public function __construct()
     {
@@ -47,11 +45,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to redirect back to home
-     *
-     * @param null
-     *
-     * @return null
+     * Method to redirect back to home.
      */
     public function home()
     {
@@ -61,11 +55,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to display the views layout
-     *
-     * @param null
-     *
-     * @return null
+     * Method to display the views layout.
      */
     public function display($cachable = false, $urlparams = false)
     {
@@ -85,7 +75,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to flush caching
+     * Method to flush caching.
      *
      * @return bool
      */
@@ -120,9 +110,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to toggle the configuration mode (advanced/basic)
-     *
-     * @return void
+     * Method to toggle the configuration mode (advanced/basic).
      */
     public function toggleMode()
     {
@@ -149,9 +137,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method  to truncate the logs
-     *
-     * @return void
+     * Method  to truncate the logs.
      */
     public function delete()
     {
@@ -185,9 +171,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to export logs to CSV
-     *
-     * @return void
+     * Method to export logs to CSV.
      */
     public function export()
     {
@@ -209,9 +193,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to simulate a product purchase
-     *
-     * @return void
+     * Method to simulate a product purchase.
      */
     public function check_product()
     {
@@ -247,7 +229,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to check SSO coming from Magento
+     * Method to check SSO coming from Magento.
      */
     public function ssoCheck()
     {
@@ -266,7 +248,7 @@ class MageBridgeController extends YireoController
     }
 
     /**
-     * Method to validate a change-request
+     * Method to validate a change-request.
      *
      * @param bool $check_token
      * @param bool $check_demo

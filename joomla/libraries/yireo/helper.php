@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author Yireo (info@yireo.com)
- * @package YireoLib
  * @copyright Copyright 2015
  * @license GNU Public License
+ *
  * @link http://www.yireo.com
+ *
  * @version 0.6.0
  */
 
@@ -24,16 +25,16 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/loader.php';
 
 /**
- * Yireo Helper
- * @subpackage Yireo
+ * Yireo Helper.
  */
 class YireoHelper
 {
     /**
-     * Helper-method to parse the data defined in this component
+     * Helper-method to parse the data defined in this component.
      *
      * @param string $name
      * @param string $option
+     *
      * @return mixed
      */
     public static function getData($name = null, $option = null)
@@ -61,10 +62,9 @@ class YireoHelper
     }
 
     /**
-     * Helper-method to return the HTML-ending of a form
+     * Helper-method to return the HTML-ending of a form.
      *
      * @param int $id
-     * @return void
      */
     public static function getFormEnd($id = 0)
     {
@@ -75,9 +75,10 @@ class YireoHelper
     }
 
     /**
-     * Helper-method to check whether the current Joomla! version equals some value
+     * Helper-method to check whether the current Joomla! version equals some value.
      *
      * @param string|array $version
+     *
      * @return bool
      */
     public static function isJoomla($version)
@@ -96,9 +97,8 @@ class YireoHelper
     }
 
     /**
-     * Helper-method to compare with current Joomla! version
+     * Helper-method to compare with current Joomla! version.
      *
-     * @param null
      * @return bool
      */
     public static function compareJoomlaVersion($version, $comparison)
@@ -107,7 +107,7 @@ class YireoHelper
     }
 
     /**
-     * Method to get the current version
+     * Method to get the current version.
      *
      * @return string
      */
@@ -120,10 +120,11 @@ class YireoHelper
     }
 
     /**
-     * Convert an object or string to Registry
+     * Convert an object or string to Registry.
      *
      * @param mixed $params
      * @param string $file
+     *
      * @return Registry
      */
     public static function toRegistry($params = null, $file = null)
@@ -164,9 +165,7 @@ class YireoHelper
     }
 
     /**
-     * Add in Bootstrap
-     *
-     * @return void
+     * Add in Bootstrap.
      */
     public static function bootstrap()
     {
@@ -175,7 +174,7 @@ class YireoHelper
     }
 
     /**
-     * Method to check whether Bootstrap is used
+     * Method to check whether Bootstrap is used.
      *
      * @return bool
      */
@@ -191,14 +190,12 @@ class YireoHelper
     }
 
     /**
-     * Add in jQuery
-     *
-     * @return void
+     * Add in jQuery.
      */
     public static function jquery()
     {
         // Do not load when having no HTML-document
-        /** @var \Joomla\CMS\Document\HtmlDocument */
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
 
         if (stristr(get_class($document), 'html') == false) {
@@ -235,9 +232,7 @@ class YireoHelper
     }
 
     /**
-     * Helper-method to load additional language-files
-     *
-     * @return void
+     * Helper-method to load additional language-files.
      */
     public static function loadLanguageFile()
     {

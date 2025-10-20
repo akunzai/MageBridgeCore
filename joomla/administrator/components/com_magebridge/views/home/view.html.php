@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,10 +14,9 @@
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewHome extends YireoViewHome
 {
@@ -32,10 +31,9 @@ class MageBridgeViewHome extends YireoViewHome
     protected $urls;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     * @return null
      */
     public function display($tpl = null)
     {

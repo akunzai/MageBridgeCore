@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,48 +14,51 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Node Tree class for Zend_Server reflection operations
+ * Node Tree class for Zend_Server reflection operations.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Reflection
+ *
  * @version $Id: Node.php 20096 2010-01-06 02:05:09Z bkarwin $
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
 class Zend_Server_Reflection_Node
 {
     /**
-     * Node value
+     * Node value.
+     *
      * @var mixed
      */
     protected $_value = null;
 
     /**
-     * Array of child nodes (if any)
+     * Array of child nodes (if any).
+     *
      * @var array
      */
     protected $_children = [];
 
     /**
-     * Parent node (if any)
+     * Parent node (if any).
+     *
      * @var Zend_Server_Reflection_Node
      */
     protected $_parent = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed $value
      * @param Zend_Server_Reflection_Node $parent Optional
+     *
      * @return Zend_Server_Reflection_Node
      */
     public function __construct($value, Zend_Server_Reflection_Node $parent = null)
@@ -69,12 +72,10 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Set parent node
+     * Set parent node.
      *
-     * @param Zend_Server_Reflection_Node $node
      * @param bool $new Whether or not the child node is newly created
-     * and should always be attached
-     * @return void
+     *                  and should always be attached
      */
     public function setParent(Zend_Server_Reflection_Node $node, $new = false)
     {
@@ -87,10 +88,10 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Create and attach a new child node
+     * Create and attach a new child node.
      *
      * @param mixed $value
-     * @access public
+     *
      * @return Zend_Server_Reflection_Node New child node
      */
     public function createChild($value)
@@ -101,10 +102,7 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Attach a child node
-     *
-     * @param Zend_Server_Reflection_Node $node
-     * @return void
+     * Attach a child node.
      */
     public function attachChild(Zend_Server_Reflection_Node $node)
     {
@@ -116,7 +114,7 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Return an array of all child nodes
+     * Return an array of all child nodes.
      *
      * @return array
      */
@@ -136,9 +134,9 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Return the parent node
+     * Return the parent node.
      *
-     * @return null|Zend_Server_Reflection_Node
+     * @return Zend_Server_Reflection_Node|null
      */
     public function getParent()
     {
@@ -146,7 +144,7 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Return the node's current value
+     * Return the node's current value.
      *
      * @return mixed
      */
@@ -156,10 +154,9 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Set the node value
+     * Set the node value.
      *
      * @param mixed $value
-     * @return void
      */
     public function setValue($value)
     {
@@ -167,7 +164,7 @@ class Zend_Server_Reflection_Node
     }
 
     /**
-     * Retrieve the bottommost nodes of this node's tree
+     * Retrieve the bottommost nodes of this node's tree.
      *
      * Retrieves the bottommost nodes of the tree by recursively calling
      * getEndPoints() on all children. If a child is null, it returns the parent

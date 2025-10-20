@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,12 +16,12 @@ use Joomla\CMS\Date\Date;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Logs model
+ * MageBridge Logs model.
  */
 class MagebridgeModelLog extends YireoModel
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function __construct()
     {
@@ -29,10 +29,10 @@ class MagebridgeModelLog extends YireoModel
     }
 
     /**
-     * Method to insert a new log
+     * Method to insert a new log.
      *
      * @param string $message
-     * @param int    $level
+     * @param int $level
      *
      * @return bool
      */
@@ -47,7 +47,7 @@ class MagebridgeModelLog extends YireoModel
     }
 
     /**
-     * Method to store the item
+     * Method to store the item.
      *
      * @param array $data
      *

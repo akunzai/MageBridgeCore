@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Search plugin
+ * Joomla! MageBridge - Search plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,15 +17,15 @@ defined('_JEXEC') or die('Restricted access');
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge User Plugin
+ * MageBridge User Plugin.
  */
-class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
+class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param object $subject
-     * @param array  $config
+     * @param array $config
      */
     public function __construct(&$subject, $config)
     {
@@ -35,7 +35,7 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event when searching for items
+     * Handle the event when searching for items.
      *
      * @return array
      */
@@ -55,12 +55,12 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Handle the event when searching for items
+     * Handle the event when searching for items.
      *
      * @param string $text
      * @param string $phrase
      * @param string $ordering
-     * @param array  $areas
+     * @param array $areas
      *
      * @return array
      */
@@ -154,7 +154,7 @@ class PlgSearchMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return whether MageBridge is available or not
+     * Return whether MageBridge is available or not.
      *
      * @return bool
      */

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,14 +16,15 @@ use Joomla\CMS\Router\Route;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
 {
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
+     *
      * @return object
      */
     public static function getInstance($name = null)
@@ -32,10 +33,11 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      *
      * @param string $name
      * @param mixed $arguments
+     *
      * @return mixed
      */
     public function getResponseData($name, $arguments = null)
@@ -44,9 +46,10 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Check wheather this widget is cachable
+     * Check wheather this widget is cachable.
      *
      * @param string $name
+     *
      * @return bool
      */
     public function isCachable($name)
@@ -60,10 +63,11 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to return a specific widget
+     * Method to return a specific widget.
      *
      * @param string $widget_name
      * @param mixed $arguments
+     *
      * @return string
      */
     public function getWidget($widget_name, $arguments = null)
@@ -91,9 +95,8 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to decode the widget-output
+     * Method to decode the widget-output.
      *
-     * @param string $widget_name
      * @return string
      */
     public function decode($widget_data)
@@ -103,9 +106,10 @@ class MageBridgeModelBridgeWidget extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to filter the HTML with the MageBridge URL filter but also generic Content Filters
+     * Method to filter the HTML with the MageBridge URL filter but also generic Content Filters.
      *
      * @param string $html
+     *
      * @return string
      */
     public function filterHtml($html)

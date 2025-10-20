@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,21 +14,19 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Parameter.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Method parameter metadata
+ * Method parameter metadata.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Method
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -60,10 +58,9 @@ class Zend_Server_Method_Parameter
     protected $_type = 'mixed';
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  null|array $options
-     * @return void
+     * @param array|null $options
      */
     public function __construct($options = null)
     {
@@ -73,9 +70,8 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set object state from array of options
+     * Set object state from array of options.
      *
-     * @param  array $options
      * @return Zend_Server_Method_Parameter
      */
     public function setOptions(array $options)
@@ -90,9 +86,10 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set default value
+     * Set default value.
      *
-     * @param  mixed $defaultValue
+     * @param mixed $defaultValue
+     *
      * @return Zend_Server_Method_Parameter
      */
     public function setDefaultValue($defaultValue)
@@ -102,7 +99,7 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Retrieve default value
+     * Retrieve default value.
      *
      * @return mixed
      */
@@ -112,9 +109,10 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set description
+     * Set description.
      *
-     * @param  string $description
+     * @param string $description
+     *
      * @return Zend_Server_Method_Parameter
      */
     public function setDescription($description)
@@ -124,7 +122,7 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Retrieve description
+     * Retrieve description.
      *
      * @return string
      */
@@ -134,9 +132,10 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set name
+     * Set name.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return Zend_Server_Method_Parameter
      */
     public function setName($name)
@@ -146,7 +145,7 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Retrieve name
+     * Retrieve name.
      *
      * @return string
      */
@@ -156,9 +155,10 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set optional flag
+     * Set optional flag.
      *
-     * @param  bool $flag
+     * @param bool $flag
+     *
      * @return Zend_Server_Method_Parameter
      */
     public function setOptional($flag)
@@ -178,9 +178,10 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Set parameter type
+     * Set parameter type.
      *
-     * @param  string $type
+     * @param string $type
+     *
      * @return Zend_Server_Method_Parameter
      */
     public function setType($type)
@@ -190,7 +191,7 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Retrieve parameter type
+     * Retrieve parameter type.
      *
      * @return string
      */
@@ -200,7 +201,7 @@ class Zend_Server_Method_Parameter
     }
 
     /**
-     * Cast to array
+     * Cast to array.
      *
      * @return array
      */

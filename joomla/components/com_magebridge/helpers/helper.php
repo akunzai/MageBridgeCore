@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeHelper
 {
     /**
-     * Helper-method to get help-URLs for usage in the content
+     * Helper-method to get help-URLs for usage in the content.
      *
      * @param string $name
      *
@@ -98,10 +98,9 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to display Yireo.com-links
+     * Helper-method to display Yireo.com-links.
      *
      * @param string $name
-     * @param string $title
      *
      * @return string
      */
@@ -113,7 +112,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to display Yireo.com-links
+     * Helper-method to display Yireo.com-links.
      *
      * @param string $name
      * @param string $title
@@ -130,7 +129,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to insert notices into the application
+     * Helper-method to insert notices into the application.
      *
      * @param string $text
      *
@@ -155,7 +154,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to filter the original Magento content from unneeded/unwanted bits
+     * Helper-method to filter the original Magento content from unneeded/unwanted bits.
      *
      * @param string $content
      *
@@ -287,10 +286,10 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to merge the original Magento URL into the Joomla! URL
+     * Helper-method to merge the original Magento URL into the Joomla! URL.
      *
      * @param string $url
-     * @param bool   $use_sef
+     * @param bool $use_sef
      *
      * @return string
      */
@@ -344,9 +343,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to parse the comma-separated setting "disable_css_mage" into an array
-     *
-     * @param null
+     * Helper-method to parse the comma-separated setting "disable_css_mage" into an array.
      *
      * @return array
      */
@@ -371,7 +368,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to find out if some kind of CSS-file is disabled or not
+     * Helper-method to find out if some kind of CSS-file is disabled or not.
      *
      * @param string $css
      *
@@ -396,9 +393,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to parse the comma-separated setting "disable_js_mage" into an array
-     *
-     * @param null
+     * Helper-method to parse the comma-separated setting "disable_js_mage" into an array.
      *
      * @return array
      */
@@ -423,7 +418,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to find out if some kind of JS-file is disabled or not
+     * Helper-method to find out if some kind of JS-file is disabled or not.
      *
      * @param string $js
      *
@@ -447,9 +442,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to get the current Joomla! core version
-     *
-     * @param null
+     * Helper-method to get the current Joomla! core version.
      *
      * @return string
      */
@@ -461,7 +454,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to get the current Joomla! core version
+     * Helper-method to get the current Joomla! core version.
      *
      * @param $version string|array
      *
@@ -485,9 +478,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to get the current Joomla! core version
-     *
-     * @param null
+     * Helper-method to get the current Joomla! core version.
      *
      * @return bool
      */
@@ -497,15 +488,13 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to get the component parameters
+     * Helper-method to get the component parameters.
      *
-     * @param null
-     *
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     public static function getParams()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $params = $app
             ->getMenu('site')
@@ -515,9 +504,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to convert an array to a MySQL string
-     *
-     * @param null
+     * Helper-method to convert an array to a MySQL string.
      *
      * @return bool
      */
@@ -534,9 +521,7 @@ class MageBridgeHelper
     }
 
     /**
-     * Helper-method to convert a CSV-string to an array
-     *
-     * @param null
+     * Helper-method to convert a CSV-string to an array.
      *
      * @return array
      */

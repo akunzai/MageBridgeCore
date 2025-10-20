@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Finder plugin
+ * Joomla! MageBridge - Finder plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -22,7 +22,7 @@ require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapt
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Finder Plugin
+ * MageBridge Finder Plugin.
  */
 class PlgFinderMageBridge extends FinderIndexerAdapter
 {
@@ -47,10 +47,10 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     protected $type_title = 'Product';
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param object $subject
-     * @param array  $config
+     * @param array $config
      */
     public function __construct(&$subject, $config)
     {
@@ -60,7 +60,7 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Method to setup this finder-plugin
+     * Method to setup this finder-plugin.
      *
      * @return bool
      */
@@ -73,11 +73,9 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Method to index a single item
+     * Method to index a single item.
      *
-     * @param Result $item
-     *
-     * @return boolean  True on success.
+     * @return bool true on success
      */
     protected function index(Result $item)
     {
@@ -97,7 +95,7 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Method to load all products through the API
+     * Method to load all products through the API.
      *
      * @param int $offset
      * @param int $limit
@@ -127,10 +125,10 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Method to index all items
+     * Method to index all items.
      *
-     * @param int    $offset
-     * @param int    $limit
+     * @param int $offset
+     * @param int $limit
      * @param string $sql
      *
      * @return array
@@ -195,7 +193,7 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Method to get the total of products
+     * Method to get the total of products.
      *
      * @return int
      */
@@ -219,10 +217,10 @@ class PlgFinderMageBridge extends FinderIndexerAdapter
     }
 
     /**
-     * Helper method for debugging
+     * Helper method for debugging.
      *
      * @param string $msg
-     * @param mixed  $var
+     * @param mixed $var
      */
     protected function debug($msg, $var = null)
     {

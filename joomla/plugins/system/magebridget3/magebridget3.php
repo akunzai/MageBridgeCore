@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - JoomlArt T3 System plugin
+ * Joomla! MageBridge - JoomlArt T3 System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,7 +14,7 @@
  * Make sure this plugin is published before the T3 Framework Plugin.
  * Future additions may include choosing a proper profile through a GET-variable,
  * which should be defined in templates/TEMPLATE/local/etc/profiles/PROFILE.ini:
- *	 desktop_layout=full-width
+ *	 desktop_layout=full-width.
  */
 
 // Check to ensure this file is included in Joomla!
@@ -23,32 +23,24 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 
 /**
- * MageBridge JoomlArt T3 System Plugin
+ * MageBridge JoomlArt T3 System Plugin.
  */
-class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeT3 extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterInitialise()
     {
         // Get rid of annoying cookies
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $cookie = $application->getTemplate() . '_layouts';
         unset($_COOKIE[$cookie]);
     }
 
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterRoute()
     {
@@ -89,11 +81,9 @@ class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Load the parameters
+     * Load the parameters.
      *
-     * @access private
-     * @param null
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     private function getParams()
     {
@@ -101,15 +91,13 @@ class plgSystemMageBridgeT3 extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
+     * Simple check to see if MageBridge exists.
      *
-     * @access private
-     * @param null
      * @return bool
      */
     private function isEnabled()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
 
         if ($app->isClient('site') == false) {

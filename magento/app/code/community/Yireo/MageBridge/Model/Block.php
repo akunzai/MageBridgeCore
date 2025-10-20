@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ class Yireo_MageBridge_Model_Block
     /*
      * Initialize the controller
      *
-     * @access public
-     * @param null
-     * @return mixed
+     * @access public @return mixed
      */
     public function init()
     {

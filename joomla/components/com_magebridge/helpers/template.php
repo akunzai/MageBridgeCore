@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -21,14 +21,12 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for usage in Joomla!/MageBridge modules and templates
+ * Helper for usage in Joomla!/MageBridge modules and templates.
  */
 class MageBridgeTemplateHelper
 {
     /**
-     * Determine if the bridge is loaded with some CSS-stylesheets
-     *
-     * @param null
+     * Determine if the bridge is loaded with some CSS-stylesheets.
      *
      * @return bool
      */
@@ -45,9 +43,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the bridge is loaded with some JavaScript-scripts
-     *
-     * @param null
+     * Determine if the bridge is loaded with some JavaScript-scripts.
      *
      * @return bool
      */
@@ -64,9 +60,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the bridge is loaded with ProtoType
-     *
-     * @param null
+     * Determine if the bridge is loaded with ProtoType.
      *
      * @return bool
      */
@@ -77,16 +71,12 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to remove Magento scripts from the page
-     *
-     * @param null
-     *
-     * @return void
+     * Function to remove Magento scripts from the page.
      */
     public static function removeMagentoScripts()
     {
         $bridge = MageBridgeModelBridge::getInstance();
-        /** @var \Joomla\CMS\Document\HtmlDocument */
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
 
         $bridge->build();
@@ -116,9 +106,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Alternative for getRootTemplate
-     *
-     * @param null
+     * Alternative for getRootTemplate.
      *
      * @return string
      */
@@ -128,9 +116,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Get the current page layout
-     *
-     * @param null
+     * Get the current page layout.
      *
      * @return string
      */
@@ -149,9 +135,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Get the Magento XML-handles
-     *
-     * @param null
+     * Get the Magento XML-handles.
      *
      * @return array
      */
@@ -168,7 +152,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Check for a specific Magento XML-handles
+     * Check for a specific Magento XML-handles.
      *
      * @param string
      *
@@ -191,9 +175,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the Magento theme is using the left-column layout
-     *
-     * @param null
+     * Determine if the Magento theme is using the left-column layout.
      *
      * @return bool
      */
@@ -213,9 +195,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the Magento theme is using the right-column layout
-     *
-     * @param null
+     * Determine if the Magento theme is using the right-column layout.
      *
      * @return bool
      */
@@ -235,9 +215,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the Magento layout uses all three columns
-     *
-     * @param null
+     * Determine if the Magento layout uses all three columns.
      *
      * @return bool
      */
@@ -257,9 +235,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the Magento layout uses the two columns (content + one side-column
-     *
-     * @param null
+     * Determine if the Magento layout uses the two columns (content + one side-column.
      *
      * @return bool
      */
@@ -279,9 +255,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the Magento layout uses only the main component area
-     *
-     * @param null
+     * Determine if the Magento layout uses only the main component area.
      *
      * @return bool
      */
@@ -301,9 +275,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Get the current Magento store-name
-     *
-     * @param null
+     * Get the current Magento store-name.
      *
      * @return bool
      */
@@ -314,9 +286,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Get the current Magento page-request
-     *
-     * @param null
+     * Get the current Magento page-request.
      *
      * @return bool
      */
@@ -326,9 +296,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is the homepage
-     *
-     * @param null
+     * Determine if the current request is the homepage.
      *
      * @return bool
      */
@@ -345,9 +313,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a specific page
-     *
-     * @param null
+     * Determine if the current request is a specific page.
      *
      * @return bool
      */
@@ -393,9 +359,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a catalog page
-     *
-     * @param null
+     * Determine if the current request is a catalog page.
      *
      * @return bool
      */
@@ -405,9 +369,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a catalog product page
-     *
-     * @param null
+     * Determine if the current request is a catalog product page.
      *
      * @return bool
      */
@@ -417,9 +379,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a catalog category page
-     *
-     * @param null
+     * Determine if the current request is a catalog category page.
      *
      * @return bool
      */
@@ -429,9 +389,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a customer page
-     *
-     * @param null
+     * Determine if the current request is a customer page.
      *
      * @return bool
      */
@@ -457,9 +415,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is the shopping cart
-     *
-     * @param null
+     * Determine if the current request is the shopping cart.
      *
      * @return bool
      */
@@ -469,7 +425,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a checkout page
+     * Determine if the current request is a checkout page.
      *
      * @param $only_checkout Parameter to skip cart-page
      *
@@ -491,9 +447,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is a sales page
-     *
-     * @param null
+     * Determine if the current request is a sales page.
      *
      * @return bool
      */
@@ -503,9 +457,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if the current request is the wishlist
-     *
-     * @param null
+     * Determine if the current request is the wishlist.
      *
      * @return bool
      */
@@ -515,9 +467,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Return the current product ID
-     *
-     * @param null
+     * Return the current product ID.
      *
      * @return int
      */
@@ -540,7 +490,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Check whether the current category-ID is x
+     * Check whether the current category-ID is x.
      *
      * @param int $category_id
      *
@@ -567,9 +517,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Return the current category ID
-     *
-     * @param null
+     * Return the current category ID.
      *
      * @return int
      */
@@ -592,9 +540,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine if MageBridge is loaded
-     *
-     * @param null
+     * Determine if MageBridge is loaded.
      *
      * @return bool
      */
@@ -616,9 +562,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Determine whether the browser is a mobile browser or not
-     *
-     * @param null
+     * Determine whether the browser is a mobile browser or not.
      *
      * @return bool
      */
@@ -640,10 +584,9 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Method to determine whether a certain module is loaded or not
+     * Method to determine whether a certain module is loaded or not.
      *
      * @static
-     * @access public
      *
      * @param string $name
      *
@@ -661,11 +604,11 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Copy of the original JDocumentHTML::countModules() method, but this copy skips empty modules as well
+     * Copy of the original JDocumentHTML::countModules() method, but this copy skips empty modules as well.
      *
      * @param string $condition
      *
-     * @return integer
+     * @return int
      */
     public static function countModules($condition)
     {
@@ -689,9 +632,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function that determines whether a certain module-position should be "flushed" depending on MageBridge settings
-     *
-     * @param string $condition
+     * Function that determines whether a certain module-position should be "flushed" depending on MageBridge settings.
      *
      * @return bool
      */
@@ -760,11 +701,9 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to load a Magento stylesheet
+     * Function to load a Magento stylesheet.
      *
      * @param string $file
-     *
-     * @return null
      */
     public static function addMagentoStylesheet($file = null, $theme = 'default', $interface = 'default', $attribs = [])
     {
@@ -782,17 +721,15 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to load a specific stylesheet or script
+     * Function to load a specific stylesheet or script.
      *
      * @param string $type
      * @param string $file
-     *
-     * @return void
      */
     public static function load($type, $file = null)
     {
         // Fetch system-variables
-        /** @var \Joomla\CMS\Document\HtmlDocument */
+        /** @var Joomla\CMS\Document\HtmlDocument */
         $document = Factory::getDocument();
         $application = Factory::getApplication();
 
@@ -872,7 +809,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to get a certain path of a script
+     * Function to get a certain path of a script.
      *
      * @param string $type
      * @param string $file
@@ -928,10 +865,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to get a specific variable
-     *
-     * @param string $type
-     * @param string $file
+     * Function to get a specific variable.
      *
      * @return string
      */
@@ -946,12 +880,7 @@ class MageBridgeTemplateHelper
     }
 
     /**
-     * Function to enable debugging of MageBridge templating
-     *
-     * @param string $type
-     * @param string $file
-     *
-     * @return void
+     * Function to enable debugging of MageBridge templating.
      */
     public static function debug()
     {

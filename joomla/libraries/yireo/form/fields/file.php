@@ -1,11 +1,12 @@
 <?php
 
 /**
- * Joomla! Form Field - Components
+ * Joomla! Form Field - Components.
  *
  * @author    Yireo (info@yireo.com)
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com
  */
 
@@ -18,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/libraries/joomla/form/fields/file.php';
 
 /**
- * Form Field-class for selecting a component
+ * Form Field-class for selecting a component.
  */
 class YireoFormFieldFile extends JFormFieldFile
 {
@@ -32,9 +33,10 @@ class YireoFormFieldFile extends JFormFieldFile
      * Field attributes allow specification of a maximum file size and a string
      * of accepted file extensions.
      *
-     * @return  string  The field input markup.
+     * @return string the field input markup
      *
      * @note    The field does not include an upload mechanism.
+     *
      * @see     JFormFieldMedia
      * @since   11.1
      */

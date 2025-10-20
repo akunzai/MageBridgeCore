@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -23,17 +23,17 @@ use Joomla\Utilities\ArrayHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge user class
+ * Bridge user class.
  */
 class MageBridgeModelUser
 {
     /**
-     * Instance variable
+     * Instance variable.
      */
     protected static $_instance = null;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
@@ -43,7 +43,7 @@ class MageBridgeModelUser
     protected $debug;
 
     /**
-     * Singleton
+     * Singleton.
      *
      * @return MageBridgeModelUser $_instance
      */
@@ -66,10 +66,10 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to create a new Joomla! user if it does not yet exist
+     * Method to create a new Joomla! user if it does not yet exist.
      *
      * @param array $user
-     * @param bool  $empty_password
+     * @param bool $empty_password
      *
      * @return User|false
      */
@@ -183,7 +183,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to synchronize the user account with Magento
+     * Method to synchronize the user account with Magento.
      *
      * @param array $user
      *
@@ -294,7 +294,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to delete the customer from Magento
+     * Method to delete the customer from Magento.
      *
      * @param array $user
      *
@@ -318,7 +318,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to login an user into Magento - called from the "User - MageBridge" plugin
+     * Method to login an user into Magento - called from the "User - MageBridge" plugin.
      *
      * @param string $email
      *
@@ -368,7 +368,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to authenticate an user - called from the "Authentication - MageBridge" plugin
+     * Method to authenticate an user - called from the "Authentication - MageBridge" plugin.
      *
      * @param string $username
      * @param string $password
@@ -403,7 +403,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to load an user-record by a specific unique field
+     * Method to load an user-record by a specific unique field.
      *
      * @param string $field
      * @param string $value
@@ -444,7 +444,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to load an user-record by its username
+     * Method to load an user-record by its username.
      *
      * @param string $username
      *
@@ -456,7 +456,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to load an user-record by its email address
+     * Method to load an user-record by its email address.
      *
      * @param string $email
      *
@@ -473,7 +473,7 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to check whether an user should be synchronized or not
+     * Method to check whether an user should be synchronized or not.
      *
      * @param User $user
      *
@@ -495,12 +495,12 @@ class MageBridgeModelUser
     }
 
     /**
-     * Method to postlogin a Magento customer
+     * Method to postlogin a Magento customer.
      *
      * @param string $user_email
-     * @param int    $user_id
-     * @param bool   $throw_event
-     * @param bool   $allow_post
+     * @param int $user_id
+     * @param bool $throw_event
+     * @param bool $allow_post
      *
      * @return bool
      */
@@ -618,8 +618,6 @@ class MageBridgeModelUser
     }
 
     /**
-     * @param $email
-     *
      * @return bool
      */
     public function isValidEmail($email)

@@ -31,9 +31,8 @@ class YireoFormFieldBoolean extends JFormFieldRadio
     public $type = 'Boolean';
 
     /**
-     * @param SimpleXMLElement $element
-     * @param mixed            $value
-     * @param null             $group
+     * @param mixed $value
+     * @param null $group
      *
      * @return bool
      */
@@ -49,7 +48,7 @@ class YireoFormFieldBoolean extends JFormFieldRadio
     }
 
     /**
-     * Method to construct the HTML of this element
+     * Method to construct the HTML of this element.
      *
      * @return string
      */

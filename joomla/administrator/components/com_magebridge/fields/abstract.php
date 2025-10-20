@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,9 +17,9 @@ defined('JPATH_BASE') or die();
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Generic Form Field-class
+ * Generic Form Field-class.
  */
-abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
+abstract class MageBridgeFormFieldAbstract extends Joomla\CMS\Form\FormField
 {
     /** @var MageBridgeModelBridge */
     protected $bridge;
@@ -27,13 +27,13 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
     /** @var MageBridgeModelRegister */
     protected $register;
 
-    /** @var  MageBridgeModelDebug */
+    /** @var MageBridgeModelDebug */
     protected $debugger;
 
     /**
      * MageBridgeFormFieldAbstract constructor.
      *
-     * @param null $form
+     * @param Form|null $form
      */
     public function __construct($form = null)
     {
@@ -45,7 +45,7 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * Method to wrap the protected getInput() method
+     * Method to wrap the protected getInput() method.
      *
      * @return string
      */
@@ -55,7 +55,7 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * Method to set the name
+     * Method to set the name.
      *
      * @param mixed $value
      */
@@ -65,7 +65,7 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * Method to set the value
+     * Method to set the value.
      *
      * @param mixed $value
      */
@@ -74,9 +74,6 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
         $this->value = $value;
     }
 
-    /**
-     * @param $warning
-     */
     protected function warning($warning, $variable = null)
     {
         if (!empty($variable)) {
@@ -87,8 +84,6 @@ abstract class MageBridgeFormFieldAbstract extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * @param $name
-     *
      * @return mixed
      */
     protected function getConfig($name)

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,17 +14,15 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge caching class
+ * Bridge caching class.
  */
 class MageBridgeModelCacheBreadcrumbs extends MageBridgeModelCache
 {
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
      * @param $request string
      * @param @cache_time int
-     * @return null
      */
     public function __construct($request = null, $cache_time = null)
     {
@@ -32,9 +30,10 @@ class MageBridgeModelCacheBreadcrumbs extends MageBridgeModelCache
     }
 
     /**
-     * Method to store the data to cache
+     * Method to store the data to cache.
      *
      * @param mixed $data
+     *
      * @return bool
      */
     public function store($data)
@@ -44,9 +43,8 @@ class MageBridgeModelCacheBreadcrumbs extends MageBridgeModelCache
     }
 
     /**
-     * Method to load data from cache
+     * Method to load data from cache.
      *
-     * @param null
      * @return mixed
      */
     public function load()

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,20 +17,18 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for dealing with AJAX lazy-loading
+ * Helper for dealing with AJAX lazy-loading.
  */
 class MageBridgeAjaxHelper
 {
     /**
-     * Helper-method to return the right AJAX-URL
-     *
-     * @param mixed $user
+     * Helper-method to return the right AJAX-URL.
      *
      * @return bool
      */
     public static function getLoaderImage()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $template = $app->getTemplate();
 
@@ -42,9 +40,7 @@ class MageBridgeAjaxHelper
     }
 
     /**
-     * Helper-method to return the right AJAX-URL
-     *
-     * @param mixed $user
+     * Helper-method to return the right AJAX-URL.
      *
      * @return bool
      */
@@ -61,7 +57,7 @@ class MageBridgeAjaxHelper
     }
 
     /**
-     * Helper-method to return the right AJAX-script
+     * Helper-method to return the right AJAX-script.
      *
      * @param string $block
      * @param string $element

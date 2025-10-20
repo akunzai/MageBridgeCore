@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * Class Yireo_MageBridge_Helper_Encryption
+ * Class Yireo_MageBridge_Helper_Encryption.
  *
  * MageBridge helper for data encryption and decryption
  */

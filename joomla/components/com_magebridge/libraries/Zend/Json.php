@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,12 +14,12 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Json.php 20615 2010-01-25 19:54:12Z matthew $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
@@ -34,8 +34,9 @@ require_once 'Zend/Json/Expr.php';
  * Class for encoding to and decoding from JSON.
  *
  * @category   Zend
- * @package	Zend_Json
+ *
  * @uses	   Zend_Json_Expr
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -63,13 +64,14 @@ class Zend_Json
 
     /**
      * Decodes the given $encodedValue string which is
-     * encoded in the JSON format
+     * encoded in the JSON format.
      *
      * Uses ext/json's json_decode if available.
      *
      * @param string $encodedValue Encoded in JSON format
      * @param int $objectDecodeType Optional; flag indicating how to decode
-     * objects. See {@link Zend_Json_Decoder::decode()} for details.
+     *                              objects. See {@link Zend_Json_Decoder::decode()} for details.
+     *
      * @return mixed
      */
     public static function decode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
@@ -107,7 +109,7 @@ class Zend_Json
     }
 
     /**
-     * Encode the mixed $valueToEncode into the JSON format
+     * Encode the mixed $valueToEncode into the JSON format.
      *
      * Encodes using ext/json's json_encode() if available.
      *
@@ -121,9 +123,10 @@ class Zend_Json
      *
      * @see Zend_Json_Expr
      *
-     * @param  mixed $valueToEncode
-     * @param  bool $cycleCheck Optional; whether or not to check for object recursion; off by default
-     * @param  array $options Additional options used during encoding
+     * @param mixed $valueToEncode
+     * @param bool $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param array $options Additional options used during encoding
+     *
      * @return string JSON encoded object
      */
     public static function encode($valueToEncode, $cycleCheck = false, $options = [])
@@ -172,7 +175,7 @@ class Zend_Json
     }
 
     /**
-     * Check & Replace Zend_Json_Expr for tmp ids in the valueToEncode
+     * Check & Replace Zend_Json_Expr for tmp ids in the valueToEncode.
      *
      * Check if the value is a Zend_Json_Expr, and if replace its value
      * with a magic key and save the javascript expression in an array.
@@ -182,7 +185,7 @@ class Zend_Json
      * NOTE: This method is used internally by the encode method.
      *
      * @see encode
-     * @param mixed $valueToCheck a string - object property to be encoded
+     *
      * @return mixed
      */
     protected static function _recursiveJsonExprFinder(
@@ -213,7 +216,7 @@ class Zend_Json
     }
 
     /**
-     * fromXml - Converts XML to JSON
+     * fromXml - Converts XML to JSON.
      *
      * Converts a XML formatted string into a JSON formatted string.
      * The value returned will be a string in JSON format.
@@ -231,12 +234,14 @@ class Zend_Json
      * NOTE: Encoding native javascript expressions via Zend_Json_Expr is not possible.
      *
      * @static
-     * @access public
+     *
      * @param string $xmlStringContents XML String to be converted
-     * @param bool $ignoreXmlAttributes Include or exclude XML attributes in
-     * the xml2json conversion process.
-     * @return mixed - JSON formatted string on success
+     * @param bool $ignoreXmlAttributes include or exclude XML attributes in
+     *                                  the xml2json conversion process
+     *
      * @throws Zend_Json_Exception
+     *
+     * @return mixed - JSON formatted string on success
      */
     public static function fromXml($xmlStringContents, $ignoreXmlAttributes = true)
     {
@@ -261,7 +266,7 @@ class Zend_Json
     } // End of function fromXml.
 
     /**
-     * _processXml - Contains the logic for xml2json
+     * _processXml - Contains the logic for xml2json.
      *
      * The logic in this function is a recursive one.
      *
@@ -277,13 +282,15 @@ class Zend_Json
      * Throws a Zend_Json_Exception if the XML tree is deeper than the allowed limit.
      *
      * @static
-     * @access protected
+     *
      * @param SimpleXMLElement $simpleXmlElementObject XML element to be converted
-     * @param bool $ignoreXmlAttributes Include or exclude XML attributes in
-     * the xml2json conversion process.
+     * @param bool $ignoreXmlAttributes include or exclude XML attributes in
+     *                                  the xml2json conversion process
      * @param int $recursionDepth Current recursion depth of this function
-     * @return mixed - On success, a PHP associative array of traversed XML elements
+     *
      * @throws Zend_Json_Exception
+     *
+     * @return mixed - On success, a PHP associative array of traversed XML elements
      */
     protected static function _processXml($simpleXmlElementObject, $ignoreXmlAttributes, $recursionDepth = 0)
     {
@@ -369,12 +376,13 @@ class Zend_Json
     } // End of function _processXml.
 
     /**
-     * Pretty-print JSON string
+     * Pretty-print JSON string.
      *
      * Use 'indent' option to select indentation string - by default it's a tab
      *
      * @param string $json Original JSON string
      * @param array $options Encoding options
+     *
      * @return string
      */
     public static function prettyPrint($json, $options = [])

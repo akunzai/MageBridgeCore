@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge Store plugin - Example
+ * MageBridge Store plugin - Example.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,16 +17,16 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Store Plugin - Example
+ * MageBridge Store Plugin - Example.
  */
 class plgMageBridgeStoreExample extends MageBridgePluginStore
 {
     /**
-     * Event "onMageBridgeValidate"
+     * Event "onMageBridgeValidate".
      *
-     * @access public
      * @param array $actions
      * @param object $condition
+     *
      * @return bool
      */
     public function onMageBridgeValidate($actions = null, $condition = null)
@@ -46,9 +46,8 @@ class plgMageBridgeStoreExample extends MageBridgePluginStore
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()

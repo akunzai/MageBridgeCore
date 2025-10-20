@@ -32,9 +32,8 @@ class YireoFormFieldPublished extends JFormFieldRadio
     public $type = 'Published';
 
     /**
-     * @param SimpleXMLElement $element
-     * @param mixed            $value
-     * @param null             $group
+     * @param mixed $value
+     * @param null $group
      *
      * @return bool
      */

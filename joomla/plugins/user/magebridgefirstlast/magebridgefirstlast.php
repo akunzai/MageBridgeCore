@@ -1,11 +1,12 @@
 <?php
 
 /**
- * User Plugin for Joomla! - MageBridge First Last name
+ * User Plugin for Joomla! - MageBridge First Last name.
  *
  * @author    Yireo (info@yireo.com)
  * @copyright Copyright 2016 Yireo
  * @license   GNU Public License version 3 or later
+ *
  * @link      https://www.yireo.com/software/magebridge
  */
 
@@ -15,7 +16,7 @@ use Joomla\CMS\Form\Form;
 
 defined('_JEXEC') or die;
 
-class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
+class PlgUserMagebridgefirstlast extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * @var array
@@ -28,10 +29,10 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     ];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param object $subject
-     * @param array  $config
+     * @param array $config
      */
     public function __construct(&$subject, $config)
     {
@@ -41,7 +42,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onContentPrepareForm
+     * Event onContentPrepareForm.
      *
      * @param Form $form
      * @param array $data
@@ -67,10 +68,10 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onContentPrepareData
+     * Event onContentPrepareData.
      *
      * @param string $context
-     * @param object  $data
+     * @param object $data
      *
      * @return bool
      */
@@ -115,11 +116,11 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onUserAfterSave
+     * Event onUserAfterSave.
      *
-     * @param array  $data
-     * @param bool   $isNew
-     * @param bool   $result
+     * @param array $data
+     * @param bool $isNew
+     * @param bool $result
      * @param JError $error
      *
      * @return bool
@@ -148,10 +149,10 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onUserAfterDelete
+     * Event onUserAfterDelete.
      *
-     * @param \Joomla\CMS\User\User  $user
-     * @param bool   $success
+     * @param Joomla\CMS\User\User $user
+     * @param bool $success
      * @param string $msg
      *
      * @return bool
@@ -172,9 +173,9 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Event onUserLoad
+     * Event onUserLoad.
      *
-     * @param \Joomla\CMS\User\User $user
+     * @param Joomla\CMS\User\User $user
      *
      * @return bool
      */
@@ -196,7 +197,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Method to get all profile fields from user
+     * Method to get all profile fields from user.
      *
      * @param int $userId
      *
@@ -222,7 +223,7 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Delete all profile fields belonging to specific user
+     * Delete all profile fields belonging to specific user.
      *
      * @param int $userId
      */
@@ -240,12 +241,12 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Insert a specific profile fields belonging to specific user
+     * Insert a specific profile fields belonging to specific user.
      *
-     * @param int    $userId
+     * @param int $userId
      * @param string $name
      * @param string $value
-     * @param int    $ordering
+     * @param int $ordering
      */
     protected function insertField($userId, $name, $value, $ordering)
     {
@@ -264,9 +265,9 @@ class PlgUserMagebridgefirstlast extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Set the username
+     * Set the username.
      *
-     * @param int    $userId
+     * @param int $userId
      * @param string $firstname
      * @param string $lastname
      */

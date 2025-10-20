@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge Preloader - System plugin
+ * Joomla! MageBridge Preloader - System plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,12 +17,12 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Preloader System Plugin
+ * MageBridge Preloader System Plugin.
  */
-class plgSystemMageBridgePre extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgePre extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onAfterInitialise
+     * Event onAfterInitialise.
      */
     public function onAfterInitialise()
     {
@@ -72,7 +72,7 @@ class plgSystemMageBridgePre extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
+     * Simple check to see if MageBridge exists.
      *
      * @return bool
      */

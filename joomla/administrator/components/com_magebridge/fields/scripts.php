@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -21,17 +21,17 @@ defined('JPATH_BASE') or die();
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Form Field-class for selecting Magento JavaScript scripts
+ * Form Field-class for selecting Magento JavaScript scripts.
  */
 class MagebridgeFormFieldScripts extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'Magento scripts';
 
     /**
-     * Method to get the HTML of this element
+     * Method to get the HTML of this element.
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class MagebridgeFormFieldScripts extends MageBridgeFormFieldAbstract
     }
 
     /**
-     * Method to get a list of scripts from the API
+     * Method to get a list of scripts from the API.
      *
      * @return array
      */

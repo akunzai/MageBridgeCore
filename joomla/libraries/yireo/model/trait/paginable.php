@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -17,28 +18,26 @@ use Joomla\CMS\Pagination\Pagination;
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Paginable - allows models to have pagination support
- *
- * @package Yireo
+ * Yireo Model Trait: Paginable - allows models to have pagination support.
  */
 trait YireoModelTraitPaginable
 {
     /**
-     * Items total
+     * Items total.
      *
-     * @var integer
+     * @var int
      */
     protected $total = null;
 
     /**
-     * Pagination object
+     * Pagination object.
      *
      * @var Pagination
      */
     protected $pagination = null;
 
     /**
-     * Method to get the total number of records
+     * Method to get the total number of records.
      *
      * @return int
      */
@@ -57,7 +56,7 @@ trait YireoModelTraitPaginable
         }
 
         if (method_exists($this, 'buildQueryObject')) {
-            /** @var \Joomla\Database\DatabaseQuery */
+            /** @var Joomla\Database\DatabaseQuery */
             $query = $this->buildQueryObject();
             $query->select('COUNT(*) AS count');
             $query->setLimit(0);
@@ -81,7 +80,7 @@ trait YireoModelTraitPaginable
     }
 
     /**
-     * Method to get a pagination object for the fetched records
+     * Method to get a pagination object for the fetched records.
      *
      * @return Pagination
      */

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -21,9 +22,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * Form View class
- *
- * @package Yireo
+ * Form View class.
  */
 class YireoViewForm extends YireoView
 {
@@ -42,7 +41,7 @@ class YireoViewForm extends YireoView
     protected $_single = true;
 
     /**
-     * Item object
+     * Item object.
      *
      * @var object
      */

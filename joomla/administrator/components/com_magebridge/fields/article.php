@@ -14,21 +14,18 @@ defined('JPATH_BASE') or die;
 
 /**
  * Supports a modal article picker.
- *
- * @package        Joomla.Administrator
- * @subpackage     com_content
  */
-class MagebridgeFormFieldArticle extends \Joomla\CMS\Form\FormField
+class MagebridgeFormFieldArticle extends Joomla\CMS\Form\FormField
 {
     /**
      * The form field type.
      *
-     * @var        string
+     * @var string
      */
     protected $type = 'Article';
 
     /**
-     * Article title
+     * Article title.
      *
      * @var string
      */
@@ -37,7 +34,7 @@ class MagebridgeFormFieldArticle extends \Joomla\CMS\Form\FormField
     /**
      * Method to get the field input markup.
      *
-     * @return    string    The field input markup.
+     * @return string the field input markup
      */
     protected function getInput()
     {
@@ -66,7 +63,7 @@ class MagebridgeFormFieldArticle extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * Set article title
+     * Set article title.
      */
     protected function setArticleTitle()
     {
@@ -84,7 +81,7 @@ class MagebridgeFormFieldArticle extends \Joomla\CMS\Form\FormField
     }
 
     /**
-     * Add script declaration
+     * Add script declaration.
      */
     protected function addScriptDeclaration()
     {

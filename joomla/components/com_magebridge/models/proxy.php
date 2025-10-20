@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -21,37 +21,37 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge proxy class
+ * Bridge proxy class.
  */
 class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
 {
     /**
-     * Raw headers received from the proxy
+     * Raw headers received from the proxy.
      */
     public $rawheaders = [];
 
     /**
-     * Headers received from the proxy
+     * Headers received from the proxy.
      */
     protected $head = [];
 
     /**
-     * Body of content
+     * Body of content.
      */
     protected $body = '';
 
     /**
-     * Content fetched through the proxy
+     * Content fetched through the proxy.
      */
     protected $data = '';
 
     /**
-     * Redirect flag
+     * Redirect flag.
      */
     protected $redirect = false;
 
     /**
-     * Allow redirects flag
+     * Allow redirects flag.
      */
     protected $allow_redirects = true;
 
@@ -61,7 +61,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     protected $redirectUrl;
 
     /**
-     * Encode the data for sending through the proxy
+     * Encode the data for sending through the proxy.
      *
      * @param array $data
      *
@@ -85,7 +85,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Determine whether the proxy response is non-MageBridge output
+     * Determine whether the proxy response is non-MageBridge output.
      *
      * @param string $response
      *
@@ -131,7 +131,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Send direct output URL response
+     * Send direct output URL response.
      *
      * @param string $response
      */
@@ -146,7 +146,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Try to match one of the direct output URLs
+     * Try to match one of the direct output URLs.
      */
     protected function matchDirectOutputUrls()
     {
@@ -171,7 +171,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     protected function getContentTypeFromHeader()
     {
@@ -185,8 +185,6 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * @param $url
-     *
      * @return string
      */
     protected function convertUrl($url)
@@ -205,7 +203,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Send non-bridge output response
+     * Send non-bridge output response.
      *
      * @param string $response
      * @param string $decodedResponse
@@ -265,11 +263,11 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Handle non-bridge output
+     * Handle non-bridge output.
      */
 
     /**
-     * Check for a certain HTTP Status code
+     * Check for a certain HTTP Status code.
      *
      * @param string $code
      *
@@ -285,7 +283,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Handle non-bridge output
+     * Handle non-bridge output.
      *
      * @param string $rawResponse
      * @param string $decodedResponse
@@ -313,7 +311,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Build the data from the registry
+     * Build the data from the registry.
      *
      * @param array $data
      *
@@ -369,7 +367,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to determine whether the bridge-response is valid or not
+     * Method to determine whether the bridge-response is valid or not.
      *
      * @param array $data
      *
@@ -394,11 +392,11 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to fetch data from a remote URL
+     * Method to fetch data from a remote URL.
      *
-     * @param string  $url
-     * @param array   $arguments
-     * @param string  $requestType
+     * @param string $url
+     * @param array $arguments
+     * @param string $requestType
      * @param bool $runBridge
      *
      * @return string
@@ -435,7 +433,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Get default CURL arguments
+     * Get default CURL arguments.
      */
     protected function getCurlDefaultArguments()
     {
@@ -458,7 +456,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Set CURL SSL details
+     * Set CURL SSL details.
      *
      * @param CurlHandle|resource $handle
      */
@@ -483,7 +481,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Set CURL HTTP Authentication
+     * Set CURL HTTP Authentication.
      *
      * @param CurlHandle|resource $handle
      */
@@ -500,7 +498,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Set CURL cookies
+     * Set CURL cookies.
      *
      * @param resource CurlHandle|$handle
      */
@@ -530,12 +528,12 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * CURL-wrapper
+     * CURL-wrapper.
      *
      * @param string $url
      * @param string $type
-     * @param array  $arguments
-     * @param bool   $runBridge
+     * @param array $arguments
+     * @param bool $runBridge
      *
      * @return string
      */
@@ -874,7 +872,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
                 // Create the encryption key, apply extra hardening using the user agent string.
                 $privateKey = ApplicationHelper::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
-                $key      = class_exists('\Joomla\Crypt\Key') ? new \Joomla\Crypt\Key('sodium', $privateKey, $privateKey) : new \Joomla\CMS\Crypt\Key('sodium', $privateKey, $privateKey);
+                $key      = class_exists('\Joomla\Crypt\Key') ? new Joomla\Crypt\Key('sodium', $privateKey, $privateKey) : new Joomla\CMS\Crypt\Key('sodium', $privateKey, $privateKey);
                 $crypt    = new Crypt(new SodiumCipher(), $key);
                 $rcookie  = $crypt->encrypt(serialize($credentials));
                 $lifetime = time() + 365 * 24 * 60 * 60;
@@ -946,7 +944,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Determine whether handling of file downloads is required
+     * Determine whether handling of file downloads is required.
      *
      * @return int
      */
@@ -964,7 +962,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to deliver direct output
+     * Method to deliver direct output.
      *
      * @param CurlHandle|resource $handle
      *
@@ -1084,7 +1082,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get a HTTP-header from the CURL-response
+     * Method to get a HTTP-header from the CURL-response.
      *
      * @param string $name
      *
@@ -1100,10 +1098,10 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set a body
+     * Method to set a body.
      *
      * @param string $handle
-     * @param mixed  $data
+     * @param mixed $data
      *
      * @return string
      */
@@ -1115,10 +1113,10 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set a HTTP-header
+     * Method to set a HTTP-header.
      *
      * @param string $handle
-     * @param mixed  $data
+     * @param mixed $data
      *
      * @return string
      */
@@ -1130,7 +1128,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set a raw header
+     * Method to set a raw header.
      *
      * @param string $handle
      * @param string $header
@@ -1145,7 +1143,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to check whether spoofing of HTTP headers is allowed
+     * Method to check whether spoofing of HTTP headers is allowed.
      *
      * @return bool
      */
@@ -1175,7 +1173,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to check whether a specific HTTP header can be spoofed or not
+     * Method to check whether a specific HTTP header can be spoofed or not.
      *
      * @return bool
      */
@@ -1191,7 +1189,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Convert a header-string to an header-array
+     * Convert a header-string to an header-array.
      */
     protected function convertHeaderStringToArray($headerString)
     {
@@ -1205,7 +1203,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to spoof the current HTTP headers
+     * Method to spoof the current HTTP headers.
      *
      * @param mixed $data
      *
@@ -1249,7 +1247,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the current HTTP-status
+     * Method to get the current HTTP-status.
      *
      * @return int
      */
@@ -1263,7 +1261,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the current proxy error
+     * Method to get the current proxy error.
      *
      * @return string
      */
@@ -1277,7 +1275,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set the $_allow_redirects flag
+     * Method to set the $_allow_redirects flag.
      *
      * @param bool @bool
      */
@@ -1287,10 +1285,10 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to set a redirect for later redirection
+     * Method to set a redirect for later redirection.
      *
      * @param string $redirect
-     * @param int    $max_redirects
+     * @param int $max_redirects
      *
      * @return bool
      */
@@ -1333,10 +1331,10 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to maximize the number of redirects (to prevent endless loops)
+     * Method to maximize the number of redirects (to prevent endless loops).
      *
      * @param string $redirect
-     * @param int    $max_redirects
+     * @param int $max_redirects
      *
      * @return bool
      */
@@ -1364,7 +1362,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to actually redirect the browser
+     * Method to actually redirect the browser.
      *
      * @todo: It's not clear anymore when and why this redirect happens
      */
@@ -1382,7 +1380,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get a User-Agent string for MageBridge
+     * Method to get a User-Agent string for MageBridge.
      *
      * @return string
      */
@@ -1395,7 +1393,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to reset the proxy
+     * Method to reset the proxy.
      *
      * @return mixed
      */
@@ -1406,7 +1404,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the current redirect count
+     * Method to get the current redirect count.
      *
      * @return int
      */
@@ -1416,7 +1414,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the proxy data
+     * Method to get the proxy data.
      *
      * @return array
      */
@@ -1426,7 +1424,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get the proxy headers
+     * Method to get the proxy headers.
      *
      * @return array
      */
@@ -1436,7 +1434,7 @@ class MageBridgeModelProxy extends MageBridgeModelProxyAbstract
     }
 
     /**
-     * Method to get a cookie file (deprecated)
+     * Method to get a cookie file (deprecated).
      */
     public function getCookieFile()
     {

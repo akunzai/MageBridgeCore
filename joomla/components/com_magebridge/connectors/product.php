@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,21 +16,17 @@ use Joomla\CMS\Plugin\PluginHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Product-connector class
- *
- * @package MageBridge
+ * MageBridge Product-connector class.
  */
 class MageBridgeConnectorProduct extends MageBridgeConnector
 {
     /**
-     * Singleton variable
+     * Singleton variable.
      */
     private static $_instance = null;
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeConnectorProduct
      */
@@ -44,10 +40,10 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to do something on purchase
+     * Method to do something on purchase.
      *
      * @param string $sku
-     * @param \Joomla\CMS\User\User  $user
+     * @param Joomla\CMS\User\User $user
      * @param string $status
      *
      * @return mixed
@@ -106,12 +102,12 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to save the actions of this connector
+     * Method to save the actions of this connector.
      *
-     * @param int    $user_id
+     * @param int $user_id
      * @param string $sku
      * @param string $expire_unit
-     * @param int    $expire_amount
+     * @param int $expire_amount
      *
      * @return mixed
      */
@@ -139,12 +135,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         return true;
     }
 
-    /**
-     * @param $userId
-     * @param $sku
-     * @param $createDate
-     * @param $expireDate
-     */
     protected function insertLogRecord($userId, $sku, $createDate, $expireDate)
     {
         $log              = (object) null;
@@ -158,7 +148,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Overload methods to add an argument to it
+     * Overload methods to add an argument to it.
      */
     public function getConnectors($type = null)
     {
@@ -166,8 +156,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnector($name)
@@ -176,8 +164,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnectorObject($name)
@@ -186,8 +172,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $file
-     *
      * @return string
      */
     public function getPath($file)
@@ -196,7 +180,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     public function getParams()
     {
@@ -204,7 +188,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current conditions
+     * Method to get the current conditions.
      *
      * @param string $sku
      *
@@ -250,7 +234,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current conditions
+     * Method to get the current conditions.
      *
      * @param string $sku
      * @param string $rule

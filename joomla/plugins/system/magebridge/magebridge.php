@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - System plugin
+ * Joomla! MageBridge - System plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  *
  * @todo      : plgSystemMageBridgeHelperJavascript
@@ -25,32 +25,32 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge System Plugin
+ * MageBridge System Plugin.
  */
 class PlgSystemMageBridge extends MageBridgePlugin
 {
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\CMS\Document\Document
+     * @var Joomla\CMS\Document\Document
      */
     protected $doc;
 
     /**
-     * @var \Joomla\CMS\Input\Input
+     * @var Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * List of console messages
+     * List of console messages.
      */
     protected $console = [];
 
     /**
-     * Initialize
+     * Initialize.
      */
     public function initialize()
     {
@@ -61,13 +61,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onAfterInitialise
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Event onAfterInitialise.
      */
     public function onAfterInitialise()
     {
@@ -119,13 +113,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onAfterRoute
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Event onAfterRoute.
      */
     public function onAfterRoute()
     {
@@ -134,7 +122,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
             return;
         }
 
-        /** @var \Joomla\CMS\Application\SiteApplication $app */
+        /** @var Joomla\CMS\Application\SiteApplication $app */
         $app = $this->app;
         if ($app->isClient('site')) {
             // Check for a different template
@@ -184,13 +172,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterDispatch()
     {
@@ -240,13 +222,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
 
     /**
-     * Event onAfterRender
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Event onAfterRender.
      */
     public function onAfterRender()
     {
@@ -289,13 +265,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Include JForm namespace
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Include JForm namespace.
      */
     private function loadJform()
     {
@@ -306,13 +276,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Add some functions for NewRelic
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Add some functions for NewRelic.
      */
     private function loadNewRelic()
     {
@@ -322,13 +286,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Method to redirect non-SEF URLs if enabled
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Method to redirect non-SEF URLs if enabled.
      */
     private function redirectNonSef()
     {
@@ -373,13 +331,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Method to redirect to URL replacements
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Method to redirect to URL replacements.
      */
     private function redirectUrlReplacement()
     {
@@ -433,13 +385,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Method to redirect com_user if enabled
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Method to redirect com_user if enabled.
      */
     private function redirectComUser()
     {
@@ -461,11 +407,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Get the Magento Base URL
-     *
-     * @access private
-     *
-     * @param null
+     * Get the Magento Base URL.
      *
      * @return string
      */
@@ -478,11 +420,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Get the Magento Base JS URL
-     *
-     * @access private
-     *
-     * @param null
+     * Get the Magento Base JS URL.
      *
      * @return string
      */
@@ -498,13 +436,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
 
     /**
      * /**
-     * Method to determine which JavaScript to use and which not
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Method to determine which JavaScript to use and which not.
      */
     private function handleJavaScript()
     {
@@ -773,13 +705,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Handle SSO checks
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Handle SSO checks.
      */
     private function handleSsoChecks()
     {
@@ -798,13 +724,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Handle task queues
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Handle task queues.
      */
     private function handleQueue()
     {
@@ -819,13 +739,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Method to set SSL if needed
-     *
-     * @access private
-     *
-     * @param null
-     *
-     * @return null
+     * Method to set SSL if needed.
      */
     private function redirectSSL()
     {
@@ -963,11 +877,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Spoof the Magento login-form
-     *
-     * @access private
-     *
-     * @param null
+     * Spoof the Magento login-form.
      *
      * @return bool
      */
@@ -1002,12 +912,10 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Load a specific parameter
-     *
-     * @access private
+     * Load a specific parameter.
      *
      * @param string $name
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -1017,15 +925,11 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Redirect a specific URL
-     *
-     * @access private
+     * Redirect a specific URL.
      *
      * @param string $name
      * @param string $value
      * @param string $redirect
-     *
-     * @return null
      */
     private function doRedirect($name = '', $value = '', $redirect = null)
     {
@@ -1043,9 +947,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Load a configuration value
-     *
-     * @access private
+     * Load a configuration value.
      *
      * @param string $name
      *
@@ -1057,11 +959,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
-     *
-     * @access private
-     *
-     * @param null
+     * Simple check to see if MageBridge exists.
      *
      * @return bool
      */
@@ -1079,7 +977,7 @@ class PlgSystemMageBridge extends MageBridgePlugin
     }
 
     /**
-     * Method to override existing classes with MageBridge customized classes
+     * Method to override existing classes with MageBridge customized classes.
      *
      * @return bool
      */

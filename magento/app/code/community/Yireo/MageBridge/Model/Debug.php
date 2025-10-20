@@ -1,15 +1,14 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 if (!defined('MAGEBRIDGE_DEBUG_TRACE')) {
     define('MAGEBRIDGE_DEBUG_TRACE', 1);
 }
@@ -133,9 +132,7 @@ class Yireo_MageBridge_Model_Debug
      * Singleton method
      *
      * @static
-     * @access public
-     * @param null
-     * @return Yireo_MageBridge_Model_Debug
+     * @access public @return Yireo_MageBridge_Model_Debug
      */
     public static function getInstance()
     {
@@ -148,9 +145,7 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to determine whether debugging is enabled or not
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function isDebug()
     {
@@ -164,9 +159,7 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to get all the debugging data
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getData()
     {
@@ -176,9 +169,7 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to clean all the debugging data
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function clean()
     {

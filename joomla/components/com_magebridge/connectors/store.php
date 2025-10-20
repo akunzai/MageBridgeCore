@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,26 +17,22 @@ use Joomla\CMS\Plugin\PluginHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Store-connector class
- *
- * @package MageBridge
+ * MageBridge Store-connector class.
  */
 class MageBridgeConnectorStore extends MageBridgeConnector
 {
     /**
-     * Singleton variable
+     * Singleton variable.
      */
     private static $_instance = null;
 
     /**
-     * Associated array of options
+     * Associated array of options.
      */
     private $options = [];
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeConnectorStore
      */
@@ -50,9 +46,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to return options
-     *
-     * @param null
+     * Method to return options.
      *
      * @return mixed
      */
@@ -62,9 +56,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current store definition
-     *
-     * @param null
+     * Method to get the current store definition.
      *
      * @return array
      */
@@ -131,8 +123,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $plugin
-     *
      * @return MageBridgePluginStore|false
      */
     protected function getObjectFromPluginDefinition($plugin)
@@ -166,11 +156,9 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Attach an observer object
+     * Attach an observer object.
      *
-     * @param   object $observer An observer object to attach
-     *
-     * @return  void
+     * @param object $observer An observer object to attach
      */
     public function attach($observer)
     {
@@ -178,7 +166,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to check whether the given condition is true
+     * Method to check whether the given condition is true.
      *
      * @param mixed $condition
      *
@@ -190,7 +178,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Overload methods to add an argument to it
+     * Overload methods to add an argument to it.
      */
     public function getConnectors($type = null)
     {
@@ -198,8 +186,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnector($name)
@@ -208,8 +194,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnectorObject($name)
@@ -218,8 +202,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $file
-     *
      * @return string
      */
     public function getPath($file)
@@ -230,7 +212,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     /**
      * @param null $type
      *
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     public function getParams($type = null)
     {

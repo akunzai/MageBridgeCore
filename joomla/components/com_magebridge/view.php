@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,8 +17,7 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * HTML View class
- * @package MageBridge
+ * HTML View class.
  */
 class MageBridgeView extends YireoAbstractView
 {
@@ -27,7 +26,7 @@ class MageBridgeView extends YireoAbstractView
     protected $block_built = false;
 
     /**
-     * Main constructor method
+     * Main constructor method.
      *
      * @param array $config
      */
@@ -47,10 +46,9 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Method to display the requested view
+     * Method to display the requested view.
      *
      * @param string $tpl
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -69,10 +67,7 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to build the bridge
-     *
-     * @param string $block_name
-     * @return null
+     * Helper-method to build the bridge.
      */
     public function build()
     {
@@ -119,10 +114,9 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to fetch add block to the bridge-register
+     * Helper-method to fetch add block to the bridge-register.
      *
      * @param string $block_name
-     * @return null
      */
     public function setBlock($block_name)
     {
@@ -131,10 +125,9 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to set the request as REQUEST-variable
+     * Helper-method to set the request as REQUEST-variable.
      *
      * @param string $request
-     * @return null
      */
     public function setRequest($request)
     {
@@ -150,9 +143,10 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to add specific fixes to the current page
+     * Helper-method to add specific fixes to the current page.
      *
      * @param string $html
+     *
      * @return string
      */
     public function addFixes($html)
@@ -170,7 +164,7 @@ class MageBridgeView extends YireoAbstractView
     }
 
     /**
-     * Helper-method to get the offline message
+     * Helper-method to get the offline message.
      *
      * @return string
      */

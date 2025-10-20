@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -20,14 +20,13 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge View Helper
+ * MageBridge View Helper.
  */
 class MageBridgeViewHelper
 {
     /**
-     * Helper-method to initialize YireoCommonView-based views
+     * Helper-method to initialize YireoCommonView-based views.
      *
-     * @param string $name
      * @return mixed
      */
     public static function initialize($title)
@@ -50,10 +49,7 @@ class MageBridgeViewHelper
     }
 
     /**
-     * Helper-method to add all the submenu-items for this component
-     *
-     * @param null
-     * @return null
+     * Helper-method to add all the submenu-items for this component.
      */
     protected static function addMenuItems()
     {

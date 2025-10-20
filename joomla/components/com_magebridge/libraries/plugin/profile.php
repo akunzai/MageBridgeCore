@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -19,32 +19,31 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Parent plugin-class
+ * Parent plugin-class.
  */
 class MageBridgePluginProfile extends MageBridgePlugin
 {
     /**
-     * Constants
+     * Constants.
      */
     public const CONVERT_TO_JOOMLA = 1;
     public const CONVERT_TO_MAGENTO = 2;
 
     /**
-     * Short name of this plugin
+     * Short name of this plugin.
      */
     protected $pluginName = null;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     private $db;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access	  protected
-     * @param	   object  $subject The object to observe
-     * @param	   array   $config  An array that holds the plugin configuration
+     * @param object $subject The object to observe
+     * @param array $config An array that holds the plugin configuration
      */
     public function __construct(&$subject, $config)
     {
@@ -54,9 +53,8 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()
@@ -65,10 +63,11 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Convert a specific field
+     * Convert a specific field.
      *
      * @param string $field
      * @param int $type
+     *
      * @return string
      */
     public function convertField($field, $type = self::CONVERT_TO_JOOMLA)
@@ -95,9 +94,8 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Get the configuration file
+     * Get the configuration file.
      *
-     * @param null
      * @return string
      */
     public function getConfigFile()
@@ -117,9 +115,8 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Get the conversion-array
+     * Get the conversion-array.
      *
-     * @param null
      * @return array
      */
     public function getConversionArray()
@@ -143,10 +140,10 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Get the right path to a file
+     * Get the right path to a file.
      *
-     * @param string $type
      * @param string $filename
+     *
      * @return string
      */
     protected function getPath($filename)

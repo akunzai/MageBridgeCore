@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,13 +14,12 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Expr
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Expr.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
@@ -46,8 +45,7 @@ defined('_JEXEC') or die('Restricted access');
  * </code>
  *
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Expr
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -61,10 +59,9 @@ class Zend_Json_Expr
     protected $_expression;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  string $expression the expression to hold.
-     * @return void
+     * @param string $expression the expression to hold
      */
     public function __construct($expression)
     {
@@ -72,9 +69,9 @@ class Zend_Json_Expr
     }
 
     /**
-     * Cast to string
+     * Cast to string.
      *
-     * @return string holded javascript expression.
+     * @return string holded javascript expression
      */
     public function __toString()
     {

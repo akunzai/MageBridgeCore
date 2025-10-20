@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,33 +17,27 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
 {
     /**
-     * Boolean to see if ProtoType has been loaded
-     *
-     * @var $_has_prototype
+     * Boolean to see if ProtoType has been loaded.
      */
     private $has_prototype = false;
 
     /**
-     * List of scripts
-     *
-     * @var $_scripts
+     * List of scripts.
      */
     private $scripts = null;
 
     /**
-     * List of stylesheets
-     *
-     * @var $_stylesheets
+     * List of stylesheets.
      */
     private $stylesheets = null;
 
     /**
-     * Singleton method
+     * Singleton method.
      *
      * @param string $name
      *
@@ -55,7 +49,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      *
      * @return array
      */
@@ -65,7 +59,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Get the Base JavaScript URL from the bridge
+     * Get the Base JavaScript URL from the bridge.
      *
      * @return string
      */
@@ -86,7 +80,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Determine whether headers can be set
+     * Determine whether headers can be set.
      *
      * @return bool
      */
@@ -108,7 +102,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to set the headers
+     * Method to set the headers.
      *
      * @param string $type
      *
@@ -163,7 +157,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load the common headers
+     * Method to load the common headers.
      *
      * @param array $headers
      *
@@ -202,7 +196,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Set canonical links in the header
+     * Set canonical links in the header.
      *
      * @param array $items
      */
@@ -216,7 +210,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to set the META robots
+     * Method to set the META robots.
      *
      * @param string $robots
      */
@@ -230,7 +224,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to set the META description
+     * Method to set the META description.
      *
      * @param string $description
      */
@@ -243,7 +237,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Try to load the merged CSS from Magento
+     * Try to load the merged CSS from Magento.
      */
     protected function loadMergeCss()
     {
@@ -262,11 +256,9 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load the CSS headers
+     * Method to load the CSS headers.
      *
      * @param array $headers
-     *
-     * @return null
      */
     public function loadCss($headers)
     {
@@ -334,7 +326,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load the CSS headers
+     * Method to load the CSS headers.
      *
      * @return bool
      */
@@ -390,7 +382,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load the JavaScript headers
+     * Method to load the JavaScript headers.
      *
      * @param array $headers
      *
@@ -562,7 +554,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load feeds
+     * Method to load feeds.
      *
      * @param array $headers
      *
@@ -595,9 +587,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Return the list of scripts
-     *
-     * @param null
+     * Return the list of scripts.
      *
      * @return array
      */
@@ -607,7 +597,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Add script
+     * Add script.
      *
      * @param string
      */
@@ -619,9 +609,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Return the list of stylesheets
-     *
-     * @param null
+     * Return the list of stylesheets.
      *
      * @return array
      */
@@ -635,9 +623,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Return whether ProtoType has been loaded or not
-     *
-     * @param null
+     * Return whether ProtoType has been loaded or not.
      *
      * @return bool
      */
@@ -647,7 +633,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to load ProtoType
+     * Method to load ProtoType.
      */
     public function loadPrototype()
     {
@@ -679,9 +665,7 @@ class MageBridgeModelBridgeHeaders extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Guarantee a script or stylesheet loaded through SSL is also loaded through SSL
-     *
-     * @param null
+     * Guarantee a script or stylesheet loaded through SSL is also loaded through SSL.
      *
      * @return bool
      */

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,22 +20,22 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewStore extends YireoViewForm
 {
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $actions_form;
 
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $params_form;
 
     /**
-     * Main constructor method
+     * Main constructor method.
      *
      * @param array $config
      */
@@ -50,11 +50,9 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Method to prepare the content for display
+     * Method to prepare the content for display.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -70,7 +68,7 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Method to prepare the content for display
+     * Method to prepare the content for display.
      *
      * @param string $tpl
      */
@@ -109,7 +107,7 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Method to prepare the content for display
+     * Method to prepare the content for display.
      *
      * @param string $tpl
      */
@@ -152,7 +150,7 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Helper method to get the HTML-formelement for a store
+     * Helper method to get the HTML-formelement for a store.
      *
      * @param string $type
      * @param string $value
@@ -175,7 +173,7 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Helper method to get the HTML-formelement for a storeview
+     * Helper method to get the HTML-formelement for a storeview.
      *
      * @param string $default
      *
@@ -187,7 +185,7 @@ class MageBridgeViewStore extends YireoViewForm
     }
 
     /**
-     * Helper method to get the HTML-formelement for a storegroup
+     * Helper method to get the HTML-formelement for a storegroup.
      *
      * @param string $default
      *

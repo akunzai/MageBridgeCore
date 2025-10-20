@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com/
  */
 
@@ -16,14 +16,12 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/../loader.php';
 
 /**
- * Yireo Abstract Controller
- *
- * @package Yireo
+ * Yireo Abstract Controller.
  */
 class YireoAbstractController extends JControllerLegacy
 {
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {

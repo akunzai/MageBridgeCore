@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,15 +20,14 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewConfig extends YireoCommonView
 {
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $form;
 
@@ -38,11 +37,9 @@ class MageBridgeViewConfig extends YireoCommonView
     protected $configData;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -110,11 +107,7 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Method to check the configuration and generate warnings if needed
-     *
-     * @param null
-     *
-     * @return null
+     * Method to check the configuration and generate warnings if needed.
      */
     public function checkConfig()
     {
@@ -139,7 +132,7 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Get the HTML-field for a custom field
+     * Get the HTML-field for a custom field.
      *
      * @param string $type
      * @param string $name
@@ -159,11 +152,7 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Shortcut method to build the bridge for this page
-     *
-     * @param null
-     *
-     * @return null
+     * Shortcut method to build the bridge for this page.
      */
     public function preBuildBridge()
     {
@@ -179,7 +168,7 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Method to get all the different tabs
+     * Method to get all the different tabs.
      */
     public function getTabs()
     {
@@ -189,7 +178,7 @@ class MageBridgeViewConfig extends YireoCommonView
     }
 
     /**
-     * Method to print a specific fieldset
+     * Method to print a specific fieldset.
      */
     public function printFieldset($form, $fieldset)
     {

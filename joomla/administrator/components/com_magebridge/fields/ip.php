@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,17 +19,17 @@ defined('JPATH_BASE') or die();
 require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * Form Field-class for adding an IP
+ * Form Field-class for adding an IP.
  */
 class MagebridgeFormFieldIp extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'IP address';
 
     /**
-     * Method to get the HTML of this element
+     * Method to get the HTML of this element.
      *
      * @return string
      */

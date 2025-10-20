@@ -5,9 +5,7 @@
 namespace Yireo\Common\Base;
 
 /**
- * Class SimpleObject
- *
- * @package Yireo\Common\Base
+ * Class SimpleObject.
  */
 class SimpleObject
 {
@@ -22,8 +20,6 @@ class SimpleObject
     }
 
     /**
-     * @param $data
-     *
      * @return bool
      */
     protected function loadDataFromArray($data)
@@ -39,11 +35,6 @@ class SimpleObject
         return true;
     }
 
-    /**
-     * @param $name
-     *
-     * @return null
-     */
     public function __get($name)
     {
         if (isset($this->$name)) {
@@ -53,12 +44,6 @@ class SimpleObject
         return null;
     }
 
-    /**
-     * @param $methodName
-     * @param $methodArguments
-     *
-     * @return null
-     */
     public function __call($methodName, $methodArguments)
     {
         if (substr($methodName, 0, 3) !== 'get') {

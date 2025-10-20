@@ -1,11 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -13,12 +14,12 @@
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Structure
+ * MageBridge Structure.
  */
 class HelperAbstract
 {
     /**
-     * Structural data of this component
+     * Structural data of this component.
      */
     public static function getStructure()
     {

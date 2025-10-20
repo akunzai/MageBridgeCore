@@ -1,23 +1,20 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Helper_Core extends Mage_Core_Helper_Abstract
 {
     /*
      * Return the current category ID
      *
-     * @access public
-     * @param null
-     * @return int
+     * @access public @return int
      */
     public function getCurrentCategoryId()
     {
@@ -37,9 +34,7 @@ class Yireo_MageBridge_Helper_Core extends Mage_Core_Helper_Abstract
     /*
      * Return the current product ID
      *
-     * @access public
-     * @param null
-     * @return int
+     * @access public @return int
      */
     public function getCurrentCategoryPath()
     {
@@ -53,9 +48,7 @@ class Yireo_MageBridge_Helper_Core extends Mage_Core_Helper_Abstract
     /*
      * Return the current product ID
      *
-     * @access public
-     * @param null
-     * @return int
+     * @access public @return int
      */
     public function getCurrentProductId()
     {
@@ -69,9 +62,7 @@ class Yireo_MageBridge_Helper_Core extends Mage_Core_Helper_Abstract
     /*
      * Return the current product SKU
      *
-     * @access public
-     * @param null
-     * @return int
+     * @access public @return int
      */
     public function getCurrentProductSku()
     {

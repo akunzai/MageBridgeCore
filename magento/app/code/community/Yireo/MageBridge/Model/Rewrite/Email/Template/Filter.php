@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,7 +16,7 @@
 class Yireo_MageBridge_Model_Rewrite_Email_Template_Filter extends Mage_Core_Model_Email_Template_Filter
 {
     /**
-     * Use absolute links flag
+     * Use absolute links flag.
      *
      * @var bool
      */

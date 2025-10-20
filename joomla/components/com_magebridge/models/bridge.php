@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,32 +20,32 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridge
 {
     /**
-     * Instance variable
+     * Instance variable.
      */
     protected static $_instance = null;
 
     /**
-     * API state
+     * API state.
      */
     private $_api_state = '';
 
     /**
-     * API extra
+     * API extra.
      */
     private $_api_extra = '';
 
     /**
-     * HTTP Referer
+     * HTTP Referer.
      */
     private $_http_referer = '';
 
     /**
-     * Singleton
+     * Singleton.
      *
      * @return MageBridgeModelBridge
      */
@@ -59,10 +59,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return the Joomla!/MageBridge System URL
+     * Method to return the Joomla!/MageBridge System URL.
      *
      * @param string $request
-     * @param int    $forceSsl
+     * @param int $forceSsl
      *
      * @return string
      */
@@ -121,10 +121,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return the Joomla!/MageBridge SEF URL
+     * Method to return the Joomla!/MageBridge SEF URL.
      *
      * @param string $request
-     * @param int    $forceSsl
+     * @param int $forceSsl
      *
      * @return string
      */
@@ -134,7 +134,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return the Magento/MageBridge URL
+     * Method to return the Magento/MageBridge URL.
      *
      * @return string
      */
@@ -149,7 +149,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return the Magento Admin Panel URL
+     * Method to return the Magento Admin Panel URL.
      *
      * @param string $path
      *
@@ -169,7 +169,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Magento default URL
+     * Magento default URL.
      *
      * @return string
      */
@@ -184,7 +184,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to handle Magento events
+     * Method to handle Magento events.
      *
      * @param array $data
      *
@@ -197,7 +197,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to set the breadcrumbs
+     * Method to set the breadcrumbs.
      *
      * @return mixed
      */
@@ -208,7 +208,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get the headers
+     * Method to get the headers.
      *
      * @return mixed
      */
@@ -219,7 +219,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to set the headers
+     * Method to set the headers.
      *
      * @param string $type
      *
@@ -232,7 +232,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get a segment by its ID
+     * Method to get a segment by its ID.
      *
      * @param string $id
      *
@@ -245,7 +245,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get a segment by its ID
+     * Method to get a segment by its ID.
      *
      * @param string $id
      *
@@ -258,7 +258,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get the category tree
+     * Method to get the category tree.
      *
      * @param array $arguments
      *
@@ -270,7 +270,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get the products by tag
+     * Method to get the products by tag.
      *
      * @param array $tags
      *
@@ -282,10 +282,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get a specific API resource
+     * Method to get a specific API resource.
      *
      * @param string $resource
-     * @param mixed  $arguments
+     * @param mixed $arguments
      * @param string $id
      *
      * @return array
@@ -297,7 +297,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get the Magento debug-messages
+     * Method to get the Magento debug-messages.
      *
      * @return array
      */
@@ -308,10 +308,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return a specific block
+     * Method to return a specific block.
      *
      * @param string $block_name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return array
      */
@@ -322,10 +322,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to return a specific widget
+     * Method to return a specific widget.
      *
      * @param string $widget_name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return array
      */
@@ -336,11 +336,11 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to add something to the bridge register
+     * Method to add something to the bridge register.
      *
      * @param string $type
      * @param string $name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return mixed
      */
@@ -351,7 +351,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to collect the data from the proxy
+     * Method to collect the data from the proxy.
      *
      * @return array
      */
@@ -502,7 +502,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to do things before building the bridge
+     * Method to do things before building the bridge.
      */
     public function beforeBuild()
     {
@@ -512,7 +512,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to do things after building the bridge
+     * Method to do things after building the bridge.
      */
     public function afterBuild()
     {
@@ -522,7 +522,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to get the HTTP Referer to send to Magento
+     * Helper-method to get the HTTP Referer to send to Magento.
      *
      * @return string
      */
@@ -548,7 +548,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to get the HTTP Referer to send to Magento
+     * Helper-method to get the HTTP Referer to send to Magento.
      *
      * @return string
      */
@@ -596,12 +596,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the HTTP Referer to send to Magento
+     * Helper-method to set the HTTP Referer to send to Magento.
      *
      * @param string $httpReferer
      * @param string $type
-     *
-     * @return void
      */
     public function setHttpReferer($httpReferer = null, $type = 'magento')
     {
@@ -613,7 +611,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to return the API state
+     * Helper-method to return the API state.
      *
      * @return string
      */
@@ -623,11 +621,9 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the API state
+     * Helper-method to set the API state.
      *
      * @param string $api_state
-     *
-     * @return void
      */
     public function setApiState($api_state = null)
     {
@@ -635,7 +631,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to return the API extra data
+     * Helper-method to return the API extra data.
      *
      * @return string
      */
@@ -645,11 +641,9 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the API extra data
+     * Helper-method to set the API extra data.
      *
      * @param string $api_extra
-     *
-     * @return void
      */
     public function setApiExtra($api_extra = null)
     {
@@ -657,8 +651,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     *
-     * Helper-method to return the API session
+     * Helper-method to return the API session.
      *
      * @return string
      */
@@ -670,7 +663,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the API session
+     * Helper-method to set the API session.
      *
      * @param string $api_session
      *
@@ -687,9 +680,9 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to return the Magento configuration
+     * Helper-method to return the Magento configuration.
      *
-     * @param string  $name
+     * @param string $name
      * @param bool $allow_cache
      *
      * @return mixed
@@ -727,10 +720,10 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set a specific value in MageBridge session
+     * Helper-method to set a specific value in MageBridge session.
      *
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -748,7 +741,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the Magento configuration
+     * Helper-method to set the Magento configuration.
      *
      * @param array $data
      *
@@ -766,7 +759,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to return the Magento session
+     * Helper-method to return the Magento session.
      *
      * @return string
      */
@@ -783,7 +776,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to return the Magento persistent session
+     * Helper-method to return the Magento persistent session.
      *
      * @return string
      */
@@ -795,7 +788,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper-method to set the Magento session
+     * Helper-method to set the Magento session.
      *
      * @param string $mage_session
      *
@@ -814,7 +807,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to get the meta-request data
+     * Method to get the meta-request data.
      *
      * @return array
      */
@@ -825,7 +818,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper method to check if sh404SEF is installed
+     * Helper method to check if sh404SEF is installed.
      *
      * @return bool
      */
@@ -858,7 +851,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper method to check if MijoSEF is installed
+     * Helper method to check if MijoSEF is installed.
      *
      * @return bool
      */
@@ -903,13 +896,13 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Helper method to check if SEF is enabled
+     * Helper method to check if SEF is enabled.
      *
      * @return bool
      */
     public function sef()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $router = $application->getRouter();
 
@@ -921,7 +914,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to determine whether to enable SSL or not
+     * Method to determine whether to enable SSL or not.
      *
      * @return bool
      */
@@ -937,7 +930,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to determine whether the current page is based on the MageBridge component
+     * Method to determine whether the current page is based on the MageBridge component.
      *
      * @return bool
      */
@@ -951,7 +944,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to determine whether the bridge is currently offline
+     * Method to determine whether the bridge is currently offline.
      *
      * @return bool
      */
@@ -998,7 +991,7 @@ class MageBridgeModelBridge
     }
 
     /**
-     * Method to determine whether the current request is an AJAX request
+     * Method to determine whether the current request is an AJAX request.
      *
      * @return bool
      */

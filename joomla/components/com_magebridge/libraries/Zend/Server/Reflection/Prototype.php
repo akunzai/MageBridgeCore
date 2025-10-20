@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,33 +14,32 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Zend_Server_Reflection_ReturnValue
+ * Zend_Server_Reflection_ReturnValue.
  */
 require_once 'Zend/Server/Reflection/ReturnValue.php';
 
 /**
- * Zend_Server_Reflection_Parameter
+ * Zend_Server_Reflection_Parameter.
  */
 require_once 'Zend/Server/Reflection/Parameter.php';
 
 /**
- * Method/Function prototypes
+ * Method/Function prototypes.
  *
  * Contains accessors for the return value and all method arguments.
  *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Reflection
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version $Id: Prototype.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Server_Reflection_Prototype
@@ -56,11 +55,9 @@ class Zend_Server_Reflection_Prototype
     protected $_return;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param Zend_Server_Reflection_ReturnValue $return
      * @param array $params
-     * @return void
      */
     public function __construct(Zend_Server_Reflection_ReturnValue $return, $params = null)
     {
@@ -84,7 +81,7 @@ class Zend_Server_Reflection_Prototype
     }
 
     /**
-     * Retrieve return type
+     * Retrieve return type.
      *
      * @return string
      */
@@ -94,9 +91,8 @@ class Zend_Server_Reflection_Prototype
     }
 
     /**
-     * Retrieve the return value object
+     * Retrieve the return value object.
      *
-     * @access public
      * @return Zend_Server_Reflection_ReturnValue
      */
     public function getReturnValue()
@@ -105,7 +101,7 @@ class Zend_Server_Reflection_Prototype
     }
 
     /**
-     * Retrieve method parameters
+     * Retrieve method parameters.
      *
      * @return array Array of {@link Zend_Server_Reflection_Parameter}s
      */

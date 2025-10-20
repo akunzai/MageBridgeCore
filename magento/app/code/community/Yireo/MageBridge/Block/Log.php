@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the log-block
+ * MageBridge class for the log-block.
  */
 class Yireo_MageBridge_Block_Log extends Mage_Core_Block_Template
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -26,7 +26,7 @@ class Yireo_MageBridge_Block_Log extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the header of this page
+     * Helper to return the header of this page.
      *
      * @param string $title
      *
@@ -39,7 +39,7 @@ class Yireo_MageBridge_Block_Log extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the menu
+     * Helper to return the menu.
      *
      * @return string
      */
@@ -49,7 +49,7 @@ class Yireo_MageBridge_Block_Log extends Mage_Core_Block_Template
     }
 
     /**
-     * Get the content of a specific file
+     * Get the content of a specific file.
      *
      * @return string
      */
@@ -78,7 +78,7 @@ class Yireo_MageBridge_Block_Log extends Mage_Core_Block_Template
     }
 
     /**
-     * Return the wipelog URL
+     * Return the wipelog URL.
      *
      * @return string
      */

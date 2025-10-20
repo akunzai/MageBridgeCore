@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,7 +17,7 @@ use Joomla\CMS\Installer\Installer;
 defined('_JEXEC') or die();
 
 /**
- * Method run when uninstalling MageBridge
+ * Method run when uninstalling MageBridge.
  */
 function com_uninstall()
 {

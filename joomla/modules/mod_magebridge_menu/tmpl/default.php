@@ -1,11 +1,11 @@
 <?php
 /**
- * Joomla! module MageBridge: Category Menu
+ * Joomla! module MageBridge: Category Menu.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 

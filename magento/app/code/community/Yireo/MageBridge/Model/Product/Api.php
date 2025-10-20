@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge API-model for product resources
+ * MageBridge API-model for product resources.
  */
 class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -21,9 +21,10 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     protected $arguments = [];
 
     /**
-     * Search for products
+     * Search for products.
      *
      * @param array $options
+     *
      * @return array
      */
     public function search($options = [])
@@ -92,9 +93,10 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Retrieve list of products with basic info (id, sku, type, set, name)
+     * Retrieve list of products with basic info (id, sku, type, set, name).
      *
      * @param array $arguments
+     *
      * @return array
      */
     public function info($arguments = null)
@@ -109,9 +111,10 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Retrieve list of products with basic info (id, sku, type, set, name)
+     * Retrieve list of products with basic info (id, sku, type, set, name).
      *
      * @param array $arguments
+     *
      * @return array
      */
     public function items($arguments = null)
@@ -150,9 +153,10 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Retrieve the count of a listing of products
+     * Retrieve the count of a listing of products.
      *
      * @param array $arguments
+     *
      * @return int
      */
     public function count($arguments = null)
@@ -162,9 +166,6 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         return $collection->getSize();
     }
 
-    /**
-     *
-     */
     protected function autocompleteScopes()
     {
         // Handle store codes
@@ -207,7 +208,7 @@ class Yireo_MageBridge_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Retrieve a product collection
+     * Retrieve a product collection.
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */

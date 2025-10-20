@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - RocketTheme System plugin
+ * Joomla! MageBridge - RocketTheme System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -20,16 +20,12 @@ defined('_JEXEC') or die('Restricted access');
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge System Plugin
+ * MageBridge System Plugin.
  */
-class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeRt extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterDispatch()
     {
@@ -39,7 +35,7 @@ class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
         }
 
         // Load the application
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Don't do anything in other applications than the frontend
@@ -94,11 +90,9 @@ class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Load the parameters
+     * Load the parameters.
      *
-     * @access private
-     * @param null
-     * @return \Joomla\Registry\Registry
+     * @return Registry
      */
     private function getParams()
     {
@@ -106,10 +100,8 @@ class plgSystemMageBridgeRt extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
+     * Simple check to see if MageBridge exists.
      *
-     * @access private
-     * @param null
      * @return bool
      */
     private function isEnabled()

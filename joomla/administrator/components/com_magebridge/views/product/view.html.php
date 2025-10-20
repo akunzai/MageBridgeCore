@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -22,25 +22,24 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT . '/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewProduct extends YireoViewForm
 {
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $actions_form;
 
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Form
      */
     protected $params_form;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     * @return null
      */
     public function display($tpl = null)
     {

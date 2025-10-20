@@ -1,19 +1,19 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 namespace Yireo\MageBridge\Utilities;
 
 /**
- * Class resembling common string actions
+ * Class resembling common string actions.
  */
 class StringValue
 {
@@ -24,8 +24,6 @@ class StringValue
 
     /**
      * StringValue constructor.
-     *
-     * @param $string
      */
     public function __construct($string)
     {

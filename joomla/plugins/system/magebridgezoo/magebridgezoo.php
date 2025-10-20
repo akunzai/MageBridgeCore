@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - ZOO System plugin
+ * Joomla! MageBridge - ZOO System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -19,16 +19,12 @@ defined('_JEXEC') or die('Restricted access');
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge ZOO System Plugin
+ * MageBridge ZOO System Plugin.
  */
-class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onAfterRender
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRender.
      */
     public function onAfterRender()
     {
@@ -112,10 +108,8 @@ class plgSystemMageBridgeZoo extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Simple check to see if MageBridge exists
+     * Simple check to see if MageBridge exists.
      *
-     * @access private
-     * @param null
      * @return bool
      */
     private function isEnabled()

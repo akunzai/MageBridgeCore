@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,8 @@
 class Yireo_MageBridge_Model_Storegroups_Api extends Mage_Api_Model_Resource_Abstract
 {
     /**
-     * Retrieve list of store groups
+     * Retrieve list of store groups.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function items()

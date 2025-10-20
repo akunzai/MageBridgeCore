@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -17,19 +18,17 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 
 /**
- * Yireo Model Data Query
- *
- * @package Yireo
+ * Yireo Model Data Query.
  */
 class YireoModelDataQuerytext
 {
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitIdentifiable;
 
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitConfigurable;
 
@@ -44,12 +43,12 @@ class YireoModelDataQuerytext
     protected $tableAlias;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
@@ -107,7 +106,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to build the query
+     * Method to build the query.
      *
      * @param string $query
      *
@@ -147,9 +146,6 @@ class YireoModelDataQuerytext
         return $query;
     }
 
-    /**
-     *
-     */
     protected function getSelectFields()
     {
         $availableFields        = $this->table->getDatabaseFields();
@@ -175,9 +171,6 @@ class YireoModelDataQuerytext
         return $selectFields;
     }
 
-    /**
-     *
-     */
     protected function getSelectQuery($fieldsString)
     {
         if ($this->getConfig('checkout') == true && $this->app->isClient('administrator')) {
@@ -191,8 +184,6 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * @param $query
-     *
      * @return mixed|string
      */
     protected function replaceAccess($query)
@@ -206,8 +197,6 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * @param $query
-     *
      * @return string
      */
     protected function replaceEditor($query)
@@ -222,8 +211,6 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * @param $query
-     *
      * @return string
      */
     protected function replaceTags($query)
@@ -236,7 +223,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to build the query WHERE segment
+     * Method to build the query WHERE segment.
      *
      * @return string
      */
@@ -298,7 +285,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to build the query ORDER BY segment
+     * Method to build the query ORDER BY segment.
      *
      * @return string
      */
@@ -330,7 +317,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to build the query GROUP BY segment
+     * Method to build the query GROUP BY segment.
      *
      * @return string
      */
@@ -378,7 +365,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to build an extra query segment
+     * Method to build an extra query segment.
      *
      * @return string
      */
@@ -392,10 +379,10 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to add a new WHERE argument
+     * Method to add a new WHERE argument.
      *
-     * @param mixed  $where WHERE statement in the form of an array ($name, $value) or string
-     * @param string $type  Type of WHERE statement. Either "is" or "like".
+     * @param mixed $where WHERE statement in the form of an array ($name, $value) or string
+     * @param string $type Type of WHERE statement. Either "is" or "like".
      *
      * @return $this
      */
@@ -422,7 +409,7 @@ class YireoModelDataQuerytext
 
 
     /**
-     * Method to add a new ORDER BY argument
+     * Method to add a new ORDER BY argument.
      *
      * @param string $orderby
      *
@@ -456,7 +443,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to add a new GROUP BY argument
+     * Method to add a new GROUP BY argument.
      *
      * @param string $groupby
      *
@@ -486,7 +473,7 @@ class YireoModelDataQuerytext
     }
 
     /**
-     * Method to add an extra query argument
+     * Method to add an extra query argument.
      *
      * @param string $extra
      *
@@ -501,9 +488,6 @@ class YireoModelDataQuerytext
         return $this;
     }
 
-    /**
-     * @param $model
-     */
     public function setModel($model)
     {
         $this->model = $model;

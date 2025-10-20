@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com/
  */
 
 /**
- * MageBridge model for JSON-RPC client-calls
+ * MageBridge model for JSON-RPC client-calls.
  */
 class Yireo_MageBridge_Model_Client_Jsonrpc
 {
@@ -127,9 +127,6 @@ class Yireo_MageBridge_Model_Client_Jsonrpc
     }
 
     /**
-     * @param $url
-     * @param $encodedPost
-     *
      * @return mixed
      */
     protected function getDataFromResource($url, $encodedPost)

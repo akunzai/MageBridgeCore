@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,8 @@
 class Yireo_MageBridge_Model_Session_Api extends Mage_Catalog_Model_Api_Resource
 {
     /**
-     * Return the data from the shopping cart session
+     * Return the data from the shopping cart session.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function checkout()

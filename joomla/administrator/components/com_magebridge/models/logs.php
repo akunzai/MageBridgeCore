@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright Yireo.com 2015
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -14,12 +14,12 @@
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Logs model
+ * MageBridge Logs model.
  */
 class MagebridgeModelLogs extends YireoModelItems
 {
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -30,9 +30,9 @@ class MagebridgeModelLogs extends YireoModelItems
     }
 
     /**
-     * @param \Joomla\Database\DatabaseQuery $query
+     * @param Joomla\Database\DatabaseQuery $query
      *
-     * @return \Joomla\Database\DatabaseQuery
+     * @return Joomla\Database\DatabaseQuery
      */
     public function onBuildQuery($query)
     {
