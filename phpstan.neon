@@ -1,6 +1,3 @@
-includes:
-  - phpstan-baseline.neon
-
 parameters:
   level: 5
   paths:
@@ -31,5 +28,3 @@ parameters:
   treatPhpDocTypesAsCertain: false
   tips:
     discoveringSymbols: false
-  ignoreErrors:
-    - '#Call to an undefined static method Joomla\\CMS\\Language\\Text::_\(\).#'
