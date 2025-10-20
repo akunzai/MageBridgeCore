@@ -1,63 +1,28 @@
 # Joomla! Setup
 
-## Extension Installation
+The `install.sh` script automatically configures the following:
 
-> System->Install->Extensions
+- Joomla! installation with admin user
+- MageBridge extension installation
+- Enable MageBridge plugins (Authentication, Content, Core, Magento, System, User)
+- MageBridge configuration:
+  - Hostname: `store.dev.local`
+  - API User: `magebridge_api`
+  - API Key: `ChangeTheAp1K3y`
+  - Protocol: `HTTPS`
+  - Enforce SSL: `Entire site`
+  - User synchronization settings
+- Store menu item (MageBridge Root)
 
-Upload Package File: `pkg_magebridge.zip`
+## Environment Variables
 
-## Enable Extensions
+You can customize the configuration by setting these environment variables in `.env`:
 
-> System->Manage->Extensions
-
-- Plugin: `Authentication - MageBridge`
-- Plugin: `Content - MageBridge`
-- Plugin: `MageBridge - Core`
-- Plugin: `Magento - MageBridge`
-- Plugin: `System - MageBridge`
-- Plugin: `User - MageBridge`
-
-## Configuration
-
-> Components->`MageBridge`->Configuration
-
-### API
-
-- Hostname: `store.dev.local`
-- API User: `magebridge_api`
-- API Key: `ChangeTheAp1K3y`
-
-### Bridge
-
-- Protocol: `HTTPS`
-- Enforce SSL: `Entire site`
-
-### Users
-
-User synchronization
-
-- Magento Customer Group: `General`
-- Joomla! Usergroup: `Registered`
-- Username from Email: `Yes`
-
-User importing and exporting
-
-- Website: `Main Website (1)`
-- Customer Group: `General`
-
-## Add Root item
-
-> Menus->`Main Menu`->`Add New Menu Item`
-
-### Details
-
-- Title: `Store`
-- Alias: `store`
-- Menu Item Type: `MageBridge`->`Root`
-
-### Magento Scope
-
-- Store/Store View: `English(default)`
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MAGEBRIDGE_HOST` | `store.dev.local` | OpenMage hostname |
+| `MAGEBRIDGE_API_USER` | `magebridge_api` | API username |
+| `MAGEBRIDGE_API_KEY` | `ChangeTheAp1K3y` | API key |
 
 ## System Check
 
