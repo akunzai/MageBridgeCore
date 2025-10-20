@@ -62,8 +62,10 @@
         "akunzai/joomla-stubs": "dev-master",
         "friendsofphp/php-cs-fixer": "^3.89",
         "joomla/joomla-cms": "5.3.3",
-        "openmage/magento-lts": "^20.16",
-        "phpstan/phpstan": "^1.12"
+        "openmage/magento-lts": "^20.15",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
