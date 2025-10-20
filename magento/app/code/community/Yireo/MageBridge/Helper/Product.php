@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * Class Yireo_MageBridge_Helper_Product
+ * Class Yireo_MageBridge_Helper_Product.
  */
 class Yireo_MageBridge_Helper_Product extends Mage_Core_Helper_Abstract
 {
     /**
-     * Helper-method to export a product to the bridge
+     * Helper-method to export a product to the bridge.
      *
      * @param Mage_Catalog_Model_Product
      *
@@ -156,7 +156,7 @@ class Yireo_MageBridge_Helper_Product extends Mage_Core_Helper_Abstract
 
     /**
      * @param array $productData
-     * @param Mage_Catalog_Model_Product $product
+     *
      * @return array
      */
     protected function addSearchOptions(&$productData, Mage_Catalog_Model_Product $product)
@@ -197,7 +197,6 @@ class Yireo_MageBridge_Helper_Product extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
      * @param string $attributeName
      * @param array $size
      *
@@ -210,7 +209,6 @@ class Yireo_MageBridge_Helper_Product extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
      * @param string $attributeName
      * @param array $size
      *

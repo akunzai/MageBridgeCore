@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,11 +16,12 @@
 class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Customer
 {
     /**
-     * Customer authentication
+     * Customer authentication.
      *
-     * @param   string $username
-     * @param   string $password
-     * @return  bool
+     * @param string $username
+     * @param string $password
+     *
+     * @return bool
      */
     public function authenticate($username, $password)
     {

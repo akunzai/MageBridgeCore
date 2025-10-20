@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,12 +14,12 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Decoder.php 22653 2010-07-22 18:41:39Z mabe $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
@@ -28,10 +28,10 @@ defined('_JEXEC') or die('Restricted access');
 require_once 'Zend/Json.php';
 
 /**
- * Decode JSON encoded string to PHP variable constructs
+ * Decode JSON encoded string to PHP variable constructs.
  *
  * @category   Zend
- * @package	Zend_Json
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -52,29 +52,28 @@ class Zend_Json_Decoder
     public const COLON		= 7;
 
     /**
-     * Use to maintain a "pointer" to the source being decoded
+     * Use to maintain a "pointer" to the source being decoded.
      *
      * @var string
      */
     protected $_source;
 
     /**
-     * Caches the source length
+     * Caches the source length.
      *
      * @var int
      */
     protected $_sourceLength;
 
     /**
-     * The offset within the source being decoded
+     * The offset within the source being decoded.
      *
      * @var int
-     *
      */
     protected $_offset;
 
     /**
-     * The current token being considered in the parser cycle
+     * The current token being considered in the parser cycle.
      *
      * @var int
      */
@@ -86,21 +85,19 @@ class Zend_Json_Decoder
     protected $_tokenValue;
 
     /**
-     * Flag indicating how objects should be decoded
+     * Flag indicating how objects should be decoded.
      *
      * @var int
-     * @access protected
      */
     protected $_decodeType;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $source String source to decode
      * @param int $decodeType How objects should be decoded -- see
-     * {@link Zend_Json::TYPE_ARRAY} and {@link Zend_Json::TYPE_OBJECT} for
-     * valid values
-     * @return void
+     *                        {@link Zend_Json::TYPE_ARRAY} and {@link Zend_Json::TYPE_OBJECT} for
+     *                        valid values
      */
     protected function __construct($source, $decodeType)
     {
@@ -121,7 +118,7 @@ class Zend_Json_Decoder
     }
 
     /**
-     * Decode a JSON source string
+     * Decode a JSON source string.
      *
      * Decodes a JSON encoded string. The value returned will be one of the
      * following:
@@ -140,13 +137,15 @@ class Zend_Json_Decoder
      * Throws a Zend_Json_Exception if the source string is null.
      *
      * @static
-     * @access public
+     *
      * @param string $source String to be decoded
      * @param int $objectDecodeType How objects should be decoded; should be
-     * either or {@link Zend_Json::TYPE_ARRAY} or
-     * {@link Zend_Json::TYPE_OBJECT}; defaults to TYPE_ARRAY
-     * @return mixed
+     *                              either or {@link Zend_Json::TYPE_ARRAY} or
+     *                              {@link Zend_Json::TYPE_OBJECT}; defaults to TYPE_ARRAY
+     *
      * @throws Zend_Json_Exception
+     *
+     * @return mixed
      */
     public static function decode($source = null, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
@@ -165,7 +164,7 @@ class Zend_Json_Decoder
 
 
     /**
-     * Recursive driving rountine for supported toplevel tops
+     * Recursive driving rountine for supported toplevel tops.
      *
      * @return mixed
      */
@@ -291,7 +290,7 @@ class Zend_Json_Decoder
 
 
     /**
-     * Removes whitepsace characters from the source input
+     * Removes whitepsace characters from the source input.
      */
     protected function _eatWhitespace()
     {
@@ -309,7 +308,7 @@ class Zend_Json_Decoder
 
 
     /**
-     * Retrieves the next token from the source stream
+     * Retrieves the next token from the source stream.
      *
      * @return int Token constant value specified in class definition
      */
@@ -479,7 +478,7 @@ class Zend_Json_Decoder
      *
      * @link   http://solarphp.com/
      * @link   http://svn.solarphp.com/core/trunk/Solar/Json.php
-     * @param  string $value
+     *
      * @return string
      */
     public static function decodeUnicodeString($chrs)
@@ -549,7 +548,9 @@ class Zend_Json_Decoder
      * This method is from the Solar Framework by Paul M. Jones
      *
      * @link   http://solarphp.com
-     * @param  string $utf16 UTF-16 character
+     *
+     * @param string $utf16 UTF-16 character
+     *
      * @return string UTF-8 character
      */
     protected static function _utf162utf8($utf16)

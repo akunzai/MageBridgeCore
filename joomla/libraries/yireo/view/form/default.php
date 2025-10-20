@@ -1,11 +1,11 @@
 <?php
 /**
- * Joomla! Yireo Lib
+ * Joomla! Yireo Lib.
  *
  * @author Yireo
- * @package YireoLib
  * @copyright Copyright 2015
  * @license GNU Public License
+ *
  * @link http://www.yireo.com/
  */
 

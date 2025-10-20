@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -25,17 +25,17 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeUrlHelper
 {
     /**
-     * Static variable for the current Magento request
+     * Static variable for the current Magento request.
      */
     public static $request = null;
 
     /**
-     * Static variable for the original Magento request
+     * Static variable for the original Magento request.
      */
     public static $original_request = null;
 
     /**
-     * Helper-method to reset the current Magento request
+     * Helper-method to reset the current Magento request.
      *
      * @param string $request
      *
@@ -63,7 +63,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to determine the current Magento request
+     * Helper-method to determine the current Magento request.
      *
      * @return string
      */
@@ -73,7 +73,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to determine the current Magento request
+     * Helper-method to determine the current Magento request.
      *
      * @return string
      */
@@ -184,7 +184,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get a URL replacement for a specific request
+     * Helper-method to get a URL replacement for a specific request.
      *
      * @return array
      */
@@ -207,7 +207,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get all MageBridge menu-items
+     * Helper-method to get all MageBridge menu-items.
      *
      * @param bool $onlyAuthorised
      *
@@ -221,7 +221,7 @@ class MageBridgeUrlHelper
             return $items;
         }
 
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $component = ComponentHelper::getComponent('com_magebridge');
         $menu = $app->getMenu('site');
@@ -247,9 +247,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to determine whether to enable the Root Menu-Item
-     *
-     * @param null
+     * Helper-method to determine whether to enable the Root Menu-Item.
      *
      * @return bool
      */
@@ -263,9 +261,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to determine whether to enforce the Root Menu-Item
-     *
-     * @param null
+     * Helper-method to determine whether to enforce the Root Menu-Item.
      *
      * @return bool
      */
@@ -279,15 +275,13 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper method to determine the MageBridge Root Menu-Item is set to be default
-     *
-     * @param null
+     * Helper method to determine the MageBridge Root Menu-Item is set to be default.
      *
      * @return int
      */
     public static function isDefault()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
         $default = $app
             ->getMenu('site')
@@ -330,9 +324,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get the Root Menu-Item
-     *
-     * @param null
+     * Helper-method to get the Root Menu-Item.
      *
      * @return object
      */
@@ -371,16 +363,14 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get the current Menu-Item
-     *
-     * @param null
+     * Helper-method to get the current Menu-Item.
      *
      * @return object
      */
     public static function getCurrentItem()
     {
         static $currentItem = null;
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $app = Factory::getApplication();
 
         if (empty($currentItem)) {
@@ -405,7 +395,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get the specified Menu-Item
+     * Helper-method to get the specified Menu-Item.
      *
      * @param int $id
      *
@@ -458,9 +448,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get the current URL
-     *
-     * @param null
+     * Helper-method to get the current URL.
      *
      * @return string
      */
@@ -471,7 +459,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to strip domains from the URL
+     * Helper-method to strip domains from the URL.
      *
      * @param string $url
      *
@@ -498,7 +486,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper-method to get a Joomla! SEF URL
+     * Helper-method to get a Joomla! SEF URL.
      *
      * @param string $url
      *
@@ -530,8 +518,6 @@ class MageBridgeUrlHelper
     /**
      * Helper method to check if the URL-suffix is used in Joomla!
      *
-     * @param null
-     *
      * @return bool
      */
     public static function hasUrlSuffix()
@@ -546,10 +532,10 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper method to only return the Forward SEF option if SEF is actually enabled
+     * Helper method to only return the Forward SEF option if SEF is actually enabled.
      *
      * @param string $layout
-     * @param int    $id
+     * @param int $id
      *
      * @return string
      */
@@ -618,7 +604,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper method to only return the Forward SEF option if SEF is actually enabled
+     * Helper method to only return the Forward SEF option if SEF is actually enabled.
      *
      * @return bool
      */
@@ -634,7 +620,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper method to get the proper Itemid
+     * Helper method to get the proper Itemid.
      *
      * @return int
      */
@@ -650,11 +636,11 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Helper method to generate a MageBridge URL
+     * Helper method to generate a MageBridge URL.
      *
-     * @param string  $request
+     * @param string $request
      * @param bool $xhtml
-     * @param array   $arguments
+     * @param array $arguments
      *
      * @return string
      */
@@ -708,7 +694,7 @@ class MageBridgeUrlHelper
     }
 
     /**
-     * Method to see whether a given page is a secure page
+     * Method to see whether a given page is a secure page.
      *
      * @param string $request
      *

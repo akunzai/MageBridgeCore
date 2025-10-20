@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -20,17 +20,15 @@ defined('_JEXEC') or die();
 include_once JPATH_ADMINISTRATOR . '/components/com_magebridge/libraries/loader.php';
 
 /**
- * MageBridge Element Helper
+ * MageBridge Element Helper.
  */
 class MageBridgeElementHelper
 {
     /**
-     * Add the AJAX-script to the page
+     * Add the AJAX-script to the page.
      *
      * @param string $url
      * @param string $div
-     *
-     * @return null
      */
     public static function ajax($url, $div)
     {
@@ -38,9 +36,7 @@ class MageBridgeElementHelper
     }
 
     /**
-     * Call the API for a widget-list
-     *
-     * @param null
+     * Call the API for a widget-list.
      *
      * @return array
      */
@@ -59,9 +55,7 @@ class MageBridgeElementHelper
     }
 
     /**
-     * Call the API for a customer list
-     *
-     * @param null
+     * Call the API for a customer list.
      *
      * @return array
      */
@@ -80,9 +74,7 @@ class MageBridgeElementHelper
     }
 
     /**
-     * Call the API for a product list
-     *
-     * @param null
+     * Call the API for a product list.
      *
      * @return array
      */
@@ -92,7 +84,7 @@ class MageBridgeElementHelper
         $arguments = ['minimal_price' => 0];
 
         // Fetch any current filters
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $option = $application->input->getCmd('option') . '-element-products';
 
@@ -128,7 +120,7 @@ class MageBridgeElementHelper
     }
 
     /**
-     * Call the API for a category tree
+     * Call the API for a category tree.
      *
      * @param array $arguments
      *
@@ -137,7 +129,7 @@ class MageBridgeElementHelper
     public static function getCategoryTree($arguments = [])
     {
         // Initialize some important variables
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $option = Factory::getApplication()->input->getCmd('option') . '-element-categories';
 
@@ -186,7 +178,7 @@ class MageBridgeElementHelper
     }
 
     /**
-     * Recursive function to parse the category-tree in a flat-list
+     * Recursive function to parse the category-tree in a flat-list.
      *
      * @param array $tree
      * @param array $list

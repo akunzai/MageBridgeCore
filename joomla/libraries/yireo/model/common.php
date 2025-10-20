@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -21,45 +22,41 @@ require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
  * Yireo Common Model
- * Parent class for models that need additional features without JTable functionality
- *
- * @package Yireo
+ * Parent class for models that need additional features without JTable functionality.
  */
 class YireoCommonModel extends YireoAbstractModel
 {
     /**
-     * Trait to implement ID behaviour
+     * Trait to implement ID behaviour.
      */
     use YireoModelTraitIdentifiable;
 
     /**
-     * Trait to implement form behaviour
+     * Trait to implement form behaviour.
      */
     use YireoModelTraitFormable;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var \Joomla\CMS\User\User
+     * @var Joomla\CMS\User\User
      */
     protected $user;
 
     /**
-     * Data array
+     * Data array.
      *
      * @var array
      */
     protected $data = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -89,8 +86,6 @@ class YireoCommonModel extends YireoAbstractModel
     }
 
     /**
-     * @param $option
-     *
      * @return mixed
      */
     protected function getComponentNameFromOption($option)
@@ -114,7 +109,7 @@ class YireoCommonModel extends YireoAbstractModel
     }
 
     /**
-     * Inititalize system variables
+     * Inititalize system variables.
      */
     protected function initCommon()
     {
@@ -125,14 +120,14 @@ class YireoCommonModel extends YireoAbstractModel
     }
 
     /**
-     * Handle deprecated variables
+     * Handle deprecated variables.
      */
     protected function handleCommonDeprecated()
     {
     }
 
     /**
-     * Method to determine the component-name
+     * Method to determine the component-name.
      *
      * @return string
      */
@@ -151,7 +146,7 @@ class YireoCommonModel extends YireoAbstractModel
     }
 
     /**
-     * Method to override the parameters
+     * Method to override the parameters.
      *
      * @param mixed
      */
@@ -163,7 +158,7 @@ class YireoCommonModel extends YireoAbstractModel
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     public function getParams()
     {

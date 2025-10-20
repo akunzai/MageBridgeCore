@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the settings-block
+ * MageBridge class for the settings-block.
  */
 class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -26,7 +26,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the header of this page
+     * Helper to return the header of this page.
      *
      * @param string $title
      *
@@ -38,7 +38,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the menu
+     * Helper to return the menu.
      *
      * @return string
      */
@@ -48,7 +48,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the save URL
+     * Helper to return the save URL.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to reset MageBridge values for event forwarding
+     * Helper to reset MageBridge values for event forwarding.
      *
      * @return string
      */
@@ -68,7 +68,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to reset Joomla! to Magento usermapping by ID
+     * Helper to reset Joomla! to Magento usermapping by ID.
      *
      * @return string
      */
@@ -78,7 +78,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to reset some MageBridge values to null
+     * Helper to reset some MageBridge values to null.
      *
      * @return string
      */
@@ -88,7 +88,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Render block HTML
+     * Render block HTML.
      *
      * @return mixed
      */
@@ -101,7 +101,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Add the accordion block as child
+     * Add the accordion block as child.
      */
     protected function addAccordion()
     {
@@ -129,7 +129,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Add toolbar buttons
+     * Add toolbar buttons.
      */
     protected function addToolbarButtons()
     {

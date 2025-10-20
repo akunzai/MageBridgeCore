@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -24,7 +25,7 @@ require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
  * Class YireoRouteQuery
- * Abstraction of $query variables
+ * Abstraction of $query variables.
  */
 class YireoRouteQuery
 {
@@ -130,17 +131,11 @@ class YireoRouteQuery
         return $this->segments;
     }
 
-    /**
-     * @param $value
-     */
     public function addSegment($value)
     {
         $this->segments[] = $value;
     }
 
-    /**
-     * @param $name
-     */
     public function addSegmentFromData($name)
     {
         if ($this->hasValue($name)) {
@@ -148,9 +143,6 @@ class YireoRouteQuery
         }
     }
 
-    /**
-     * @param $segments
-     */
     public function setSegments($segments)
     {
         $this->segments = $segments;
@@ -164,9 +156,6 @@ class YireoRouteQuery
         return $this->query;
     }
 
-    /**
-     * @param $query
-     */
     public function setData($query)
     {
         $this->query = $query;
@@ -183,7 +172,6 @@ class YireoRouteQuery
     }
 
     /**
-     * @param        $name
      * @param object $item
      *
      * @return bool
@@ -220,10 +208,6 @@ class YireoRouteQuery
         return false;
     }
 
-    /**
-     * @param $name
-     * @param $value
-     */
     public function setValue($name, $value)
     {
         $this->query[$name] = $value;
@@ -231,7 +215,7 @@ class YireoRouteQuery
 
     /**
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      * @param object $item
      *
      * @return bool
@@ -274,9 +258,6 @@ class YireoRouteQuery
         return $this->isValue('task', $task, $item);
     }
 
-    /**
-     * @param $vars
-     */
     public function unsetVars($vars)
     {
         foreach ($vars as $var) {
@@ -284,9 +265,6 @@ class YireoRouteQuery
         }
     }
 
-    /**
-     * @param $var
-     */
     public function unsetVar($var)
     {
         if (isset($this->query[$var])) {
@@ -295,9 +273,6 @@ class YireoRouteQuery
     }
 
     /**
-     * @param $names
-     * @param $item
-     *
      * @return bool
      */
     public function matchValues($names, $item)
@@ -312,11 +287,6 @@ class YireoRouteQuery
     }
 
     /**
-     * @param $name
-     * @param $item
-     * @param $type
-     * @param $allowEmpty
-     *
      * @return bool
      */
     public function matchValue($name, $item, $type = null, $allowEmpty = true)

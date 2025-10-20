@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -18,12 +18,12 @@ use Joomla\CMS\Session\Session;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Controller
+ * MageBridge Controller.
  */
 class MageBridgeControllerConfig extends YireoCommonController
 {
     /**
-     * Handle the task 'cancel'
+     * Handle the task 'cancel'.
      */
     public function cancel()
     {
@@ -32,7 +32,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Handle the task 'save'
+     * Handle the task 'save'.
      */
     public function save()
     {
@@ -52,7 +52,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Handle the task 'apply'
+     * Handle the task 'apply'.
      */
     public function apply()
     {
@@ -72,11 +72,9 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Extend the default store-method
+     * Extend the default store-method.
      *
      * @param array $post
-     *
-     * @return null
      */
     public function store($post = [])
     {
@@ -117,8 +115,6 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * @param $post
-     *
      * @return mixed
      */
     protected function fixPost($post)
@@ -139,7 +135,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Method to import configuration from XML
+     * Method to import configuration from XML.
      */
     public function import()
     {
@@ -149,7 +145,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Method to export configuration to XML
+     * Method to export configuration to XML.
      */
     public function export()
     {
@@ -173,8 +169,6 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * @param $upload
-     *
      * @return bool
      */
     protected function isValidUpload($upload)
@@ -199,7 +193,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Method to handle the upload of a new CSV-file
+     * Method to handle the upload of a new CSV-file.
      *
      * @return array
      */
@@ -255,7 +249,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Method to get all XML output
+     * Method to get all XML output.
      */
     private function getOutput($config)
     {
@@ -279,7 +273,7 @@ class MageBridgeControllerConfig extends YireoCommonController
     }
 
     /**
-     * Method to validate a change-request
+     * Method to validate a change-request.
      *
      * @param bool $check_token
      * @param bool $check_demo

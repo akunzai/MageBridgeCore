@@ -5,9 +5,7 @@
 namespace Yireo\Common\System;
 
 /**
- * Class Autoloader
- *
- * @package Yireo\System
+ * Class Autoloader.
  */
 class Autoloader
 {
@@ -29,9 +27,7 @@ class Autoloader
     }
 
     /**
-     * Main autoloading function
-     *
-     * @param $className
+     * Main autoloading function.
      *
      * @return bool
      */
@@ -52,9 +48,7 @@ class Autoloader
     }
 
     /**
-     * Autoloading function for namespaced classes
-     *
-     * @param $className
+     * Autoloading function for namespaced classes.
      *
      * @return bool
      */

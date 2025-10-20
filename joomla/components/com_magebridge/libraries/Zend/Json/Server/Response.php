@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,19 +14,17 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version	$Id: Response.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
  * @category   Zend
- * @package	Zend_Json
- * @subpackage Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
@@ -38,39 +36,45 @@ class Zend_Json_Server_Response
     protected $_args;
 
     /**
-     * Response error
-     * @var null|Zend_Json_Server_Error
+     * Response error.
+     *
+     * @var Zend_Json_Server_Error|null
      */
     protected $_error;
 
     /**
-     * Request ID
+     * Request ID.
+     *
      * @var mixed
      */
     protected $_id;
 
     /**
-     * Result
+     * Result.
+     *
      * @var mixed
      */
     protected $_result;
 
     /**
-     * Service map
+     * Service map.
+     *
      * @var Zend_Json_Server_Smd
      */
     protected $_serviceMap;
 
     /**
-     * JSON-RPC version
+     * JSON-RPC version.
+     *
      * @var string
      */
     protected $_version;
 
     /**
-     * Set result
+     * Set result.
      *
-     * @param  mixed $value
+     * @param mixed $value
+     *
      * @return Zend_Json_Server_Response
      */
     public function setResult($value)
@@ -80,7 +84,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Get result
+     * Get result.
      *
      * @return mixed
      */
@@ -91,9 +95,8 @@ class Zend_Json_Server_Response
 
     // RPC error, if response results in fault
     /**
-     * Set result error
+     * Set result error.
      *
-     * @param  Zend_Json_Server_Error $error
      * @return Zend_Json_Server_Response
      */
     public function setError(Zend_Json_Server_Error $error)
@@ -103,9 +106,9 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Get response error
+     * Get response error.
      *
-     * @return null|Zend_Json_Server_Error
+     * @return Zend_Json_Server_Error|null
      */
     public function getError()
     {
@@ -123,9 +126,10 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Set request ID
+     * Set request ID.
      *
-     * @param  mixed $name
+     * @param mixed $name
+     *
      * @return Zend_Json_Server_Response
      */
     public function setId($name)
@@ -135,7 +139,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Get request ID
+     * Get request ID.
      *
      * @return mixed
      */
@@ -145,9 +149,10 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Set JSON-RPC version
+     * Set JSON-RPC version.
      *
-     * @param  string $version
+     * @param string $version
+     *
      * @return Zend_Json_Server_Response
      */
     public function setVersion($version)
@@ -163,7 +168,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Retrieve JSON-RPC version
+     * Retrieve JSON-RPC version.
      *
      * @return string
      */
@@ -173,7 +178,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Cast to JSON
+     * Cast to JSON.
      *
      * @return string
      */
@@ -202,7 +207,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Retrieve args
+     * Retrieve args.
      *
      * @return mixed
      */
@@ -212,9 +217,10 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Set args
+     * Set args.
      *
      * @param mixed $args
+     *
      * @return self
      */
     public function setArgs($args)
@@ -224,9 +230,10 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Set service map object
+     * Set service map object.
      *
-     * @param  Zend_Json_Server_Smd $serviceMap
+     * @param Zend_Json_Server_Smd $serviceMap
+     *
      * @return Zend_Json_Server_Response
      */
     public function setServiceMap($serviceMap)
@@ -236,7 +243,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Retrieve service map
+     * Retrieve service map.
      *
      * @return Zend_Json_Server_Smd|null
      */
@@ -246,7 +253,7 @@ class Zend_Json_Server_Response
     }
 
     /**
-     * Cast to string (JSON)
+     * Cast to string (JSON).
      *
      * @return string
      */

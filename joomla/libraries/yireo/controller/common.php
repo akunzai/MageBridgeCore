@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (https://www.yireo.com/)
- * @package   YireoLib
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com/
  */
 
@@ -19,39 +19,38 @@ defined('_JEXEC') or die();
 require_once dirname(__FILE__) . '/../loader.php';
 
 /**
- * Yireo Common Controller
- *
- * @package Yireo
+ * Yireo Common Controller.
  */
 class YireoCommonController extends YireoAbstractController
 {
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\CMS\Input\Input
+     * @var Joomla\CMS\Input\Input
      */
     protected $input;
 
     /**
-     * Value of the last message
+     * Value of the last message.
      *
      * @var string
      */
     protected $msg = '';
 
     /**
-     * Type of the last message
+     * Type of the last message.
      *
      * @var string
+     *
      * @values    error|notice|message
      */
     protected $msg_type = '';
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -70,7 +69,7 @@ class YireoCommonController extends YireoAbstractController
     }
 
     /**
-     * Handle legacy calls
+     * Handle legacy calls.
      */
     protected function handleLegacy()
     {
@@ -78,7 +77,7 @@ class YireoCommonController extends YireoAbstractController
     }
 
     /**
-     * Add model paths for either backend or frontend
+     * Add model paths for either backend or frontend.
      */
     protected function addModelPaths()
     {
@@ -98,11 +97,9 @@ class YireoCommonController extends YireoAbstractController
     }
 
     /**
-     * @param $option
-     * @param $name
+     * @throws Yireo\Exception\Controller\NotFound
      *
      * @return mixed
-     * @throws \Yireo\Exception\Controller\NotFound
      */
     public static function getControllerInstance($option, $name)
     {
@@ -123,11 +120,9 @@ class YireoCommonController extends YireoAbstractController
     }
 
     /**
-     * @param $option
-     * @param $name
+     * @throws Yireo\Exception\Controller\NotFound
      *
      * @return mixed
-     * @throws \Yireo\Exception\Controller\NotFound
      */
     public static function getDefaultControllerInstance($option, $name)
     {
@@ -144,6 +139,6 @@ class YireoCommonController extends YireoAbstractController
             return $controller;
         }
 
-        throw new \Yireo\Exception\Controller\NotFound(Text::_('LIB_YIREO_NO_CONTROLLER_FOUND'));
+        throw new Yireo\Exception\Controller\NotFound(Text::_('LIB_YIREO_NO_CONTROLLER_FOUND'));
     }
 }

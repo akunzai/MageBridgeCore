@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,7 +19,7 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeApi
 {
@@ -29,12 +29,12 @@ class MageBridgeApi
     private $debug;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     private $app;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -44,7 +44,7 @@ class MageBridgeApi
     }
 
     /**
-     * Test method
+     * Test method.
      *
      * @return string
      */
@@ -56,7 +56,7 @@ class MageBridgeApi
     }
 
     /**
-     * Login method
+     * Login method.
      *
      * @param array $params
      *
@@ -79,7 +79,7 @@ class MageBridgeApi
     }
 
     /**
-     * Event method
+     * Event method.
      *
      * @param array $params
      *
@@ -113,7 +113,7 @@ class MageBridgeApi
     }
 
     /**
-     * Logs a MageBridge message on the Joomla! side
+     * Logs a MageBridge message on the Joomla! side.
      *
      * @param array $params
      *
@@ -133,7 +133,7 @@ class MageBridgeApi
     }
 
     /**
-     * Output modules on a certain position
+     * Output modules on a certain position.
      *
      * @param array $params
      *
@@ -167,7 +167,7 @@ class MageBridgeApi
     }
 
     /**
-     * Method to get a list of all users
+     * Method to get a list of all users.
      *
      * @param array $params
      *

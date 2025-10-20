@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,32 +14,31 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend
+ *
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
  * @version    $Id$
  */
 
 /**
-* @category   Zend
-* @package    Zend
-* @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
-* @license    http://framework.zend.com/license/new-bsd     New BSD License
-*/
+ * @category   Zend
+ *
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 class Zend_Exception extends Exception
 {
     /**
-     * @var null|Exception
+     * @var Exception|null
      */
     private $_previous = null;
 
     /**
-     * Construct the exception
+     * Construct the exception.
      *
-     * @param  string $msg
-     * @param  int $code
-     * @param  Exception $previous
-     * @return void
+     * @param string $msg
+     * @param int $code
      */
     public function __construct($msg = '', $code = 0, Exception $previous = null)
     {
@@ -52,12 +51,12 @@ class Zend_Exception extends Exception
     }
 
     /**
-     * Overloading
+     * Overloading.
      *
      * For PHP < 5.3.0, provides access to the getPrevious() method.
      *
-     * @param  string $method
-     * @param  array $args
+     * @param string $method
+     *
      * @return mixed
      */
     public function __call($method, array $args)
@@ -69,7 +68,7 @@ class Zend_Exception extends Exception
     }
 
     /**
-     * String representation of the exception
+     * String representation of the exception.
      *
      * @return string
      */
@@ -86,7 +85,7 @@ class Zend_Exception extends Exception
     }
 
     /**
-     * Returns previous Exception
+     * Returns previous Exception.
      *
      * @return Exception|null
      */

@@ -1,11 +1,12 @@
 <?php
 
 /**
- * Joomla! Form Field - Components
+ * Joomla! Form Field - Components.
  *
  * @author    Yireo (info@yireo.com)
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com
  */
 
@@ -17,7 +18,7 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Form Field-class for selecting a component
+ * Form Field-class for selecting a component.
  */
 class YireoFormFieldComponents extends JFormField
 {
@@ -28,8 +29,6 @@ class YireoFormFieldComponents extends JFormField
 
     /*
      * Method to construct the HTML of this element
-     *
-     * @param null
      * @return string
      */
     protected function getInput()

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -24,12 +24,12 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 require_once JPATH_SITE . '/components/com_magebridge/models/config/value.php';
 
 /**
- * Bridge configuration class
+ * Bridge configuration class.
  */
 class MageBridgeModelConfig extends YireoAbstractModel
 {
     /**
-     * Array of configured data
+     * Array of configured data.
      *
      * @var array
      */
@@ -41,16 +41,14 @@ class MageBridgeModelConfig extends YireoAbstractModel
     protected $config = [];
 
     /**
-     * Array of default values
+     * Array of default values.
      *
      * @var array
      */
     protected $defaults = null;
 
     /**
-     * Constructor
-     *
-     * @param null
+     * Constructor.
      *
      * @retun array
      */
@@ -62,7 +60,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to fetch the data
+     * Method to fetch the data.
      *
      * @return MageBridgeModelConfig
      */
@@ -78,11 +76,9 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to set data
+     * Method to set data.
      *
      * @param array $data
-     *
-     * @return void
      */
     public function setData($data)
     {
@@ -90,7 +86,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @return array
      */
@@ -110,7 +106,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to get the defaults
+     * Method to get the defaults.
      *
      * @return array
      */
@@ -132,8 +128,6 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * @param $data
-     *
      * @return array
      */
     private function pushDataIntoConfig($data)
@@ -226,20 +220,16 @@ class MageBridgeModelConfig extends YireoAbstractModel
         return $this->config;
     }
 
-    /**
-     * @param $name
-     * @param $value
-     */
     public function setConfigValue($name, $value)
     {
         $this->config[$name]['value'] = $value;
     }
 
     /**
-     * Static method to get data
+     * Static method to get data.
      *
      * @param string $element
-     * @param mixed  $overloadValue
+     * @param mixed $overloadValue
      *
      * @return mixed
      */
@@ -278,7 +268,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to check a specific configuration-element
+     * Method to check a specific configuration-element.
      *
      * @param string $element
      * @param string $value
@@ -362,9 +352,7 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Helper method to detect whether the whole configuration is empty
-     *
-     * @param null
+     * Helper method to detect whether the whole configuration is empty.
      *
      * @return bool
      */
@@ -387,12 +375,13 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to store the configuration in the database
+     * Method to store the configuration in the database.
      *
      * @param array $post
      *
-     * @return bool
      * @throws Exception
+     *
+     * @return bool
      */
     public function store($post)
     {
@@ -514,13 +503,14 @@ class MageBridgeModelConfig extends YireoAbstractModel
     }
 
     /**
-     * Method to store a single value in the database
+     * Method to store a single value in the database.
      *
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
+     *
+     * @throws Exception
      *
      * @return bool
-     * @throws Exception
      */
     public function saveValue($name, $value)
     {

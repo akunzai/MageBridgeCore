@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,12 +16,12 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewStores extends YireoViewList
 {
     /**
-     * Method to prepare the content for display
+     * Method to prepare the content for display.
      */
     public function display($tpl = null)
     {

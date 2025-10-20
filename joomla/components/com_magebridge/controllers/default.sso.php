@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,18 +16,16 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge SSO Controller
- *
- * @package MageBridge
+ * MageBridge SSO Controller.
  */
 class MageBridgeControllerSso extends YireoAbstractController
 {
     /**
-     * Method to make login an user
+     * Method to make login an user.
      */
     public function login()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
 
         // Fetch the user-email
@@ -48,13 +46,13 @@ class MageBridgeControllerSso extends YireoAbstractController
     }
 
     /**
-     * Method to make logout the current user
+     * Method to make logout the current user.
      */
     public function logout()
     {
         // Perform a logout
         $user = Factory::getUser();
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $application->logout($user->get('id'));
 

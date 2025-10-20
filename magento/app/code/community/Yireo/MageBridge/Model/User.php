@@ -1,15 +1,14 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 define('MAGEBRIDGE_AUTHENTICATION_FAILURE', 0);
 define('MAGEBRIDGE_AUTHENTICATION_SUCCESS', 1);
 define('MAGEBRIDGE_AUTHENTICATION_ERROR', 2);
@@ -20,7 +19,7 @@ define('MAGEBRIDGE_AUTHENTICATION_ERROR', 2);
 class Yireo_MageBridge_Model_User
 {
     /**
-     * Data
+     * Data.
      */
     protected $_data = null;
 
@@ -117,9 +116,7 @@ class Yireo_MageBridge_Model_User
     /*
      * Perform a Single Sign On if told so in the bridge-request
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function doSSO()
     {

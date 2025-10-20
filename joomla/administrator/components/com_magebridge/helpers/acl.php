@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,15 +17,16 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die();
 
 /**
- * Helper for encoding and encrypting
+ * Helper for encoding and encrypting.
  */
 class MageBridgeAclHelper
 {
     /**
-     * Check whether a certain person is authorized
+     * Check whether a certain person is authorized.
      *
      * @param mixed $view
      * @param bool $redirect
+     *
      * @return bool
      */
     public static function isAuthorized($view = null, $redirect = true)
@@ -91,7 +92,8 @@ class MageBridgeAclHelper
     }
 
     /**
-     * Determine whether the current user is only allowed demo-access or not
+     * Determine whether the current user is only allowed demo-access or not.
+     *
      * @return bool
      */
     public static function isDemo()

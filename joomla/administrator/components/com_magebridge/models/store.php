@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,17 +16,17 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Store model
+ * MageBridge Store model.
  */
 class MagebridgeModelStore extends YireoModel
 {
     /**
-     * Indicator if this is a model for multiple or single entries
+     * Indicator if this is a model for multiple or single entries.
      */
     protected $_single = true;
 
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function __construct()
     {
@@ -34,7 +34,7 @@ class MagebridgeModelStore extends YireoModel
     }
 
     /**
-     * Method to remove multiple items
+     * Method to remove multiple items.
      *
      * @param array $cid
      *
@@ -55,7 +55,7 @@ class MagebridgeModelStore extends YireoModel
     }
 
     /**
-     * Method to store the item
+     * Method to store the item.
      *
      * @param array $data
      *
@@ -97,7 +97,7 @@ class MagebridgeModelStore extends YireoModel
     }
 
     /**
-     * Method to save the default store-name
+     * Method to save the default store-name.
      *
      * @param string $type
      * @param string $name

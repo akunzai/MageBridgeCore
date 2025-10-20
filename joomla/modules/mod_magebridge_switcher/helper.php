@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! module MageBridge: Store switcher
+ * Joomla! module MageBridge: Store switcher.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -20,16 +20,14 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper-class for the module
+ * Helper-class for the module.
  */
 class ModMageBridgeSwitcherHelper
 {
     /**
-     * Method to be called once the MageBridge is loaded
+     * Method to be called once the MageBridge is loaded.
      *
-     * @access public
-     *
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -43,11 +41,9 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Fetch the content from the bridge
+     * Fetch the content from the bridge.
      *
-     * @access public
-     *
-     * @param \Joomla\Registry\Registry $params
+     * @param Joomla\Registry\Registry $params
      *
      * @return array
      */
@@ -72,12 +68,10 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Generate a HTML selectbox
+     * Generate a HTML selectbox.
      *
-     * @access public
-     *
-     * @param array	 $stores
-     * @param \Joomla\Registry\Registry $params
+     * @param array $stores
+     * @param Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -121,11 +115,7 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Return a list of Root Menu Items associated with the current Root Menu Item
-     *
-     * @access public
-     *
-     * @param null
+     * Return a list of Root Menu Items associated with the current Root Menu Item.
      *
      * @return array
      */
@@ -149,9 +139,7 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Return the Root Menu Item ID per language
-     *
-     * @access public
+     * Return the Root Menu Item ID per language.
      *
      * @param string $language
      *
@@ -182,12 +170,10 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Return a list of store languages
+     * Return a list of store languages.
      *
-     * @access public
-     *
-     * @param array	 $stores
-     * @param \Joomla\Registry\Registry $params
+     * @param array $stores
+     * @param Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -242,10 +228,10 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Generate a simple list of store languages
+     * Generate a simple list of store languages.
      *
-     * @param array	 $stores
-     * @param \Joomla\Registry\Registry $params
+     * @param array $stores
+     * @param Joomla\Registry\Registry $params
      *
      * @return string
      */
@@ -284,17 +270,13 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Helper method to get the current store name
-     *
-     * @access public
-     *
-     * @param null
+     * Helper method to get the current store name.
      *
      * @return string
      */
     public static function getCurrentStoreName()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $name = $application->getUserState('magebridge.store.name');
 
@@ -302,17 +284,13 @@ class ModMageBridgeSwitcherHelper
     }
 
     /**
-     * Helper method to get the current store type
-     *
-     * @access public
-     *
-     * @param null
+     * Helper method to get the current store type.
      *
      * @return string
      */
     public static function getCurrentStoreType()
     {
-        /** @var \Joomla\CMS\Application\CMSApplication */
+        /** @var Joomla\CMS\Application\CMSApplication */
         $application = Factory::getApplication();
         $type = $application->getUserState('magebridge.store.type');
 

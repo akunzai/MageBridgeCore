@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,23 +14,20 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Zend_Exception
+ * Zend_Exception.
  */
 require_once 'Zend/Exception.php';
 
 /**
- * Zend_Server_Reflection exceptions
+ * Zend_Server_Reflection exceptions.
  *
- * @package Zend_Server
- * @subpackage Reflection
  * @version $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Server_Exception extends Zend_Exception

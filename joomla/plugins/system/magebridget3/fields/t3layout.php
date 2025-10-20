@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,22 +16,23 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('_JEXEC') or die();
 
 /**
- * Element-class for a dropdown of T3-template layouts
+ * Element-class for a dropdown of T3-template layouts.
  */
 class JElementT3Layout extends JElement
 {
     /**
-     * Name for this element
+     * Name for this element.
      */
     public $_name = 'T3 layout';
 
     /**
-     * Method to get the HTML of this element
+     * Method to get the HTML of this element.
      *
      * @param string $name
      * @param string $value
      * @param object $node
      * @param string $control_name
+     *
      * @return string
      */
     public function fetchElement($name, $value, &$node, $control_name)

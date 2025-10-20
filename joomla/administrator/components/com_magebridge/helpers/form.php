@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,14 +18,13 @@ use Joomla\CMS\Language\Text;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Form Helper
+ * MageBridge Form Helper.
  */
 class MageBridgeFormHelper
 {
     /**
-     * Method to get the HTML of a certain field
+     * Method to get the HTML of a certain field.
      *
-     * @param null
      * @return string
      */
     public static function getField($type, $name, $value = null, $array = 'magebridge')
@@ -48,9 +47,8 @@ class MageBridgeFormHelper
     }
 
     /**
-     * Get an object-list of all Joomla! usergroups
+     * Get an object-list of all Joomla! usergroups.
      *
-     * @param null
      * @return array
      */
     public static function getUsergroupOptions()

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,11 +16,11 @@
 class Yireo_MageBridge_Model_Search extends Mage_Core_Model_Abstract
 {
     /**
-     * Search for products
+     * Search for products.
      *
-     * @access public
      * @param string $text
      * @param array $searchFields
+     *
      * @return array
      */
     public function getResult($text, $searchFields = [])

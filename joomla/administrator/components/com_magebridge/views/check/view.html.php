@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,10 +17,9 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 defined('_JEXEC') or die();
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewCheck extends YireoCommonView
 {
@@ -30,12 +29,12 @@ class MageBridgeViewCheck extends YireoCommonView
     protected $loadToolbar = false;
 
     /**
-     * List of all checks
+     * List of all checks.
      */
     public $checks = [];
 
     /**
-     * @var \Joomla\CMS\Form\Form
+     * @var Joomla\CMS\Form\Form
      */
     protected $form;
 
@@ -50,11 +49,9 @@ class MageBridgeViewCheck extends YireoCommonView
     protected $host;
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     *
-     * @return void
      */
     public function display($tpl = null)
     {
@@ -84,7 +81,7 @@ class MageBridgeViewCheck extends YireoCommonView
     }
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
      */
@@ -105,7 +102,7 @@ class MageBridgeViewCheck extends YireoCommonView
     }
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
      */
@@ -128,7 +125,7 @@ class MageBridgeViewCheck extends YireoCommonView
     }
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
      */
@@ -146,7 +143,7 @@ class MageBridgeViewCheck extends YireoCommonView
     }
 
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
      */
@@ -182,10 +179,6 @@ class MageBridgeViewCheck extends YireoCommonView
     }
 
     /**
-     * @param $label
-     * @param $url
-     * @param $params
-     *
      * @return string
      */
     protected function fetchContent($label, $url, $params)

@@ -21,7 +21,7 @@ defined('_JEXEC') or die();
 require_once dirname(dirname(__FILE__)) . '/loader.php';
 
 /**
- * Yireo Form Helper
+ * Yireo Form Helper.
  */
 class YireoHelperForm
 {
@@ -31,10 +31,6 @@ class YireoHelperForm
     protected static $items = [];
 
     /**
-     * @param $table
-     * @param $valueField
-     * @param $textField
-     *
      * @return mixed
      */
     public static function options($table, $valueField, $textField)

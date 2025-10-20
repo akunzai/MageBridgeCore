@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Bridge-segment class
+ * Bridge-segment class.
  */
 class MageBridgeModelBridgeSegment
 {
@@ -26,19 +26,19 @@ class MageBridgeModelBridgeSegment
     /** @var MageBridgeModelBridge */
     protected $bridge;
 
-    /** @var  \Joomla\CMS\Application\CMSApplication */
+    /** @var Joomla\CMS\Application\CMSApplication */
     protected $app;
 
-    /** @var  \Joomla\CMS\Document\HtmlDocument */
+    /** @var Joomla\CMS\Document\HtmlDocument */
     protected $doc;
 
     /**
-     * Instance variable
+     * Instance variable.
      */
     protected static $_instances = null;
 
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
      *
@@ -58,7 +58,7 @@ class MageBridgeModelBridgeSegment
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -69,11 +69,7 @@ class MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the response-data
-     *
-     * @param string $type
-     * @param string $name
-     * @param mixed  $arguments
+     * Load the response-data.
      *
      * @return array
      */
@@ -83,7 +79,7 @@ class MageBridgeModelBridgeSegment
      * }*/
 
     /**
-     * Method to get something specific from the build
+     * Method to get something specific from the build.
      *
      * @param string $id
      *
@@ -95,11 +91,11 @@ class MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to get something specific from the build
+     * Method to get something specific from the build.
      *
      * @param string $type
      * @param string $name
-     * @param mixed  $arguments
+     * @param mixed $arguments
      *
      * @return array|bool
      */

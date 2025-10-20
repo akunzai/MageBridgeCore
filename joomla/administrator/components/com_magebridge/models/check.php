@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright Yireo.com 2015
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,21 +19,12 @@ use Joomla\CMS\Version;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Check model
+ * MageBridge Check model.
  */
 class MagebridgeModelCheck extends YireoCommonModel
 {
-    /**
-     *
-     */
     public const CHECK_OK = 'ok';
-    /**
-     *
-     */
     public const CHECK_WARNING = 'warning';
-    /**
-     *
-     */
     public const CHECK_ERROR = 'error';
 
     /**
@@ -42,14 +33,12 @@ class MagebridgeModelCheck extends YireoCommonModel
     private $_checks;
 
     /**
-     * Method to add the result of a check to an internal array
+     * Method to add the result of a check to an internal array.
      *
      * @param string $group
      * @param string $check
-     * @param int    $status
+     * @param int $status
      * @param string $description
-     *
-     * @return null
      */
     public function addResult($group, $check, $status, $description = '')
     {
@@ -67,7 +56,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to get all checks
+     * Method to get all checks.
      *
      * @param bool $installer
      *
@@ -88,7 +77,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all configuration checks
+     * Method to do all configuration checks.
      */
     public function doConfigChecks()
     {
@@ -108,7 +97,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all bridge-based checks
+     * Method to do all bridge-based checks.
      */
     public function doBridgeChecks()
     {
@@ -169,7 +158,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all system checks
+     * Method to do all system checks.
      */
     public function doSystemChecks($installer = false)
     {
@@ -256,7 +245,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all extension checks
+     * Method to do all extension checks.
      */
     public function doExtensionChecks()
     {
@@ -288,7 +277,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all plugin checks
+     * Method to do all plugin checks.
      */
     public function doPluginChecks()
     {
@@ -346,7 +335,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all plugin checks
+     * Method to do all plugin checks.
      *
      * @return string
      */
@@ -375,7 +364,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to do all plugin checks
+     * Method to do all plugin checks.
      *
      * @return string
      */
@@ -397,7 +386,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Method to check whether Store Relations are required
+     * Method to check whether Store Relations are required.
      *
      * @return string
      */
@@ -423,7 +412,7 @@ class MagebridgeModelCheck extends YireoCommonModel
     }
 
     /**
-     * Dummy method required for $this->getForm()
+     * Dummy method required for $this->getForm().
      *
      * @return array
      */

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -17,14 +18,12 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 
 /**
- * Yireo Model Trait: Checkable - allows models to have checkout behaviour
- *
- * @package Yireo
+ * Yireo Model Trait: Checkable - allows models to have checkout behaviour.
  */
 trait YireoModelTraitCheckable
 {
     /**
-     * Tests if an item is checked out
+     * Tests if an item is checked out.
      *
      * @param int $uid
      *
@@ -50,9 +49,7 @@ trait YireoModelTraitCheckable
     }
 
     /**
-     * Method to checkin/unlock the table
-     *
-     * @param null
+     * Method to checkin/unlock the table.
      *
      * @return bool
      */
@@ -78,7 +75,7 @@ trait YireoModelTraitCheckable
     }
 
     /**
-     * Method to checkout/lock the table
+     * Method to checkout/lock the table.
      *
      * @param int $userId
      *

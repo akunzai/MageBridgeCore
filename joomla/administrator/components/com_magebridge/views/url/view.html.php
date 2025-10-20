@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -20,15 +20,14 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT.'/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  */
 class MageBridgeViewUrl extends YireoViewItem
 {
     /**
-     * Method to prepare the content for display
+     * Method to prepare the content for display.
      *
      * @param string $tpl
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -42,9 +41,8 @@ class MageBridgeViewUrl extends YireoViewItem
     }
 
     /**
-     * Get the HTML-field for the source type setting
+     * Get the HTML-field for the source type setting.
      *
-     * @param null
      * @return string
      */
     public function getFieldSourceType($current = null)

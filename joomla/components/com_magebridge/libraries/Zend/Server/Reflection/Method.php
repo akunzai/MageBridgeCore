@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework
+ * Zend Framework.
  *
  * LICENSE
  *
@@ -14,51 +14,50 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package	Zend_Server
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Zend_Server_Reflection_Function_Abstract
+ * Zend_Server_Reflection_Function_Abstract.
  */
 require_once 'Zend/Server/Reflection/Function/Abstract.php';
 
 /**
- * Method Reflection
+ * Method Reflection.
  *
  * @uses	   Zend_Server_Reflection_Function_Abstract
+ *
  * @category   Zend
- * @package	Zend_Server
- * @subpackage Reflection
+ *
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
+ *
  * @version $Id: Method.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abstract
 {
     /**
-     * Parent class name
+     * Parent class name.
+     *
      * @var string
      */
     protected $_class;
 
     /**
-     * Parent class reflection
+     * Parent class reflection.
+     *
      * @var Zend_Server_Reflection_Class
      */
     protected $_classReflection;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param Zend_Server_Reflection_Class $class
-     * @param ReflectionMethod $r
      * @param string $namespace
      * @param array $argv
-     * @return void
      */
     public function __construct(Zend_Server_Reflection_Class $class, ReflectionMethod $r, $namespace = null, $argv = [])
     {
@@ -87,7 +86,7 @@ class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abst
     }
 
     /**
-     * Return the reflection for the class that defines this method
+     * Return the reflection for the class that defines this method.
      *
      * @return Zend_Server_Reflection_Class
      */
@@ -97,12 +96,10 @@ class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abst
     }
 
     /**
-     * Wakeup from serialization
+     * Wakeup from serialization.
      *
      * Reflection needs explicit instantiation to work correctly. Re-instantiate
      * reflection object on wakeup.
-     *
-     * @return void
      */
     public function __wakeup()
     {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -18,15 +18,13 @@ use Joomla\Utilities\ArrayHelper;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for dealing with Joomla!/Magento customer
+ * Helper for dealing with Joomla!/Magento customer.
  */
-
 class MageBridgeUserHelper
 {
     /**
-     * Helper-method to return the default Joomla! usergroup ID
+     * Helper-method to return the default Joomla! usergroup ID.
      *
-     * @param null
      * @return int
      */
     public static function getDefaultJoomlaGroupid()
@@ -44,10 +42,11 @@ class MageBridgeUserHelper
     }
 
     /**
-     * Helper-method to determine whether an user is a backend user
+     * Helper-method to determine whether an user is a backend user.
      *
      * @param mixed $user User object or identifier
      * @param string $type Either object, email or username
+     *
      * @return bool
      */
     public static function isBackendUser($user = null, $type = 'object')
@@ -58,7 +57,7 @@ class MageBridgeUserHelper
         }
 
         // Get the right instance
-        if ($user instanceof \Joomla\CMS\User\User == false) {
+        if ($user instanceof Joomla\CMS\User\User == false) {
             if ($type == 'email') {
                 $user = MageBridge::getUser()->loadByEmail($user);
             }
@@ -82,9 +81,8 @@ class MageBridgeUserHelper
     }
 
     /**
-     * Helper-method to return the Magento customergroup based on the current Joomla! usergroup
+     * Helper-method to return the Magento customergroup based on the current Joomla! usergroup.
      *
-     * @param null
      * @return string
      */
     public static function getMagentoGroupId($user)
@@ -124,9 +122,8 @@ class MageBridgeUserHelper
     }
 
     /**
-     * Helper-method to return the Joomla! usergroup based on the current Magento customergroup
+     * Helper-method to return the Joomla! usergroup based on the current Magento customergroup.
      *
-     * @param null
      * @return array
      */
     public static function getJoomlaGroupIds($customer, $current_groups = [])
@@ -177,9 +174,10 @@ class MageBridgeUserHelper
     }
 
     /**
-     * Helper-method to convert user data into a valid user record
+     * Helper-method to convert user data into a valid user record.
      *
      * @param mixed $user User data
+     *
      * @return mixed $user
      */
     public static function convert($user)

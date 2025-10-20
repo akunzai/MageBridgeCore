@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,7 +17,7 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Main bridge class
+ * Main bridge class.
  */
 class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
 {
@@ -26,7 +26,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
      */
     private $_meta_data;
     /**
-     * Singleton
+     * Singleton.
      *
      * @param string $name
      *
@@ -38,7 +38,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Load the data from the bridge
+     * Load the data from the bridge.
      *
      * @return array
      */
@@ -49,7 +49,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to get the meta-data
+     * Method to get the meta-data.
      *
      * @return array
      */
@@ -133,11 +133,7 @@ class MageBridgeModelBridgeMeta extends MageBridgeModelBridgeSegment
     }
 
     /**
-     * Method to reset the meta-data
-     *
-     * @param null
-     *
-     * @return void
+     * Method to reset the meta-data.
      */
     public function reset()
     {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,12 +16,12 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Widget Helper
+ * MageBridge Widget Helper.
  */
 class MageBridgeWidgetHelper
 {
     /**
-     * Wrapper-method to get specific widget-data with caching options
+     * Wrapper-method to get specific widget-data with caching options.
      *
      * @param string $name
      *
@@ -63,9 +63,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get a list of websites from the API
-     *
-     * @param null
+     * Get a list of websites from the API.
      *
      * @return array
      */
@@ -75,9 +73,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get a list of stores from the API
-     *
-     * @param null
+     * Get a list of stores from the API.
      *
      * @return array
      */
@@ -87,9 +83,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get a list of CMS pages from the API
-     *
-     * @param null
+     * Get a list of CMS pages from the API.
      *
      * @return array
      */
@@ -99,9 +93,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get a list of Magento customer-groups from the API
-     *
-     * @param null
+     * Get a list of Magento customer-groups from the API.
      *
      * @return array
      */
@@ -111,9 +103,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get a list of themes from the API
-     *
-     * @param null
+     * Get a list of themes from the API.
      *
      * @return array
      */
@@ -123,9 +113,7 @@ class MageBridgeWidgetHelper
     }
 
     /**
-     * Get an API-result
-     *
-     * @param null
+     * Get an API-result.
      *
      * @return array
      */

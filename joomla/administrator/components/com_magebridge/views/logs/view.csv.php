@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -20,18 +20,16 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT.'/view.php';
 
 /**
- * HTML View class
+ * HTML View class.
  *
  * @static
- * @package MageBridge
  */
 class MageBridgeViewLogs extends MageBridgeView
 {
     /**
-     * Display method
+     * Display method.
      *
      * @param string $tpl
-     * @return null
      */
     public function display($tpl = null)
     {
@@ -69,9 +67,8 @@ class MageBridgeViewLogs extends MageBridgeView
     }
 
     /**
-     * Helper-method to get list of log-types
+     * Helper-method to get list of log-types.
      *
-     * @param null
      * @return array
      */
     public function getTypes()
@@ -86,9 +83,8 @@ class MageBridgeViewLogs extends MageBridgeView
     }
 
     /**
-     * Helper-method to get the title of a specific type
+     * Helper-method to get the title of a specific type.
      *
-     * @param null
      * @return array
      */
     public function printType($type)

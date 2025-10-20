@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -18,12 +18,12 @@ use Joomla\Filesystem\File;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Helper for proxy
+ * Helper for proxy.
  */
 class MageBridgeProxyHelper
 {
     /**
-     * @var \Joomla\CMS\Application\WebApplication
+     * @var Joomla\CMS\Application\WebApplication
      */
     protected $app;
 
@@ -36,7 +36,7 @@ class MageBridgeProxyHelper
     }
 
     /**
-     * Proxy uploads
+     * Proxy uploads.
      *
      * @return array
      */
@@ -128,7 +128,7 @@ class MageBridgeProxyHelper
     }
 
     /**
-     * Get the upload path
+     * Get the upload path.
      *
      * @return string
      */
@@ -140,7 +140,7 @@ class MageBridgeProxyHelper
     }
 
     /**
-     * Cleanup temporary uploads
+     * Cleanup temporary uploads.
      *
      * @param $tmpFiles array
      *

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -17,36 +17,34 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Connector class
- *
- * @package MageBridge
+ * MageBridge Connector class.
  */
 class MageBridgeConnector
 {
     /**
-     * List of product-connectors
+     * List of product-connectors.
      */
     protected $connectors = [];
 
     /**
-     * Name of connector
+     * Name of connector.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var Joomla\CMS\Application\CMSApplication
      */
     protected $app;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var Joomla\Database\DatabaseDriver
      */
     protected $db;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Joomla\Registry\Registry
      */
     private $params;
 
@@ -60,9 +58,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to check whether this connector is enabled or not
-     *
-     * @param null
+     * Method to check whether this connector is enabled or not.
      *
      * @return bool
      */
@@ -72,7 +68,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Get a list of all connectors
+     * Get a list of all connectors.
      *
      * @param string $type
      *
@@ -84,7 +80,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Get a specific connector
+     * Get a specific connector.
      *
      * @param string $type
      * @param string $name
@@ -97,7 +93,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to get a specific connector-object
+     * Method to get a specific connector-object.
      *
      * @param string $type
      * @param object $connector
@@ -141,11 +137,11 @@ class MageBridgeConnector
     }
 
     /**
-     * Get the connector-parameters
+     * Get the connector-parameters.
      *
      * @param string $type
      *
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     protected function _getParams($type)
     {
@@ -175,7 +171,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Get the right path to a file
+     * Get the right path to a file.
      *
      * @param string $type
      * @param string $filename
@@ -194,7 +190,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to check whether a specific component is there
+     * Method to check whether a specific component is there.
      *
      * @param string $component
      *

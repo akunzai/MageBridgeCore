@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,10 +16,10 @@
 class Yireo_MageBridge_Model_Cart_Api extends Mage_Catalog_Model_Api_Resource
 {
     /**
-     * Return a list of all cart-items
+     * Return a list of all cart-items.
      *
-     * @access public
      * @param array $options
+     *
      * @return array
      */
     public function items($options = [])

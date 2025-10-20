@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -17,14 +17,13 @@ use Joomla\CMS\Installer\Installer;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Controller
+ * MageBridge Controller.
  */
 class MageBridgeUpdateHelper
 {
     /**
-     * Get the version of the MageBridge component
+     * Get the version of the MageBridge component.
      *
-     * @param null
      * @return string
      */
     public static function getComponentVersion()
@@ -37,9 +36,10 @@ class MageBridgeUpdateHelper
     }
 
     /**
-     * Get the current version of a specific MageBridge extension (component, plugin or module)
+     * Get the current version of a specific MageBridge extension (component, plugin or module).
      *
      * @param array $package
+     *
      * @return string
      */
     public static function getCurrentVersion($package)
@@ -82,10 +82,8 @@ class MageBridgeUpdateHelper
     }
 
     /**
-     * Download a specific package using the MageBridge Proxy (CURL-based)
+     * Download a specific package using the MageBridge Proxy (CURL-based).
      *
-     * @param string $url
-     * @param string $target
      * @return string
      */
     public static function getPostInstallQuery($type = null, $name = null, $value = null)

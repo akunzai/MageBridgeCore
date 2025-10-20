@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ class Yireo_MageBridge_Model_Session extends Mage_Core_Model_Session_Abstract
     /*
      * Constructor
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function __construct()
     {
@@ -55,9 +53,7 @@ class Yireo_MageBridge_Model_Session extends Mage_Core_Model_Session_Abstract
     /*
      * Method to get all the current events registered in the bridge-session
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getEvents()
     {
@@ -67,9 +63,7 @@ class Yireo_MageBridge_Model_Session extends Mage_Core_Model_Session_Abstract
     /*
      * Method to remove al the events registered in the bridge-session
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function cleanEvents()
     {

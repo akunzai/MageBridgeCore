@@ -20,8 +20,7 @@ class YireoFormFieldAbstract extends JFormField
     /**
      * Method to instantiate the form field object.
      *
-     * @param \Joomla\CMS\Form\Form $form
-     * @return void
+     * @param Joomla\CMS\Form\Form $form
      */
     public function __construct($form = null)
     {
@@ -81,8 +80,6 @@ class YireoFormFieldAbstract extends JFormField
 
     /*
      * Method to add CSS to this field
-     *
-     * @param null
      * @return string
      */
     protected function addStylesheet($stylesheet)
@@ -92,8 +89,6 @@ class YireoFormFieldAbstract extends JFormField
 
     /*
      * Method to add JavaScript to this field
-     *
-     * @param null
      * @return string
      */
     protected function addScript($script)

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -16,17 +16,17 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('JPATH_BASE') or die();
 
 /**
- * Form Field-class
+ * Form Field-class.
  */
 class MagebridgeFormFieldHttpauth extends MageBridgeFormFieldAbstract
 {
     /**
-     * Form field type
+     * Form field type.
      */
     public $type = 'HTTP Authentication';
 
     /**
-     * Method to get the HTML of this element
+     * Method to get the HTML of this element.
      *
      * @return string
      */

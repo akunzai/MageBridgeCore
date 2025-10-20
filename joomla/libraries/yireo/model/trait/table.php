@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -15,21 +16,19 @@
 defined('_JEXEC') or die();
 
 /**
- * Yireo Model Trait: Table - allows models to have tables
- *
- * @package Yireo
+ * Yireo Model Trait: Table - allows models to have tables.
  */
 trait YireoModelTraitTable
 {
     /**
-     * Boolean to skip table-detection
+     * Boolean to skip table-detection.
      *
      * @var int
      */
     protected $skip_table = true;
 
     /**
-     * Database table object
+     * Database table object.
      *
      * @var YireoTable
      */
@@ -68,8 +67,6 @@ trait YireoModelTraitTable
     }
 
     /**
-     * @param $table_prefix
-     *
      * @return bool
      */
     public function setTablePrefix($table_prefix = null)
@@ -86,11 +83,11 @@ trait YireoModelTraitTable
     }
 
     /**
-     * Override the default method to allow for skipping table creation
+     * Override the default method to allow for skipping table creation.
      *
      * @param string $name
      * @param string $prefix
-     * @param array  $options
+     * @param array $options
      *
      * @return mixed
      */
@@ -114,7 +111,7 @@ trait YireoModelTraitTable
     }
 
     /**
-     * Method to get the current primary key
+     * Method to get the current primary key.
      *
      * @return string
      */

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! MageBridge - Content plugin
+ * Joomla! MageBridge - Content plugin.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -19,17 +19,17 @@ use Joomla\CMS\Factory;
 include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
- * MageBridge Content Plugin
+ * MageBridge Content Plugin.
  */
-class PlgContentMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
+class PlgContentMageBridge extends Joomla\CMS\Plugin\CMSPlugin
 {
     /**
-     * Event onContentPrepare
+     * Event onContentPrepare.
      *
-     * @param string     $context
-     * @param object     $row
-     * @param \Joomla\Registry\Registry  $params
-     * @param mixed      $page
+     * @param string $context
+     * @param object $row
+     * @param Joomla\Registry\Registry $params
+     * @param mixed $page
      *
      * @return bool
      */
@@ -83,7 +83,7 @@ class PlgContentMageBridge extends \Joomla\CMS\Plugin\CMSPlugin
     }
 
     /**
-     * Return whether MageBridge is available or not
+     * Return whether MageBridge is available or not.
      *
      * @return bool
      */

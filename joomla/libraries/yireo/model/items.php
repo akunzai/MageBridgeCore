@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Joomla! Yireo Library
+ * Joomla! Yireo Library.
  *
  * @author    Yireo (http://www.yireo.com/)
- * @package   YireoLib
  * @copyright Copyright 2015
  * @license   GNU Public License
+ *
  * @link      http://www.yireo.com/
+ *
  * @version   0.6.0
  */
 
@@ -21,29 +22,27 @@ require_once dirname(__FILE__) . '/../loader.php';
 
 /**
  * Yireo Model
- * Parent class for models that use the full-blown MVC pattern
- *
- * @package Yireo
+ * Parent class for models that use the full-blown MVC pattern.
  */
 class YireoModelItems extends YireoDataModel
 {
     /**
-     * Trait to implement checkout behaviour
+     * Trait to implement checkout behaviour.
      */
     use YireoModelTraitCheckable;
 
     /**
-     * Trait to implement pagination behaviour
+     * Trait to implement pagination behaviour.
      */
     use YireoModelTraitPaginable;
 
     /**
-     * Trait to implement filter behaviour
+     * Trait to implement filter behaviour.
      */
     use YireoModelTraitFilterable;
 
     /**
-     * Trait to implement filter behaviour
+     * Trait to implement filter behaviour.
      */
     use YireoModelTraitLimitable;
 
@@ -53,32 +52,30 @@ class YireoModelItems extends YireoDataModel
     protected $queryConfig = [];
 
     /**
-     * Ordering field
+     * Ordering field.
      *
      * @var string
      */
     protected $_ordering = null;
 
     /**
-     * Search columns
+     * Search columns.
      *
      * @var array
      */
     protected $search = [];
 
     /**
-     * List of fields to autoconvert into column-separated fields
+     * List of fields to autoconvert into column-separated fields.
      *
      * @var array
      */
     protected $_columnFields = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed $config
-     *
-     * @return void
      */
     public function __construct($config = [])
     {
@@ -106,7 +103,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Initialize ORDER BY details
+     * Initialize ORDER BY details.
      */
     protected function initOrderBy()
     {
@@ -134,7 +131,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Inititalize system variables
+     * Inititalize system variables.
      */
     protected function initPlural()
     {
@@ -165,7 +162,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     protected function initParams()
     {
@@ -178,7 +175,7 @@ class YireoModelItems extends YireoDataModel
 
             return $this->params;
         }
-        /** @var \Joomla\CMS\Application\SiteApplication */
+        /** @var Joomla\CMS\Application\SiteApplication */
         $siteApp = $this->app;
         $this->params = $siteApp->getParams($this->getConfig('option'));
 
@@ -186,7 +183,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @param bool $forceNew
      *
@@ -206,7 +203,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * @return \Joomla\Database\DatabaseQuery
+     * @return Joomla\Database\DatabaseQuery
      */
     public function buildQueryObject()
     {
@@ -229,7 +226,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to get data
+     * Method to get data.
      *
      * @param bool $forceNew
      *
@@ -371,13 +368,11 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to store the model
+     * Method to store the model.
      *
      * @param mixed $data
      *
-     * @return null
      * @throws BadMethodCallException
-     *
      */
     public function store($data)
     {
@@ -385,7 +380,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to get the ordering query
+     * Method to get the ordering query.
      *
      * @return string
      */
@@ -395,7 +390,7 @@ class YireoModelItems extends YireoDataModel
             return false;
         }
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var Joomla\Database\DatabaseDriver $db */
         $db = $this->db;
 
         $query = $db->getQuery(true);
@@ -408,7 +403,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to get empty fields
+     * Method to get empty fields.
      *
      * @return array
      */
@@ -429,7 +424,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to initialise the data
+     * Method to initialise the data.
      *
      * @return bool
      */
@@ -449,7 +444,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Check whether this record can be edited
+     * Check whether this record can be edited.
      *
      * @param array $data
      *
@@ -466,7 +461,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to get the default ORDER BY value
+     * Method to get the default ORDER BY value.
      *
      * @return string
      */
@@ -476,9 +471,7 @@ class YireoModelItems extends YireoDataModel
     }
 
     /**
-     * Method to reset all filters
-     *
-     * @return void
+     * Method to reset all filters.
      */
     public function resetFilters()
     {

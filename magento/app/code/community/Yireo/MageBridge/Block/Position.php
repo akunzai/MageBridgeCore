@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the position-block
+ * MageBridge class for the position-block.
  */
 class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -27,7 +27,7 @@ class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper method to set the XML-layout position
+     * Helper method to set the XML-layout position.
      *
      * @param string
      */
@@ -37,7 +37,7 @@ class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper method to get the XML-layout position
+     * Helper method to get the XML-layout position.
      *
      * @return string
      */
@@ -51,7 +51,7 @@ class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
     }
 
     /**
-     * Render block HTML
+     * Render block HTML.
      *
      * @return string
      */

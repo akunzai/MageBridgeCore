@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2017
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,12 +16,12 @@ use Joomla\CMS\Factory;
 defined('_JEXEC') or die();
 
 /**
- * MageBridge Install Helper
+ * MageBridge Install Helper.
  */
 class MageBridgeInstallHelper
 {
     /**
-     * Method to run update queries
+     * Method to run update queries.
      */
     public function updateQueries()
     {

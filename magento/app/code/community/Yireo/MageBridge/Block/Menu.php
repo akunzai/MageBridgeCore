@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the menu-block
+ * MageBridge class for the menu-block.
  */
 class Yireo_MageBridge_Block_Menu extends Mage_Core_Block_Template
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -26,7 +26,7 @@ class Yireo_MageBridge_Block_Menu extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper method to get data from the Magento configuration
+     * Helper method to get data from the Magento configuration.
      *
      * @return array
      */

@@ -1,25 +1,23 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge admin controller
+ * MageBridge admin controller.
  */
 class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Common method to initialize each action
+     * Common method to initialize each action.
      *
-     * @access protected
-     * @param null
      * @return $this
      */
     protected function _initAction()
@@ -55,11 +53,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Settings page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Settings page.
      */
     public function indexAction()
     {
@@ -69,11 +63,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Settings page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Settings page.
      */
     public function settingsAction()
     {
@@ -83,11 +73,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * System Check page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * System Check page.
      */
     public function checkAction()
     {
@@ -97,11 +83,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Browse page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Browse page.
      */
     public function browseAction()
     {
@@ -111,11 +93,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Log page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Log page.
      */
     public function logAction()
     {
@@ -125,11 +103,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Wipe a log
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Wipe a log.
      */
     public function wipelogAction()
     {
@@ -153,11 +127,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Credits page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Credits page.
      */
     public function creditsAction()
     {
@@ -167,11 +137,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Save all the MageBridge settings
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Save all the MageBridge settings.
      */
     public function saveAction()
     {
@@ -194,9 +160,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     /*
      * Reset API settings to their default value
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function resetapiAction()
     {
@@ -221,9 +185,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     /*
      * Reset usermapping
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function resetusermapAction()
     {
@@ -243,9 +205,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     /*
      * Reset all MageBridge events to their recommended value
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function reseteventsAction()
     {
@@ -266,9 +226,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     /*
      * Foo Bar
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function fooAction()
     {

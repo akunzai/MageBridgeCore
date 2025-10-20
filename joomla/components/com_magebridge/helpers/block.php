@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
@@ -23,8 +23,6 @@ defined('_JEXEC') or die('Restricted access');
 class MageBridgeBlockHelper
 {
     /**
-     * @param $data
-     *
      * @return mixed
      */
     public static function parseBlock($data)
@@ -36,8 +34,6 @@ class MageBridgeBlockHelper
     }
 
     /**
-     * @param $data
-     *
      * @return mixed
      */
     public static function parseJdocTags($data)
@@ -76,9 +72,6 @@ class MageBridgeBlockHelper
     }
 
     /**
-     * @param $name
-     * @param $attribs
-     *
      * @return string
      */
     public static function getModuleHtml($name, $attributes)
