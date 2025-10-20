@@ -26,8 +26,8 @@ composer run lint
 # static code analysis
 composer run phpstan
 
-# build the Joomla! extension. The `pkg_magebridge.zip` can be found in the `dist/` directory
-./build.sh
+# bundle the Joomla! extension. The `pkg_magebridge.zip` can be found in the `dist/` directory
+./bundle.sh
 ```
 
 ## Installation
