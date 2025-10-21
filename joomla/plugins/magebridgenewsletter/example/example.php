@@ -13,19 +13,18 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+use MageBridge\Component\MageBridge\Site\Library\Plugin;
 
 /**
  * MageBridge Newsletter Plugin - Example.
  */
-class plgMageBridgeNewsletterExample extends MageBridgePlugin
+class plgMageBridgeNewsletterExample extends Plugin
 {
     /**
      * Event "onNewsletterSubscribe".
      *
      * @param object $user Joomla! user object
-     * @param tinyint $state Whether the user is subscribed or not (0 for no, 1 for yes)
+     * @param int $state Whether the user is subscribed or not (0 for no, 1 for yes)
      *
      * @return bool
      */

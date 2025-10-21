@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.2" type="plugin" group="user" method="upgrade">
+<extension version="4" type="plugin" group="user" method="upgrade">
 	<name>PLG_SYSTEM_MAGEBRIDGEFIRSTLAST</name>
 	<author>Jisse Reitsma</author>
 	<creationDate>August 2017</creationDate>
@@ -10,11 +10,19 @@
 	<version>3.0.0</version>
 	<description>PLG_SYSTEM_MAGEBRIDGEFIRSTLAST_XML_DESCRIPTION</description>
 
+	<namespace path="src">MageBridge\Plugin\User\MageBridgeFirstLast</namespace>
+
 	<files>
 		<filename plugin="magebridgefirstlast">magebridgefirstlast.php</filename>
 		<filename>index.html</filename>
 		<folder>form</folder>
+		<folder>services</folder>
+		<folder>src</folder>
 	</files>
+
+	<services>
+		<service type="plugin" id="plg_user_magebridgefirstlast">services/provider.php</service>
+	</services>
 
 	<languages folder="language/en-GB">
 		<language tag="en-GB">plg_user_magebridgefirstlast.ini</language>

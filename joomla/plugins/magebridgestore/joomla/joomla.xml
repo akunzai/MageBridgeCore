@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3" type="plugin" group="magebridgestore" method="upgrade">
+<extension version="5.0" type="plugin" group="magebridgestore" method="upgrade">
 	<name>PLG_MAGEBRIDGESTORE_JOOMLA</name>
 	<author>Yireo</author>
 	<creationDate>August 2017</creationDate>
@@ -10,9 +10,13 @@
 	<version>3.0.0</version>
 	<description>PLG_MAGEBRIDGESTORE_JOOMLA_DESC</description>
 
+	<namespace path="src">MageBridge\Plugin\MageBridgeStore\Joomla</namespace>
+
 	<files>
 		<filename plugin="joomla">joomla.php</filename>
 		<folder>form</folder>
+		<folder>services</folder>
+		<folder>src</folder>
 		<filename>index.html</filename>
 	</files>
 

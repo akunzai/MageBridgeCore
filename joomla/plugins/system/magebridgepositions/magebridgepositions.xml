@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3" type="plugin" group="system" method="upgrade">
+<extension version="4" type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_MAGEBRIDGEPOSITIONS</name>
     <author>Yireo</author>
     <creationDate>August 2017</creationDate>
@@ -8,13 +8,21 @@
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
     <version>3.0.0</version>
-    <description>PLG_SYSTEM_MAGEBRIDGEPOSITIONS_DESC</description>
+	<description>PLG_SYSTEM_MAGEBRIDGEPOSITIONS_DESC</description>
 
-    <files>
-        <filename plugin="magebridgepositions">magebridgepositions.php</filename>
-        <filename>index.html</filename>
-        <folder>rewrite</folder>
-    </files>
+	<namespace path="src">MageBridge\Plugin\System\MageBridgePositions</namespace>
+
+	<files>
+		<filename plugin="magebridgepositions">magebridgepositions.php</filename>
+		<filename>index.html</filename>
+		<folder>rewrite</folder>
+		<folder>services</folder>
+		<folder>src</folder>
+	</files>
+
+	<services>
+		<service type="plugin" id="plg_system_magebridgepositions">services/provider.php</service>
+	</services>
 
     <languages folder="language/en-GB">
         <language tag="en-GB">plg_system_magebridgepositions.ini</language>
