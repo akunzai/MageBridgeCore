@@ -10,13 +10,16 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
+use MageBridge\Component\MageBridge\Site\Model\Register;
+use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
+use MageBridge\Component\MageBridge\Site\Helper\EncryptionHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-// Import the MageBridge autoloader
-include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * MageBridge ZOO System Plugin.
@@ -32,6 +35,7 @@ class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
         if ($this->isEnabled() == false) {
             return false;
         }
+        /** @var CMSApplication */
         $app = Factory::getApplication();
         if ($app->input->getCmd('option') == 'com_zoo') {
             $body = $app->get('Body');
@@ -39,14 +43,14 @@ class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
             // Check for Magento CMS-tags
             if (preg_match('/\{\{([^}]+)\}\}/', $body) || preg_match('/\{mb([^}]+)\}/', $body)) {
                 // Get system variables
-                $bridge = MageBridgeModelBridge::getInstance();
-                $register = MageBridgeModelRegister::getInstance();
+                $bridge = BridgeModel::getInstance();
+                $register = Register::getInstance();
 
                 // Detect the request-tag
                 if (preg_match_all('/\{mbrequest url="([^\"]+)"\}/', $body, $matches)) {
                     foreach ($matches[0] as $matchIndex => $match) {
                         $url = $matches[1][$matchIndex];
-                        MageBridgeUrlHelper::setRequest($url);
+                        UrlHelper::setRequest($url);
                         $body = str_replace($match, '', $body);
                     }
                 }
@@ -61,7 +65,7 @@ class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
 
                 // Include the MageBridge register
                 $key = md5(var_export($body, true)) . ':' . $app->input->getCmd('option');
-                $text = MageBridgeEncryptionHelper::base64_encode($body);
+                $text = EncryptionHelper::base64_encode($body);
 
                 // Conditionally load CSS
                 if ($this->params->get('load_css') == 1 || $this->params->get('load_js') == 1) {
@@ -84,7 +88,7 @@ class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
 
                 // Get the result from the bridge
                 $result = $bridge->getSegmentData($segment_id);
-                $result = MageBridgeEncryptionHelper::base64_decode($result);
+                $result = EncryptionHelper::base64_decode($result);
 
                 // Only replace the original if the new content exists
                 if (!empty($result)) {
@@ -117,9 +121,10 @@ class plgSystemMageBridgeZoo extends Joomla\CMS\Plugin\CMSPlugin
         if (Factory::getApplication()->isClient('site') == false) {
             return false;
         }
-        if (is_file(JPATH_SITE . '/components/com_magebridge/models/config.php')) {
-            return true;
+        if (!class_exists(ConfigModel::class)) {
+            return false;
         }
-        return false;
+
+        return true;
     }
 }

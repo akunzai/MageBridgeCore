@@ -13,22 +13,25 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Plugin\CMSPlugin;
+use MageBridge\Component\MageBridge\Site\Model\Register;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
+
 /**
  * MageBridge Sample System Plugin.
  */
-class plgSystemMageBridgeSample extends Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeSample extends CMSPlugin
 {
     protected $magebridge_register_id = null;
 
     /**
      * Constructor.
      *
-     * @param object $subject
      * @param array $config
      */
-    public function __construct(&$subject, $config)
+    public function __construct($config)
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
         $this->loadLanguage();
     }
 
@@ -37,7 +40,7 @@ class plgSystemMageBridgeSample extends Joomla\CMS\Plugin\CMSPlugin
      */
     public function onAfterInitialise()
     {
-        $register = MageBridgeModelRegister::getInstance();
+        $register = Register::getInstance();
         $this->magebridge_register_id = $register->add('api', 'magebridge_session.checkout');
     }
 
@@ -61,10 +64,10 @@ class plgSystemMageBridgeSample extends Joomla\CMS\Plugin\CMSPlugin
      */
     public function onAfterRender()
     {
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
         $bridge->build();
 
-        $register = MageBridgeModelRegister::getInstance();
+        $register = Register::getInstance();
         $segment = $register->getById($this->magebridge_register_id);
     }
 }

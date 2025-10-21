@@ -13,6 +13,9 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Load the MageBridgePluginStore base class
+require_once JPATH_SITE . '/components/com_magebridge/libraries/plugin/store.php';
+
 use Joomla\CMS\Factory;
 
 /**
@@ -46,7 +49,7 @@ class plgMageBridgeStoreNooku extends MageBridgePluginStore
         }
 
         // Check if the condition applies
-        if ($actions['nooku_language'] == Factory::getApplication()->input->getCmd('lang')) {
+        if ($actions['nooku_language'] == Factory::getApplication()->getInput()->getCmd('lang')) {
             return true;
         }
 

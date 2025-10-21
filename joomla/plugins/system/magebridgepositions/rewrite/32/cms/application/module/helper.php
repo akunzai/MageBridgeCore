@@ -5,15 +5,24 @@
  * @license	 GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Application\SiteApplication;
+use Joomla\CMS\Cache\CacheControllerFactoryInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Profiler\Profiler;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Site\Helper\TemplateHelper;
 
 defined('JPATH_PLATFORM') or die;
+
+if (!defined('JPATH_BASE')) {
+    define('JPATH_BASE', JPATH_SITE);
+}
 
 define('MAGEBRIDGE_MODULEHELPER_OVERRIDE', true);
 
@@ -52,7 +61,7 @@ abstract class JModuleHelper
             }
         }
 
-        if (is_object($result) && isset($result->position) && MageBridgeTemplateHelper::allowPosition($result->position) == false) {
+        if (is_object($result) && isset($result->position) && TemplateHelper::allowPosition($result->position) == false) {
             $result = null;
         }
 
@@ -85,9 +94,9 @@ abstract class JModuleHelper
     {
         $position = strtolower($position);
         $result = [];
-        $input  = Factory::getApplication()->input;
+        $input  = Factory::getApplication()->getInput();
 
-        if (!empty($position) && MageBridgeTemplateHelper::allowPosition($position) == false) {
+        if (!empty($position) && TemplateHelper::allowPosition($position) == false) {
             return $result;
         }
 
@@ -137,7 +146,7 @@ abstract class JModuleHelper
      * @param object $module a module object
      * @param array $attribs an array of attributes for the module (probably from the XML)
      *
-     * @return string the HTML content of the module output
+     * @return string|null the HTML content of the module output
      *
      * @since   1.5
      */
@@ -145,7 +154,7 @@ abstract class JModuleHelper
     {
         static $chrome;
 
-        if (is_object($module) && isset($module->position) && MageBridgeTemplateHelper::allowPosition($module->position) == false) {
+        if (is_object($module) && isset($module->position) && TemplateHelper::allowPosition($module->position) == false) {
             return null;
         }
 
@@ -153,7 +162,7 @@ abstract class JModuleHelper
             Profiler::getInstance('Application')->mark('beforeRenderModule ' . $module->module . ' (' . $module->title . ')');
         }
 
-        /** @var Joomla\CMS\Application\CMSApplication */
+        /** @var CMSApplication */
         $app = Factory::getApplication();
 
         // Record the scope.
@@ -175,7 +184,7 @@ abstract class JModuleHelper
 
         // Load the module
         if (file_exists($path)) {
-            $lang = Factory::getLanguage();
+            $lang = $app->getLanguage();
 
             // 1.5 or Core then 1.6 3PD
             $lang->load($module->module, JPATH_BASE, null, false, true) ||
@@ -256,7 +265,7 @@ abstract class JModuleHelper
      */
     public static function getLayoutPath($module, $layout = 'default')
     {
-        /** @var Joomla\CMS\Application\CMSApplication */
+        /** @var CMSApplication */
         $app = Factory::getApplication();
         $template = $app->getTemplate();
         $defaultLayout = $layout;
@@ -299,17 +308,15 @@ abstract class JModuleHelper
             return $clean;
         }
 
-        /** @var Joomla\CMS\Application\SiteApplication */
+        /** @var CMSApplication */
         $app = Factory::getApplication();
         $Itemid = $app->input->getInt('Itemid');
-        $user = version_compare(JVERSION, '4.0.0', '<')
-            ? Factory::getUser()
-            : Factory::getApplication()->getIdentity();
+        $user = $app->getIdentity();
         $groups = implode(',', $user->getAuthorisedViewLevels());
-        $lang = Factory::getLanguage()->getTag();
+        $lang = $app->getLanguage()->getTag();
         $clientId = (int) $app->getClientId();
 
-        $db = Factory::getDbo();
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
 
         $query = $db->getQuery(true)
             ->select('m.id, m.title, m.module, m.position, m.content, m.showtitle, m.params, mm.menuid')
@@ -331,7 +338,7 @@ abstract class JModuleHelper
             ->where('(mm.menuid = ' . (int) $Itemid . ' OR mm.menuid <= 0)');
 
         // Filter by language
-        if ($app->isClient('site') && $app->getLanguageFilter()) {
+        if ($app->isClient('site') && $app instanceof SiteApplication && $app->getLanguageFilter()) {
             $query->where('m.language IN (' . $db->quote($lang) . ',' . $db->quote('*') . ')');
         }
 
@@ -339,12 +346,13 @@ abstract class JModuleHelper
 
         // Set the query
         $db->setQuery($query);
+        /** @var array<int, object> $clean */
         $clean = [];
 
         try {
             $modules = $db->loadObjectList();
         } catch (RuntimeException $e) {
-            Log::add(Text::sprintf('JLIB_APPLICATION_ERROR_MODULE_LOAD', $e->getMessage()), Log::WARNING, 'jerror');
+            Log::add(sprintf(Text::_('JLIB_APPLICATION_ERROR_MODULE_LOAD'), $e->getMessage()), Log::WARNING, 'jerror');
             return $clean;
         }
 
@@ -415,13 +423,14 @@ abstract class JModuleHelper
         if (!isset($cacheparams->cachegroup)) {
             $cacheparams->cachegroup = $module->module;
         }
-
-        $user = version_compare(JVERSION, '4.0.0', '<')
-            ? Factory::getUser()
-            : Factory::getApplication()->getIdentity();
-        $cache = Factory::getCache($cacheparams->cachegroup, 'callback');
-        $conf = Factory::getConfig();
+        /** @var CMSApplication */
         $app = Factory::getApplication();
+        $user = $app->getIdentity();
+        $cacheControllerFactory = Factory::getContainer()->get(CacheControllerFactoryInterface::class);
+        $cache = $cacheControllerFactory->createCacheController('callback', ['defaultgroup' => $cacheparams->cachegroup]);
+
+        $conf = $app->getConfig();
+
 
         // Turn cache off for internal callers if parameters are set to off and for all logged in users
         if ($moduleparams->get('owncache', null) === '0' || $conf->get('caching') == 0 || $user->get('id')) {
@@ -449,9 +458,9 @@ abstract class JModuleHelper
 
             case 'safeuri':
                 $secureid = null;
+                $safeuri = new stdClass();
                 if (is_array($cacheparams->modeparams)) {
                     $input = $app->input;
-                    $safeuri = new stdClass();
                     foreach ($cacheparams->modeparams as $key => $value) {
                         // Use int filter for id/catid to clean out spamy slugs
                         $value = $input->get($key);

@@ -13,6 +13,9 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Load the MageBridgePluginStore base class
+require_once JPATH_SITE . '/components/com_magebridge/libraries/plugin/store.php';
+
 use Joomla\CMS\Factory;
 
 /**
@@ -46,9 +49,13 @@ class plgMageBridgeStoreJoomfish extends MageBridgePluginStore
         }
 
         // Fetch the current language
-        $language = Factory::getLanguage();
+        $language = Factory::getApplication()->getLanguage();
+
+        // Initialize language code
+        $language_code = '';
 
         // Fetch the languages
+        // @phpstan-ignore-next-line
         $languages = JoomfishManager::getInstance()->getActiveLanguages();
         if (!empty($languages)) {
             foreach ($languages as $l) {
@@ -63,7 +70,7 @@ class plgMageBridgeStoreJoomfish extends MageBridgePluginStore
                 }
             }
         } else {
-            $language_code = Factory::getApplication()->input->getCmd('lang');
+            $language_code = Factory::getApplication()->getInput()->getCmd('lang');
         }
 
         // Check if the condition applies
