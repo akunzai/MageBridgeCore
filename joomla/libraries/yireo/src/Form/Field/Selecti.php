@@ -1,0 +1,122 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Yireo\Form\Field;
+
+defined('_JEXEC') or die();
+
+use Joomla\CMS\Language\Text;
+
+/*
+ * Form Field-class for adding a select-box that is automatically filled with data
+ */
+
+class Selecti extends AbstractField
+{
+    /*
+     * Form field type
+     */
+    public $type = 'Select field';
+
+    /*
+     * Method to get the HTML of this element
+     *
+     * @return string
+     */
+    protected function getInput()
+    {
+        // Initialize the basic variables
+        $name = $this->name;
+        $value = $this->value;
+        $fieldName = $name;
+        $fieldId = $this->getAttribute('id');
+        $type = $this->getAttribute('type');
+        $multiple = $this->getAttribute('multiple');
+        $rel = $this->getAttribute('rel');
+        $show_empty = (bool) $this->getAttribute('show_empty');
+        $show_empty_below = (bool) $this->getAttribute('show_empty_below');
+        $empty_label = $this->getAttribute('empty_label');
+        $description = (!empty($this->element['description'])) ? Text::_((string) $this->element['description']) : null;
+        $size = (!empty($this->element['size'])) ? $this->element['size'] : null;
+        $required = (!empty($this->element['required'])) ? $this->element['required'] : null;
+        $inputInfo = $this->getAttribute('inputinfo');
+        $class = (!empty($this->element['class'])) ? $this->element['class'] : 'input';
+
+        // Construct the class
+        $class .= $inputInfo ? $this->class . ' has-info' : $this->class;
+
+        // Construct the ID
+        if (empty($fieldId)) {
+            $fieldId = $this->getHtmlId($fieldName);
+        }
+
+        // Construct the options
+        $options = $this->getOptions();
+
+        // Construct the HTML-arguments
+        $htmlArguments = [
+            'type' => $type,
+            'name' => $fieldName,
+            'id' => $fieldId,
+            'value' => $value,
+            'multiple' => $multiple,
+            'size' => $size,
+            'rel' => $rel,
+            'class' => $class,];
+
+        $htmlArguments = $this->getAttributeString($htmlArguments);
+
+        // Construct the template-variables
+        $variables = [
+            'name' => $name,
+            'fieldName' => $fieldName,
+            'current_value' => $value,
+            'arguments' => $htmlArguments,
+            'options' => $options,
+            'show_empty' => $show_empty,
+            'show_empty_below' => $show_empty_below,
+            'empty_label' => $empty_label,];
+
+        // Output the template
+        $html = $this->getTemplate('selecti', $variables);
+
+        return $html;
+    }
+
+    /*
+     * Method to get the options for this field
+     * @return array
+     */
+    public function getOptions()
+    {
+        $source = (string) $this->getAttribute('source');
+
+        if (!empty($source)) {
+            if (preg_match('/^([a-zA-Z0-9]+)::([a-zA-Z0-9]+)/', $source, $match)) {
+                $class = $match[1];
+                $method = $match[2];
+                $classInstance = new $class();
+                $options = $classInstance->$method();
+
+                return $options;
+            }
+        }
+
+        $options = [];
+
+        foreach ($this->element->children() as $option) {
+            if ($option->getName() != 'option') {
+                continue;
+            }
+
+            $optionArray = [
+                'value' => (string) $option['value'],
+                'label' => (string) $option,
+                'disabled' => (string) $option['disabled'],];
+            $options[] = $optionArray;
+        }
+
+        return $options;
+    }
+}
