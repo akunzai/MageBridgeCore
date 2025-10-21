@@ -66,7 +66,7 @@ class Zend_Json_Server_Response
     /**
      * JSON-RPC version.
      *
-     * @var string
+     * @var string|null
      */
     protected $_version;
 

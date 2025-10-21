@@ -78,7 +78,7 @@ class Zend_Json
     {
         $encodedValue = (string) $encodedValue;
         if (function_exists('json_decode') && self::$useBuiltinEncoderDecoder !== true) {
-            $decode = json_decode($encodedValue, $objectDecodeType);
+            $decode = json_decode($encodedValue, (bool) $objectDecodeType);
 
             // php < 5.3
             if (!function_exists('json_last_error')) {
@@ -304,12 +304,14 @@ class Zend_Json
             );
         } // End of if ($recursionDepth > self::$maxRecursionDepthAllowed)
 
+        $callerProvidedSimpleXmlElementObject = null;
         if ($recursionDepth == 0) {
             // Store the original SimpleXmlElementObject sent by the caller.
             // We will need it at the very end when we return from here for good.
             $callerProvidedSimpleXmlElementObject = $simpleXmlElementObject;
         } // End of if ($recursionDepth == 0)
 
+        $copyOfSimpleXmlElementObject = null;
         if ($simpleXmlElementObject instanceof SimpleXMLElement) {
             // Get a copy of the simpleXmlElementObject
             $copyOfSimpleXmlElementObject = $simpleXmlElementObject;

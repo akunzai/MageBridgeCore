@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Zend Framework.
  *
@@ -52,32 +54,25 @@ class Zend_Server_Reflection
      * be provided as an array to $argv.
      *
      * @param string|object $class Class name or object
-     * @param array|null $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the
-     *                          method name (used for the signature key). Primarily to avoid collisions,
-     *                          also for XmlRpc namespacing
+     * @param array<int, mixed> $argv Optional arguments for the method call
+     * @param string $namespace Optional namespace to prefix the method name
      *
      * @throws Zend_Server_Reflection_Exception
      *
      * @return Zend_Server_Reflection_Class
      */
-    public static function reflectClass($class, $argv = false, $namespace = '')
+    public static function reflectClass($class, ?array $argv = null, string $namespace = '')
     {
         if (is_object($class)) {
             $reflection = new ReflectionObject($class);
-        } elseif (class_exists($class)) {
+        } elseif (is_string($class) && class_exists($class)) {
             $reflection = new ReflectionClass($class);
         } else {
             require_once 'Zend/Server/Reflection/Exception.php';
             throw new Zend_Server_Reflection_Exception('Invalid class or object passed to attachClass()');
         }
 
-        if ($argv && !is_array($argv)) {
-            require_once 'Zend/Server/Reflection/Exception.php';
-            throw new Zend_Server_Reflection_Exception('Invalid argv argument passed to reflectClass');
-        }
-
-        return new Zend_Server_Reflection_Class($reflection, $namespace, $argv);
+        return new Zend_Server_Reflection_Class($reflection, $namespace, $argv ?? []);
     }
 
     /**
@@ -90,28 +85,20 @@ class Zend_Server_Reflection
      * may be provided as an array to $argv.
      *
      * @param string $function Function name
-     * @param array|null $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the
-     *                          function name (used for the signature key). Primarily to avoid
-     *                          collisions, also for XmlRpc namespacing
+     * @param array<int, mixed> $argv Optional arguments for the function call
+     * @param string $namespace Optional namespace to prefix the function name
      *
      * @throws Zend_Server_Reflection_Exception
      *
      * @return Zend_Server_Reflection_Function
      */
-    public static function reflectFunction($function, $argv = false, $namespace = '')
+    public static function reflectFunction(string $function, ?array $argv = null, string $namespace = '')
     {
-        if (!is_string($function) || !function_exists($function)) {
+        if (!function_exists($function)) {
             require_once 'Zend/Server/Reflection/Exception.php';
             throw new Zend_Server_Reflection_Exception('Invalid function "' . $function . '" passed to reflectFunction');
         }
 
-
-        if ($argv && !is_array($argv)) {
-            require_once 'Zend/Server/Reflection/Exception.php';
-            throw new Zend_Server_Reflection_Exception('Invalid argv argument passed to reflectClass');
-        }
-
-        return new Zend_Server_Reflection_Function(new ReflectionFunction($function), $namespace, $argv);
+        return new Zend_Server_Reflection_Function(new ReflectionFunction($function), $namespace, $argv ?? []);
     }
 }
