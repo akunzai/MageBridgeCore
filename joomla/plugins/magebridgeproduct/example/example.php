@@ -13,20 +13,19 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+use MageBridge\Component\MageBridge\Site\Library\Plugin\Product;
 
 /**
  * MageBridge Product Plugin - Example.
  */
-class plgMageBridgeProductExample extends MageBridgePluginProduct
+class plgMageBridgeProductExample extends Product
 {
     /**
      * Event "onMageBridgeProductPurchase".
      *
      * @param array $actions
      * @param object $user Joomla! user object
-     * @param tinyint $status Status of the current order
+     * @param int $status Status of the current order
      * @param string $sku Magento SKU
      *
      * @return bool

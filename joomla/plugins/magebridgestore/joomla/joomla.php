@@ -13,6 +13,9 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Load the MageBridgePluginStore base class
+require_once JPATH_SITE . '/components/com_magebridge/libraries/plugin/store.php';
+
 use Joomla\CMS\Factory;
 
 /**
@@ -46,7 +49,7 @@ class plgMageBridgeStoreJoomla extends MageBridgePluginStore
         }
 
         // Check if the condition applies
-        $language_code = Factory::getApplication()->input->getCmd('language');
+        $language_code = Factory::getApplication()->getInput()->getCmd('language');
         if ($actions['joomla_language'] == $language_code) {
             return true;
         }

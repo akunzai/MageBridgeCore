@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3" type="plugin" group="community" method="upgrade">
+<extension version="4" type="plugin" group="community" method="upgrade">
     <name>PLG_COMMUNITY_MAGEBRIDGE</name>
     <author>Yireo</author>
     <authorEmail>info@yireo.com</authorEmail>
@@ -8,8 +8,10 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <copyright>Copyright (C) 2017 Yireo.com. All rights reserved.</copyright>
     <version>3.0.0</version>
-    <description>PLG_COMMUNITY_MAGEBRIDGE_DESC</description>
+	<description>PLG_COMMUNITY_MAGEBRIDGE_DESC</description>
     <isapplication>false</isapplication>
+
+	<namespace path="src">MageBridge\Plugin\Community\MageBridge</namespace>
 
     <languages folder="language/en-GB">
         <language tag="en-GB">plg_community_magebridge.ini</language>
@@ -19,7 +21,13 @@
     <files>
         <filename plugin="magebridge">magebridge.php</filename>
         <filename>index.html</filename>
+        <folder>services</folder>
+        <folder>src</folder>
     </files>
+
+	<services>
+		<service type="plugin" id="plg_community_magebridge">services/provider.php</service>
+	</services>
     
     <config>
         <fields name="params">

@@ -13,23 +13,25 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-include_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
+use Joomla\CMS\Plugin\CMSPlugin;
+use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
+use MageBridge\Component\MageBridge\Site\Model\DebugModel;
+use MageBridge\Component\MageBridge\Site\Model\Register;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 /**
  * MageBridge User Plugin.
  */
-class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
+class PlgSearchMageBridge extends CMSPlugin
 {
     /**
      * Constructor.
      *
-     * @param object $subject
      * @param array $config
      */
-    public function __construct(&$subject, $config)
+    public function __construct($config = [])
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
 
         $this->loadLanguage();
     }
@@ -43,7 +45,7 @@ class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
     {
         // Do not continue if not enabled
         if ($this->isEnabled() == false) {
-            return false;
+            return [];
         }
 
         static $areas = [
@@ -98,7 +100,7 @@ class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
                 $search_fields[] = trim($search_field_value);
             }
 
-            array_unique($search_fields);
+            $search_fields = array_unique($search_fields);
         } else {
             $search_fields = ['title', 'description'];
         }
@@ -106,20 +108,20 @@ class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
         // Build the search array
         $search_options = [
             'store' => MageBridgeConnectorStore::getInstance()->getStore(),
-            'website' => MageBridgeModelConfig::load('website'),
+            'website' => ConfigModel::load('website'),
             'text' => $text,
             'search_limit' => $search_limit,
             'search_fields' => $search_fields,
         ];
 
         // Include the MageBridge register
-        MageBridgeModelDebug::getInstance()->trace('Search plugin');
-        $register = MageBridgeModelRegister::getInstance();
+        DebugModel::getInstance()->trace('Search plugin');
+        $register = Register::getInstance();
         $segment_id = $register->add('api', 'magebridge_product.search', $search_options);
 
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
-        $bridge->build(true);
+        $bridge = BridgeModel::getInstance();
+        $bridge->build();
 
         // Get the results
         $results = $register->getDataById($segment_id);
@@ -160,8 +162,8 @@ class PlgSearchMageBridge extends Joomla\CMS\Plugin\CMSPlugin
      */
     private function isEnabled()
     {
-        if (class_exists('MageBridgeModelBridge')) {
-            if (MageBridgeModelBridge::getInstance()->isOffline() == false) {
+        if (class_exists('MageBridge\Component\MageBridge\Site\Model\BridgeModel')) {
+            if (BridgeModel::getInstance()->isOffline() == false) {
                 return true;
             }
         }
