@@ -11,27 +11,26 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+use MageBridge\Component\MageBridge\Site\Library\Plugin;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
 /**
  * Parent plugin-class.
  */
-class MageBridgePluginStore extends MageBridgePlugin
+class MageBridgePluginStore extends Plugin
 {
+    /**
+     * Database object.
+     */
+    protected $db;
+
     /**
      * Deprecated variable to migrate from the original connector-architecture to new Store Plugins.
      */
     protected $connector_field = null;
-
-    /**
-     * @var Joomla\Database\DatabaseDriver
-     */
-    private $db;
 
     /**
      * Constructor.
@@ -43,7 +42,7 @@ class MageBridgePluginStore extends MageBridgePlugin
     {
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = Factory::getDbo();
+        $this->db = Factory::getContainer()->get(DatabaseInterface::class);
     }
 
     /**

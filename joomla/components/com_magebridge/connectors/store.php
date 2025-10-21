@@ -10,8 +10,14 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Event\AbstractEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Event\DispatcherInterface;
+use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -58,12 +64,12 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     /**
      * Method to get the current store definition.
      *
-     * @return array
+     * @return array|null
      */
     public function getStore()
     {
         // If the database configuration specified no stores, skip this step
-        if (MageBridgeModelConfig::load('load_stores') == 0) {
+        if (ConfigModel::load('load_stores') == 0) {
             return null;
         }
 
@@ -81,13 +87,17 @@ class MageBridgeConnectorStore extends MageBridgeConnector
         // Try to match a condition with one of the connectors
         foreach ($conditions as $condition) {
             // Extract the parameters and make sure there's something to do
-            $actions = YireoHelper::toRegistry($condition->actions)
+            $actions = Helper::toRegistry($condition->actions)
                 ->toArray();
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                $this->app
-                    ->triggerEvent('onMageBridgeStoreConvertField', [$condition, &$actions]);
+                $event = AbstractEvent::create(
+                    'onMageBridgeStoreConvertField',
+                    ['subject' => $this, 'condition' => $condition, 'actions' => &$actions]
+                );
+                $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+                $dispatcher->dispatch('onMageBridgeStoreConvertField', $event);
             }
 
             // With empty actions, there is nothing to do
@@ -144,7 +154,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     protected function getStoreRelations()
     {
         // Get the conditions
-        $db    = Factory::getDbo();
+        $db    = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__magebridge_stores'));
@@ -212,7 +222,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     /**
      * @param null $type
      *
-     * @return Joomla\Registry\Registry
+     * @return Registry
      */
     public function getParams($type = null)
     {

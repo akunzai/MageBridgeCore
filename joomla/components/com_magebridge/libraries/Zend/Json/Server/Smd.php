@@ -239,7 +239,7 @@ class Zend_Json_Server_Smd
     /**
      * Set service ID.
      *
-     * @return Zend_Json_Server_Smd
+     * @return string
      */
     public function setId($id)
     {
@@ -262,7 +262,7 @@ class Zend_Json_Server_Smd
      *
      * @param string $description
      *
-     * @return Zend_Json_Server_Smd
+     * @return string
      */
     public function setDescription($description)
     {

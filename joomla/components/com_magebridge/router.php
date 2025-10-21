@@ -10,15 +10,15 @@
  * @link https://www.yireo.com
  */
 
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
-
-// Load the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 /**
  * Function to convert a system URL to a SEF URL.
@@ -26,7 +26,7 @@ require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 function MagebridgeBuildRoute(&$query)
 {
     // If there's only an Itemid (and an option), skip because this Menu-Item is fine already
-    if (isset($query['Itemid']) && count($query) <= 2 && MageBridgeUrlHelper::enforceRootMenu() == false) {
+    if (isset($query['Itemid']) && count($query) <= 2 && UrlHelper::enforceRootMenu() == false) {
         return [];
     }
 
@@ -36,8 +36,8 @@ function MagebridgeBuildRoute(&$query)
     $orig_Itemid = $Itemid;
 
     // Get the menu items for this component
-    $items = MageBridgeUrlHelper::getMenuItems();
-    $current_item = MageBridgeUrlHelper::getItem($Itemid);
+    $items = UrlHelper::getMenuItems();
+    $current_item = UrlHelper::getItem($Itemid);
 
     // Strip the slug
     if (!empty($query['request']) && preg_match('/^([0-9]+)\:(.*)/', $query['request'], $match)) {
@@ -84,8 +84,9 @@ function MagebridgeBuildRoute(&$query)
         $root_item = false;
         $root_item_id = false;
     } else {
-        $root_item = MageBridgeUrlHelper::getRootItem();
-        $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : false;
+        $root_item = UrlHelper::getRootItem();
+        $root_item = is_object($root_item) ? $root_item : null;
+        $root_item_id = ($root_item !== null && isset($root_item->id) && (int) $root_item->id > 0) ? (int) $root_item->id : false;
     }
 
     // Set a default empty view
@@ -99,16 +100,16 @@ function MagebridgeBuildRoute(&$query)
     }
 
     // If there is a root-item (and therefor "use_rootmenu" is enabled), see if we need to replace the current URL with the root-items URL
-    if ($root_item_id > 0) {
+    if ($root_item_id) {
         // If there is a root-view or when "enforce_rootmenu" is enabled, reset the Itemid to the Root Menu-Item
-        if ($query['view'] == 'root' || MageBridgeUrlHelper::enforceRootMenu()) {
+        if ($query['view'] == 'root' || UrlHelper::enforceRootMenu()) {
             $query['Itemid'] = $root_item_id;
         }
 
         // Build the Magento request based upon the current Menu-Item
         if (!empty($current_item)) {
             // Get data from the current Menu-Item
-            $cparams = YireoHelper::toRegistry($current_item->params);
+            $cparams = Helper::toRegistry($current_item->params);
             $cquery = $current_item->query;
 
             // Complete the Magento request if it is still empty
@@ -123,11 +124,11 @@ function MagebridgeBuildRoute(&$query)
 
                 // Use the MVC-layout to determine the request
                 if (!empty($query['layout'])) {
-                    $query['request'] = MageBridgeUrlHelper::getLayoutUrl($query['layout']);
+                    $query['request'] = UrlHelper::getLayoutUrl($query['layout']);
 
                     // Use the MVC-layout plus the current request to determine the request (f.i. configured Menu-Items)
                 } elseif (!empty($cquery['layout'])) {
-                    $query['request'] = MageBridgeUrlHelper::getLayoutUrl($cquery['layout'], $cquery['request']);
+                    $query['request'] = UrlHelper::getLayoutUrl($cquery['layout'], $cquery['request']);
 
                     // Use the Menu-Item request as Magento request
                 } elseif (!empty($cquery['request'])) {
@@ -144,11 +145,11 @@ function MagebridgeBuildRoute(&$query)
             }
 
             if (isset($query['request']) && is_numeric($query['request']) && !empty($query['layout'])) {
-                $query['request'] = MageBridgeUrlHelper::getLayoutUrl($query['layout'], $query['request']);
+                $query['request'] = UrlHelper::getLayoutUrl($query['layout'], $query['request']);
             }
 
             // Enforce the Itemid of the MageBridge Root upon the current route
-            if (MageBridgeUrlHelper::enforceRootMenu() && !in_array($root_item_id, $current_item->tree)) {
+            if (UrlHelper::enforceRootMenu() && !in_array($root_item_id, $current_item->tree)) {
                 $query['Itemid'] = $root_item_id;
                 $query['view'] = 'root';
 
@@ -206,19 +207,20 @@ function MagebridgeParseRoute($segments)
         return $vars;
     }
 
-    /** @var Joomla\CMS\Application\CMSApplication */
+    /** @var CMSApplication */
     $app = Factory::getApplication();
     // Get the active menu item
     $menu = $app->getMenu('site');
     $current_item = $menu->getActive();
-    $items = MageBridgeUrlHelper::getMenuItems();
+    $items = UrlHelper::getMenuItems();
 
     // Fetch the Root-Item
-    $root_item = MageBridgeUrlHelper::getRootItem();
-    $root_item_id = ($root_item && $root_item->id > 0) ? $root_item->id : false;
+    $root_item = UrlHelper::getRootItem();
+    $root_item = is_object($root_item) ? $root_item : null;
+    $root_item_id = ($root_item !== null && isset($root_item->id) && (int) $root_item->id > 0) ? (int) $root_item->id : false;
 
     // Fix the segments when Root Menu-Item is enforced
-    if (MageBridgeUrlHelper::enforceRootMenu()) {
+    if ($root_item !== null && UrlHelper::enforceRootMenu()) {
         $current_item = $root_item;
         $current_path = Uri::getInstance()->toString(['path']);
         $current_segments = explode('/', preg_replace('/^\//', '', $current_path));
@@ -277,7 +279,7 @@ function MagebridgeParseRoute($segments)
         }
 
         // Add the current pathing
-        if ($current_item && $current_item->id != $root_item_id && in_array($root_item_id, $current_item->tree) && MageBridgeUrlHelper::enableRootMenu()) {
+        if ($root_item !== null && $current_item && $current_item->id != $root_item_id && in_array($root_item_id, $current_item->tree) && UrlHelper::enableRootMenu()) {
             $path = str_replace($root_item->route . '/', '', $current_item->route);
             if (!empty($vars['request'])) {
                 $vars['request'] = $path . '/' . $vars['request'];
@@ -286,7 +288,7 @@ function MagebridgeParseRoute($segments)
     }
 
     // Re-spoof the current Itemid
-    if (isset($vars['Itemid']) && $vars['Itemid'] > 0) {
+    if (isset($vars['Itemid'])) {
         $app->input->set('Itemid', $vars['Itemid']);
     }
 

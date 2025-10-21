@@ -10,7 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Event\AbstractEvent;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherInterface;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -63,12 +68,17 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         // Foreach of these conditions, run the product-plugins
         foreach ($conditions as $condition) {
             // Extract the parameters and make sure there's something to do
-            $actionsRegistry = YireoHelper::toRegistry($condition->actions);
+            $actionsRegistry = Helper::toRegistry($condition->actions);
             $actions         = $actionsRegistry->toArray();
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                $this->app->triggerEvent('onMageBridgeProductConvertField', [$condition, &$actions]);
+                $event = AbstractEvent::create(
+                    'onMageBridgeProductConvertField',
+                    ['subject' => $this, 'condition' => $condition, 'actions' => &$actions]
+                );
+                $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+                $dispatcher->dispatch('onMageBridgeProductConvertField', $event);
             }
 
             // With empty actions, there is nothing to do
@@ -78,7 +88,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
 
             // Check for the parameters
             if (!empty($condition->params)) {
-                $params           = YireoHelper::toRegistry($condition->params);
+                $params           = Helper::toRegistry($condition->params);
                 $allowed_statuses = $params->get('allowed_status', ['any']);
                 $expire_amount    = $params->get('expire_amount', 0);
                 $expire_unit      = $params->get('expire_unit', 'day');
@@ -94,7 +104,12 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
             }
 
             // Run the product plugins
-            $this->app->triggerEvent('onMageBridgeProductPurchase', [$actions, $user, $status, $sku]);
+            $event = AbstractEvent::create(
+                'onMageBridgeProductPurchase',
+                ['subject' => $this, 'actions' => $actions, 'user' => $user, 'status' => $status, 'sku' => $sku]
+            );
+            $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+            $dispatcher->dispatch('onMageBridgeProductPurchase', $event);
 
             // Log this event
             $this->saveLog($user->id, $sku, $expire_unit, $expire_amount);

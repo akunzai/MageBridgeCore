@@ -161,7 +161,7 @@ class Zend_Server_Definition implements Countable, Iterator
         if ($this->hasMethod($method)) {
             return $this->_methods[$method];
         }
-        return false;
+        return null;
     }
 
     /**

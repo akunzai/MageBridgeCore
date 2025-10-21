@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Joomla! component MageBridge.
  *
@@ -11,8 +13,16 @@
  */
 defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 
-// Load the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+if (!class_exists('shRouter') || !function_exists('shGetComponentPrefix')) {
+    return;
+}
+
+// Ensure required variables are available
+if (!isset($vars) || !is_array($vars)) {
+    return;
+}
+
+$option ??= 'com_magebridge';
 
 // Get the sh404sef configuration
 $sefConfig = shRouter::shGetConfig();
@@ -54,8 +64,8 @@ if (!empty($vars)) {
 
 
 // Convert the segments into the URL-string
-if (count($segments) > 0) {
-    $string = sef_404::sefGetLocation($string, $segments, null);
+if (count($segments) > 0 && class_exists('sef_404')) {
+    $string = sef_404::sefGetLocation('', $segments, null);
 }
 
 // End

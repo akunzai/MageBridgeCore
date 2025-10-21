@@ -18,9 +18,7 @@ defined('_JEXEC') or die();
  */
 function com_install()
 {
-    require_once(dirname(__FILE__).'/helpers/install.php');
-
-    $helper = new MageBridgeInstallHelper();
+    $helper = new MageBridge\Component\MageBridge\Administrator\Helper\Install();
     $helper->updateQueries();
 
     // Done

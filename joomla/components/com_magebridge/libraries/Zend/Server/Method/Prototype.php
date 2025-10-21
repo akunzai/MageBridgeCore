@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Zend Framework.
  *
@@ -85,7 +87,7 @@ class Zend_Server_Method_Prototype
     /**
      * Add a parameter.
      *
-     * @param string $parameter
+     * @param Zend_Server_Method_Parameter|string $parameter
      *
      * @return Zend_Server_Method_Prototype
      */

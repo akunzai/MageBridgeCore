@@ -10,8 +10,12 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Registry\Registry;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -34,19 +38,19 @@ class MageBridgeConnector
     protected $name;
 
     /**
-     * @var Joomla\CMS\Application\CMSApplication
+     * @var CMSApplicationInterface
      */
     protected $app;
 
     /**
-     * @var Joomla\Database\DatabaseDriver
+     * @var DatabaseInterface
      */
     protected $db;
 
     /**
-     * @var Joomla\Registry\Registry
+     * @var Registry|null
      */
-    private $params;
+    private $params = null;
 
     /**
      * MageBridgeConnector constructor.
@@ -54,7 +58,7 @@ class MageBridgeConnector
     public function __construct()
     {
         $this->app = Factory::getApplication();
-        $this->db  = Factory::getDbo();
+        $this->db  = Factory::getContainer()->get(DatabaseInterface::class);
     }
 
     /**
@@ -121,10 +125,6 @@ class MageBridgeConnector
 
         $object = new $class();
 
-        if (empty($object)) {
-            return false;
-        }
-
         $vars = get_object_vars($connector);
 
         if (!empty($vars)) {
@@ -141,7 +141,7 @@ class MageBridgeConnector
      *
      * @param string $type
      *
-     * @return Joomla\Registry\Registry
+     * @return Registry
      */
     protected function _getParams($type)
     {
@@ -153,19 +153,19 @@ class MageBridgeConnector
 
         $file = self::_getPath($type, $this->name . '.xml');
 
-        if (isset($this->params) && !empty($this->params)) {
-            $params = YireoHelper::toRegistry($this->params, $file);
+        if (isset($this->params)) {
+            $params = Helper::toRegistry($this->params, $file);
 
             return $params;
         }
 
         if ($file == true) {
-            $params = YireoHelper::toRegistry(null, $file);
+            $params = Helper::toRegistry(null, $file);
 
             return $params;
         }
 
-        $params = YireoHelper::toRegistry();
+        $params = Helper::toRegistry();
 
         return $params;
     }
@@ -176,7 +176,7 @@ class MageBridgeConnector
      * @param string $type
      * @param string $filename
      *
-     * @return string
+     * @return string|bool
      */
     protected function _getPath($type, $filename)
     {
