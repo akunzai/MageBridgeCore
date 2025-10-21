@@ -10,8 +10,14 @@
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Event\AbstractEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Event\DispatcherInterface;
+use MageBridge\Component\MageBridge\Site\Library\MageBridge;
+use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -67,7 +73,9 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
 
         // Import the plugins
         PluginHelper::importPlugin('magebridgeprofile');
-        $this->app->triggerEvent('onMageBridgeProfileSave', [$user, $customer]);
+        $event = AbstractEvent::create('onMageBridgeProfileSave', ['user' => $user, 'customer' => $customer]);
+        $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+        $dispatcher->dispatch('onMageBridgeProfileSave', $event);
     }
 
     /**
@@ -95,7 +103,9 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
 
         // Import the plugins
         PluginHelper::importPlugin('magebridgeprofile');
-        $this->app->triggerEvent('onMageBridgeProfileModifyFields', [$user_id, &$user]);
+        $event = AbstractEvent::create('onMageBridgeProfileModifyFields', ['user_id' => $user_id, 'user' => &$user]);
+        $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+        $dispatcher->dispatch('onMageBridgeProfileModifyFields', $event);
 
         return $user;
     }
@@ -115,7 +125,7 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         }
 
         // Get a general user-array from Joomla! itself
-        $db    = Factory::getDbo();
+        $db    = Factory::getContainer()->get(DatabaseInterface::class);
         $query = "SELECT `name`,`username`,`email` FROM `#__users` WHERE `id`=" . (int) $user_id;
         $db->setQuery($query);
         $user = $db->loadAssoc();
@@ -126,12 +136,14 @@ class MageBridgeConnectorProfile extends MageBridgeConnector
         }
 
         // Sync this user-record with the bridge
-        MageBridgeModelDebug::getInstance()
+        DebugModel::getInstance()
             ->trace('Synchronizing user', $user);
         MageBridge::getUser()
             ->synchronize($user);
 
-        $session = Factory::getSession();
+        /** @var CMSApplication $app */
+        $app = Factory::getApplication();
+        $session = $app->getSession();
         $session->set('com_magebridge.task_queue', []);
 
         return true;

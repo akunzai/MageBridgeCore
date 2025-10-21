@@ -10,18 +10,16 @@
  * @link https://www.yireo.com
  */
 
-use Joomla\CMS\Factory;
+use MageBridge\Component\MageBridge\Site\Library\Plugin;
+use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
 /**
  * Parent plugin-class.
  */
-class MageBridgePluginProfile extends MageBridgePlugin
+class MageBridgePluginProfile extends Plugin
 {
     /**
      * Constants.
@@ -35,21 +33,15 @@ class MageBridgePluginProfile extends MageBridgePlugin
     protected $pluginName = null;
 
     /**
-     * @var Joomla\Database\DatabaseDriver
-     */
-    private $db;
-
-    /**
      * Constructor.
      *
-     * @param object $subject The object to observe
      * @param array $config An array that holds the plugin configuration
      */
-    public function __construct(&$subject, $config)
+    public function __construct($config = [])
     {
+        $subject = null;
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = Factory::getDbo();
     }
 
     /**
@@ -74,7 +66,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
     {
         // Stop if we don't have a proper name set
         if (empty($this->pluginName)) {
-            return null;
+            return $field;
         }
 
         // Get the conversion-array
@@ -90,7 +82,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
                 }
             }
         }
-        return null;
+        return $field;
     }
 
     /**
@@ -105,12 +97,12 @@ class MageBridgePluginProfile extends MageBridgePlugin
         $custom = $this->getPath($params->get('file', 'map') . '.php');
         $default = $this->getPath('map.php');
 
-        if ($custom == true) {
+        if ($custom !== '') {
             return $custom;
-        } elseif ($default == true) {
+        } elseif ($default !== '') {
             return $default;
         } else {
-            return false;
+            return '';
         }
     }
 
@@ -125,7 +117,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
         if (!is_array($conversion)) {
             // Determine the conversion-file
             $config_file = $this->getConfigFile();
-            MageBridgeModelDebug::getInstance()->trace('Config file', $config_file);
+            DebugModel::getInstance()->trace('Config file', $config_file);
 
             // If the conversion-file can't be read, use an empty conversion array
             if ($config_file == false) {
@@ -152,7 +144,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
         if (file_exists($path) && is_file($path)) {
             return $path;
         } else {
-            return false;
+            return '';
         }
     }
 }

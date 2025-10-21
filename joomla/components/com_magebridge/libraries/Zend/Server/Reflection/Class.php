@@ -157,6 +157,16 @@ class Zend_Server_Reflection_Class
     }
 
     /**
+     * Get class name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_reflection->getName();
+    }
+
+    /**
      * Get namespace for this class.
      *
      * @return string

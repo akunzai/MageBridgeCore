@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Zend Framework.
  *
@@ -55,7 +57,7 @@ require_once 'Zend/Server/Reflection/Prototype.php';
 abstract class Zend_Server_Reflection_Function_Abstract
 {
     /**
-     * @var ReflectionFunction
+     * @var ReflectionFunction|ReflectionMethod
      */
     protected $_reflection;
 
@@ -98,6 +100,13 @@ abstract class Zend_Server_Reflection_Function_Abstract
     protected $_namespace;
 
     /**
+     * Function/method name.
+     *
+     * @var string
+     */
+    protected $_name;
+
+    /**
      * Prototypes.
      *
      * @var array
@@ -127,6 +136,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
             throw new Zend_Server_Reflection_Exception('Invalid reflection class');
         }
         $this->_reflection = $r;
+        $this->_name = $r->getName();
 
         // Determine namespace
         if (null !== $namespace) {
@@ -309,7 +319,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
             $paramTypesTmp = [];
             foreach ($parameters as $i => $param) {
                 $paramType = 'mixed';
-                if ($param->isArray()) {
+                $type = $param->getType();
+                if ($type && method_exists($type, 'getName') && $type->getName() === 'array') {
                     $paramType = 'array';
                 }
                 $paramTypesTmp[$i] = $paramType;
@@ -345,9 +356,10 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
         if (count($paramTypesTmp) != $paramCount) {
             require_once 'Zend/Server/Reflection/Exception.php';
+            $declaringClass = method_exists($function, 'getDeclaringClass') ? $function->getDeclaringClass()->getName() . '::' : '';
             throw new Zend_Server_Reflection_Exception(
                 'Variable number of arguments is not supported for services (except optional parameters). '
-             . 'Number of function arguments in ' . $function->getDeclaringClass()->getName() . '::'
+             . 'Number of function arguments in ' . $declaringClass
              . $function->getName() . '() must correspond to actual number of arguments described in the '
              . 'docblock.'
             );
@@ -481,6 +493,14 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
+     * Retrieve the function or method name.
+     */
+    public function getName(): string
+    {
+        return $this->_name;
+    }
+
+    /**
      * Retrieve additional invocation arguments.
      *
      * @return array
@@ -498,11 +518,11 @@ abstract class Zend_Server_Reflection_Function_Abstract
      */
     public function __wakeup()
     {
-        if ($this->_reflection instanceof ReflectionMethod) {
+        if ($this->_class !== null) {
             $class = new ReflectionClass($this->_class);
-            $this->_reflection = new ReflectionMethod($class->newInstance(), $this->getName());
+            $this->_reflection = new ReflectionMethod($class->newInstance(), $this->_name);
         } else {
-            $this->_reflection = new ReflectionFunction($this->getName());
+            $this->_reflection = new ReflectionFunction($this->_name);
         }
     }
 }

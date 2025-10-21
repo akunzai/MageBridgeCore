@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Zend Framework.
  *
@@ -38,12 +40,11 @@ interface Zend_Server_Interface
      * Namespacing is primarily for xmlrpc, but may be used with other
      * implementations to prevent naming collisions.
      *
-     * @param string $function
-     * @param string $namespace
-     * @param array|null optional array of arguments to pass to callbacks at
-     * dispatch
+     * @param string $function Function name to register
+     * @param string $namespace Optional namespace to prefix
      */
     public function addFunction($function, $namespace = '');
+
 
     /**
      * Attach a class to a server.
@@ -55,15 +56,12 @@ interface Zend_Server_Interface
      * Namespacing is primarily for xmlrpc, but could be used for other
      * implementations as well.
      *
-     * @param mixed $class class name or object instance to examine and attach
-     *                     to the server
-     * @param string $namespace Optional namespace with which to prepend method
-     *                          names in the dispatch table.
-     *                          methods in the class will be valid callbacks.
-     * @param array|null optional array of arguments to pass to callbacks at
-     * dispatch
+     * @param mixed $class Class name or object instance to attach
+     * @param string $namespace Optional namespace to prefix method names
+     * @param array|null $argv Optional arguments to pass during dispatch
      */
     public function setClass($class, $namespace = '', $argv = null);
+
 
     /**
      * Generate a server fault.
@@ -92,26 +90,31 @@ interface Zend_Server_Interface
      * Return a server definition array.
      *
      * Returns a server definition array as created using
-     * {@link * Zend_Server_Reflection}. Can be used for server introspection,
+     * {@link Zend_Server_Reflection}. Can be used for server introspection,
      * documentation, or persistence.
      *
      * @return array
      */
     public function getFunctions();
 
+
     /**
      * Load server definition.
      *
      * Used for persistence; loads a construct as returned by {@link getFunctions()}.
+     *
+     * @param array|Zend_Server_Definition $definition Server definition to load
      */
     public function loadFunctions($definition);
+
 
     /**
      * Set server persistence.
      *
      * @todo Determine how to implement this
      *
-     * @param int $mode
+     * @param int $mode Persistence constant
      */
     public function setPersistence($mode);
+
 }

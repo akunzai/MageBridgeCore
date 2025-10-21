@@ -13,12 +13,11 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+use MageBridge\Component\MageBridge\Site\Library\Plugin;
 
 /**
  * Parent plugin-class.
  */
-class MageBridgePluginMagento extends MageBridgePlugin
+class MageBridgePluginMagento extends Plugin
 {
 }

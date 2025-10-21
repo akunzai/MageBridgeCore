@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Zend Framework.
  *
@@ -61,14 +63,12 @@ class Zend_Server_Reflection_Node
      *
      * @return Zend_Server_Reflection_Node
      */
-    public function __construct($value, Zend_Server_Reflection_Node $parent = null)
+    public function __construct($value, ?Zend_Server_Reflection_Node $parent = null)
     {
         $this->_value = $value;
         if (null !== $parent) {
             $this->setParent($parent, true);
         }
-
-        return $this;
     }
 
     /**
@@ -116,7 +116,7 @@ class Zend_Server_Reflection_Node
     /**
      * Return an array of all child nodes.
      *
-     * @return array
+     * @return array<int, Zend_Server_Reflection_Node>
      */
     public function getChildren()
     {
@@ -184,13 +184,12 @@ class Zend_Server_Reflection_Node
 
             if (null === $value) {
                 $endPoints[] = $this;
-            } elseif ((null !== $value)
-                && $child->hasChildren()) {
+            } elseif ($child->hasChildren()) {
                 $childEndPoints = $child->getEndPoints();
                 if (!empty($childEndPoints)) {
                     $endPoints = array_merge($endPoints, $childEndPoints);
                 }
-            } elseif ((null !== $value) && !$child->hasChildren()) {
+            } elseif (!$child->hasChildren()) {
                 $endPoints[] = $child;
             }
         }

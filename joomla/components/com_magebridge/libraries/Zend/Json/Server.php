@@ -83,7 +83,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
     protected $_smdMethods;
 
     /**
-     * @var Zend_Server_Description
+     * @var Zend_Server_Definition
      */
     protected $_table;
 
@@ -114,6 +114,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
         }
 
         require_once 'Zend/Server/Reflection.php';
+        $method = null;
         if (is_string($function)) {
             $method = Zend_Server_Reflection::reflectFunction($function, $argv, $namespace);
         } else {
@@ -173,7 +174,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
      * @param string $fault
      * @param int $code
      *
-     * @return false
+     * @return Zend_Json_Server_Error
      */
     public function fault($fault = null, $code = 404, $data = null)
     {
@@ -186,7 +187,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
     /**
      * Handle request.
      *
-     * @param Zend_Json_Server_Request $request
+     * @param Zend_Json_Server_Request|false $request
      *
      * @return Zend_Json_Server_Response|null
      */
@@ -208,7 +209,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
         // Emit response?
         if ($this->autoEmitResponse()) {
             echo $response;
-            return;
+            return null;
         }
 
         // or return it?
@@ -351,8 +352,6 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Add service method to service map.
-     *
-     * @param Zend_Server_Reflection_Function $method
      */
     protected function _addMethodServiceMap(Zend_Server_Method_Definition $method)
     {
@@ -401,8 +400,6 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get method param type.
-     *
-     * @param Zend_Server_Reflection_Function_Abstract $method
      *
      * @return string|array
      */
@@ -464,8 +461,6 @@ class Zend_Json_Server extends Zend_Server_Abstract
 
     /**
      * Get method return type.
-     *
-     * @param Zend_Server_Reflection_Function_Abstract $method
      *
      * @return string|array
      */
