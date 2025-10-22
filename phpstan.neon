@@ -1,20 +1,11 @@
 parameters:
   level: 5
   paths:
-    - joomla/administrator/components
-    - joomla/components
-    - joomla/libraries
-    - joomla/modules
-    - joomla/plugins
+    - joomla
     - magento
   excludePaths:
-    - joomla/plugins/community/magebridge/magebridge.php
-    - joomla/plugins/system/magebridge/overrides
-    - joomla/plugins/system/magebridget3
-    - magento/app/etc
-  scanFiles:
-    - vendor/akunzai/joomla-stubs/joomla-stubs.php
-    - vendor/openmage/magento-lts/app/Mage.php
+      analyse: 
+        - joomla/components/com_magebridge/vendor
   scanDirectories:
     - vendor/joomla/joomla-cms/administrator
     - vendor/joomla/joomla-cms/components
@@ -24,6 +15,11 @@ parameters:
     - vendor/joomla/joomla-cms/plugins
     - vendor/openmage/magento-lts/lib
     - vendor/openmage/magento-lts/app/code
+  scanFiles:
+    - vendor/joomla/joomla-cms/libraries/bootstrap.php
+    - vendor/joomla/joomla-cms/libraries/src/Language/Text.php
+    - vendor/joomla/joomla-cms/libraries/vendor/joomla/filesystem/src/Folder.php
+    - vendor/openmage/magento-lts/app/Mage.php
   tmpDir: tmp
   treatPhpDocTypesAsCertain: false
   tips:
