@@ -11,6 +11,8 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/** @var string $data */
 ?>
 <div id="magebridge-cart" class="magebridge-module">
 	<?php echo $data; ?>

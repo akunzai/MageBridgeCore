@@ -1,31 +1,26 @@
 <?php
 
-/**
- * Joomla! module MageBridge: CMS Block.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+namespace MageBridge\Module\MageBridgeCms\Site\Helper;
+
+defined('_JEXEC') or die;
+
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge CMS module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeCMSHelper
+class CmsHelper
 {
     /**
      * Method to be called as soon as MageBridge is loaded.
      *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
+     * @param \Joomla\Registry\Registry|null $params Module parameters
      */
-    public static function register($params = null)
+    public static function register(?\Joomla\Registry\Registry $params = null): array
     {
         // Get the block name
         $blockName = $params->get('block');
@@ -35,7 +30,7 @@ class ModMageBridgeCMSHelper
         $register = [];
         $register[] = ['block', $blockName, $arguments];
 
-        if ($params->get('load_css', 1) == 1 || $params->get('load_js', 1) == 1) {
+        if (($params->get('load_css', 1) == 1) || ($params->get('load_js', 1) == 1)) {
             $register[] = ['headers'];
         }
 
@@ -45,18 +40,16 @@ class ModMageBridgeCMSHelper
     /**
      * Fetch the content from the bridge.
      *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
+     * @param \Joomla\Registry\Registry|null $params Module parameters
      */
-    public static function build($params = null)
+    public static function build(?\Joomla\Registry\Registry $params = null): string
     {
         // Get the block name
         $blockName = $params->get('block');
         $arguments = ['blocktype' => 'cms'];
 
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
 
         // Load CSS if needed
         if ($params->get('load_css', 1) == 1) {

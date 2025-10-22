@@ -1,37 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\Registry\Registry;
+use MageBridge\Module\MageBridgeWidget\Site\Helper\WidgetHelper;
+
+defined('_JEXEC') or die;
+
 /**
- * Joomla! module MageBridge: Widget.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com/
+ * @var Registry $params
+ * @var stdClass $module
  */
-
-// No direct access
-defined('_JEXEC') or die('Restricted access');
-
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
 
 // Read the parameters
 $layout = $params->get('layout', 'default');
 $widgetName = $params->get('widget');
 
-// Call the helper
-require_once(dirname(__FILE__) . '/helper.php');
+// Get the helper from the service container
+/** @var WidgetHelper */
+$helper = Factory::getContainer()->get(WidgetHelper::class);
 
 // Build the block
 if ($layout == 'ajax') {
-    ModMageBridgeWidgetHelper::ajaxbuild($params);
+    $helper::ajaxbuild($params);
 } else {
-    $widget = ModMageBridgeWidgetHelper::build($params);
+    $widget = $helper::build($params);
     if (empty($widget)) {
-        return false;
+        return;
     }
 }
 
 // Include the layout-file
-require(JModuleHelper::getLayoutPath('mod_magebridge_widget', $layout));
+require ModuleHelper::getLayoutPath('mod_magebridge_widget', $layout);

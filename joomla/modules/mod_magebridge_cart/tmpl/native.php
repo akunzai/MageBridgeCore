@@ -10,17 +10,18 @@
  */
 
 use Joomla\CMS\Language\Text;
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 ?>
 <div id="magebridge-cart" class="magebridge-module">
 	<?php if (isset($data['items']) && is_array($data['items']) && !empty($data['items'])) : ?>
-		<p><?php echo Text::sprintf('MOD_MAGEBRIDGE_CART_ITEMS_COUNT', $data['items_count']); ?></p>
+		<p><?php echo sprintf(Text::_('MOD_MAGEBRIDGE_CART_ITEMS_COUNT'), $data['items_count']); ?></p>
 		<ul>
 		<?php foreach ($data['items'] as $item): ?>
 			<li style="height:100px;"> 
-				<?php $url = MageBridgeUrlHelper::route($item['url_path']); ?>
+				<?php $url = UrlHelper::route($item['url_path']); ?>
 				<a href="<?php echo $url; ?>" title="<?php echo $item['name']; ?>"><img src="<?php echo $item['thumbnail']; ?>" alt="<?php echo $item['name']; ?>" title="<?php echo $item['name']; ?>" align="left" /></a>
 				<p>
 					<a href="<?php echo $url; ?>" title="<?php echo $item['name']; ?>"><?php echo $item['name']; ?></a>

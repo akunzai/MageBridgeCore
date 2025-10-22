@@ -1,21 +1,12 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Catalog Menu.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-require_once dirname(__FILE__) . '/helper.php';
+use MageBridge\Module\MageBridgeMenu\Site\Helper\MenuHelper;
+
+/** @var Joomla\Registry\Registry $params */
 
 // Read the parameters
 $root = $params->get('root', 0);
@@ -29,13 +20,17 @@ if ($startLevel < 1) {
 $endLevel = $startLevel + $levels - 1;
 $layout = $params->get('layout', 'default');
 
+// Get the helper from the service container
+/** @var \MageBridge\Module\MageBridgeMenu\Site\Helper\MenuHelper $helper */
+$helper = Joomla\CMS\Factory::getContainer()->get(MenuHelper::class);
+
 // Call the helper
-$catalog_tree = ModMageBridgeMenuHelper::build($params);
+$catalog_tree = $helper::build($params);
 
 // Load the catalog-tree
 $rootLevel = (!empty($catalog_tree['level'])) ? $catalog_tree['level'] : 0;
-$catalog_tree = ModMageBridgeMenuHelper::setRoot($catalog_tree, $root);
-$catalog_tree = ModMageBridgeMenuHelper::parseTree($catalog_tree, $rootLevel + $startLevel, $rootLevel + $endLevel);
+$catalog_tree = $helper::setRoot($catalog_tree, $root);
+$catalog_tree = $helper::parseTree($catalog_tree, $rootLevel + $startLevel, $rootLevel + $endLevel);
 
 // Show the template
-require(JModuleHelper::getLayoutPath('mod_magebridge_menu', $layout));
+require Joomla\CMS\Helper\ModuleHelper::getLayoutPath('mod_magebridge_menu', $layout);

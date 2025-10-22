@@ -1,36 +1,31 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Shopping Cart.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+namespace MageBridge\Module\MageBridgeCart\Site\Helper;
+
+defined('_JEXEC') or die;
+
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge Cart module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeCartHelper
+class CartHelper
 {
     /**
      * Method to be called once the MageBridge is loaded.
      *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
+     * @param \Joomla\Registry\Registry|null $params Module parameters
      */
-    public static function register($params = null)
+    public static function register(?\Joomla\Registry\Registry $params = null): array
     {
         // Initialize the register
         $register = [];
 
-        $layout = $params->get('layout');
+        $layout = $params->get('layout', 'default');
         $layout = preg_replace('/^([^\:]+):/', '', $layout);
 
         if ($layout == 'native') {
@@ -39,7 +34,7 @@ class ModMageBridgeCartHelper
             $register[] = ['block', 'cart_sidebar'];
         }
 
-        if ($params->get('load_css', 1) == 1 || $params->get('load_js', 1) == 1) {
+        if (($params->get('load_css', 1) == 1) || ($params->get('load_js', 1) == 1)) {
             $register[] = ['headers'];
         }
 
@@ -49,14 +44,14 @@ class ModMageBridgeCartHelper
     /**
      * Fetch the content from the bridge.
      *
-     * @param Joomla\Registry\Registry $params
+     * @param \Joomla\Registry\Registry|null $params Module parameters
      *
-     * @return string
+     * @return string|array|null Returns cart data, HTML block, or null if unavailable
      */
-    public static function build($params = null)
+    public static function build(?\Joomla\Registry\Registry $params = null): string|array|null
     {
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
 
         // Load CSS if needed
         if ($params->get('load_css', 1) == 1) {
@@ -71,12 +66,12 @@ class ModMageBridgeCartHelper
         $layout = $params->get('layout', 'default');
         $layout = preg_replace('/^([^\:]+):/', '', $layout);
 
-        if ($layout) {
+        if ($layout == 'native') {
             return $bridge->getAPI('magebridge_session.checkout');
         } else {
-            $block_name = $params->get('block_name', 'cart_sidebar');
+            $blockName = $params->get('block_name', 'cart_sidebar');
 
-            return $bridge->getBlock($block_name);
+            return $bridge->getBlock($blockName);
         }
     }
 }

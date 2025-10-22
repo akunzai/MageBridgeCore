@@ -1,33 +1,29 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Widget.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+namespace MageBridge\Module\MageBridgeWidget\Site\Helper;
 
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Document\HtmlDocument;
 use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Site\Helper\AjaxHelper;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge Widget module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeWidgetHelper
+class WidgetHelper
 {
     /**
      * Method to be called as soon as MageBridge is loaded.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function register($params = null)
+    public static function register(?Registry $params = null): array
     {
         // Get the widget name
         $widgetName = $params->get('widget');
@@ -45,16 +41,14 @@ class ModMageBridgeWidgetHelper
 
     /**
      * Build output for the AJAX-layout.
-     *
-     * @param Joomla\Registry\Registry $params
      */
-    public static function ajaxbuild($params = null)
+    public static function ajaxbuild(?Registry $params = null): void
     {
         // Get the widget name
         $widgetName = $params->get('widget');
 
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
 
         // Load CSS if needed
         if ($params->get('load_css', 1) == 1) {
@@ -67,26 +61,26 @@ class ModMageBridgeWidgetHelper
         }
 
         // Load the Ajax script
-        $script = MageBridgeAjaxHelper::getScript($widgetName, 'magebridge-' . $widgetName);
-        /** @var Joomla\CMS\Document\HtmlDocument */
-        $document = Factory::getDocument();
-        $document->addCustomTag('<script type="text/javascript">' . $script . '</script>');
+        $script = AjaxHelper::getScript($widgetName, 'magebridge-' . $widgetName);
+        /** @var CMSApplication */
+        $app = Factory::getApplication();
+        $document = $app->getDocument();
+
+        if ($document instanceof HtmlDocument) {
+            $document->addCustomTag('<script type="text/javascript">' . $script . '</script>');
+        }
     }
 
     /**
      * Fetch the content from the bridge.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
      */
-    public static function build($params = null)
+    public static function build(?Registry $params = null): array
     {
         // Get the widget name
         $widgetName = $params->get('widget');
 
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
 
         // Load CSS if needed
         if ($params->get('load_css', 1) == 1) {
