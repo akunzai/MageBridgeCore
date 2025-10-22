@@ -12,6 +12,11 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+/**
+ * @var array<int, array{code: string, label: string, url: string}> $languages
+ */
+$languages ??= [];
+
 ?>
 <div id="magebridge-switcher" class="magebridge-module mod-languages">
 	<ul class="lang-inline">

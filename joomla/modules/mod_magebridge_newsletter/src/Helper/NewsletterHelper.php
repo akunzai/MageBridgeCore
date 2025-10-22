@@ -1,31 +1,24 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Newsletter block.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+namespace MageBridge\Module\MageBridgeNewsletter\Site\Helper;
+
+defined('_JEXEC') or die;
+
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge Newsletter module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeNewsletterHelper
+class NewsletterHelper
 {
     /**
      * Method to be called as soon as MageBridge is loaded.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function register($params = null)
+    public static function register(?\Joomla\Registry\Registry $params = null): array
     {
         // Initialize the register
         $register = [];
@@ -39,15 +32,11 @@ class ModMageBridgeNewsletterHelper
 
     /**
      * Fetch the content from the bridge.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
      */
-    public static function build($params = null)
+    public static function build(?\Joomla\Registry\Registry $params = null): ?string
     {
         // Include the MageBridge bridge
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
 
         // Load CSS if needed
         if ($params->get('load_css', 1) == 1) {

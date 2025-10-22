@@ -14,6 +14,13 @@ use Joomla\CMS\Router\Route;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/**
+ * @var string $redirect_url
+ * @var string|null $select
+ */
+$redirect_url ??= '';
+
 ?>
 <div id="magebridge-switcher" class="magebridge-module">
 	<?php if (!empty($select)): ?>

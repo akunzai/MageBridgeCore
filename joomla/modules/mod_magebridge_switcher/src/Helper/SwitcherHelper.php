@@ -1,37 +1,34 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Store switcher.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
+namespace MageBridge\Module\MageBridgeSwitcher\Site\Helper;
+
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Site\Helper\StoreHelper;
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
+use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge Switcher module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeSwitcherHelper
+class SwitcherHelper
 {
     /**
      * Method to be called once the MageBridge is loaded.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function register($params = null)
+    public static function register(?Registry $params = null): array
     {
         // Initialize the register
         $register = [];
@@ -42,14 +39,10 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Fetch the content from the bridge.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function build($params = null)
+    public static function build(?Registry $params = null): ?array
     {
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
         $stores = $bridge->getAPI('magebridge_storeviews.hierarchy');
 
         if (empty($stores) || !is_array($stores)) {
@@ -60,7 +53,6 @@ class ModMageBridgeSwitcherHelper
         foreach ($stores as $store) {
             if ($store['value'] == $storeId) {
                 return [$store];
-                break;
             }
         }
 
@@ -69,13 +61,8 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Generate a HTML selectbox.
-     *
-     * @param array $stores
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
      */
-    public static function getFullSelect($stores, $params = null)
+    public static function getFullSelect(array $stores, ?Registry $params = null): string
     {
         $options = [];
         $currentType = self::getCurrentStoreType();
@@ -83,9 +70,9 @@ class ModMageBridgeSwitcherHelper
         $currentValue = ($currentType == 'store') ? 'v:' . $currentName : 'g:' . $currentName;
         $showGroups = (count($stores) > 1) ? true : false;
 
-        if (!empty($stores) && is_array($stores)) {
+        if (!empty($stores)) {
             foreach ($stores as $group) {
-                if ($group['website'] != MageBridgeModelConfig::load('website')) {
+                if ($group['website'] != ConfigModel::load('website')) {
                     continue;
                 }
 
@@ -117,7 +104,7 @@ class ModMageBridgeSwitcherHelper
     /**
      * Return a list of Root Menu Items associated with the current Root Menu Item.
      *
-     * @return array
+     * @return array<string, int>|false
      */
     public static function getRootItemAssociations()
     {
@@ -127,28 +114,26 @@ class ModMageBridgeSwitcherHelper
             return false;
         }
 
-        $root_item = MageBridgeUrlHelper::getRootItem();
+        $root_item = UrlHelper::getRootItem();
 
         if ($root_item == false) {
             return false;
         }
 
-        $associations = MenusHelper::getAssociations($root_item->id);
+        /** @phpstan-ignore class.notFound */
+        $associations = \Joomla\CMS\Menu\MenuHelper::getAssociations($root_item->id);
 
         return $associations;
     }
 
     /**
      * Return the Root Menu Item ID per language.
-     *
-     * @param string $language
-     *
-     * @return int
      */
-    public static function getRootItemIdByLanguage($language)
+    public static function getRootItemIdByLanguage(string $language): int
     {
+        /** @var CMSApplication $app */
         $app = Factory::getApplication();
-        $currentItemId = $app->input->getInt('Itemid');
+        $currentItemId = $app->getInput()->getInt('Itemid');
 
         $rootItemAssociations = self::getRootItemAssociations();
 
@@ -171,26 +156,22 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Return a list of store languages.
-     *
-     * @param array $stores
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
      */
-    public static function getLanguages($stores, $params = null)
+    public static function getLanguages(array $stores, ?Registry $params = null): array
     {
         // Base variables
         $languages = [];
-        $storeUrls = MageBridgeModelBridge::getInstance()->getSessionData('store_urls');
+        $storeUrls = BridgeModel::getInstance()->getSessionData('store_urls');
 
         // Generic Joomla! variables
+        /** @var CMSApplication $app */
         $app = Factory::getApplication();
 
         // Loop through the stores
-        if (!empty($stores) && is_array($stores)) {
+        if (!empty($stores)) {
             foreach ($stores as $group) {
                 // Skip everything that does not belong to the current Website
-                if ($group['website'] != MageBridgeModelConfig::load('website')) {
+                if ($group['website'] != ConfigModel::load('website')) {
                     continue;
                 }
 
@@ -205,7 +186,7 @@ class ModMageBridgeSwitcherHelper
 
                             // Use the original request
                         } else {
-                            $request = $app->input->getString('request');
+                            $request = $app->getInput()->getString('request');
                         }
 
                         // Construct the Store View URL
@@ -229,21 +210,16 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Generate a simple list of store languages.
-     *
-     * @param array $stores
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return string
      */
-    public static function getStoreSelect($stores, $params = null)
+    public static function getStoreSelect(array $stores, ?Registry $params = null): string
     {
         $options = [];
-        $currentName = (MageBridgeStoreHelper::getInstance()->getAppType() == 'store') ? MageBridgeStoreHelper::getInstance()->getAppValue() : null;
+        $currentName = (StoreHelper::getInstance()->getAppType() == 'store') ? StoreHelper::getInstance()->getAppValue() : null;
         $currentValue = null;
 
-        if (!empty($stores) && is_array($stores)) {
+        if (!empty($stores)) {
             foreach ($stores as $group) {
-                if ($group['website'] != MageBridgeModelConfig::load('website')) {
+                if ($group['website'] != ConfigModel::load('website')) {
                     continue;
                 }
 
@@ -271,12 +247,10 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Helper method to get the current store name.
-     *
-     * @return string
      */
-    public static function getCurrentStoreName()
+    public static function getCurrentStoreName(): string
     {
-        /** @var Joomla\CMS\Application\CMSApplication */
+        /** @var CMSApplication $application */
         $application = Factory::getApplication();
         $name = $application->getUserState('magebridge.store.name');
 
@@ -285,12 +259,10 @@ class ModMageBridgeSwitcherHelper
 
     /**
      * Helper method to get the current store type.
-     *
-     * @return string
      */
-    public static function getCurrentStoreType()
+    public static function getCurrentStoreType(): string
     {
-        /** @var Joomla\CMS\Application\CMSApplication */
+        /** @var CMSApplication $application */
         $application = Factory::getApplication();
         $type = $application->getUserState('magebridge.store.type');
 

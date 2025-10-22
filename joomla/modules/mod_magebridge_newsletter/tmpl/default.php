@@ -13,6 +13,10 @@ use Joomla\CMS\Language\Text;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/** @var string $form_url */
+/** @var Joomla\CMS\User\User $user */
+/** @var string $redirect_url */
 ?>
 <div id="magebridge.newsletter" class="magebridge-module">
 	<div class="box base-mini mini-newsletter">

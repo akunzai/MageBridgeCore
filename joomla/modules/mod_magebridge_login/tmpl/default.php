@@ -17,16 +17,31 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 
+/** @var Joomla\Registry\Registry $params */
+/** @var string $type */
+/** @var string $component_url */
+/** @var string $name */
+/** @var string $account_url */
+/** @var string $component */
+/** @var string $task_logout */
+/** @var string $return_url */
+/** @var string $password_field */
+/** @var string $forgotpassword_url */
+/** @var string $createnew_url */
+/** @var string $task_login */
+
 // Define some variables first
 $autocomplete = ($params->get('allow_autocomplete', 1) == 1) ? null : 'autocomplete="off"';
-$input = Factory::getApplication()->input;
+/** @var Joomla\CMS\Application\CMSApplication $app */
+$app = Factory::getApplication();
+$input = $app->input;
 ?>
 <?php if ($type == 'logout_link') : ?>
 	<div>
 		<form action="<?php echo $component_url; ?>" method="post" name="mod-magebridge-logout"
 			  id="mod-magebridge-logout">
 			<?php if ($params->get('greeting')) : ?>
-				<div><?php echo Text::sprintf($params->get('greeting'), $name); ?></div>
+				<div><?php echo sprintf($params->get('greeting'), $name); ?></div>
 			<?php endif; ?>
 			<ul>
 				<?php if ($params->get('account_link', 2)) : ?>
@@ -48,7 +63,7 @@ $input = Factory::getApplication()->input;
 		<form action="<?php echo $component_url; ?>" method="post" name="mod-magebridge-login"
 			  id="mod-magebridge-login" <?php echo $autocomplete; ?>>
 			<?php if ($params->get('text')) : ?>
-				<div><?php echo Text::sprintf($params->get('text'), $name); ?></div>
+				<div><?php echo sprintf($params->get('text'), $name); ?></div>
 			<?php endif; ?>
 			<div class="username-block">
 				<label for="username_login"><?php echo Text::_('MOD_MAGEBRIDGE_LOGIN_EMAIL') ?></label><br/>

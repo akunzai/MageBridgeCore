@@ -11,6 +11,11 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/**
+ * @var string $widgetName
+ * @var array $widget
+ */
 ?>
 <div id="magebridge-<?php echo $widgetName; ?>" class="magebridge-module">
 	<?php print_r($widget); ?>

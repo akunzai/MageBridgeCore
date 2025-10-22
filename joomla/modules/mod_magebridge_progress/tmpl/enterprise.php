@@ -11,6 +11,10 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/**
+ * @var string $data The checkout progress HTML from Magento
+ */
 ?>
 <div id="magebridge-checkout-progress" class="magebridge-module">
 	<div id="col-right-opcheckout">
