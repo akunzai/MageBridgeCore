@@ -14,6 +14,10 @@ use Joomla\CMS\Language\Text;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/** @var string $form_url */
+/** @var Joomla\CMS\User\User $user */
+/** @var string $redirect_url */
 ?>
 <form action="<?php echo $form_url; ?>" method="post" id="newsletter-validate-detail">
 	<label for="newsletter"><?php echo Text::_('MOD_MAGEBRIDGE_NEWSLETTER_SIGNUP'); ?>:</label><br />

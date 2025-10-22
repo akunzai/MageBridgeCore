@@ -1,37 +1,36 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Menu.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+namespace MageBridge\Module\MageBridgeMenu\Site\Helper;
+
+defined('_JEXEC') or die;
+
+use MageBridge\Component\MageBridge\Site\Helper\ModuleHelper;
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
+use MageBridge\Component\MageBridge\Site\Library\MageBridge;
 
 /**
- * Helper-class for the module.
+ * Helper class for the MageBridge Menu module.
+ *
+ * @since  3.0.0
  */
-class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
+class MenuHelper extends ModuleHelper
 {
     /**
      * Method to get the API-arguments based upon the module parameters.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function getArguments($params = null)
+    public static function getArguments(?\Joomla\Registry\Registry $params = null): ?array
     {
         static $arguments = [];
         $id = md5(var_export($params, true));
 
         if (!isset($arguments[$id])) {
-            $arguments[$id] = ['count' => (int) $params->get('count', 0), 'levels' => (int) $params->get('levels', 1), 'startlevel' => (int) $params->get('startlevel', 1),];
+            $arguments[$id] = [
+                'count' => (int) $params->get('count', 0),
+                'levels' => (int) $params->get('levels', 1),
+                'startlevel' => (int) $params->get('startlevel', 1),
+            ];
 
             if ($params->get('include_product_count') == 1) {
                 $arguments[$id]['include_product_count'] = 1;
@@ -47,56 +46,43 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
     /**
      * Method to be called once the MageBridge is loaded.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return array
      */
-    public static function register($params = null)
+    public static function register(?\Joomla\Registry\Registry $params = null): array
     {
-        $arguments = ModMageBridgeMenuHelper::getArguments($params);
+        $arguments = self::getArguments($params);
 
-        return [['api', 'magebridge_category.tree', $arguments],];
+        return [['api', 'magebridge_category.tree', $arguments]];
     }
 
     /**
      * Fetch the content from the bridge.
-     *
-     * @param Joomla\Registry\Registry $params
-     *
-     * @return mixed
      */
-    public static function build($params = null)
+    public static function build(?\Joomla\Registry\Registry $params = null): array
     {
-        $arguments = ModMageBridgeMenuHelper::getArguments($params);
+        $arguments = self::getArguments($params);
 
         return parent::getCall('getAPI', 'magebridge_category.tree', $arguments);
     }
 
     /**
      * Helper-method to return a specified root-category from a tree.
-     *
-     * @param array $tree
-     * @param int $root_id
-     *
-     * @return array
      */
-    public static function setRoot($tree = null, $root_id = null)
+    public static function setRoot(?array $tree = null, ?int $root_id = null): array
     {
         // If no root-category is configured, just return all children
         if (!$root_id > 0) {
-            return $tree['children'];
+            return $tree['children'] ?? [];
         }
 
         // If the current level contains the configured root-category, return it's children
         if (isset($tree['category_id']) && $tree['category_id'] == $root_id) {
-            return $tree['children'];
+            return $tree['children'] ?? [];
         }
 
         // Loop through the children to find the configured root-category
         if (isset($tree['children']) && is_array($tree['children']) && count($tree['children']) > 0) {
             foreach ($tree['children'] as $item) {
-                $subtree = ModMageBridgeMenuHelper::setRoot($item, $root_id);
+                $subtree = self::setRoot($item, $root_id);
                 if (!empty($subtree)) {
                     return $subtree;
                 }
@@ -108,20 +94,15 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
     /**
      * Parse the categories of a tree for display.
-     *
-     * @param array $tree
-     * @param int $endLevel
-     *
-     * @return mixed
      */
-    public static function parseTree($tree, $startLevel = 1, $endLevel = 99)
+    public static function parseTree(array $tree, int $startLevel = 1, int $endLevel = 99): array
     {
-        $current_category_id = ModMageBridgeMenuHelper::getCurrentCategoryId();
-        $current_category_path = ModMageBridgeMenuHelper::getCurrentCategoryPath();
+        $current_category_id = self::getCurrentCategoryId();
+        $current_category_path = self::getCurrentCategoryPath();
 
-        if (is_array($tree) && count($tree) > 0) {
+        if (count($tree) > 0) {
             foreach ($tree as $index => $item) {
-                $item['path'] = explode('/', $item['path']);
+                $item['path'] = explode('/', $item['path'] ?? '');
 
                 if (empty($item)) {
                     unset($tree[$index]);
@@ -129,7 +110,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
                 }
 
                 // Remove disabled categories
-                if ($item['is_active'] != 1) {
+                if (($item['is_active'] ?? 0) != 1) {
                     unset($tree[$index]);
                     continue;
                 }
@@ -141,13 +122,13 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
                 }
 
                 // Remove items from the wrong start-level
-                if ($startLevel > 0 && $item['level'] < $startLevel && !in_array($current_category_id, $item['path'])) {
+                if ($startLevel > 0 && ($item['level'] ?? 0) < $startLevel && !in_array($current_category_id, $item['path'])) {
                     unset($tree[$index]);
                     continue;
                 }
 
                 // Remove items from the wrong end-level
-                if ($item['level'] > $endLevel) {
+                if (($item['level'] ?? 0) > $endLevel) {
                     unset($tree[$index]);
                     continue;
                 }
@@ -159,7 +140,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
                 // Parse the children-tree
                 if (!empty($item['children'])) {
-                    $item['children'] = ModMageBridgeMenuHelper::parseTree($item['children'], $startLevel, $endLevel);
+                    $item['children'] = self::parseTree($item['children'], $startLevel, $endLevel);
                 } else {
                     $item['children'] = [];
                 }
@@ -168,7 +149,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
                 if (empty($item['url'])) {
                     $item['url'] = '';
                 } else {
-                    $item['url'] = MageBridgeUrlHelper::route($item['url']);
+                    $item['url'] = UrlHelper::route($item['url']);
                 }
 
                 $tree[$index] = $item;
@@ -180,19 +161,11 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
     /**
      * Helper-method to return a CSS-class string.
-     *
-     * @param Joomla\Registry\Registry $params
-     * @param array $item
-     * @param int $level
-     * @param int $counter
-     * @param array $tree
-     *
-     * @return string
      */
-    public static function getCssClass($params, $item, $level, $counter, $tree)
+    public static function getCssClass(\Joomla\Registry\Registry $params, array $item, int $level, int $counter, array $tree): string
     {
-        $current_category_id = ModMageBridgeMenuHelper::getCurrentCategoryId();
-        $current_category_path = ModMageBridgeMenuHelper::getCurrentCategoryPath();
+        $current_category_id = self::getCurrentCategoryId();
+        $current_category_path = self::getCurrentCategoryPath();
 
         $class = [];
 
@@ -205,7 +178,7 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
             }
 
             $class[] = 'category-' . $item['entity_id'];
-            $class[] = 'category-' . $item['url_key'];
+            $class[] = 'category-' . ($item['url_key'] ?? '');
         }
 
         if (isset($item['children_count']) && $item['children_count'] > 0) {
@@ -244,14 +217,12 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
     /**
      * Helper-method to return the current category ID.
-     *
-     * @return int
      */
-    public static function getCurrentCategoryId()
+    public static function getCurrentCategoryId(): int
     {
         static $current_category_id = false;
 
-        if ($current_category_id == false) {
+        if ($current_category_id === false) {
             $config = MageBridge::getBridge()->getSessionData();
             $current_category_id = (isset($config['current_category_id'])) ? $config['current_category_id'] : 0;
         }
@@ -261,14 +232,12 @@ class ModMageBridgeMenuHelper extends MageBridgeModuleHelper
 
     /**
      * Helper-method to return the current category path.
-     *
-     * @return array
      */
-    public static function getCurrentCategoryPath()
+    public static function getCurrentCategoryPath(): array
     {
         static $current_category_path = false;
 
-        if ($current_category_path == false) {
+        if ($current_category_path === false) {
             $config = MageBridge::getBridge()->getSessionData();
             $current_category_path = (isset($config['current_category_path'])) ? explode('/', $config['current_category_path']) : [];
         }

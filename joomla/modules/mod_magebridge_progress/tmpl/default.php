@@ -11,6 +11,10 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/**
+ * @var string $data
+ */
 ?>
 <div id="magebridge-checkout-progress" class="magebridge-module col-right">
 	<div>

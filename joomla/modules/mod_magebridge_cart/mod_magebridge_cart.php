@@ -1,39 +1,33 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Shopping Cart.
- *
- * @author	Yireo (info@yireo.com)
- * @copyright Copyright 2016
- * @license   GNU Public License
- *
- * @link	  https://www.yireo.com
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
+use MageBridge\Module\MageBridgeCart\Site\Helper\CartHelper;
+
+/** @var Joomla\Registry\Registry $params */
 
 // Read the parameters
 $layout = $params->get('layout', 'default');
 $layout = preg_replace('/^([^\:]+):/', '', $layout);
+
 if ($layout == 'block') {
     $layout = 'default';
 }
 
-// Call the helper
-require_once(dirname(__FILE__) . '/helper.php');
+// Get the helper from the service container
+/** @var \MageBridge\Module\MageBridgeCart\Site\Helper\CartHelper $helper */
+$helper = Joomla\CMS\Factory::getContainer()->get(CartHelper::class);
 
 // Build the block
 if ($layout != 'ajax') {
-    $data = ModMageBridgeCartHelper::build($params);
+    $data = $helper::build($params);
 
     if ($layout != 'native' && empty($data)) {
-        return false;
+        return;
     }
 }
 
 // Include the layout-file
-require(JModuleHelper::getLayoutPath('mod_magebridge_cart', $layout));
+require Joomla\CMS\Helper\ModuleHelper::getLayoutPath('mod_magebridge_cart', $layout);
