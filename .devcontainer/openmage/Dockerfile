@@ -28,7 +28,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     set -eux; \
     apt-get update; \
     # install the system tools we need
-    apt-get install -y --no-install-recommends mariadb-client; \
+    apt-get install -y --no-install-recommends mariadb-client unzip; \
     # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends \
@@ -36,7 +36,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     libfreetype6-dev libicu-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
-    libzip-dev libwebp-dev unzip \
+    libzip-dev libwebp-dev \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
