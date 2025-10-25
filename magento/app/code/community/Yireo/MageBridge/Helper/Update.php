@@ -120,9 +120,10 @@ class Yireo_MageBridge_Helper_Update extends Mage_Core_Helper_Abstract
     {
         $originalPath = 'magebridge/'.$originalPath;
         $newPath = 'magebridge/'.$newPath;
-
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $table = Mage::getSingleton('core/resource')->getTableName('core/config_data');
+        /** @var Mage_Core_Model_Resource $resource */
+        $resource = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('core_write');
+        $table = $resource->getTableName('core/config_data');
 
         $query = 'SELECT * FROM `'.$table.'` WHERE `path` = "'.$originalPath.'"';
         $newPathResults = $connection->fetchAll($query);

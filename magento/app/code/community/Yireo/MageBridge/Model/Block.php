@@ -24,14 +24,18 @@ class Yireo_MageBridge_Model_Block
     {
         // Initialize the controller
         try {
-            $controller = Mage::getSingleton('magebridge/core')->getController();
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            $controller = $core->getController();
 
             // Apply the MageBridge XML-handle if needed
-            if (Mage::getSingleton('magebridge/core')->getMetaData('app') == 1) {
+            if ($core->getMetaData('app') == 1) {
                 $controller->getAction()->getLayout()->getUpdate()->addHandle('magebridge_backend');
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to load controller: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to load controller: '.$e->getMessage());
             return false;
         }
 
@@ -55,11 +59,15 @@ class Yireo_MageBridge_Model_Block
 
         // Fail if there is block_name set
         if (empty($block_name)) {
-            Mage::getSingleton('magebridge/debug')->warning('Empty block-name');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->warning('Empty block-name');
             return null;
         }
 
-        Mage::getSingleton('magebridge/debug')->notice('Building block "'.$block_name.'"');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        $debug->notice('Building block "'.$block_name.'"');
 
         // Initialize the front controller
         $controller = $this->init();
@@ -72,13 +80,17 @@ class Yireo_MageBridge_Model_Block
             $block = $controller->getAction()->getLayout()->getBlock($block_name);
             $instances[$block_name] = $block;
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to get block: '.$block_name.': '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to get block: '.$block_name.': '.$e->getMessage());
             return false;
         }
 
         // General check if the block is empty
         if (empty($block)) {
-            Mage::getSingleton('magebridge/debug')->warning('Empty block '.$block_name);
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->warning('Empty block '.$block_name);
             return null;
         }
 
@@ -97,11 +109,15 @@ class Yireo_MageBridge_Model_Block
     {
         // Fail if there is block_type set
         if (empty($block_type)) {
-            Mage::getSingleton('magebridge/debug')->warning('Empty block-type');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->warning('Empty block-type');
             return null;
         }
 
-        Mage::getSingleton('magebridge/debug')->notice('Building block of type "'.$block_type.'"');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        $debug->notice('Building block of type "'.$block_type.'"');
 
         // Initialize the front controller
         $controller = $this->init();
@@ -114,12 +130,16 @@ class Yireo_MageBridge_Model_Block
             $block = $controller->getAction()->getLayout()->createBlock($block_type);
             $instances[$block_name] = $block;
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to get block: type '.$block_type.': '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to get block: type '.$block_type.': '.$e->getMessage());
         }
 
         // General check if the block is empty
         if (empty($block)) {
-            Mage::getSingleton('magebridge/debug')->warning('Empty block with type '.$block_type);
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->warning('Empty block with type '.$block_type);
             return null;
         }
 
@@ -165,13 +185,16 @@ class Yireo_MageBridge_Model_Block
     public function getCmsOutput($block_name, $arguments = [])
     {
         // Get the CMS-block
-        $block = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($block_name);
+        /** @var Mage_Cms_Model_Block $block */
+        $block = Mage::getModel('cms/block');
+        $block->setStoreId(Mage::app()->getStore()->getId())->load($block_name);
 
         if ($block->getIsActive()) {
             $response = $block->getContent();
             if (!$processor = Mage::getModel('widget/template_filter')) {
                 $processor = Mage::getModel('core/email_template_filter');
             }
+            /** @var Mage_Widget_Model_Template_Filter|Mage_Core_Model_Email_Template_Filter $processor */
             $response = $processor->filter($response);
             return $response;
         }
@@ -227,7 +250,9 @@ class Yireo_MageBridge_Model_Block
 
         // Throw the event "controller_action_layout_render_before"
         if (Mage::registry('mb_controller_action_layout_render_before') == false) {
-            Mage::getSingleton('magebridge/debug')->notice('MB throws event "controller_action_layout_render_before"');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->notice('MB throws event "controller_action_layout_render_before"');
             Mage::dispatchEvent('controller_action_layout_render_before');
             Mage::register('mb_controller_action_layout_render_before', true);
         }
@@ -236,7 +261,9 @@ class Yireo_MageBridge_Model_Block
         try {
             return $block->toHtml();
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to get html from block '.$block_name.': '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to get html from block '.$block_name.': '.$e->getMessage());
         }
 
         return null;
@@ -257,8 +284,9 @@ class Yireo_MageBridge_Model_Block
         }
 
         $request = Mage::app()->getRequest()->getRequestUri();
-        /** @var Yireo_MageBridge_Helper_Cache */
+        /** @var Yireo_MageBridge_Helper_Cache $helper */
         $helper = Mage::helper('magebridge/cache');
+        /** @var bool $allowCaching */
         $allowCaching = $helper->allowCaching($block_name, $request);
 
         $cacheMeta = [
@@ -290,13 +318,16 @@ class Yireo_MageBridge_Model_Block
         if (!$processor = Mage::getModel('widget/template_filter')) {
             $processor = Mage::getModel('core/email_template_filter');
         }
+        /** @var Mage_Widget_Model_Template_Filter|Mage_Core_Model_Email_Template_Filter $processor */
 
         // If we have a processor, use it to decode the HTML
         if (!empty($processor)) {
             try {
                 $new_html = $processor->filter($html);
             } catch (Exception $e) {
-                Mage::getSingleton('magebridge/debug')->error('Template filter failed: '.$e->getMessage());
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->error('Template filter failed: '.$e->getMessage());
             }
 
             if (!empty($new_html)) {

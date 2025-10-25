@@ -54,7 +54,9 @@ class Yireo_MageBridge_Helper_Encryption extends Mage_Core_Helper_Abstract
         }
 
         // Check if SSL is already in use, so encryption is not needed
-        if (Mage::getSingleton('magebridge/core')->getMetaData('protocol') == 'https') {
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        if ($core->getMetaData('protocol') == 'https') {
             return $data;
         }
 

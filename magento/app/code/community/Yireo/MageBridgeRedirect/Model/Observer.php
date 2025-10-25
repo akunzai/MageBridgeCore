@@ -25,17 +25,21 @@ class Yireo_MageBridgeRedirect_Model_Observer
         $currentUrl = Mage::app()->getRequest()->getOriginalPathInfo();
 
         // Check if this is a bridge-request
-        if (Mage::helper('magebridge')->isBridge() == true) {
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        if ($magebridgeHelper->isBridge() == true) {
             return $this;
         }
 
         // Check whether redirection is enabled
-        if (Mage::helper('magebridgeredirect')->enabled() == false) {
+        /** @var Yireo_MageBridgeRedirect_Helper_Data $redirectHelper */
+        $redirectHelper = Mage::helper('magebridgeredirect');
+        if ($redirectHelper->enabled() == false) {
             return $this;
         }
 
         // Check should redirect on current IPv4
-        if (Mage::helper('magebridgeredirect')->checkIPv4()) {
+        if ($redirectHelper->checkIPv4()) {
             return $this;
         }
 
@@ -45,7 +49,7 @@ class Yireo_MageBridgeRedirect_Model_Observer
         }
 
         // Fetch the MageBridge Root
-        $magebridgeRootUrl = Mage::helper('magebridgeredirect')->getMageBridgeRoot();
+        $magebridgeRootUrl = $redirectHelper->getMageBridgeRoot();
         if (empty($magebridgeRootUrl)) {
             return $this;
         }

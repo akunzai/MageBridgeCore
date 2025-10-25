@@ -79,7 +79,11 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
      */
     public function test7Action()
     {
-        Mage::getSingleton('core/session')->addError('Test7: Adding an error and then redirect');
+        $session = Mage::getSingleton('core/session');
+        if ($session !== false) {
+            /** @phpstan-ignore method.notFound */
+            $session->addError('Test7: Adding an error and then redirect');
+        }
         return $this->_redirect('customer/account/login');
     }
 
@@ -88,7 +92,11 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
      */
     public function test8Action()
     {
-        Mage::getSingleton('magebridge/core')->setForcePreoutput(true);
+        $core = Mage::getSingleton('magebridge/core');
+        if ($core !== false) {
+            /** @phpstan-ignore method.notFound */
+            $core->setForcePreoutput(true);
+        }
         echo 'test8';
     }
 
@@ -97,8 +105,12 @@ class Yireo_MageBridge_OutputController extends Mage_Core_Controller_Front_Actio
      */
     public function test9Action()
     {
-        $url = Mage::getModel('core/url')->getUrl('customer/account');
-        $this->getResponse()->setRedirect($url);
+        $urlModel = Mage::getModel('core/url');
+        if ($urlModel !== false) {
+            /** @phpstan-ignore method.notFound */
+            $url = $urlModel->getUrl('customer/account');
+            $this->getResponse()->setRedirect($url);
+        }
     }
 
     /**

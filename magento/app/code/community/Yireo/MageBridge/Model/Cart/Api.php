@@ -24,6 +24,7 @@ class Yireo_MageBridge_Model_Cart_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function items($options = [])
     {
+        /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
         $items = [];
         foreach ($cart->getItems() as $item) {

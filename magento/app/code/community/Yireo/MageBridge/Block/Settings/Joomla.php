@@ -34,8 +34,10 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
      */
     public function getApiDetails()
     {
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $table = Mage::getSingleton('core/resource')->getTableName('core/config_data');
+        /** @var Mage_Core_Model_Resource $resource */
+        $resource = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('core_read');
+        $table = $resource->getTableName('core/config_data');
         $query = 'SELECT * FROM `'.$table.'` WHERE path LIKE "magebridge/joomla/api%";';
         $rows = $connection->fetchAll($query);
 
@@ -128,6 +130,8 @@ class Yireo_MageBridge_Block_Settings_Joomla extends Mage_Core_Block_Template
      */
     public function getBrowseUrl($scope, $id)
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/browse', ['scope' => $scope, 'id' => $id]);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/browse', ['scope' => $scope, 'id' => $id]);
     }
 }

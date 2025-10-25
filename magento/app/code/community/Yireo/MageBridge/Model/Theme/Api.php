@@ -22,6 +22,7 @@ class Yireo_MageBridge_Model_Theme_Api extends Mage_Api_Model_Resource_Abstract
      */
     public function items()
     {
+        $options = [];
         $root = BP.DS.'app'.DS.'design'.DS.'frontend';
         $folders = scandir($root);
         foreach ($folders as $folder) {

@@ -24,6 +24,7 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
      */
     public function items($filters = null, $store = null)
     {
+        /** @phpstan-ignore-next-line */
         $collection = Mage::getModel('sales/order')->getCollection()
             ->addAttributeToSelect('*')
             ->setOrder('created_at', 'desc')
@@ -66,6 +67,7 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
     {
         // Parse the customer-filter if needed
         if (isset($filters['customer_email']) && isset($filters['website_id'])) {
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
             $customer->setWebsiteId($filters['website_id']);
             $customer->loadByEmail($filters['customer_email']);

@@ -55,23 +55,21 @@ class Autoloader
 
     /**
      * Main autoloading function.
-     *
-     * @return bool
      */
-    public function load($className)
+    public function load($className): void
     {
         if (stristr($className, 'yireo') === false) {
-            return false;
+            return;
         }
 
         // Try to include namespaced files
         $rt = $this->loadNamespaced($className);
 
         if ($rt === true) {
-            return true;
+            return;
         }
 
-        return false;
+        return;
     }
 
     /**

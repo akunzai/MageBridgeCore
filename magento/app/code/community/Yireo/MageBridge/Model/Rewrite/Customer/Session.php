@@ -23,7 +23,9 @@ class Yireo_MageBridge_Model_Rewrite_Customer_Session extends Mage_Customer_Mode
      */
     public function regenerateSessionId()
     {
-        if (Mage::helper('magebridge')->isBridge() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        if ($magebridgeHelper->isBridge() == false) {
             return parent::regenerateSessionId();
         }
 

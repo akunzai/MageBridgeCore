@@ -36,6 +36,7 @@ class Yireo_MageBridge_Block_Menu extends Mage_Core_Block_Template
         $items = $this->getMenuItemArray();
 
         // Fetch the URL-model
+        /** @var Mage_Adminhtml_Model_Url $url */
         $url = Mage::getModel('adminhtml/url');
 
         // Get the current request

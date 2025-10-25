@@ -47,9 +47,11 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
         $locale = Mage::getSingleton('core/locale');
         $originLocale = $locale->getLocaleCode();
         $locale->setLocale('en_US');
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
         $addressArray[] = array_merge(
-            Mage::helper('magebridge/event')->cleanAssoc($address->debug()),
-            Mage::helper('magebridge/event')->cleanAssoc([
+            $eventHelper->cleanAssoc($address->debug()),
+            $eventHelper->cleanAssoc([
                 'country' => $address->getCountryModel()->getName(),
                 'is_subscribed' => $address->getIsSubscribed(),
             ])
@@ -79,30 +81,40 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
         $addresses = $customer->getAddresses();
         $addressArray = [];
         if (!empty($addresses)) {
+            /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+            $eventHelper = Mage::helper('magebridge/event');
             foreach ($addresses as $address) {
-                $addressArray[] = Mage::helper('magebridge/event')->getAddressArray($address);
+                $addressArray[] = $eventHelper->getAddressArray($address);
             }
         }
 
         // Get the usermap
-        $map = Mage::helper('magebridge/user')->getUserMap(['customer_id' => $customer->getId(), 'website_id' => $customer->getWebsiteId()]);
+        /** @var Yireo_MageBridge_Helper_User $userHelper */
+        $userHelper = Mage::helper('magebridge/user');
+        $map = $userHelper->getUserMap(['customer_id' => $customer->getId(), 'website_id' => $customer->getWebsiteId()]);
         $joomla_id = (!empty($map)) ? $map['joomla_id'] : 0;
 
         // Build the customer array
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
         $customerArray = array_merge(
-            Mage::helper('magebridge/event')->cleanAssoc($customer->debug()),
-            Mage::helper('magebridge/event')->cleanAssoc([
+            $eventHelper->cleanAssoc($customer->debug()),
+            $eventHelper->cleanAssoc([
                 'original_data' => $customer->getOrigData(),
                 'customer_id' => $customer->getId(),
                 'joomla_id' => $joomla_id,
                 'name' => $customer->getName(),
                 'addresses' => $addressArray,
-                'session' => Mage::getSingleton('magebridge/core')->getMetaData('joomla_session'),
+                'session' => $core->getMetaData('joomla_session'),
             ])
         );
 
         if (!empty($customerArray['password'])) {
-            $customerArray['password'] = Mage::helper('magebridge/encryption')->encrypt($customerArray['password']);
+            /** @var Yireo_MageBridge_Helper_Encryption $encryptionHelper */
+            $encryptionHelper = Mage::helper('magebridge/encryption');
+            $customerArray['password'] = $encryptionHelper->encrypt($customerArray['password']);
         }
 
         return $customerArray;
@@ -122,8 +134,10 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
         }
 
         $products = [];
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
         foreach ($order->getAllItems() as $item) {
-            $product = Mage::helper('magebridge/event')->cleanAssoc([
+            $product = $eventHelper->cleanAssoc([
                 'id' => $item->getId(),
                 'sku' => $item->getSku(),
                 'name' => $item->getName(),
@@ -133,11 +147,12 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
             $products[] = $product;
         }
 
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
 
-        $orderArray = Mage::helper('magebridge/event')->cleanAssoc($order->debug());
+        $orderArray = $eventHelper->cleanAssoc($order->debug());
         $orderArray['order_id'] = $order->getId();
-        $orderArray['customer'] = Mage::helper('magebridge/event')->getCustomerArray($customer);
+        $orderArray['customer'] = $eventHelper->getCustomerArray($customer);
         $orderArray['products'] = $products;
 
         return $orderArray;
@@ -157,8 +172,10 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
         }
 
         $products = [];
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
         foreach ($quote->getAllItems() as $item) {
-            $product = Mage::helper('magebridge/event')->cleanAssoc([
+            $product = $eventHelper->cleanAssoc([
                 'id' => $item->getId(),
                 'sku' => $item->getSku(),
                 'name' => $item->getName(),
@@ -167,10 +184,10 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
             $products[] = $product;
         }
 
-        $quoteArray = Mage::helper('magebridge/event')->cleanAssoc([
+        $quoteArray = $eventHelper->cleanAssoc([
             'quote_id' => $quote->getId(),
             'quote' => $quote->debug(),
-            'customer' => Mage::helper('magebridge/event')->getCustomerArray($quote->getCustomer()),
+            'customer' => $eventHelper->getCustomerArray($quote->getCustomer()),
             'products' => $products,
         ]);
 
@@ -190,7 +207,9 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
             return;
         }
 
-        $userArray = Mage::helper('magebridge/event')->cleanAssoc([
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
+        $userArray = $eventHelper->cleanAssoc([
             'user_id' => $user->getId(),
             'user' => $user->debug(),
             'name' => $user->getName(),
@@ -213,7 +232,9 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
             return;
         }
 
-        $productArray = Mage::helper('magebridge/event')->cleanAssoc([
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
+        $productArray = $eventHelper->cleanAssoc([
             'product_id' => $product->getId(),
             'sku' => $product->getSKU(),
             'name' => $product->getName(),
@@ -243,7 +264,9 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
             return;
         }
 
-        $categoryArray = Mage::helper('magebridge/event')->cleanAssoc([
+        /** @var Yireo_MageBridge_Helper_Event $eventHelper */
+        $eventHelper = Mage::helper('magebridge/event');
+        $categoryArray = $eventHelper->cleanAssoc([
             'category_id' => $category->getId(),
             'name' => $category->getName(),
             'debug' => $category->debug(),

@@ -18,7 +18,7 @@ class Yireo_MageBridge_Model_Url extends Mage_Core_Model_Abstract
     /**
      * Data.
      *
-     * @var mixed
+     * @var array|null
      */
     protected $_data = null;
 
@@ -34,12 +34,16 @@ class Yireo_MageBridge_Model_Url extends Mage_Core_Model_Abstract
     {
         static $urls = [];
         if (empty($urls[$type])) {
+            /** @var Yireo_MageBridge_Model_Core $magebridge */
             $magebridge = Mage::getSingleton('magebridge/core');
             $urls[$type] = [];
 
             switch ($type) {
                 case 'category':
-                    $categories = Mage::getModel('catalog/category')->getTreeModel();
+                    /** @var Mage_Catalog_Model_Category $categoryModel */
+                    $categoryModel = Mage::getModel('catalog/category');
+                    $categories = $categoryModel->getTreeModel();
+                    /** @var Mage_Catalog_Helper_Category $helper */
                     $helper = Mage::helper('catalog/category');
                     $categories = $helper->getStoreCategories('name', true, false);
                     foreach ($categories as $category) {
@@ -49,7 +53,9 @@ class Yireo_MageBridge_Model_Url extends Mage_Core_Model_Abstract
 
                 case 'product':
                 default:
-                    $products = Mage::getModel('catalog/product')->getCollection();
+                    /** @var Mage_Catalog_Model_Product $productModel */
+                    $productModel = Mage::getModel('catalog/product');
+                    $products = $productModel->getCollection();
                     foreach ($products as $index => $product) {
                         $urls[$type][] = [ 'id' => $product->getId(), 'url' => $magebridge->parse($product->getProductUrl())];
                     }
