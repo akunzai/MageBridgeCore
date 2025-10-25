@@ -20,12 +20,14 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
      *
      * @param mixed $select
      *
-     * @return array
+     * @return array|null
      */
     public function getUserMap($select = null)
     {
         // Check whether mapping is enabled
-        if (Mage::helper('magebridge')->useJoomlaMap() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->useJoomlaMap() == false) {
             return null;
         }
 
@@ -66,7 +68,9 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
     public function saveUserMap($data)
     {
         // Check whether mapping is enabled
-        if (Mage::helper('magebridge')->useJoomlaMap() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->useJoomlaMap() == false) {
             return false;
         }
 
@@ -84,7 +88,9 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
         try {
             $map->save();
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->trace('Failed to save map', $e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->trace('Failed to save map', $e->getMessage());
         }
 
         return true;
@@ -93,23 +99,28 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
     /**
      * Save the mapping between the Magento customer and the Joomla! user.
      *
-     * @return bool
+     * @return int
      */
     public function getCurrentJoomlaId()
     {
         // Check whether mapping is enabled
-        if (Mage::helper('magebridge')->useJoomlaMap() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->useJoomlaMap() == false) {
             return 0;
         }
 
         // Load the current customer
-        $customer = Mage::getModel('customer/session')->getCustomer();
+        /** @var Mage_Customer_Model_Session $session */
+        $session = Mage::getModel('customer/session');
+        $customer = $session->getCustomer();
 
         // Try to fetch the current mapping
+        /** @var Yireo_MageBridge_Model_Customer_Joomla $map */
         $map = Mage::getModel('magebridge/customer_joomla');
         $map->load($customer->getId());
         if (!empty($map)) {
-            return $map->getJoomlaId();
+            return $map->getData('joomla_id');
         }
 
         return 0;
@@ -162,7 +173,10 @@ class Yireo_MageBridge_Helper_User extends Mage_Core_Helper_Abstract
      */
     public function getCustomersByEmail($email)
     {
-        $customers = Mage::getModel('customer/customer')->getCollection()
+        /** @var Mage_Customer_Model_Customer $customerModel */
+        $customerModel = Mage::getModel('customer/customer');
+        /** @var Mage_Customer_Model_Resource_Customer_Collection $customers */
+        $customers = $customerModel->getCollection()
             ->addAttributeToFilter('email', $email)
         ;
 

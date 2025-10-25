@@ -1,5 +1,8 @@
 <?php
 
+use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Factory;
+
 /**
  * JoomlaApi.
  *
@@ -15,6 +18,9 @@
 
 class Yireo_JoomlaApi_Model_Observer
 {
+    /**
+     * @var Yireo_JoomlaApi_Helper_Data
+     */
     protected $helper;
 
     /**
@@ -22,6 +28,7 @@ class Yireo_JoomlaApi_Model_Observer
      */
     public function __construct()
     {
+        /** @phpstan-ignore-next-line */
         $this->helper = Mage::helper('joomlaapi');
     }
 
@@ -74,8 +81,12 @@ class Yireo_JoomlaApi_Model_Observer
 
         // Start the application
         $startApp = false;
+        // @phpstan-ignore-next-line
         if ($startApp) {
-            $app = JFactory::getApplication('site');
+            /** @var CMSApplication $app */
+            // @phpstan-ignore-next-line
+            $app = Factory::getApplication('site');
+            // @phpstan-ignore-next-line
             $app->initialise();
         }
     }

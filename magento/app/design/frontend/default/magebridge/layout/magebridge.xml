@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageBridge
+ *
+ * @author Yireo
+ * @package MageBridge
+ * @copyright Copyright 2016
+ * @license Open Source License
+ * @link https://www.yireo.com
+ */
+-->
+<layout version="0.1.0">
+    <!--
+    Ensure content block exists for MageBridge bridge requests.
+    This layout file is loaded by MageBridge when magebridge.php processes requests.
+    The content block must exist for the MageBridge Block model to retrieve page content.
+    -->
+    <default>
+        <!-- Create the content block as a text_list container if it doesn't already exist -->
+        <block type="core/text_list" name="content" as="content" />
+    </default>
+</layout>

@@ -45,21 +45,24 @@ class Yireo_MageBridge_Model_User
     public function loadCustomer($data)
     {
         // Get a clean customer-object
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer');
-        if (isset($data['website_id'])) {
+        if ($customer !== false && isset($data['website_id'])) {
             $customer->setWebsiteId($data['website_id']);
         }
 
         // Check if there is already a mapping between Joomla! and Magento for this user
         if (isset($data['joomla_id']) && isset($data['website_id'])) {
-            $map = Mage::helper('magebridge/user')->getUserMap(['joomla_id' => $data['joomla_id'], 'website_id' => $data['website_id']]);
-            if (isset($map['customer_id'])) {
+            /** @var Yireo_MageBridge_Helper_User $helper */
+            $helper = Mage::helper('magebridge/user');
+            $map = $helper->getUserMap(['joomla_id' => $data['joomla_id'], 'website_id' => $data['website_id']]);
+            if ($customer !== false && isset($map['customer_id'])) {
                 $customer->load((int)$map['customer_id']);
             }
         }
 
         // If we have a valid customer-record return it
-        if ($customer->getId() > 0) {
+        if ($customer !== false && $customer->getId() > 0) {
             return $customer;
         }
 
@@ -71,11 +74,16 @@ class Yireo_MageBridge_Model_User
         $username = (isset($data['original_data']['username'])) ? $data['original_data']['username'] : $username;
 
         // Try to load it by username (if it's an email-address)
-        if (!empty($username) && Mage::helper('magebridge/user')->isEmailAddress($username) == true) {
-            $customer->loadByEmail(stripslashes($username));
+        if ($customer !== false && !empty($username)) {
+            /** @var Yireo_MageBridge_Helper_User $helper */
+            $helper = Mage::helper('magebridge/user');
+            if ($helper->isEmailAddress($username) == true) {
+                $customer->loadByEmail(stripslashes($username));
+            }
+        }
 
-            // Try to load it by email
-        } elseif (!empty($email)) {
+        // Try to load it by email
+        if ($customer !== false && !empty($email)) {
             $customer->loadByEmail(stripslashes($email));
         }
 
@@ -92,6 +100,7 @@ class Yireo_MageBridge_Model_User
     public function loadAdminUser($data)
     {
         // Get a clean customer-object
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getModel('admin/user');
 
         // Determine the username and email
@@ -102,11 +111,13 @@ class Yireo_MageBridge_Model_User
         $username = (isset($data['original_data']['username'])) ? $data['original_data']['username'] : $username;
 
         // Try to load it by username
-        if (!empty($username)) {
+        if ($user !== false && !empty($username)) {
             $user->loadByUsername(stripslashes($username));
+        }
 
-            // Try to load it by email
-        } elseif (!empty($email)) {
+        // Try to load it by email
+        if ($user !== false && !empty($email)) {
+            // @phpstan-ignore-next-line
             $user->loadByEmail(stripslashes($email));
         }
 
@@ -121,7 +132,11 @@ class Yireo_MageBridge_Model_User
     public function doSSO()
     {
         // Allow for debugging
-        Mage::getSingleton('magebridge/core')->setMetaData('debug', true);
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        if ($core !== false) {
+            $core->setMetaData('debug', true);
+        }
 
         // Get the SSO-flag from $_GET
         $sso = Mage::app()->getRequest()->getQuery('sso');
@@ -151,29 +166,46 @@ class Yireo_MageBridge_Model_User
      */
     private function doSSOLogout($app = 'site')
     {
-        Mage::getSingleton('magebridge/debug')->notice('doSSOLogout('.$app.'): '.session_id());
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        if ($debug !== false) {
+            $debug->notice('doSSOLogout('.$app.'): '.session_id());
+        }
 
         // Decrypt the userhash
         $userhash = Mage::app()->getRequest()->getQuery('userhash');
-        $username = Mage::helper('magebridge/encryption')->decrypt($userhash);
+        /** @var Yireo_MageBridge_Helper_Encryption $helper */
+        $helper = Mage::helper('magebridge/encryption');
+        $username = $helper->decrypt($userhash);
 
         // Initialize the session and end it
         if ($app == 'admin') {
-            $user = Mage::getSingleton('admin/session')->getUser();
-            if (!empty($user) && $user->getUsername() == $username) {
-                Mage::app()->setCurrentStore(Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID));
-                $session = Mage::getSingleton('adminhtml/session');
-                $session->unsetAll();
-                setcookie('adminhtml', null);
-                session_destroy();
+            /** @var Mage_Admin_Model_Session $adminSession */
+            $adminSession = Mage::getSingleton('admin/session');
+            if ($adminSession !== false) {
+                $user = $adminSession->getUser();
+                if (!empty($user) && $user->getUsername() == $username) {
+                    Mage::app()->setCurrentStore(Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID));
+                    /** @var Mage_Adminhtml_Model_Session $session */
+                    $session = Mage::getSingleton('adminhtml/session');
+                    if ($session !== false) {
+                        $session->unsetAll();
+                    }
+                    setcookie('adminhtml', '');
+                    session_destroy();
+                }
             }
         } else {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
-            if (!empty($customer) && $customer->getEmail() == $username) {
-                Mage::getSingleton('core/session', ['name' => 'frontend']);
-                Mage::getSingleton('customer/session')->logout();
-                setcookie('frontend', null);
-                session_destroy();
+            /** @var Mage_Customer_Model_Session $customerSession */
+            $customerSession = Mage::getSingleton('customer/session');
+            if ($customerSession !== false) {
+                $customer = $customerSession->getCustomer();
+                if (!empty($customer) && $customer->getEmail() == $username) {
+                    Mage::getSingleton('core/session', ['name' => 'frontend']);
+                    $customerSession->logout();
+                    setcookie('frontend', '');
+                    session_destroy();
+                }
             }
         }
 
@@ -192,10 +224,15 @@ class Yireo_MageBridge_Model_User
      */
     private function doSSOLogin($app = 'site')
     {
-        Mage::getSingleton('magebridge/debug')->notice('doSSOLogin ['.$app.']: '.session_id());
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        if ($debug !== false) {
+            $debug->notice('doSSOLogin ['.$app.']: '.session_id());
+        }
 
         // Construct the redirect back to Joomla!
         $host = null;
+        $token = '';
         $arguments = [
             'option=com_magebridge',
             'task=login',
@@ -213,7 +250,9 @@ class Yireo_MageBridge_Model_User
 
         // Decrypt the userhash
         $userhash = Mage::app()->getRequest()->getQuery('userhash');
-        $username = Mage::helper('magebridge/encryption')->decrypt($userhash);
+        /** @var Yireo_MageBridge_Helper_Encryption $helper */
+        $helper = Mage::helper('magebridge/encryption');
+        $username = $helper->decrypt($userhash);
 
         // Backend / frontend login
         if ($app == 'admin') {
@@ -242,27 +281,35 @@ class Yireo_MageBridge_Model_User
     {
         // Initialize the session
         Mage::getSingleton('core/session', ['name' => 'frontend']);
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         // Initialize the customer
-        $customer = $session->getCustomer();
-        $customer->loadByEmail($username);
-        if (!$customer->getId() > 0) {
-            return null;
+        if ($session !== false) {
+            $customer = $session->getCustomer();
+            $customer->loadByEmail($username);
+            if (!$customer->getId() > 0) {
+                return null;
+            }
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->notice('doSSOLogin [frontend] username '.$customer->getEmail());
+            }
+
+            // Process the hash
+            $passwordhash = $customer->getPasswordHash();
+            $returnhash = md5($passwordhash);
+
+            // Save the customer in the actual data if this simple authentication succeeds
+            $session->setCustomerAsLoggedIn($customer);
+            session_regenerate_id();
+            setcookie('frontend', session_id());
+
+            return $returnhash;
         }
 
-        Mage::getSingleton('magebridge/debug')->notice('doSSOLogin [frontend] username '.$customer->getEmail());
-
-        // Process the hash
-        $passwordhash = $customer->getPasswordHash();
-        $returnhash = md5($passwordhash);
-
-        // Save the customer in the actual data if this simple authentication succeeds
-        $session->setCustomerAsLoggedIn($customer);
-        session_regenerate_id();
-        setcookie('frontend', session_id());
-
-        return $returnhash;
+        return null;
     }
 
     /*
@@ -274,37 +321,67 @@ class Yireo_MageBridge_Model_User
      */
     private function doSSOLoginAdmin($username)
     {
-        return null;
-
         Mage::app()->setCurrentStore(Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID));
         if (isset($_COOKIE['adminhtml'])) {
-            Mage::getSingleton('adminhtml/session')->setSessionId($_COOKIE['adminhtml']);
+            /** @var Mage_Adminhtml_Model_Session $adminhtmlSession */
+            $adminhtmlSession = Mage::getSingleton('adminhtml/session');
+            if ($adminhtmlSession !== false) {
+                $adminhtmlSession->setSessionId($_COOKIE['adminhtml']);
+            }
         }
-
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getSingleton('admin/user');
-        $user->loadByUsername($username);
-        $oldhash = $user->getPassword();
-        $newhash = md5(md5($oldhash));
+        if ($user !== false) {
+            $user->loadByUsername($username);
+            $oldhash = $user->getPassword();
+            $newhash = md5(md5($oldhash));
 
-        if ($user->getId()) {
-            if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-                Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+            if ($user->getId()) {
+                /** @var Mage_Adminhtml_Model_Url $adminhtmlUrl */
+                $adminhtmlUrl = Mage::getSingleton('adminhtml/url');
+                if ($adminhtmlUrl !== false) {
+                    if ($adminhtmlUrl->useSecretKey()) {
+                        $adminhtmlUrl->renewSecretUrls();
+                    }
+                }
+
+                // Initialize the session
+                /** @var Mage_Admin_Model_Session $session */
+                $session = Mage::getSingleton('admin/session');
+                if ($session !== false && ($session->getUser() == null || $session->getUser()->getId() == false)) {
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    if ($debug !== false) {
+                        $debug->notice('doSSOLogin [admin]: Login user '.$username);
+                    }
+                    $session->setUser($user);
+                    /** @var Mage_Admin_Model_Resource_Acl $aclResource */
+                    $aclResource = Mage::getResourceModel('admin/acl');
+                    if ($aclResource !== false) {
+                        $session->setAcl($aclResource->loadAcl());
+                    }
+                    //$session->revalidateCookie();
+
+                    session_regenerate_id();
+                    // Set cookie with proper path to ensure it's available across the site
+                    $cookieParams = session_get_cookie_params();
+                    $cookiePath = $cookieParams['path'];
+                    setcookie(
+                        'adminhtml',
+                        session_id(),
+                        0, // expire when browser closes
+                        $cookiePath,
+                        $cookieParams['domain'],
+                        $cookieParams['secure'],
+                        $cookieParams['httponly']
+                    );
+                }
             }
 
-            // Initialize the session
-            $session = Mage::getSingleton('admin/session');
-            if ($session->getAdmin() == null || $session->getAdmin()->getId() == false) {
-                Mage::getSingleton('magebridge/debug')->notice('doSSOLogin [admin]: Login user '.$username);
-                $session->setUser($user);
-                $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-                //$session->revalidateCookie();
-
-                session_regenerate_id();
-                setcookie('adminhtml', session_id());
-            }
+            return $newhash;
         }
 
-        return $newhash;
+        return null;
     }
 
     /*
@@ -330,12 +407,18 @@ class Yireo_MageBridge_Model_User
     {
         // Disable all event forwarding
         if (isset($data['disable_events'])) {
-            Mage::getSingleton('magebridge/core')->disableEvents();
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            if ($core !== false) {
+                $core->disableEvents();
+            }
         }
 
         // Decrypt the login credentials
-        $data['username'] = Mage::helper('magebridge/encryption')->decrypt($data['username'], 'customer username');
-        $data['password'] = Mage::helper('magebridge/encryption')->decrypt($data['password'], 'customer password');
+        /** @var Yireo_MageBridge_Helper_Encryption $helper */
+        $helper = Mage::helper('magebridge/encryption');
+        $data['username'] = $helper->decrypt($data['username']);
+        $data['password'] = $helper->decrypt($data['password']);
 
         // Determine whether to do a backend or a frontend login
         switch ($data['application']) {
@@ -346,6 +429,7 @@ class Yireo_MageBridge_Model_User
                 return $this->loginCustomer($data);
         }
 
+        /** @phpstan-ignore deadCode.unreachable */
         return [];
     }
 
@@ -363,31 +447,54 @@ class Yireo_MageBridge_Model_User
         $password = $data['password'];
 
         try {
+            /** @var Mage_Customer_Model_Session $session */
             $session = Mage::getSingleton('customer/session');
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to start customer session');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->error('Failed to start customer session');
+            }
             return $data;
         }
 
         try {
-            if ($session->isLoggedIn()) {
-                Mage::getSingleton('magebridge/debug')->error('Already logged in');
-                $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
-            } elseif ($session->login($username, $password)) {
-                Mage::getSingleton('magebridge/debug')->notice('Login of '.$username);
-                $customer = $session->getCustomer();
-                $session->setCustomerAsLoggedIn($customer);
+            if ($session !== false) {
+                if ($session->isLoggedIn()) {
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    if ($debug !== false) {
+                        $debug->error('Already logged in');
+                    }
+                    $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
+                } elseif ($session->login($username, $password)) {
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    if ($debug !== false) {
+                        $debug->notice('Login of '.$username);
+                    }
+                    $customer = $session->getCustomer();
+                    $session->setCustomerAsLoggedIn($customer);
 
-                $data['state'] = MAGEBRIDGE_AUTHENTICATION_SUCCESS;
-                $data['email'] = $customer->getEmail();
-                $data['fullname'] = $customer->getName();
-                $data['hash'] = $customer->getPasswordHash();
-            } else {
-                Mage::getSingleton('magebridge/debug')->error('Login failed');
-                $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
+                    $data['state'] = MAGEBRIDGE_AUTHENTICATION_SUCCESS;
+                    $data['email'] = $customer->getEmail();
+                    $data['fullname'] = $customer->getName();
+                    $data['hash'] = $customer->getPasswordHash();
+                } else {
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    if ($debug !== false) {
+                        $debug->error('Login failed');
+                    }
+                    $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
+                }
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to login customer "'.$username.'": '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->error('Failed to login customer "'.$username.'": '.$e->getMessage());
+            }
             $data['state'] = MAGEBRIDGE_AUTHENTICATION_ERROR;
             return $data;
         }
@@ -409,32 +516,57 @@ class Yireo_MageBridge_Model_User
         $password = $data['password'];
 
         try {
-            Mage::getSingleton('magebridge/debug')->notice('Admin login of '.$username);
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->notice('Admin login of '.$username);
+            }
 
+            /** @var Mage_Admin_Model_User $user */
             $user = Mage::getSingleton('admin/user');
-            $user->login($username, $password);
-            if ($user->getId()) {
-                if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-                    Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+            if ($user !== false) {
+                $user->login($username, $password);
+                if ($user->getId()) {
+                    /** @var Mage_Adminhtml_Model_Url $adminhtmlUrl */
+                    $adminhtmlUrl = Mage::getSingleton('adminhtml/url');
+                    if ($adminhtmlUrl !== false) {
+                        if ($adminhtmlUrl->useSecretKey()) {
+                            $adminhtmlUrl->renewSecretUrls();
+                        }
+                    }
+                    /** @var Mage_Admin_Model_Session $session */
+                    $session = Mage::getSingleton('admin/session');
+                    if ($session !== false) {
+                        $session->setIsFirstVisit(true);
+                        $session->setUser($user);
+                        /** @var Mage_Admin_Model_Resource_Acl $aclResource */
+                        $aclResource = Mage::getResourceModel('admin/acl');
+                        if ($aclResource !== false) {
+                            $session->setAcl($aclResource->loadAcl());
+                        }
+                    }
+
+                    session_regenerate_id();
+
+                    $data['state'] = MAGEBRIDGE_AUTHENTICATION_SUCCESS;
+                    $data['email'] = null;
+                    $data['fullname'] = null;
+                    $data['hash'] = md5($user->getPassword());
+                } else {
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    if ($debug !== false) {
+                        $debug->error('Admin login failed');
+                    }
+                    $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
                 }
-
-                $session = Mage::getSingleton('admin/session');
-                $session->setIsFirstVisit(true);
-                $session->setUser($user);
-                $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-
-                session_regenerate_id();
-
-                $data['state'] = MAGEBRIDGE_AUTHENTICATION_SUCCESS;
-                $data['email'] = null;
-                $data['fullname'] = null;
-                $data['hash'] = md5($user->getPassword());
-            } else {
-                Mage::getSingleton('magebridge/debug')->error('Admin login failed');
-                $data['state'] = MAGEBRIDGE_AUTHENTICATION_FAILURE;
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to login admin: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->error('Failed to login admin: '.$e->getMessage());
+            }
             $data['state'] = MAGEBRIDGE_AUTHENTICATION_ERROR;
             return $data;
         }
@@ -453,16 +585,32 @@ class Yireo_MageBridge_Model_User
     {
         // Disable all event forwarding
         if (isset($data['disable_events'])) {
-            Mage::getSingleton('magebridge/core')->disableEvents();
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            if ($core !== false) {
+                $core->disableEvents();
+            }
         }
 
-        Mage::getSingleton('magebridge/debug')->notice('Logout customer');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        if ($debug !== false) {
+            $debug->notice('Logout customer');
+        }
+
         try {
+            /** @var Mage_Customer_Model_Session $session */
             $session = Mage::getSingleton('customer/session');
-            $session->logout();
+            if ($session !== false) {
+                $session->logout();
+            }
             $data['state'] = 0;
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to logout customer: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            if ($debug !== false) {
+                $debug->error('Failed to logout customer: '.$e->getMessage());
+            }
             $data['state'] = 2;
         }
 

@@ -68,8 +68,6 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
 
     /**
      * Helper to add a check to this list.
-     *
-     * @return string
      */
     private function addResult($group, $check, $status = 0, $description = '')
     {
@@ -87,7 +85,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     /**
      * Check the license key.
      *
-     * @return string
+     * @return array
      */
     public function getChecks()
     {
@@ -104,7 +102,9 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     protected function addConfChecks()
     {
-        $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getModel('magebridge/core');
+        $store = Mage::app()->getStore($core->getStore());
 
         $api_url = Mage::getStoreConfig('magebridge/joomla/api_url');
         $result = (!empty($api_url)) ? self::CHECK_OK : self::CHECK_WARNING;
@@ -201,7 +201,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return string|bool
      */
     protected function hasValidMemoryLimit()
     {
@@ -365,7 +365,9 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     public function getLogUrl($type = null)
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/log', ['type' => $type]);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/log', ['type' => $type]);
     }
 
     /**
@@ -378,6 +380,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     public function isMagebridgeClass($type, $code)
     {
+        $class_name = '';
         if ($type == 'model') {
             $class_name = $this->config->getModelClassName($code);
         } elseif ($type == 'block') {

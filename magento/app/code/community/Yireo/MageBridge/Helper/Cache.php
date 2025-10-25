@@ -18,6 +18,7 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
      */
     public function enabled()
     {
+        /** @phpstan-ignore-next-line */
         if (Mage::helper('magebridge')->isBridge() == false) {
             return false;
         }
@@ -33,8 +34,10 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     {
         static $id;
         if (empty($id)) {
+            /** @phpstan-ignore-next-line */
             $id = Mage::getSingleton('magebridge/core')->getMetaData('request_id');
             if (empty($id)) {
+                /** @phpstan-ignore-next-line */
                 $currentUrl = Mage::helper('core/url')->getCurrentUrl();
                 $get = serialize($_GET);
                 $id = md5($currentUrl.$get);
@@ -46,9 +49,10 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     /**
      * Listen to the event core_block_abstract_to_html_before.
      *
-     * @parameter Varien_Event_Observer $observer
+     * @param string $block
+     * @param string $page
      *
-     * @return $this
+     * @return bool
      */
     public function allowCaching($block, $page)
     {
@@ -68,6 +72,7 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
         ];
 
         // Fetch some extra conditions
+        /** @phpstan-ignore-next-line */
         $customerLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 
         // All catalog-pages for guest-users

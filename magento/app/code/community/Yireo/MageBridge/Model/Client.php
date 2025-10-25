@@ -36,14 +36,24 @@ class Yireo_MageBridge_Model_Client
     protected $debug;
 
     /**
+     * @var Yireo_MageBridge_Model_Core
+     */
+    protected $coreModel;
+
+    /**
      * Yireo_MageBridge_Model_Client constructor.
      */
     public function __construct()
     {
+        // @phpstan-ignore-next-line
         $this->helper = Mage::helper('magebridge');
+        // @phpstan-ignore-next-line
         $this->encryptionHelper = Mage::helper('magebridge/encryption');
+        // @phpstan-ignore-next-line
         $this->client = Mage::getModel('magebridge/client_jsonrpc');
+        // @phpstan-ignore-next-line
         $this->coreModel = Mage::getSingleton('magebridge/core');
+        // @phpstan-ignore-next-line
         $this->debug = Mage::getSingleton('magebridge/debug');
     }
 
@@ -58,7 +68,7 @@ class Yireo_MageBridge_Model_Client
     public function call($method, $params = [], $store = null)
     {
         // Get the remote API-link from the configuration
-        $url = Mage::helper('magebridge')->getApiUrl(null, $store);
+        $url = $this->helper->getApiUrl(null, $store);
         if (empty($url)) {
             return false;
         }

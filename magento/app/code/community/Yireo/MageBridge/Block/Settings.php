@@ -54,7 +54,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
      */
     public function getSaveUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/save');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/save');
     }
 
     /**
@@ -64,7 +66,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
      */
     public function getResetEventsUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetevents');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetevents');
     }
 
     /**
@@ -74,7 +78,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
      */
     public function getResetUsermapUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetusermap');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetusermap');
     }
 
     /**
@@ -84,7 +90,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
      */
     public function getResetApiUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetapi');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetapi');
     }
 
     /**
@@ -105,6 +113,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
      */
     protected function addAccordion()
     {
+        /** @var Mage_Adminhtml_Block_Widget_Accordion $accordion */
         $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')->setId('magebridge');
 
         $accordion->addItem('joomla', [
@@ -143,7 +152,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
                 ])
         );
 
-        if (Mage::helper('magebridge')->useJoomlaMap()) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->useJoomlaMap()) {
             $this->setChild(
                 'resetusermap_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')

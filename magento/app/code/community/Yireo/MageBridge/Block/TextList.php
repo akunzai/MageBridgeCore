@@ -80,6 +80,7 @@ class Yireo_MageBridge_Block_TextList extends Mage_Core_Block_Text_List
             if (!empty($html)) {
                 $uncompressed = @gzuncompress($html);
                 $uncompressed = @base64_decode($uncompressed);
+                // @phpstan-ignore-next-line
                 if ($uncompressed != false && !empty($uncompressed)) {
                     return $uncompressed;
                 }

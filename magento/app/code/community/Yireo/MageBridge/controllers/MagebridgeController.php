@@ -25,20 +25,28 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
         // Give a warning if Mage::getResourceModel('api/user_collection') returns zero
         $collection = Mage::getResourceModel('api/user_collection');
         if (!count($collection) > 0) {
-            Mage::getModel('adminhtml/session')->addError('You have not configured any API-user yet [MageBridge Installation Guide]');
+            /** @var Mage_Adminhtml_Model_Session $session */
+            $session = Mage::getModel('adminhtml/session');
+            $session->addError('You have not configured any API-user yet [MageBridge Installation Guide]');
         }
 
         // Fetch the current store
-        $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getModel('magebridge/core');
+        $store = Mage::app()->getStore($core->getStore());
 
         // Give a warning if the URL suffix is still set to ".html"
         if ($store->getConfig('catalog/seo/product_url_suffix') == '.html' || $store->getConfig('catalog/seo/category_url_suffix') == '.html') {
-            Mage::getModel('adminhtml/session')->addError('You have configured the URL-suffix ".html" which conflicts with Joomla! [MageBridge Magento Settings Guide]');
+            /** @var Mage_Adminhtml_Model_Session $session */
+            $session = Mage::getModel('adminhtml/session');
+            $session->addError('You have configured the URL-suffix ".html" which conflicts with Joomla! [MageBridge Magento Settings Guide]');
         }
 
         // Give a warning if the setting "Redirect to Base URL" is still enabled
         if ($store->getConfig('web/url/redirect_to_base') == '1') {
-            Mage::getModel('adminhtml/session')->addError('The setting "Auto-redirect to Base URL" is not configured properly [MageBridge Magento Settings Guide]');
+            /** @var Mage_Adminhtml_Model_Session $session */
+            $session = Mage::getModel('adminhtml/session');
+            $session->addError('The setting "Auto-redirect to Base URL" is not configured properly [MageBridge Magento Settings Guide]');
         }
 
         // Load the layout
@@ -122,7 +130,9 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
         }
         file_put_contents($file, '');
 
-        $url = Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/log', ['type' => $type]);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        $url = $urlModel->getUrl('adminhtml/magebridge/log', ['type' => $type]);
         $this->getResponse()->setRedirect($url);
     }
 
@@ -149,11 +159,15 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
                 }
             }
 
-            Mage::getModel('adminhtml/session')->addSuccess('Settings saved');
+            /** @var Mage_Adminhtml_Model_Session $session */
+            $session = Mage::getModel('adminhtml/session');
+            $session->addSuccess('Settings saved');
             Mage::getConfig()->removeCache();
         }
 
-        $url = Mage::getModel('adminhtml/url')->getUrl($page);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        $url = $urlModel->getUrl($page);
         $this->getResponse()->setRedirect($url);
     }
 
@@ -166,8 +180,10 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
 
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $table = Mage::getSingleton('core/resource')->getTableName('core/config_data');
+        /** @var Mage_Core_Model_Resource $resource */
+        $resource = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('core_write');
+        $table = $resource->getTableName('core/config_data');
         foreach (['api_url', 'api_user', 'api_key'] as $path) {
             $query = 'DELETE FROM `'.$table.'` WHERE path = "magebridge/settings/'.$path.'";';
             $data = $connection->query($query);
@@ -176,9 +192,13 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
         Mage::getConfig()->deleteConfig('magebridge/settings/bridge_all');
         Mage::getConfig()->removeCache();
 
-        Mage::getModel('adminhtml/session')->addSuccess('API-details are reset to default');
+        /** @var Mage_Adminhtml_Model_Session $session */
+        $session = Mage::getModel('adminhtml/session');
+        $session->addSuccess('API-details are reset to default');
 
-        $url = Mage::getModel('adminhtml/url')->getUrl($page);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        $url = $urlModel->getUrl($page);
         $this->getResponse()->setRedirect($url);
     }
 
@@ -191,14 +211,20 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
 
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $table = Mage::getSingleton('core/resource')->getTableName('magebridge/customer_joomla');
+        /** @var Mage_Core_Model_Resource $resource */
+        $resource = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('core_write');
+        $table = $resource->getTableName('magebridge/customer_joomla');
         $query = 'DELETE FROM `'.$table.'`';
         $data = $connection->query($query);
 
-        Mage::getModel('adminhtml/session')->addSuccess('User-mapping is removed');
+        /** @var Mage_Adminhtml_Model_Session $session */
+        $session = Mage::getModel('adminhtml/session');
+        $session->addSuccess('User-mapping is removed');
 
-        $url = Mage::getModel('adminhtml/url')->getUrl($page);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        $url = $urlModel->getUrl($page);
         $this->getResponse()->setRedirect($url);
     }
 
@@ -211,15 +237,21 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
     {
         $page = 'adminhtml/magebridge/index';
 
-        $events = Mage::getModel('magebridge/observer')->getEvents();
+        /** @var Yireo_MageBridge_Model_Observer $observer */
+        $observer = Mage::getModel('magebridge/observer');
+        $events = $observer->getEvents();
         foreach ($events as $event) {
             Mage::getConfig()->saveConfig('magebridge/settings/event_forwarding/'.$event[0], $event[1]);
         }
 
         Mage::getConfig()->removeCache();
-        Mage::getModel('adminhtml/session')->addSuccess('Events-settings are reset to their recommended value');
+        /** @var Mage_Adminhtml_Model_Session $session */
+        $session = Mage::getModel('adminhtml/session');
+        $session->addSuccess('Events-settings are reset to their recommended value');
 
-        $url = Mage::getModel('adminhtml/url')->getUrl($page);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        $url = $urlModel->getUrl($page);
         $this->getResponse()->setRedirect($url);
     }
 
@@ -243,6 +275,7 @@ class Yireo_MageBridge_MagebridgeController extends Mage_Adminhtml_Controller_Ac
      */
     protected function prependTitle($subtitles)
     {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
         $headBlock = $this->getLayout()->getBlock('head');
         $title = $headBlock->getTitle();
         if (!is_array($subtitles)) {

@@ -24,14 +24,16 @@ class Yireo_MageBridge_Model_Headers extends Yireo_MageBridge_Model_Block
      */
     public static function getHeaders()
     {
-        Mage::getSingleton('magebridge/debug')->notice('Load headers');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        $debug->notice('Load headers');
 
         // Try to get the FrontController
         try {
-            $controller = Mage::getSingleton('magebridge/core')->getController();
+            $controller = Yireo_MageBridge_Model_Core::getController();
             $controller->getAction()->renderLayout();
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to load controller: ' . $e->getMessage());
+            $debug->error('Failed to load controller: ' . $e->getMessage());
             return false;
         }
 
@@ -49,9 +51,11 @@ class Yireo_MageBridge_Model_Headers extends Yireo_MageBridge_Model_Block
             // Get the data from this block-object
             if (!empty($head)) {
                 // Fetch meta-data from the MageBridge request
-                $disable_css = Mage::getSingleton('magebridge/core')->getMetaData('disable_css');
-                $disable_js = Mage::getSingleton('magebridge/core')->getMetaData('disable_js');
-                $app = Mage::getSingleton('magebridge/core')->getMetaData('app');
+                /** @var Yireo_MageBridge_Model_Core $core */
+                $core = Mage::getSingleton('magebridge/core');
+                $disable_css = $core->getMetaData('disable_css');
+                $disable_js = $core->getMetaData('disable_js');
+                $app = $core->getMetaData('app');
 
                 // Prefetch the headers to remove items first (but don't do this from within the Joomla! Administrator)
                 if ($app != 1 && (!empty($disable_css) || !empty($disable_js))) {
@@ -129,17 +133,23 @@ class Yireo_MageBridge_Model_Headers extends Yireo_MageBridge_Model_Block
 
                 // Get the childhtml script
                 $childhtmlScript = $head->getChildHtml();
-                $headers['custom']['child_html'] = Mage::helper('magebridge/encryption')->base64_encode($childhtmlScript);
+                /** @var Yireo_MageBridge_Helper_Encryption $encryptionHelper */
+                $encryptionHelper = Mage::helper('magebridge/encryption');
+                $headers['custom']['child_html'] = $encryptionHelper->base64_encode($childhtmlScript);
 
                 // Get the translator script
-                $translatorScript = Mage::helper('core/js')->getTranslatorScript();
-                $headers['custom']['translate'] = Mage::helper('magebridge/encryption')->base64_encode($translatorScript);
+                /** @var Mage_Core_Helper_Js $jsHelper */
+                $jsHelper = Mage::helper('core/js');
+                $translatorScript = $jsHelper->getTranslatorScript();
+                $headers['custom']['translate'] = $encryptionHelper->base64_encode($translatorScript);
 
                 return $headers;
             }
             return false;
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to get headers: ' . $e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to get headers: ' . $e->getMessage());
             return false;
         }
     }

@@ -14,7 +14,7 @@
 ini_set('zlib.output_compression', 0);
 ini_set('display_errors', 1);
 
-// Check for the maintence-file
+// Check for the maintenance-file
 $maintenanceFile = 'maintenance.flag';
 if (file_exists($maintenanceFile)) {
     header('HTTP/1.1 503 Service Temporarily Unavailable');
@@ -27,7 +27,11 @@ if (function_exists('yireo_benchmark') == false) {
     function yireo_benchmark($title)
     {
         $yireo_totaltime = round(microtime(true) - yireo_starttime, 4);
-        Mage::getSingleton('magebridge/debug')->profiler($title.': '.$yireo_totaltime.' seconds');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        if ($debug !== false) {
+            $debug->profiler($title.': '.$yireo_totaltime.' seconds');
+        }
     }
 }
 
@@ -42,11 +46,19 @@ $magebridge->premask();
 // Support for Magento Compiler
 $compilerConfig = 'includes/config.php';
 if (file_exists($compilerConfig)) {
+    /** @phpstan-ignore include.fileNotFound */
     include $compilerConfig;
 }
 
 // Initialize the Magento application
+/** @phpstan-ignore requireOnce.fileNotFound */
 require_once 'app/Mage.php';
+
+// Initialize variables
+$app_time = 0;
+$app_value = null;
+$app_type = null;
+
 try {
     // Determine the Mage::app() arguments from the bridge
     $app_value = $magebridge->getMeta('app_value');
@@ -102,6 +114,7 @@ try {
     }
 
     // End the task if running the normal Magento procedure
+    /** @phpstan-ignore equal.alwaysFalse */
     if ($task == 'run') {
         exit;
     }
@@ -113,6 +126,7 @@ try {
     //}
 
     // Debugging
+    /** @var Yireo_MageBridge_Model_Debug $debug */
     $debug = Mage::getSingleton('magebridge/debug');
     if (!empty($debug)) {
         $debug->notice("Mage::app($app_value,$app_type)", $app_time);
@@ -122,6 +136,7 @@ try {
     yireo_benchmark('Mage::app()');
 } catch (Exception $e) {
     // Debugging
+    /** @var Yireo_MageBridge_Model_Debug $debug */
     $debug = Mage::getSingleton('magebridge/debug');
     if (!empty($debug)) {
         $debug->notice("Mage::app($app_value,$app_type) failed to start", $app_time);

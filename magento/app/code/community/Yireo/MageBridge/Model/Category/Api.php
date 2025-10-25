@@ -30,7 +30,9 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
 
         // Select the storeId based on this store-group
         if ($storeGroupId > 0) {
-            $storeId = Mage::getModel('core/store_group')->load($storeGroupId)->getDefaultStoreId();
+            /** @var Mage_Core_Model_Store_Group $storeGroup */
+            $storeGroup = Mage::getModel('core/store_group')->load($storeGroupId);
+            $storeId = $storeGroup->getDefaultStoreId();
         }
 
         // If the arguments do not include a store-flag, include it so not to mess up caching
@@ -42,8 +44,8 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
         }
 
         // Initializing caching
+        $cacheId = 'magebridge_category_api__items'.md5(serialize($arguments));
         if (Mage::app()->useCache('collections')) {
-            $cacheId = 'magebridge_category_api__items'.md5(serialize($arguments));
             if ($cache = Mage::app()->loadCache($cacheId)) {
                 $result = unserialize($cache);
                 if (!empty($result)) {
@@ -89,7 +91,9 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
 
         // Select the storeId based on this store-group
         if ($storeGroupId > 0) {
-            $storeId = Mage::getModel('core/store_group')->load($storeGroupId)->getDefaultStoreId();
+            /** @var Mage_Core_Model_Store_Group $storeGroup */
+            $storeGroup = Mage::getModel('core/store_group')->load($storeGroupId);
+            $storeId = $storeGroup->getDefaultStoreId();
         }
 
         // If the arguments do not include a store-flag, include it so not to mess up caching
@@ -101,8 +105,8 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
         }
 
         // Initializing caching
+        $cacheId = 'magebridge_category_api__tree'.md5(serialize($arguments));
         if (Mage::app()->useCache('collections')) {
-            $cacheId = 'magebridge_category_api__tree'.md5(serialize($arguments));
             if ($cache = Mage::app()->loadCache($cacheId)) {
                 $result = unserialize($cache);
                 if (!empty($result)) {
@@ -162,6 +166,7 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
     protected function _getCollection($arguments, $storeId = null, $root = null)
     {
         // Get the collection
+        /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
         $collection = Mage::getModel('catalog/category')->getCollection();
         $collection->addAttributeToSort('path', 'ASC');
         $collection->addAttributeToSort('position', 'ASC');
@@ -203,7 +208,9 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
                     $collection->addAttributeToFilter($field, $value);
                 }
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('magebridge/debug')->error('Invalid search filter', $e->getMessage());
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->error('Invalid search filter', $e->getMessage());
             }
         }
 
@@ -269,7 +276,9 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
             if (!empty($storeId)) {
                 $arguments['store'] = $storeId;
             }
-            $products = Mage::getModel('magebridge/product_api')->items($arguments);
+            /** @var Yireo_MageBridge_Model_Product_Api $productApi */
+            $productApi = Mage::getModel('magebridge/product_api');
+            $products = $productApi->items($arguments);
         }
         return $products;
     }
@@ -283,8 +292,10 @@ class Yireo_MageBridge_Model_Category_Api extends Mage_Catalog_Model_Api_Resourc
      */
     protected function _getStoreId($store = null)
     {
-        $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
-        return parent::_getStoreId($store);
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getModel('magebridge/core');
+        $storeId = $core->getStore();
+        return parent::_getStoreId($storeId);
     }
 
     /*

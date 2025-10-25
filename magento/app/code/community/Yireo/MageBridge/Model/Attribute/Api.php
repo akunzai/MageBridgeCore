@@ -15,6 +15,7 @@
  */
 class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstract
 {
+    protected $_attributeSetCollection;
     /**
      * Retrieve list of attribute sets.
      *
@@ -23,7 +24,9 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     public function getAttributeSets()
     {
         $collection = $this->_getAttributeSets();
-        $defaultId = (int)Mage::getModel('catalog/product')->getResource()->getEntityType()->getDefaultAttributeSetId();
+        /** @var Mage_Catalog_Model_Resource_Product $resource */
+        $resource = Mage::getModel('catalog/product')->getResource();
+        $defaultId = (int)$resource->getEntityType()->getDefaultAttributeSetId();
 
         $res = [];
         foreach ($collection as $item) {
@@ -47,6 +50,7 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
             ->setOrder('sort_order', 'ASC')
         ;
 
+        $res = [];
         foreach ($collection as $item) {
             $attributeSet = $this->_getAttributeSet($item->getAttributeSetId());
             if ($attributeSet->getEntityTypeId() < 1) {
@@ -76,10 +80,13 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
         if (!empty($data['attributeset_id'])) {
             $attributesetId = (int)$data['attributeset_id'];
         } elseif (!empty($data['default'])) {
-            $attributesetId = (int)Mage::getModel('catalog/product')->getResource()->getEntityType()->getDefaultAttributeSetId();
+            /** @var Mage_Catalog_Model_Resource_Product $resource */
+            $resource = Mage::getModel('catalog/product')->getResource();
+            $attributesetId = (int)$resource->getEntityType()->getDefaultAttributeSetId();
         }
 
         $attributeGroups = $this->getAttributeGroups();
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
         $attributes = Mage::getResourceModel('catalog/product_attribute_collection');
         if ($attributesetId > 0) {
             $attributes->setAttributeSetFilter($attributesetId);
@@ -134,9 +141,12 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     protected function _getAttributeSets()
     {
         if (empty($this->_attributeSetCollection)) {
-            $entityType = Mage::getModel('catalog/product')->getResource()->getTypeId();
-            $this->_attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($entityType);
+            /** @var Mage_Catalog_Model_Resource_Product $resource */
+            $resource = Mage::getModel('catalog/product')->getResource();
+            $entityType = $resource->getTypeId();
+            /** @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection $collection */
+            $collection = Mage::getResourceModel('eav/entity_attribute_set_collection');
+            $this->_attributeSetCollection = $collection->setEntityTypeFilter($entityType);
         }
         return $this->_attributeSetCollection;
     }
@@ -144,7 +154,7 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
     /**
      * Retrieve a specific attributeset.
      *
-     * @return array
+     * @return Mage_Eav_Model_Entity_Attribute_Set
      */
     protected function _getAttributeSet($attributeSetId)
     {
@@ -154,6 +164,7 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
                 return $item;
             }
         }
+        // @phpstan-ignore-next-line
         return Mage::getModel('eav/entity_attribute_set');
     }
 }

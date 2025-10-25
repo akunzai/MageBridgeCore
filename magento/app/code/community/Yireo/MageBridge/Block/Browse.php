@@ -37,6 +37,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     {
         parent::_construct();
         $this->setTemplate('magebridge/browse.phtml');
+        // @phpstan-ignore-next-line
         $this->client = Mage::getSingleton('magebridge/client');
         $this->request = Mage::app()->getRequest();
         $this->app = Mage::app();
@@ -85,7 +86,7 @@ class Yireo_MageBridge_Block_Browse extends Mage_Core_Block_Template
     /**
      * Return the API-details.
      *
-     * @return string
+     * @return array
      */
     public function getApiDetails()
     {
