@@ -22,7 +22,11 @@
             "phpstan/extension-installer": true
         },
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.0",
+            "ext-intl": "8.1.0"
+        }
     },
     "repositories": [
         {
@@ -44,7 +48,8 @@
     ],
     "require": {
         "php": ">=8.1",
-        "aydin-hassan/magento-core-composer-installer": "~2.1.0"
+        "aydin-hassan/magento-core-composer-installer": "~2.1.0",
+        "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.89",

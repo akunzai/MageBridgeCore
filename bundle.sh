@@ -4,6 +4,21 @@ set -euo pipefail
 
 pwd=$(dirname "$0")
 output_file=${pwd}/dist/pkg_magebridge.zip
+component_vendor_dir="${pwd}/joomla/components/com_magebridge/vendor"
+
+if [ -d "${pwd}/vendor" ]; then
+  rm -rf "${component_vendor_dir}"
+  mkdir -p "${component_vendor_dir}"
+  rsync -a "${pwd}/vendor/autoload.php" "${component_vendor_dir}/"
+  rsync -a "${pwd}/vendor/composer" "${component_vendor_dir}/"
+  for package in brick laminas nikic psr; do
+    if [ -d "${pwd}/vendor/${package}" ]; then
+      rsync -a "${pwd}/vendor/${package}" "${component_vendor_dir}/"
+    fi
+  done
+else
+  echo "[bundle] vendor directory not found. Run 'composer install' before bundling." >&2
+fi
 
 php "${pwd}/bundle.php" "${pwd}/joomla/libraries/yireo/yireo.xml" "${pwd}/joomla/packages/lib_yireo.zip"
 php "${pwd}/bundle.php" "${pwd}/joomla/com_magebridge.xml" "${pwd}/joomla/packages/com_magebridge.zip"
