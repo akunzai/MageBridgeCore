@@ -1,11 +1,16 @@
 <?php
-$finder = PhpCsFixer\Finder::create()
-	->in([__DIR__ . '/joomla'])
-	->in([__DIR__ . '/magento']);
 
-$config = new PhpCsFixer\Config();
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
+
+$finder = Finder::create()
+	->in(__DIR__ . '/joomla')->exclude('components/com_magebridge/vendor')
+	->in(__DIR__ . '/magento');
+
+$config = new Config();
 return $config
-	->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
+	->setParallelConfig(ParallelConfigFactory::detect())
 	->setRules([
 		'@PSR12' => true,
 		'@PHP81Migration' => true,
