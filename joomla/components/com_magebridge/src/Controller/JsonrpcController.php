@@ -11,9 +11,15 @@ use Joomla\CMS\Factory;
 use Joomla\Input\Input;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Laminas\Json\Server\Error as JsonServerError;
+use Laminas\Json\Server\Request as JsonServerRequest;
+use Laminas\Json\Server\Response as JsonServerResponse;
+use Laminas\Json\Server\Server as JsonServer;
 use MageBridge\Component\MageBridge\Site\Helper\EncryptionHelper;
+use MageBridge\Component\MageBridge\Site\Library\Api as MageBridgeApi;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
+use RuntimeException;
 
 class JsonrpcController extends BaseController
 {
@@ -22,10 +28,7 @@ class JsonrpcController extends BaseController
      */
     private $debug;
 
-    /**
-     * @var \Zend_Json_Server|null
-     */
-    private $server = null;
+    private ?JsonServer $server = null;
 
     public function __construct(
         array $config = [],
@@ -47,7 +50,7 @@ class JsonrpcController extends BaseController
 
         $this->init();
 
-        /** @var \Zend_Json_Server_Request $request */
+        /** @var JsonServerRequest $request */
         $request = $this->server->getRequest();
 
         $params = $request->getParams();
@@ -67,11 +70,9 @@ class JsonrpcController extends BaseController
         }
 
         unset($params['api_auth']);
-        $params = ['params' => $params];
+        $request->setParams(['params' => $params]);
 
-        $request->setParams($params);
-
-        $this->server->handle($this->server->getRequest());
+        $this->server->handle($request);
 
         $this->close();
     }
@@ -89,20 +90,22 @@ class JsonrpcController extends BaseController
 
     private function init(): void
     {
-        $library = JPATH_SITE . '/components/com_magebridge/libraries';
-        require_once $library . '/api.php';
-
-        if (!defined('ZEND_PATH')) {
-            set_include_path($library . PATH_SEPARATOR . get_include_path());
-        } else {
-            set_include_path(ZEND_PATH . PATH_SEPARATOR . get_include_path());
+        if ($this->server instanceof JsonServer) {
+            return;
         }
 
-        require_once 'Zend/Json/Server.php';
-        require_once 'Zend/Json/Server/Error.php';
+        $autoloadPath = JPATH_SITE . '/components/com_magebridge/vendor/autoload.php';
 
-        $this->server = new \Zend_Json_Server();
-        $this->server->setClass('MageBridgeApi');
+        if (!class_exists(JsonServer::class, false)) {
+            if (!is_file($autoloadPath)) {
+                throw new RuntimeException('Missing Laminas JSON-RPC dependencies. Ensure vendor/autoload.php is bundled.');
+            }
+
+            require_once $autoloadPath;
+        }
+
+        $this->server = new JsonServer();
+        $this->server->setClass(MageBridgeApi::class);
     }
 
     private function close(): void
@@ -112,11 +115,11 @@ class JsonrpcController extends BaseController
 
     private function error(string $message, int $code = 500): void
     {
-        $error = new \Zend_Json_Server_Error();
+        $error = new JsonServerError();
         $error->setCode($code);
         $error->setMessage($message);
 
-        /** @var \Zend_Json_Server_Response $response */
+        /** @var JsonServerResponse $response */
         $response = $this->server->getResponse();
         $response->setError($error);
 
