@@ -26,8 +26,9 @@ class Yireo_MageBridge_Model_System_Config_Source_Customer_Group_Multiselect
     public function toOptionArray()
     {
         if (!$this->_options) {
-            $this->_options = Mage::getResourceModel('customer/group_collection')
-                ->setRealGroupsFilter()
+            /** @var Mage_Customer_Model_Resource_Group_Collection $collection */
+            $collection = Mage::getResourceModel('customer/group_collection');
+            $this->_options = $collection->setRealGroupsFilter()
                 ->loadData()->toOptionArray();
         }
 

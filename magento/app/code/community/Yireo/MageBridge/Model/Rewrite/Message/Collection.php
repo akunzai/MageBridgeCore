@@ -23,7 +23,9 @@ class Yireo_MageBridge_Model_Rewrite_Message_Collection extends Mage_Core_Model_
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
         // Only do this for MB, not Magento standalone
-        if (Mage::getSingleton('magebridge/core')->getMetaData('enable_messages') == 1) {
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        if ($core->getMetaData('enable_messages') == 1) {
             $text = base64_encode($message->getCode());
             switch ($message->getType()) {
                 case 'error':
@@ -47,10 +49,11 @@ class Yireo_MageBridge_Model_Rewrite_Message_Collection extends Mage_Core_Model_
     /**
      * Retrieve messages collection.
      *
-     * @return Mage_Core_Model_Message_Collection
+     * @return array
      */
     public function getItems($type = null)
     {
+        /** @var Yireo_MageBridge_Model_Core $core */
         $core = Mage::getSingleton('magebridge/core');
         if ($core->getMetaData('enable_messages') == 1) {
             if ($type) {

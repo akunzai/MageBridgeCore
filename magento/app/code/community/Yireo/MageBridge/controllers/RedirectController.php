@@ -30,6 +30,7 @@ class Yireo_MageBridge_RedirectController extends Mage_Core_Controller_Front_Act
         }
 
         // Set the redirect URL
+        /** @var Yireo_MageBridge_Model_Core $bridge */
         $bridge = Mage::getSingleton('magebridge/core');
         $bridge->setMageConfig('redirect_url', $redirectUrl);
 
