@@ -17,7 +17,7 @@
         "allow-plugins": {
             "aydin-hassan/magento-core-composer-installer": true,
             "cweagans/composer-patches": true,
-            "magento-hackathon/magento-composer-installer": true,
+            "magento-hackathon/magento-composer-installer": false,
             "openmage/composer-plugin": true,
             "phpstan/extension-installer": true
         },
@@ -60,14 +60,13 @@
     },
     "require-dev": {
         "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.86",
+        "friendsofphp/php-cs-fixer": "^3.89",
         "joomla/joomla-cms": "5.3.3",
-        "openmage/magento-lts": "^20.15",
+        "openmage/magento-lts": "^20.16",
         "phpstan/phpstan": "^1.12"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
-        "enable-patching": true,
         "magento-core-package-type": "magento-source"
     },
     "minimum-stability": "dev",
