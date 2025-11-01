@@ -17,7 +17,7 @@
         "allow-plugins": {
             "aydin-hassan/magento-core-composer-installer": true,
             "cweagans/composer-patches": true,
-            "magento-hackathon/magento-composer-installer": true,
+            "magento-hackathon/magento-composer-installer": false,
             "openmage/composer-plugin": true,
             "phpstan/extension-installer": true
         },
@@ -67,7 +67,6 @@
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
-        "enable-patching": true,
         "magento-core-package-type": "magento-source"
     },
     "minimum-stability": "dev",
