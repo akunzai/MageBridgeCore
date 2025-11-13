@@ -52,9 +52,9 @@
         "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.89",
+        "friendsofphp/php-cs-fixer": "^3.90",
         "joomla/joomla-cms": "5.4.1",
-        "openmage/magento-lts": "^20.15",
+        "openmage/magento-lts": "^20.16",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0"
