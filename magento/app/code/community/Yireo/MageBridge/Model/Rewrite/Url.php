@@ -1,15 +1,14 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
 {
     /*
@@ -20,11 +19,15 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      */
     public function getSecure()
     {
-        if (Mage::helper('magebridge')->isBridge() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        if ($magebridgeHelper->isBridge() == false) {
             return parent::getSecure();
         }
 
-        $request = Mage::getSingleton('magebridge/core')->getRequestUrl();
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        $request = $core->getRequestUrl();
         return $this->isSecurePage($request);
     }
 
@@ -37,7 +40,9 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
      */
     public function getUrl($routePath = null, $routeParams = null)
     {
-        if (Mage::helper('magebridge')->isBridge() == false) {
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        if ($magebridgeHelper->isBridge() == false) {
             return parent::getUrl($routePath, $routeParams);
         }
 
@@ -68,7 +73,9 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
         // Determine whether to add the Joomla! URL Suffix or not
         static $append_suffix = null;
         if ($append_suffix == null) {
-            $joomla_sef_suffix = Mage::getSingleton('magebridge/core')->getMetaData('joomla_sef_suffix');
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            $joomla_sef_suffix = $core->getMetaData('joomla_sef_suffix');
             if ($joomla_sef_suffix == 1) {
                 $append_suffix = true;
             } else {
@@ -99,12 +106,14 @@ class Yireo_MageBridge_Model_Rewrite_Url extends Mage_Core_Model_Url
     {
         $routePath = preg_replace('/\*\//', Mage::app()->getRequest()->getRequestedRouteName().'/', $routePath);
         $routePath = preg_replace('/\/\*\//', Mage::app()->getRequest()->getRequestedControllerName().'/', $routePath);
-        $redirect_ssl = Mage::getSingleton('magebridge/core')->getMetaData('enforce_ssl');
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        $redirect_ssl = $core->getMetaData('enforce_ssl');
 
         if ($redirect_ssl == 1 || $redirect_ssl == 2) {
             return true;
         } elseif ($redirect_ssl == 3) {
-            $payment_urls = Mage::getSingleton('magebridge/core')->getMetaData('payment_urls');
+            $payment_urls = $core->getMetaData('payment_urls');
             $pages = [
                 'checkout/',
                 'firecheckout/',

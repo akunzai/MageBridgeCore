@@ -1,35 +1,38 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the position-block
+ * MageBridge class for the position-block.
  */
 class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
 {
+    protected $position;
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
         parent::_construct();
-        if (Mage::helper('magebridge')->isBridge()) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->isBridge()) {
             $this->setTemplate('magebridge/position.phtml');
         }
     }
 
     /**
-     * Helper method to set the XML-layout position
+     * Helper method to set the XML-layout position.
      *
-     * @param string
+     * @param string $position
      */
     public function setPosition($position)
     {
@@ -37,7 +40,7 @@ class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper method to get the XML-layout position
+     * Helper method to get the XML-layout position.
      *
      * @return string
      */
@@ -51,17 +54,31 @@ class Yireo_MageBridge_Block_Position extends Mage_Core_Block_Template
     }
 
     /**
-     * Render block HTML
+     * Helper method to get the style.
+     *
+     * @return string
+     */
+    protected function getStyle()
+    {
+        return '';
+    }
+
+    /**
+     * Render block HTML.
      *
      * @return string
      */
     protected function _toHtml()
     {
-        if (Mage::helper('magebridge')->isBridge()) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->isBridge()) {
             return parent::_toHtml();
         }
 
-        $result = Mage::getSingleton('magebridge/client')->call('magebridge.position', [$this->getPosition(), $this->getStyle()]);
+        /** @var Yireo_MageBridge_Model_Client $client */
+        $client = Mage::getSingleton('magebridge/client');
+        $result = $client->call('magebridge.position', [$this->getPosition(), $this->getStyle()]);
         return $result;
     }
 }

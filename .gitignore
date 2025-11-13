@@ -7,6 +7,7 @@
 
 # Composer dependencies
 /vendor/
+joomla/components/com_magebridge/vendor/**
 
 # IDE - VSCode
 .vscode/*
@@ -27,3 +28,4 @@ tmp/
 # misc
 /dist/
 /magento/var
+.claude/

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -30,7 +30,9 @@ class Yireo_MageBridge_Model_Tag_Api extends Mage_Api_Model_Resource_Abstract
 
         $result = [];
         foreach ($tags as $tag) {
-            $tagModel = Mage::getModel('tag/tag')->loadByName((string)$tag);
+            /** @var Mage_Tag_Model_Tag $tagModel */
+            $tagModel = Mage::getModel('tag/tag');
+            $tagModel = $tagModel->loadByName((string)$tag);
             $products = $tagModel->getEntityCollection()->addTagFilter($tagModel->getTagId());
 
             foreach ($products as $product) {

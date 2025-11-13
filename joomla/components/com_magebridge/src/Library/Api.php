@@ -1,0 +1,230 @@
+<?php
+
+/**
+ * Joomla! component MageBridge.
+ *
+ * @author    Yireo (info@yireo.com)
+ * @copyright Copyright 2016
+ * @license   GNU Public License
+ *
+ * @link      https://www.yireo.com
+ */
+
+namespace MageBridge\Component\MageBridge\Site\Library;
+
+use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Event\GenericEvent;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\Database\DatabaseInterface;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Event\DispatcherInterface;
+use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Site\Model\DebugModel;
+
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+/**
+ * Main bridge class.
+ */
+class Api
+{
+    /**
+     * @var DebugModel
+     */
+    private $debug;
+
+    /**
+     * @var CMSApplication
+     */
+    private $app;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        DebugModel::getDebugOrigin(DebugModel::MAGEBRIDGE_DEBUG_ORIGIN_JOOMLA_JSONRPC);
+        $this->debug = DebugModel::getInstance();
+        $app = Factory::getApplication();
+        if (!$app instanceof CMSApplication) {
+            throw new \RuntimeException('Application must be an instance of CMSApplication');
+        }
+        $this->app = $app;
+    }
+
+    /**
+     * Test method.
+     *
+     * @return string
+     */
+    public function test()
+    {
+        $this->debug->notice('JSON-RPC test');
+
+        return 'OK received from Joomla!';
+    }
+
+    /**
+     * Login method.
+     *
+     * @param array $params
+     *
+     * @return false|array
+     */
+    public function login($params = [])
+    {
+        $credentials = [
+            'username' => $params[0],
+            'password' => $params[1],
+        ];
+
+        $rt = $this->app->login($credentials);
+
+        if ($rt === true) {
+            return ['email' => $params[0]];
+        }
+
+        return false;
+    }
+
+    /**
+     * Event method.
+     *
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function event($params = [])
+    {
+        // Parse the parameters
+        $event = (isset($params[0]) && is_string($params[0])) ? $params[0] : null;
+        $arguments = (isset($params[1]) && is_array($params[1])) ? $params[1] : [];
+
+        // Check if this call is valid
+        if (empty($event)) {
+            return false;
+        }
+
+        // Start debugging
+        $this->debug->trace('JSON-RPC: firing mageEvent ', $event);
+
+        // Initialize the plugin-group "magento"
+        PluginHelper::importPlugin('magento');
+
+        // Dispatch the event using modern Joomla 5 event system
+        $eventObject = new GenericEvent($event, ['arguments' => $arguments]);
+        $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+        $result = $dispatcher->dispatch($event, $eventObject);
+
+        // Get results from event
+        $eventResults = $result->getArgument('result', []);
+
+        if (!empty($eventResults[0])) {
+            return $eventResults[0];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Logs a MageBridge message on the Joomla! side.
+     *
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function log($params = [])
+    {
+        // Parse the parameters
+        $type = (isset($params['type'])) ? $params['type'] : MAGEBRIDGE_DEBUG_NOTICE;
+        $message = (isset($params['message'])) ? $params['message'] : null;
+        $section = (isset($params['section'])) ? $params['section'] : null;
+        $time = (isset($params['time'])) ? $params['time'] : null;
+        $origin = MAGEBRIDGE_DEBUG_ORIGIN_MAGENTO;
+
+        // Log this message
+        return (bool) $this->debug->add($type, $message, $section, $origin, $time);
+    }
+
+    /**
+     * Output modules on a certain position.
+     *
+     * @param array $params
+     *
+     * @return string|null
+     */
+    public function position($params = [])
+    {
+        if (empty($params) || empty($params[0])) {
+            $this->debug->error('JSON-RPC: position-method called without parameters');
+
+            return null;
+        }
+
+        $position = $params[0];
+        $style = (isset($params[1])) ? $params[1] : null;
+
+        $modules = ModuleHelper::getModules($position);
+
+        $outputHtml = null;
+        $attributes = ['style' => $style];
+
+        if (!empty($modules)) {
+            foreach ($modules as $module) {
+                $moduleHtml = ModuleHelper::renderModule($module, $attributes);
+                $moduleHtml = preg_replace('/href=\"\/([^\"]{0,})\"/', 'href="' . Uri::root() . '\1"', $moduleHtml);
+                $outputHtml .= $moduleHtml;
+            }
+        }
+
+        return $outputHtml;
+    }
+
+    /**
+     * Method to get a list of all users.
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function getUsers($params = [])
+    {
+        $rows = $this->loadUsersFromQuery($params['search']);
+
+        foreach ($rows as $index => $row) {
+            $params = new Registry($row->params);
+            $row->params = $params->toArray();
+            $rows[$index] = $row;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @param null $search
+     *
+     * @return array
+     */
+    protected function loadUsersFromQuery(?string $search = null)
+    {
+        // System variables
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+
+        // Construct the query
+        $query = $db->getQuery(true);
+        $query->select('*');
+        $query->from($db->quoteName('#__users'));
+
+        if ($search !== null && $search !== '') {
+            $query->where($db->quoteName('username') . ' LIKE ' . $db->quote($search));
+        }
+
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+
+        return $rows;
+    }
+}

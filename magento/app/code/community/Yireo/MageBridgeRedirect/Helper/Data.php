@@ -1,23 +1,20 @@
 <?php
 
 /**
- * MageBridgeRedirect
+ * MageBridgeRedirect.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridgeRedirect_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /*
      * Helper-method to return whether this module is enabled
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function enabled()
     {
@@ -28,9 +25,7 @@ class Yireo_MageBridgeRedirect_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to return the MageBridgeRoot URL
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getMageBridgeRoot()
     {
@@ -44,9 +39,7 @@ class Yireo_MageBridgeRedirect_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to prevent redirect on specific ip v4 adresses
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function checkIPv4()
     {

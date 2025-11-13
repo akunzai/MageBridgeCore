@@ -1,16 +1,19 @@
 <?php
 /**
- * Joomla! module MageBridge: Category Menu
+ * Joomla! module MageBridge: Category Menu.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/** @var array $catalog_tree */
+/** @var Joomla\Registry\Registry $params */
 
 // Start level
 $startLevel = 1;
@@ -27,7 +30,7 @@ if (!function_exists('MageBridgeMenuPrintTree')) {
         ?>
 		<ul>
 		<?php foreach ($tree as $item) : ?>
-			<?php $class = ModMageBridgeMenuHelper::getCssClass($params, $item, $level, $i, $tree); ?>
+			<?php $class = ModMageBridgeMenuHelper::getCssClass($params, $item, $level, $i, $tree); // @phpstan-ignore-line?>
 			<li class="<?php echo $class; ?>">
 				<a href="<?php echo $item['url']; ?>" class="<?php echo $class; ?>"><span><?php echo $item['name']; ?></span></a>
 				<?php if ($params->get('include_product_count') == 1 && isset($item['product_count'])) { ?>(<?php echo (int)$item['product_count']; ?>)<?php } ?>
@@ -47,7 +50,7 @@ if (!function_exists('MageBridgeMenuPrintTree')) {
 <ul class="menu<?php echo $params->get('class_sfx'); ?>">
 <?php foreach ($catalog_tree as $item) : ?>
 	<?php $i = 0; ?>
-	<?php $class = ModMageBridgeMenuHelper::getCssClass($params, $item, $startLevel, $i, $catalog_tree); ?>
+	<?php $class = ModMageBridgeMenuHelper::getCssClass($params, $item, $startLevel, $i, $catalog_tree); // @phpstan-ignore-line?>
 	<li class="<?php echo $class; ?>">
 		<a href="<?php echo $item['url']; ?>" class="<?php echo $class; ?>"><span><?php echo $item['name']; ?></span></a>
 		<?php if ($params->get('include_product_count') == 1 && isset($item['product_count'])) { ?>(<?php echo (int)$item['product_count']; ?>)<?php } ?>

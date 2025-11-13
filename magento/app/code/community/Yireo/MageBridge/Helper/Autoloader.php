@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * Class Yireo_MageBridge_Helper_Autoloader
+ * Class Yireo_MageBridge_Helper_Autoloader.
  */
 class Yireo_MageBridge_Helper_Autoloader
 {
@@ -28,8 +28,8 @@ class Yireo_MageBridge_Helper_Autoloader
      */
     public function load()
     {
-        \Yireo\Common\System\Autoloader::init();
-        \Yireo\Common\System\Autoloader::addPath(BP . '/lib/Yireo');
+        Yireo\Common\System\Autoloader::init();
+        Yireo\Common\System\Autoloader::addPath(BP . '/lib/Yireo');
 
         return true;
     }

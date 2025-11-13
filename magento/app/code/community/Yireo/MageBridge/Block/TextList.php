@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge rewrite of the default core/text_list-block
+ * MageBridge rewrite of the default core/text_list-block.
  */
 class Yireo_MageBridge_Block_TextList extends Mage_Core_Block_Text_List
 {
@@ -54,7 +54,7 @@ class Yireo_MageBridge_Block_TextList extends Mage_Core_Block_Text_List
     }
 
     /**
-     * Determine whether a block can be cached or not
+     * Determine whether a block can be cached or not.
      */
     protected function allowBlockCache($blockName)
     {
@@ -80,6 +80,7 @@ class Yireo_MageBridge_Block_TextList extends Mage_Core_Block_Text_List
             if (!empty($html)) {
                 $uncompressed = @gzuncompress($html);
                 $uncompressed = @base64_decode($uncompressed);
+                // @phpstan-ignore-next-line
                 if ($uncompressed != false && !empty($uncompressed)) {
                     return $uncompressed;
                 }

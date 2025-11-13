@@ -43,6 +43,8 @@ jobs:
             ${{ runner.os }}-php-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+      - name: Bundle extensions
+        run: ./bundle.sh
       - name: Linting with PHP CS Fixer
         run: composer lint
       - name: PHPStan Static Analysis

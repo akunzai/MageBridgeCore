@@ -1,68 +1,58 @@
 <?php
 
 /**
- * Joomla! MageBridge Sample - System plugin
+ * Joomla! MageBridge Sample - System plugin.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Plugin\CMSPlugin;
+use MageBridge\Component\MageBridge\Site\Model\Register;
+use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
+
 /**
- * MageBridge Sample System Plugin
+ * MageBridge Sample System Plugin.
  */
-class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
+class plgSystemMageBridgeSample extends CMSPlugin
 {
     protected $magebridge_register_id = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param object $subject
      * @param array $config
      */
-    public function __construct(&$subject, $config)
+    public function __construct($config)
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
         $this->loadLanguage();
     }
 
     /**
-     * Event onAfterInitialise
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterInitialise.
      */
     public function onAfterInitialise()
     {
-        $register = MageBridgeModelRegister::getInstance();
+        $register = Register::getInstance();
         $this->magebridge_register_id = $register->add('api', 'magebridge_session.checkout');
     }
 
     /**
-     * Event onAfterRoute
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRoute.
      */
     public function onAfterRoute()
     {
     }
 
     /**
-     * Event onAfterDispatch
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterDispatch.
      */
     public function onAfterDispatch()
     {
@@ -70,18 +60,14 @@ class plgSystemMageBridgeSample extends \Joomla\CMS\Plugin\CMSPlugin
 
 
     /**
-     * Event onAfterRender
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Event onAfterRender.
      */
     public function onAfterRender()
     {
-        $bridge = MageBridgeModelBridge::getInstance();
+        $bridge = BridgeModel::getInstance();
         $bridge->build();
 
-        $register = MageBridgeModelRegister::getInstance();
+        $register = Register::getInstance();
         $segment = $register->getById($this->magebridge_register_id);
     }
 }

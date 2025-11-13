@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -15,12 +15,12 @@ namespace Yireo\MageBridge\Utilities;
 use Mage_Core_Model_Store as Store;
 
 /**
- * Class interacting with Magento System Configuration
+ * Class interacting with Magento System Configuration.
  */
 class Config
 {
     /**
-     * Configuration prefix
+     * Configuration prefix.
      */
     public const CONFIG_PREFIX = 'magebridge/joomla/';
 
@@ -36,8 +36,6 @@ class Config
 
     /**
      * Config constructor.
-     *
-     * @param Store $store
      */
     public function __construct(Store $store)
     {
@@ -46,9 +44,7 @@ class Config
     }
 
     /**
-     * @param $path
-     *
-     * @return null|string
+     * @return string|null
      */
     public function get($path)
     {

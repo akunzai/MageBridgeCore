@@ -1,16 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
+
+// Define BP constant if not already defined
+if (!defined('BP')) {
+    define('BP', Mage::getBaseDir());
+}
+
 Mage::log('Running MageBridge cleanup');
 function _remove_obsolete_files($files)
 {

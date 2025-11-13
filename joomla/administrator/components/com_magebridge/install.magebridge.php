@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
@@ -14,13 +14,11 @@
 defined('_JEXEC') or die();
 
 /**
- * Method run when installing MageBridge
+ * Method run when installing MageBridge.
  */
 function com_install()
 {
-    require_once(dirname(__FILE__).'/helpers/install.php');
-
-    $helper = new MageBridgeInstallHelper();
+    $helper = new MageBridge\Component\MageBridge\Administrator\Helper\Install();
     $helper->updateQueries();
 
     // Done

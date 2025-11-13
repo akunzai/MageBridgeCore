@@ -1,38 +1,40 @@
 <?php
 
 /**
- * MageBridge Store plugin - Falang
+ * MageBridge Store plugin - Falang.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Load the MageBridgePluginStore base class
+require_once JPATH_SITE . '/components/com_magebridge/libraries/plugin/store.php';
+
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 
 /**
- * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! falang
- *
- * @package MageBridge
+ * MageBridge Store Plugin to dynamically load a Magento store-scope based on a Joomla! falang.
  */
 class plgMageBridgeStoreFalang extends MageBridgePluginStore
 {
     /**
-     * Deprecated variable to migrate from the original connector-architecture to new Store Plugins
+     * Deprecated variable to migrate from the original connector-architecture to new Store Plugins.
      */
     protected $connector_field = 'falang_language';
 
     /**
-     * Event "onMageBridgeValidate"
+     * Event "onMageBridgeValidate".
      *
-     * @access public
      * @param array $actions
      * @param object $condition
+     *
      * @return bool
      */
     public function onMageBridgeValidate($actions = null, $condition = null)
@@ -47,12 +49,19 @@ class plgMageBridgeStoreFalang extends MageBridgePluginStore
             return false;
         }
 
-        // Fetch the current language
-        $language = Factory::getLanguage();
+        /** @var CMSApplicationInterface */
+        $app = Factory::getApplication();
 
-        // Fetch the languages
+        // Fetch the current language
+        $language = $app->getLanguage();
+
+        // Fetch the languages (requires Falang component)
+        if (!class_exists('FalangManager')) {
+            return false;
+        }
+
         $languages = FalangManager::getInstance()->getActiveLanguages();
-        $language_code = Factory::getApplication()->input->getCmd('lang');
+        $language_code = $app->getInput()->getCmd('lang');
         if (!empty($languages)) {
             foreach ($languages as $l) {
                 if ($language->getTag() == $l->code || $language->getTag() == $l->lang_code) {
@@ -77,9 +86,8 @@ class plgMageBridgeStoreFalang extends MageBridgePluginStore
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()

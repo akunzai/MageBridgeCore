@@ -1,34 +1,33 @@
 <?php
 
 /**
- * MageBridge Product plugin - Example
+ * MageBridge Product plugin - Example.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE.'/components/com_magebridge/helpers/loader.php';
+use MageBridge\Component\MageBridge\Site\Library\Plugin\Product;
 
 /**
- * MageBridge Product Plugin - Example
+ * MageBridge Product Plugin - Example.
  */
-class plgMageBridgeProductExample extends MageBridgePluginProduct
+class plgMageBridgeProductExample extends Product
 {
     /**
-     * Event "onMageBridgeProductPurchase"
+     * Event "onMageBridgeProductPurchase".
      *
-     * @access public
      * @param array $actions
      * @param object $user Joomla! user object
-     * @param tinyint $status Status of the current order
+     * @param int $status Status of the current order
      * @param string $sku Magento SKU
+     *
      * @return bool
      */
     public function onMageBridgeProductPurchase($actions = null, $user = null, $status = null, $sku = null)
@@ -49,11 +48,12 @@ class plgMageBridgeProductExample extends MageBridgePluginProduct
     }
 
     /**
-     * Method to execute when this purchase is reversed
+     * Method to execute when this purchase is reversed.
      *
      * @param array $actions
-     * @param \Joomla\CMS\User\User $user
+     * @param Joomla\CMS\User\User $user
      * @param string $sku Magento SKU
+     *
      * @return bool
      */
     public function onMageBridgeProductReverse($actions = null, $user = null, $sku = null)
@@ -74,9 +74,8 @@ class plgMageBridgeProductExample extends MageBridgePluginProduct
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()
