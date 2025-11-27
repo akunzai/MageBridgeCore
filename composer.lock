@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ebacbad6863e541c8105213193491d7e",
+    "content-hash": "d3e96c888b7f342327a7437b391ae93c",
     "packages": [
         {
             "name": "aydin-hassan/magento-core-composer-installer",
@@ -7694,7 +7694,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1"
+        "php": ">=8.3"
     },
     "platform-dev": {},
     "platform-overrides": {

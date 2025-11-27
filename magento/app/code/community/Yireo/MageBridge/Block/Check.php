@@ -226,8 +226,8 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     protected function addSystemChecks()
     {
-        $result = (version_compare(phpversion(), '8.1.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('system', 'PHP version', $result, "PHP version 8.1.0 or higher is needed. A latest PHP version is always recommended.");
+        $result = (version_compare(phpversion(), '8.3.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('system', 'PHP version', $result, "PHP version 8.3.0 or higher is needed. A latest PHP version is always recommended.");
 
         $current = $this->getCurrentMemoryLimit();
         $result = ($this->hasValidMemoryLimit()) ? self::CHECK_OK : self::CHECK_ERROR;
