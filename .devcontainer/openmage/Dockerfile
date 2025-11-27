@@ -1,6 +1,6 @@
 # https://github.com/colinmollenhour/docker-openmage/blob/main/8.2/apache/Dockerfile
 # https://github.com/OpenMage/magento-lts/tree/main/dev/openmage
-ARG PHP_VERSION=8.3.24
+ARG PHP_VERSION=8.4
 ARG PHP_EXTRA_BUILD_DEPS=""
 ARG OPENMAGE_VERSION=20.16.0
 
