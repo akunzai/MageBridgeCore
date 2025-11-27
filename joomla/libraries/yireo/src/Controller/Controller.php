@@ -33,7 +33,7 @@ class Controller extends CommonController
      *
      * @constant
      */
-    public const PHP_SUPPORTED_VERSION = '8.1.0';
+    public const PHP_SUPPORTED_VERSION = '8.3.0';
 
     /**
      * Unique identifier.
