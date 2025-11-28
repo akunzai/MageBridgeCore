@@ -25,6 +25,9 @@ Thumbs.db
 # PHPStan
 tmp/
 
+# PHPUnit
+.phpunit.cache
+
 # misc
 /dist/
 /magento/var
