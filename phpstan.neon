@@ -1,11 +1,29 @@
 parameters:
   level: 5
+  parallel:
+    # workaround for Too many open files in phar
+    maximumNumberOfProcesses: 2
   paths:
     - joomla
     - magento
   excludePaths:
       analyse: 
         - joomla/components/com_magebridge/vendor
+  ignoreErrors:
+    # Joomla AuthenticationResponse::$status is typed as string in PHPDoc but actually accepts int constants
+    - message: '#Property Joomla\\CMS\\Authentication\\AuthenticationResponse::\$status \(string\) does not accept int\.#'
+      identifier: assign.propertyType
+    # Template files access protected properties via $this which is valid in Joomla view templates
+    - identifier: property.protected
+      paths:
+        - joomla/administrator/components/com_magebridge/tmpl/*
+    # Ignore isset/empty on non-nullable properties - valid runtime checks
+    - identifier: isset.property
+    - identifier: empty.property
+    # Language::_() is not deprecated in Joomla 5 - PHPStan stub file is incorrect
+    - message: '#Call to deprecated method _\(\) of class Joomla\\CMS\\Language\\Language#'
+      identifier: method.deprecated
+
   scanDirectories:
     - vendor/joomla/joomla-cms/administrator
     - vendor/joomla/joomla-cms/components
