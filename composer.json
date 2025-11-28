@@ -57,11 +57,24 @@
         "openmage/magento-lts": "^20.16",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
-        "phpstan/phpstan-deprecation-rules": "^2.0"
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpunit/phpunit": "^11.4"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
         "magento-core-package-type": "magento-source"
+    },
+    "autoload": {
+        "psr-4": {
+            "MageBridge\\Component\\MageBridge\\Site\\": "joomla/components/com_magebridge/src/",
+            "MageBridge\\Component\\MageBridge\\Administrator\\": "joomla/administrator/components/com_magebridge/src/",
+            "Yireo\\": "joomla/libraries/yireo/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MageBridge\\Tests\\": "tests/"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -77,6 +90,12 @@
         ],
         "phpstan-baseline": [
             "phpstan analyse --generate-baseline"
+        ],
+        "test": [
+            "phpunit"
+        ],
+        "test-coverage": [
+            "phpunit --coverage-html coverage"
         ],
         "bundle": [
             "./bundle.sh"
