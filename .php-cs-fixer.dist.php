@@ -10,6 +10,7 @@ $finder = Finder::create()
 
 $config = new Config();
 return $config
+	->setUnsupportedPhpVersionAllowed(true)
 	->setParallelConfig(ParallelConfigFactory::detect())
 	->setRules([
 		'@PSR12' => true,
