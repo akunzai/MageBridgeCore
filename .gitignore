@@ -32,3 +32,4 @@ tmp/
 /dist/
 /magento/var
 .claude/
+.agent/
