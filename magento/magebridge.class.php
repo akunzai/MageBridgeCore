@@ -454,7 +454,7 @@ class MageBridge
         $debug = Mage::getSingleton('magebridge/debug');
 
         if ($this->isAllowed() === false) {
-            $ip = gethostbyname($_SERVER['HTTP_VIA']);
+            $ip = $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_VIA'] ?? 'unknown';
             $debug->error(sprintf("IP: %s not allowed to connect", $ip));
             return false;
         }
@@ -484,8 +484,18 @@ class MageBridge
             return true;
         }
 
-        if (isset($_SERVER['HTTP_VIA']) && $allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
-            return true;
+        // Check HTTP_VIA header (for proxy connections)
+        if (isset($_SERVER['HTTP_VIA']) && is_string($_SERVER['HTTP_VIA']) && $_SERVER['HTTP_VIA'] !== '') {
+            if ($allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
+                return true;
+            }
+        }
+
+        // Check REMOTE_ADDR (direct connections)
+        if (isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] !== '') {
+            if ($allowedIps->isHostAllowed($_SERVER['REMOTE_ADDR']) === true) {
+                return true;
+            }
         }
 
         return false;
