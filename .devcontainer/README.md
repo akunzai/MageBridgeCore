@@ -33,6 +33,12 @@ docker compose -f compose.yml -f compose.debug.yml up -d
 
 # force re-install the Joomla extension
 ./joomla/install.sh --force
+
+# seed test data
+./joomla/seed-test-data.sh
+
+# run e2e test
+pnpm -C ../e2e test
 ```
 
 ## Admin URLs
