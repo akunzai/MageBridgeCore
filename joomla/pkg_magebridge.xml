@@ -23,23 +23,15 @@
         <file type="plugin" id="plg_content_magebridge" group="content">plg_content_magebridge.zip</file>
         <file type="plugin" id="plg_finder_magebridge" group="finder">plg_finder_magebridge.zip</file>
         <file type="plugin" id="plg_magebridge_magebridge" group="magebridge">plg_magebridge_magebridge.zip</file>
-        <file type="plugin" id="plg_magebridgenewsletter_example" group="magebridgenewsletter">plg_magebridgenewsletter_example.zip</file>
-        <file type="plugin" id="plg_magebridgeproduct_example" group="magebridgeproduct">plg_magebridgeproduct_example.zip</file>
-        <file type="plugin" id="plg_magebridgestore_example" group="magebridgestore">plg_magebridgestore_example.zip</file>
         <file type="plugin" id="plg_magebridgestore_falang" group="magebridgestore">plg_magebridgestore_falang.zip</file>
-        <file type="plugin" id="plg_magebridgestore_joomfish" group="magebridgestore">plg_magebridgestore_joomfish.zip</file>
         <file type="plugin" id="plg_magebridgestore_joomla" group="magebridgestore">plg_magebridgestore_joomla.zip</file>
-        <file type="plugin" id="plg_magebridgestore_nooku" group="magebridgestore">plg_magebridgestore_nooku.zip</file>
         <file type="plugin" id="plg_magento_magebridge" group="magento">plg_magento_magebridge.zip</file>
         <file type="plugin" id="plg_search_magebridge" group="search">plg_search_magebridge.zip</file>
         <file type="plugin" id="plg_system_magebridge" group="system">plg_system_magebridge.zip</file>
         <file type="plugin" id="plg_system_magebridgepositions" group="system">plg_system_magebridgepositions.zip</file>
         <file type="plugin" id="plg_system_magebridgepre" group="system">plg_system_magebridgepre.zip</file>
         <file type="plugin" id="plg_system_magebridgert" group="system">plg_system_magebridgert.zip</file>
-        <file type="plugin" id="plg_system_magebridgesample" group="system">plg_system_magebridgesample.zip</file>
         <file type="plugin" id="plg_system_magebridget3" group="system">plg_system_magebridget3.zip</file>
-        <file type="plugin" id="plg_system_magebridgeyoo" group="system">plg_system_magebridgeyoo.zip</file>
-        <file type="plugin" id="plg_system_magebridgezoo" group="system">plg_system_magebridgezoo.zip</file>
         <file type="plugin" id="plg_user_magebridge" group="user">plg_user_magebridge.zip</file>
         <file type="plugin" id="plg_user_magebridgefirstlast" group="user">plg_user_magebridgefirstlast.zip</file>
         <file type="template" id="tpl_magebridge_root" client="site">tpl_magebridge_root.zip</file>
