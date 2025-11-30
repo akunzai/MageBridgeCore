@@ -11,7 +11,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Event\SubscriberInterface;
 use MageBridge\Component\MageBridge\Site\Model\User\SsoModel;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
@@ -66,12 +65,11 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
     /**
      * Constructor.
      *
-     * @param DispatcherInterface $subject Event dispatcher
-     * @param array $config Plugin configuration
+     * @param array<string, mixed> $config Plugin configuration
      */
-    public function __construct(DispatcherInterface $subject, array $config = [])
+    public function __construct(array $config = [])
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
         $this->initialize();
     }
 

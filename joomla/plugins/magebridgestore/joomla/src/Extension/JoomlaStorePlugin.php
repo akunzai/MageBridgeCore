@@ -11,7 +11,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Database\DatabaseInterface;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Event\SubscriberInterface;
 
 /**
@@ -59,9 +58,9 @@ class JoomlaStorePlugin extends CMSPlugin implements SubscriberInterface
      *
      * @param array<string, mixed> $config Plugin configuration
      */
-    public function __construct(DispatcherInterface $subject, array $config = [])
+    public function __construct(array $config = [])
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
         $this->loadLanguage();
 
         $app = Factory::getApplication();

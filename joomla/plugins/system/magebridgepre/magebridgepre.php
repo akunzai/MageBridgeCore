@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Joomla\CMS\Factory;
-use MageBridge\Plugin\System\MageBridgePre\MageBridgePre;
+use MageBridge\Plugin\System\MageBridgePre\Extension\MageBridgePre;
 
 defined('_JEXEC') or die;
 

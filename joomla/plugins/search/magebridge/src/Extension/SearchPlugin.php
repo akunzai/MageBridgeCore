@@ -7,7 +7,6 @@ namespace MageBridge\Plugin\Search\MageBridge\Extension;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Event\SubscriberInterface;
 use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
@@ -37,12 +36,11 @@ class SearchPlugin extends CMSPlugin implements SubscriberInterface
     /**
      * Constructor.
      *
-     * @param DispatcherInterface $subject Event dispatcher
      * @param array<string, mixed> $config Plugin configuration
      */
-    public function __construct(DispatcherInterface $subject, array $config = [])
+    public function __construct(array $config = [])
     {
-        parent::__construct($subject, $config);
+        parent::__construct($config);
         $this->loadLanguage();
     }
 
