@@ -26,4 +26,17 @@
 		</downloads>
 		<targetplatform name="joomla" version="4" />
 	</update>
+	<update>
+		<name>MageBridge</name>
+		<description>This component integrates Magento e-commerce into Joomla!</description>
+		<element>pkg_magebridge</element>
+		<type>package</type>
+		<client>site</client>
+		<version>3.0.0</version>
+		<infourl title="MageBridge">https://github.com/akunzai/MageBridgeCore/releases/3.0.0</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/akunzai/MageBridgeCore/releases/download/3.0.0/pkg_magebridge.zip</downloadurl>
+		</downloads>
+		<targetplatform name="joomla" version="5" />
+	</update>
 </updates>

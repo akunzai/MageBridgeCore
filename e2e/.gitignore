@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Test results
+test-results/
+playwright-report/
+playwright/.cache/
+playwright/.auth/
+
+# Build output
+dist/
+
+# IDE
+.idea/
+*.swp
+*.swo

@@ -1,38 +1,34 @@
 <?php
 
-/**
- * Joomla! module MageBridge: Block
- *
- * @author	Yireo (info@yireo.com)
- * @package   MageBridge
- * @copyright Copyright 2016
- * @license   GNU Public License
- * @link	  https://www.yireo.com/
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use MageBridge\Module\MageBridgeBlock\Site\Helper\BlockHelper;
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
+defined('_JEXEC') or die;
+
+/** @var Joomla\Registry\Registry $params */
 
 // Read the parameters
 $layout = $params->get('layout', 'default');
 
-// Call the helper
-require_once(dirname(__FILE__) . '/helper.php');
-$blockName = ModMageBridgeBlockHelper::getBlockName($params);
+// Get the helper from the service container
+/** @var BlockHelper */
+$helper = Factory::getContainer()->get(BlockHelper::class);
+
+$blockName = $helper::getBlockName($params);
 
 // Build the block
 if ($layout == 'ajax') {
-    ModMageBridgeBlockHelper::ajaxbuild($params);
+    $helper::ajaxbuild($params);
 } else {
-    $block = ModMageBridgeBlockHelper::build($params);
+    $block = $helper::build($params);
 
     if (empty($block)) {
-        return false;
+        return;
     }
 }
 
 // Include the layout-file
-require(JModuleHelper::getLayoutPath('mod_magebridge_block', $layout));
+require ModuleHelper::getLayoutPath('mod_magebridge_block', $layout);

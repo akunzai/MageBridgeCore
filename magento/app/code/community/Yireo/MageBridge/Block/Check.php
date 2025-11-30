@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the check-block
+ * MageBridge class for the check-block.
  */
 class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
 {
@@ -34,7 +34,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     public const PHP_MEMORY_LIMIT = '256';
 
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -45,7 +45,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the header of this page
+     * Helper to return the header of this page.
      *
      * @param string $title
      *
@@ -57,7 +57,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the menu
+     * Helper to return the menu.
      *
      * @return string
      */
@@ -67,9 +67,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to add a check to this list
-     *
-     * @return string
+     * Helper to add a check to this list.
      */
     private function addResult($group, $check, $status = 0, $description = '')
     {
@@ -85,9 +83,9 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check the license key
+     * Check the license key.
      *
-     * @return string
+     * @return array
      */
     public function getChecks()
     {
@@ -100,11 +98,13 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Add configuration checks
+     * Add configuration checks.
      */
     protected function addConfChecks()
     {
-        $store = Mage::app()->getStore(Mage::getModel('magebridge/core')->getStore());
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getModel('magebridge/core');
+        $store = Mage::app()->getStore($core->getStore());
 
         $api_url = Mage::getStoreConfig('magebridge/joomla/api_url');
         $result = (!empty($api_url)) ? self::CHECK_OK : self::CHECK_WARNING;
@@ -124,7 +124,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check whether the URLs point to the Joomla side
+     * Check whether the URLs point to the Joomla side.
      */
     protected function addUrlCheck()
     {
@@ -201,7 +201,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * @return bool
+     * @return string|bool
      */
     protected function hasValidMemoryLimit()
     {
@@ -222,12 +222,12 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Add system checks
+     * Add system checks.
      */
     protected function addSystemChecks()
     {
-        $result = (version_compare(phpversion(), '8.1.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
-        $this->addResult('system', 'PHP version', $result, "PHP version 8.1.0 or higher is needed. A latest PHP version is always recommended.");
+        $result = (version_compare(phpversion(), '8.3.0', '>=')) ? self::CHECK_OK : self::CHECK_ERROR;
+        $this->addResult('system', 'PHP version', $result, "PHP version 8.3.0 or higher is needed. A latest PHP version is always recommended.");
 
         $current = $this->getCurrentMemoryLimit();
         $result = ($this->hasValidMemoryLimit()) ? self::CHECK_OK : self::CHECK_ERROR;
@@ -283,7 +283,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check for a valid OP caching mechanism
+     * Check for a valid OP caching mechanism.
      *
      * @return bool
      */
@@ -318,7 +318,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check for specific module conflicts or incompatibilities
+     * Check for specific module conflicts or incompatibilities.
      */
     protected function addModuleChecks()
     {
@@ -329,7 +329,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Check whether specific classes are still owned by MageBridge
+     * Check whether specific classes are still owned by MageBridge.
      */
     protected function addOverrideChecks()
     {
@@ -359,17 +359,19 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
     }
 
     /**
-     * Return the log URL
+     * Return the log URL.
      *
      * @return string
      */
     public function getLogUrl($type = null)
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/log', ['type' => $type]);
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/log', ['type' => $type]);
     }
 
     /**
-     * Return the log URL
+     * Return the log URL.
      *
      * @param string $type
      * @param string $code
@@ -378,6 +380,7 @@ class Yireo_MageBridge_Block_Check extends Mage_Core_Block_Template
      */
     public function isMagebridgeClass($type, $code)
     {
+        $class_name = '';
         if ($type == 'model') {
             $class_name = $this->config->getModelClassName($code);
         } elseif ($type == 'block') {

@@ -1,23 +1,20 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com/
  */
 
 /**
- * MageBridge model for JSON-RPC client-calls
+ * MageBridge model for JSON-RPC client-calls.
  */
 class Yireo_MageBridge_Model_Client_Jsonrpc
 {
-    /**
-     * @var resource
-     */
     protected $resource;
 
     /**
@@ -30,6 +27,7 @@ class Yireo_MageBridge_Model_Client_Jsonrpc
      */
     public function __construct()
     {
+        /** @phpstan-ignore-next-line */
         $this->debug = Mage::getSingleton('magebridge/debug');
     }
 
@@ -123,23 +121,26 @@ class Yireo_MageBridge_Model_Client_Jsonrpc
      */
     protected function getError()
     {
-        return curl_error($this->resource);
+        if ($this->resource) {
+            return curl_error($this->resource);
+        }
+        return '';
     }
 
     /**
-     * @param $url
-     * @param $encodedPost
-     *
      * @return mixed
      */
     protected function getDataFromResource($url, $encodedPost)
     {
         // Initialize a CURL-client
         $this->resource = curl_init($url);
+        if (!$this->resource) {
+            return false;
+        }
         curl_setopt($this->resource, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->resource, CURLOPT_POSTFIELDS, $encodedPost);
         curl_setopt($this->resource, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($this->resource, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($this->resource, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($this->resource, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($this->resource, CURLOPT_TIMEOUT, 30);
         curl_setopt($this->resource, CURLOPT_MAXREDIRS, 2);

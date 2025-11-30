@@ -1,62 +1,52 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
-use Joomla\CMS\Factory;
+use MageBridge\Component\MageBridge\Site\Library\Plugin;
+use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
-
 /**
- * Parent plugin-class
+ * Parent plugin-class.
  */
-class MageBridgePluginProfile extends MageBridgePlugin
+class MageBridgePluginProfile extends Plugin
 {
     /**
-     * Constants
+     * Constants.
      */
     public const CONVERT_TO_JOOMLA = 1;
     public const CONVERT_TO_MAGENTO = 2;
 
     /**
-     * Short name of this plugin
+     * Short name of this plugin.
      */
     protected $pluginName = null;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
-     */
-    private $db;
-
-    /**
-     * Constructor
+     * Constructor.
      *
-     * @access	  protected
-     * @param	   object  $subject The object to observe
-     * @param	   array   $config  An array that holds the plugin configuration
+     * @param array $config An array that holds the plugin configuration
      */
-    public function __construct(&$subject, $config)
+    public function __construct($config = [])
     {
+        $subject = null;
         parent::__construct($subject, $config);
         $this->loadLanguage();
-        $this->db = Factory::getDbo();
     }
 
     /**
-     * Method to check whether this plugin is enabled or not
+     * Method to check whether this plugin is enabled or not.
      *
-     * @param null
      * @return bool
      */
     public function isEnabled()
@@ -65,17 +55,18 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Convert a specific field
+     * Convert a specific field.
      *
      * @param string $field
      * @param int $type
+     *
      * @return string
      */
     public function convertField($field, $type = self::CONVERT_TO_JOOMLA)
     {
         // Stop if we don't have a proper name set
         if (empty($this->pluginName)) {
-            return null;
+            return $field;
         }
 
         // Get the conversion-array
@@ -91,13 +82,12 @@ class MageBridgePluginProfile extends MageBridgePlugin
                 }
             }
         }
-        return null;
+        return $field;
     }
 
     /**
-     * Get the configuration file
+     * Get the configuration file.
      *
-     * @param null
      * @return string
      */
     public function getConfigFile()
@@ -107,19 +97,18 @@ class MageBridgePluginProfile extends MageBridgePlugin
         $custom = $this->getPath($params->get('file', 'map') . '.php');
         $default = $this->getPath('map.php');
 
-        if ($custom == true) {
+        if ($custom !== '') {
             return $custom;
-        } elseif ($default == true) {
+        } elseif ($default !== '') {
             return $default;
         } else {
-            return false;
+            return '';
         }
     }
 
     /**
-     * Get the conversion-array
+     * Get the conversion-array.
      *
-     * @param null
      * @return array
      */
     public function getConversionArray()
@@ -128,7 +117,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
         if (!is_array($conversion)) {
             // Determine the conversion-file
             $config_file = $this->getConfigFile();
-            MageBridgeModelDebug::getInstance()->trace('Config file', $config_file);
+            DebugModel::getInstance()->trace('Config file', $config_file);
 
             // If the conversion-file can't be read, use an empty conversion array
             if ($config_file == false) {
@@ -143,10 +132,10 @@ class MageBridgePluginProfile extends MageBridgePlugin
     }
 
     /**
-     * Get the right path to a file
+     * Get the right path to a file.
      *
-     * @param string $type
      * @param string $filename
+     *
      * @return string
      */
     protected function getPath($filename)
@@ -155,7 +144,7 @@ class MageBridgePluginProfile extends MageBridgePlugin
         if (file_exists($path) && is_file($path)) {
             return $path;
         } else {
-            return false;
+            return '';
         }
     }
 }

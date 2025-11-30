@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3" client="site" method="upgrade">
+<extension type="module" version="4" client="site" method="upgrade">
     <name>MOD_MAGEBRIDGE_LOGIN</name>
 	<author>Yireo</author>
 	<creationDate>August 2017</creationDate>
@@ -7,14 +7,22 @@
 	<license>GNU/GPL</license>
 	<authorEmail>development@yireo.com</authorEmail>
 	<authorUrl>www.yireo.com</authorUrl>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
     <description>MOD_MAGEBRIDGE_LOGIN</description>
+
+    <namespace path="src">MageBridge\Module\MageBridgeLogin\Site</namespace>
 
     <files>
         <filename module="mod_magebridge_login">mod_magebridge_login.php</filename>
         <filename>index.html</filename>
+        <folder>services</folder>
+        <folder>src</folder>
         <folder>tmpl</folder>
     </files>
+
+    <services>
+        <service type="module" id="mod_magebridge_login">services/provider.php</service>
+    </services>
 
     <languages folder="language/en-GB">
         <language tag="en-GB">mod_magebridge_login.ini</language>

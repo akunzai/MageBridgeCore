@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Yireo Autoloader
+ * Yireo Autoloader.
  *
  * Usage:
  * Yireo\Common\System\Autoloader::init();
@@ -13,9 +13,7 @@
 namespace Yireo\Common\System;
 
 /**
- * Class Autoloader
- *
- * @package Yireo\System
+ * Class Autoloader.
  */
 class Autoloader
 {
@@ -39,7 +37,7 @@ class Autoloader
     public static $paths = [];
 
     /**
-     * Initialize the autoloader
+     * Initialize the autoloader.
      */
     public static function init($debug = false)
     {
@@ -48,9 +46,7 @@ class Autoloader
     }
 
     /**
-     * Add a new path to the autoloader
-     *
-     * @param $path
+     * Add a new path to the autoloader.
      */
     public static function addPath($path)
     {
@@ -58,32 +54,26 @@ class Autoloader
     }
 
     /**
-     * Main autoloading function
-     *
-     * @param $className
-     *
-     * @return bool
+     * Main autoloading function.
      */
-    public function load($className)
+    public function load($className): void
     {
         if (stristr($className, 'yireo') === false) {
-            return false;
+            return;
         }
 
         // Try to include namespaced files
         $rt = $this->loadNamespaced($className);
 
         if ($rt === true) {
-            return true;
+            return;
         }
 
-        return false;
+        return;
     }
 
     /**
-     * Autoloading function for namespaced classes
-     *
-     * @param $className
+     * Autoloading function for namespaced classes.
      *
      * @return bool
      */

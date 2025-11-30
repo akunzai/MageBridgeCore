@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3" type="plugin" group="authentication" method="upgrade">
+<extension version="4" type="plugin" group="authentication" method="upgrade">
     <name>PLG_AUTHENTICATION_MAGEBRIDGE</name>
     <author>Yireo</author>
     <creationDate>August 2017</creationDate>
@@ -7,13 +7,21 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>2.2.0</version>
-    <description>PLG_AUTHENTICATION_MAGEBRIDGE_DESC</description>
+    <version>3.0.0</version>
+	<description>PLG_AUTHENTICATION_MAGEBRIDGE_DESC</description>
 
-    <files>
-        <filename plugin="magebridge">magebridge.php</filename>
-        <filename>index.html</filename>
-    </files>
+	<namespace path="src">MageBridge\Plugin\Authentication\MageBridge</namespace>
+
+	<files>
+		<filename plugin="magebridge">magebridge.php</filename>
+		<filename>index.html</filename>
+		<folder>services</folder>
+		<folder>src</folder>
+	</files>
+
+	<services>
+		<service type="plugin" id="plg_authentication_magebridge">services/provider.php</service>
+	</services>
 
     <languages folder="language/en-GB">
         <language tag="en-GB">plg_authentication_magebridge.ini</language>

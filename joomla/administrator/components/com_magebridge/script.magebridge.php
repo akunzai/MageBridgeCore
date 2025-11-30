@@ -1,30 +1,32 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author Yireo (info@yireo.com)
- * @package MageBridge
  * @copyright Copyright 2016
  * @license GNU Public License
+ *
  * @link https://www.yireo.com
  */
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Version;
+use Joomla\Database\DatabaseInterface;
+use Joomla\DI\Container;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 /**
- * Class run when installing/upgrading/removing MageBridge
+ * Class run when installing/upgrading/removing MageBridge.
  */
 if (class_exists('com_magebridgeInstallerScript') == false) {
     class com_magebridgeInstallerScript
     {
         /**
-         * Postflight method
+         * Postflight method.
          */
         public function postflight($action, $installer)
         {
@@ -41,12 +43,12 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when updating MageBridge
+         * Method run when updating MageBridge.
          */
         public function doUpdate()
         {
             // Initialize important variables
-            $db = Factory::getDbo();
+            $db = Factory::getContainer()->get(DatabaseInterface::class);
 
             // Perform
             $sql = dirname(__FILE__) . '/administrator/components/com_magebridge/sql/install.mysql.utf8.sql';
@@ -73,7 +75,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when installing MageBridge
+         * Method run when installing MageBridge.
          */
         public function doInstall()
         {
@@ -94,7 +96,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
 
             // Check for Joomla version
             $jversion = new Version();
-            if (version_compare($jversion->RELEASE, '3.0.0', '<')) {
+            if (version_compare($jversion->getShortVersion(), '4.0.0', '<')) {
                 return false;
             }
 
@@ -103,7 +105,7 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         }
 
         /**
-         * Method run when uninstalling MageBridge
+         * Method run when uninstalling MageBridge.
          */
         public function doUninstall()
         {
@@ -111,23 +113,25 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
             $installer = Installer::getInstance();
 
             // Select all MageBridge modules and remove them
-            $db = Factory::getDbo();
+            $db = Factory::getContainer()->get(DatabaseInterface::class);
             $query = "SELECT `id`,`client_id` FROM #__modules WHERE `module` LIKE 'mod_magebridge%'";
             $db->setQuery($query);
             $rows = $db->loadObjectList();
             if (!empty($rows)) {
                 foreach ($rows as $row) {
+                    // @phpstan-ignore-next-line
                     $installer->uninstall('module', $row->id, $row->client_id);
                 }
             }
 
             // Select all MageBridge plugins and remove them
-            $db = Factory::getDbo();
+            $db = Factory::getContainer()->get(DatabaseInterface::class);
             $query = "SELECT `id`,`client_id` FROM #__plugins WHERE `element` LIKE 'magebridge%' OR `folder` = 'magento'";
             $db->setQuery($query);
             $rows = $db->loadObjectList();
             if (!empty($rows)) {
                 foreach ($rows as $row) {
+                    // @phpstan-ignore-next-line
                     $installer->uninstall('plugin', $row->id, $row->client_id);
                 }
             }

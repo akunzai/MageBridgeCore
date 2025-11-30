@@ -1,15 +1,14 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /*
@@ -20,9 +19,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to check whether MageBridge is enabled or not
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function enabled()
     {
@@ -32,12 +29,11 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to check whether this is the Magento frontend or the MageBridge/Joomla frontend
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function isBridge()
     {
+        /** @phpstan-ignore-next-line */
         $metadata = Mage::getSingleton('magebridge/core')->getMetaData();
         if (empty($metadata)) {
             return false;
@@ -60,9 +56,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to get the current MageBridge store from the registry
      *
-     * @access public
-     * @param null
-     * @return mixed
+     * @access public @return mixed
      */
     public function getStore()
     {
@@ -76,9 +70,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to check whether Joomla! authentication is enabled (used in Yireo_MageBridge_Model_Rewrite_Customer)
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function allowJoomlaAuth()
     {
@@ -93,9 +85,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to check whether Joomla! mapping is enabled
      *
-     * @access public
-     * @param null
-     * @return bool
+     * @access public @return bool
      */
     public function useJoomlaMap()
     {
@@ -110,9 +100,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to determine whether to autodetect API-details
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function useApiDetect()
     {
@@ -122,9 +110,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to return the API URL of Joomla!
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiUrl($arguments = null, $store = null)
     {
@@ -132,6 +118,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
             $store = self::getStore();
         }
 
+        /** @phpstan-ignore-next-line */
         $apiUrl = Mage::getSingleton('magebridge/core')->getMetaData('api_url');
         if (empty($apiUrl)) {
             $apiUrl = Mage::getStoreConfig('magebridge/joomla/api_url', $store);
@@ -153,9 +140,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to return the API-username
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiUser($store = null)
     {
@@ -163,6 +148,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
             $store = self::getStore();
         }
 
+        /** @phpstan-ignore-next-line */
         $value = Mage::getSingleton('magebridge/core')->getMetaData('api_user');
         if (empty($value)) {
             $value = Mage::getStoreConfig('magebridge/joomla/api_user', $store);
@@ -173,16 +159,15 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to return the API-key (aka API-password)
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getApiKey($store = null)
     {
         if (empty($store)) {
-            $store = self::getStore($store);
+            $store = self::getStore();
         }
 
+        /** @phpstan-ignore-next-line */
         $value = Mage::getSingleton('magebridge/core')->getMetaData('api_key');
         if (empty($value)) {
             $value = Mage::getStoreConfig('magebridge/joomla/api_key', $store);
@@ -193,9 +178,7 @@ class Yireo_MageBridge_Helper_Data extends Mage_Core_Helper_Abstract
     /*
      * Helper-method to return the direct output URLs
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getDirectOutputUrls()
     {

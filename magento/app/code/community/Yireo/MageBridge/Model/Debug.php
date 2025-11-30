@@ -1,15 +1,14 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 if (!defined('MAGEBRIDGE_DEBUG_TRACE')) {
     define('MAGEBRIDGE_DEBUG_TRACE', 1);
 }
@@ -48,13 +47,17 @@ function Yireo_MageBridge_ErrorHandler($errno, $errstr, $errfile, $errline)
         // With errors, we need to close the bridge and exit
         case E_ERROR:
         case E_USER_ERROR:
-            Mage::getSingleton('magebridge/debug')->error("PHP Error in $errfile - Line $errline: $errstr");
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error("PHP Error in $errfile - Line $errline: $errstr");
             $close_bridge = true;
             break;
 
             // Log warnings
         case E_USER_WARNING:
-            Mage::getSingleton('magebridge/debug')->error("PHP Warning in $errfile - Line $errline: $errstr");
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error("PHP Warning in $errfile - Line $errline: $errstr");
             break;
 
             // E_WARNING also includes Autoload.php messages which are NOT interesting
@@ -67,12 +70,15 @@ function Yireo_MageBridge_ErrorHandler($errno, $errstr, $errfile, $errline)
 
             // Log unknown errors also as warnings, because we are in a E_STRICT environment
         default:
-            Mage::getSingleton('magebridge/debug')->error("PHP Unknown in $errfile - Line $errline: [$errno] $errstr");
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error("PHP Unknown in $errfile - Line $errline: [$errno] $errstr");
             break;
     }
 
     // Close the bridge if needed
     if ($close_bridge == true) {
+        /** @var Yireo_MageBridge_Model_Core $bridge */
         $bridge = Mage::getSingleton('magebridge/core');
         print $bridge->output();
         exit(1);
@@ -106,9 +112,12 @@ function Yireo_MageBridge_ExceptionHandler($exception)
     }
 
     // Make sure this exception is added to the bridge-data
-    Mage::getSingleton('magebridge/debug')->error("PHP Fatal Error: ".$exceptionMessage);
+    /** @var Yireo_MageBridge_Model_Debug $debug */
+    $debug = Mage::getSingleton('magebridge/debug');
+    $debug->error("PHP Fatal Error: ".$exceptionMessage);
 
     // Output the bridge
+    /** @var Yireo_MageBridge_Model_Core $bridge */
     $bridge = Mage::getSingleton('magebridge/core');
     print $bridge->output(false);
     return;
@@ -133,9 +142,7 @@ class Yireo_MageBridge_Model_Debug
      * Singleton method
      *
      * @static
-     * @access public
-     * @param null
-     * @return Yireo_MageBridge_Model_Debug
+     * @access public @return Yireo_MageBridge_Model_Debug
      */
     public static function getInstance()
     {
@@ -148,14 +155,16 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to determine whether debugging is enabled or not
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function isDebug()
     {
-        if (Mage::helper('magebridge')->isBridge()) {
-            return (bool)Mage::getSingleton('magebridge/core')->getMetaData('debug');
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->isBridge()) {
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            return (bool)$core->getMetaData('debug');
         } else {
             return (bool)Mage::getStoreConfig('magebridge/debug/log');
         }
@@ -164,9 +173,7 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to get all the debugging data
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getData()
     {
@@ -176,9 +183,7 @@ class Yireo_MageBridge_Model_Debug
     /*
      * Method to clean all the debugging data
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function clean()
     {
@@ -203,7 +208,7 @@ class Yireo_MageBridge_Model_Debug
         }
 
         if (!empty($message)) {
-            if (empty($time) || !$time > 0) {
+            if (empty($time) || $time <= 0) {
                 $time = time();
             }
             if (empty($origin)) {
@@ -223,7 +228,9 @@ class Yireo_MageBridge_Model_Debug
             $message .= $data['message'] . "\n";
 
             $this->_data[] = $data;
-            Mage::helper('magebridge')->debug($message);
+            /** @var Yireo_MageBridge_Helper_Data $helper */
+            $helper = Mage::helper('magebridge');
+            $helper->debug($message);
         }
     }
 
