@@ -55,6 +55,8 @@ if docker compose exec joomla test -f /var/www/html/cli/joomla.php; then
     UPDATE ${DB_PREFIX}extensions SET enabled = 1
     WHERE type = 'plugin' AND element = 'magebridge'
     AND folder IN ('authentication', 'content', 'magebridge', 'magento', 'system', 'user');
+    UPDATE ${DB_PREFIX}extensions SET enabled = 1
+    WHERE type = 'plugin' AND element = 'magebridgepre' AND folder = 'system';
   \"" 2>/dev/null
 
   echo "Configuring MageBridge ..."
