@@ -348,7 +348,7 @@ class Yireo_MageBridge_Model_User
                 // Initialize the session
                 /** @var Mage_Admin_Model_Session $session */
                 $session = Mage::getSingleton('admin/session');
-                if ($session !== false && ($session->getAdmin() == null || $session->getAdmin()->getId() == false)) {
+                if ($session !== false && ($session->getUser() == null || $session->getUser()->getId() == false)) {
                     /** @var Yireo_MageBridge_Model_Debug $debug */
                     $debug = Mage::getSingleton('magebridge/debug');
                     if ($debug !== false) {
