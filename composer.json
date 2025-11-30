@@ -52,13 +52,13 @@
         "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.90",
+        "friendsofphp/php-cs-fixer": "^3.91",
         "joomla/joomla-cms": "5.4.1",
         "openmage/magento-lts": "^20.16",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
-        "phpunit/phpunit": "^11.4"
+        "phpunit/phpunit": "^12.5"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
