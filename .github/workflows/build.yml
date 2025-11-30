@@ -49,3 +49,5 @@ jobs:
         run: composer lint
       - name: PHPStan Static Analysis
         run: composer exec phpstan -- analyse --no-progress --no-interaction
+      - name: Run PHPUnit tests
+        run: composer test
