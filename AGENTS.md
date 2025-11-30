@@ -413,6 +413,8 @@ namespace MageBridge\Plugin\System\MageBridgePre;  // Missing \Extension
 
 ### Service Provider Template
 
+In Joomla 5, `CMSPlugin::__construct()` only accepts `array $config`. The dispatcher is set automatically by the framework. Do NOT pass `DispatcherInterface` to the constructor.
+
 ```php
 <?php
 
@@ -425,7 +427,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
 use MageBridge\Plugin\{Type}\{Name}\Extension\{PluginClass};
 
 return new class () implements ServiceProviderInterface {
@@ -434,16 +435,31 @@ return new class () implements ServiceProviderInterface {
         $container->set(
             PluginInterface::class,
             function (Container $container) {
-                $plugin = new {PluginClass}(
-                    $container->get(DispatcherInterface::class),
-                    (array) PluginHelper::getPlugin('{type}', '{name}')
-                );
+                $config = (array) PluginHelper::getPlugin('{type}', '{name}');
+                $plugin = new {PluginClass}($config);
                 $plugin->setApplication(Factory::getApplication());
                 return $plugin;
             }
         );
     }
 };
+```
+
+### Plugin Class Constructor
+
+```php
+// ✅ Correct - Joomla 5 constructor signature
+public function __construct(array $config = [])
+{
+    parent::__construct($config);
+    $this->loadLanguage();
+}
+
+// ❌ Wrong - Old Joomla 4 pattern (causes PHPStan errors)
+public function __construct(DispatcherInterface $subject, array $config = [])
+{
+    parent::__construct($subject, $config);
+}
 ```
 
 ### Plugin XML Configuration
