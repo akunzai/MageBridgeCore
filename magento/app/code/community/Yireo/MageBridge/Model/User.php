@@ -321,9 +321,6 @@ class Yireo_MageBridge_Model_User
      */
     private function doSSOLoginAdmin($username)
     {
-        return null;
-
-        /** @phpstan-ignore deadCode.unreachable */
         Mage::app()->setCurrentStore(Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID));
         if (isset($_COOKIE['adminhtml'])) {
             /** @var Mage_Adminhtml_Model_Session $adminhtmlSession */
@@ -366,7 +363,18 @@ class Yireo_MageBridge_Model_User
                     //$session->revalidateCookie();
 
                     session_regenerate_id();
-                    setcookie('adminhtml', session_id());
+                    // Set cookie with proper path to ensure it's available across the site
+                    $cookieParams = session_get_cookie_params();
+                    $cookiePath = $cookieParams['path'];
+                    setcookie(
+                        'adminhtml',
+                        session_id(),
+                        0, // expire when browser closes
+                        $cookiePath,
+                        $cookieParams['domain'],
+                        $cookieParams['secure'],
+                        $cookieParams['httponly']
+                    );
                 }
             }
 
