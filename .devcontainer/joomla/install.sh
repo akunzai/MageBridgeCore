@@ -26,6 +26,9 @@ if ! docker compose exec joomla test -f configuration.php && docker compose exec
     --no-interaction
 fi
 
+echo "Installing composer dependencies ..."
+docker compose exec -w /workspace joomla composer install --no-dev --quiet
+
 echo "Bundling extension ..."
 docker compose exec -w /workspace joomla ./bundle.sh >/dev/null
 
@@ -70,7 +73,9 @@ if docker compose exec joomla test -f /var/www/html/cli/joomla.php; then
       ('username_from_email', '1'),
       ('users_website_id', '1'),
       ('users_group_id', '1'),
-      ('debug_log', '1')
+      ('debug_log', '1'),
+      ('api_widgets', '1'),
+      ('load_stores', '1')
     ON DUPLICATE KEY UPDATE value = VALUES(value);
   \"" 2>/dev/null
 
@@ -94,6 +99,28 @@ if docker compose exec joomla test -f /var/www/html/cli/joomla.php; then
     echo "Store menu item created"
   else
     echo "Store menu item already exists"
+  fi
+
+  echo "Configuring MageBridge Store Relations ..."
+  # Get the Store menu item ID
+  # shellcheck disable=2312
+  STORE_MENU_ID=$(docker compose exec mysql sh -c "mysql -u${JOOMLA_DB_USER:-root} -p${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}} ${JOOMLA_DB_NAME:-joomla} -sN -e 'SELECT id FROM ${DB_PREFIX}menu WHERE alias = \"store\" AND menutype = \"mainmenu\" AND client_id = 0;'" 2>/dev/null | tr -d '[:space:]')
+
+  # Check if Store Relation already exists
+  # shellcheck disable=2312
+  STORE_RELATION_EXISTS=$(docker compose exec mysql sh -c "mysql -u${JOOMLA_DB_USER:-root} -p${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}} ${JOOMLA_DB_NAME:-joomla} -sN -e 'SELECT COUNT(*) FROM ${DB_PREFIX}magebridge_stores WHERE connector = \"joomla_menu\" AND connector_value = \"${STORE_MENU_ID}\";'" 2>/dev/null | tr -d '[:space:]')
+
+  if [[ "${STORE_RELATION_EXISTS}" == "0" ]] && [[ -n "${STORE_MENU_ID}" ]]; then
+    # Create Store Relation for English store view
+    docker compose exec mysql sh -c "mysql -u${JOOMLA_DB_USER:-root} -p${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}} ${JOOMLA_DB_NAME:-joomla} -e \"
+      INSERT INTO ${DB_PREFIX}magebridge_stores 
+        (label, title, name, type, connector, connector_value, actions, published, params)
+      VALUES
+        ('English Store View', 'English', 'default', 'storeview', 'joomla_menu', '${STORE_MENU_ID}', '', 1, '');
+    \"" 2>/dev/null
+    echo "Store Relation created for English store view"
+  else
+    echo "Store Relation already exists"
   fi
 
 fi
