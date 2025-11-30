@@ -2,7 +2,7 @@
 
 > This document tracks the progress of MageBridge Joomla 5 modernization refactoring.
 >
-> Last updated: 2025-11-30 (Admin SSO to Magento Backend Fix)
+> Last updated: 2025-11-30 (Plugin Constructor PHPStan Fixes)
 
 ---
 
@@ -149,6 +149,37 @@
 ---
 
 ## Change History
+
+### 2025-11-30 (Plugin Constructor PHPStan Fixes)
+
+- **Fixed 8 PHPStan errors related to Joomla 5 plugin constructor signatures**:
+  - In Joomla 5, `CMSPlugin::__construct()` only accepts `array $config`, not `(DispatcherInterface, array)`
+  - The dispatcher is set automatically by the framework via `setApplication()`
+
+- **Plugin Classes Fixed** (removed `DispatcherInterface` from constructor):
+  1. `joomla/plugins/magebridgestore/falang/src/Extension/FalangStorePlugin.php`
+  2. `joomla/plugins/magebridgestore/joomla/src/Extension/JoomlaStorePlugin.php`
+  3. `joomla/plugins/search/magebridge/src/Extension/SearchPlugin.php`
+  4. `joomla/plugins/user/magebridge/src/Extension/UserPlugin.php`
+
+- **Service Providers Updated** (removed `DispatcherInterface` injection):
+  1. `joomla/plugins/magebridgestore/falang/services/provider.php`
+  2. `joomla/plugins/magebridgestore/joomla/services/provider.php`
+  3. `joomla/plugins/search/magebridge/services/provider.php`
+  4. `joomla/plugins/user/magebridge/services/provider.php`
+
+- **Fixed namespace in magebridgepre.php**:
+  - Changed from `MageBridge\Plugin\System\MageBridgePre\MageBridgePre` to `MageBridge\Plugin\System\MageBridgePre\Extension\MageBridgePre`
+
+- **Fixed OpenMage session method**:
+  - Changed `$session->getAdmin()` to `$session->getUser()` in `magento/app/code/community/Yireo/MageBridge/Model/User.php:351`
+  - `getAdmin()` doesn't exist in `Mage_Admin_Model_Session`, correct method is `getUser()`
+
+- **Updated AGENTS.md documentation**:
+  - Updated "Plugin Service Provider Pattern" section with correct Joomla 5 constructor signature
+  - Added "Plugin Class Constructor" subsection showing correct vs wrong patterns
+
+- All static analysis passing: PHPStan 0 errors ✅
 
 ### 2025-11-30 (Admin SSO to Magento Backend Fix)
 
