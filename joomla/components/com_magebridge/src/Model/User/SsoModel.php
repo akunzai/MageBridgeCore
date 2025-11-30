@@ -60,13 +60,16 @@ final class SsoModel
         $app = Factory::getApplication();
         $session = $app->getSession();
 
-        if ($return = $this->app->getInput()->get('return', '', 'base64')) {
-            $return = base64_decode($return);
-        } else {
-            $return = UrlHelper::current();
-        }
+        // Only set magento_redirect if not already set (allows caller to pre-set a custom redirect)
+        if ($session->get('magento_redirect') === null) {
+            if ($return = $this->app->getInput()->get('return', '', 'base64')) {
+                $return = base64_decode($return);
+            } else {
+                $return = UrlHelper::current();
+            }
 
-        $session->set('magento_redirect', $return);
+            $session->set('magento_redirect', $return);
+        }
 
         $appName = $this->getCurrentApp();
 
@@ -146,6 +149,9 @@ final class SsoModel
         if (empty($redirect)) {
             $redirect = UrlHelper::route('customer/account');
         }
+
+        // Clear the magento_redirect session after using it
+        $session->remove('magento_redirect');
 
         $this->debug->notice('SSO: Redirect to ' . $redirect);
         $this->app->redirect($redirect);

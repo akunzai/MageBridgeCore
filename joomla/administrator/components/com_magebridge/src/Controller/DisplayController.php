@@ -118,10 +118,27 @@ class DisplayController extends BaseController
             return $this;
         }
 
-        // Handle special "magento" view - redirect to Magento backend
+        // Handle special "magento" view - SSO login to Magento backend
         if ($this->input->get('view') === 'magento') {
-            $url = $this->bridge->getMagentoAdminUrl('');
-            $this->setRedirect($url);
+            /** @var CMSApplication $app */
+            $app  = Factory::getApplication();
+            $user = $app->getIdentity();
+
+            // Get Magento admin URL for redirect after SSO
+            $magentoAdminUrl = $this->bridge->getMagentoAdminUrl('');
+
+            // If user is logged in, try SSO login to Magento admin
+            if ($user !== null && !$user->guest && $magentoAdminUrl !== null) {
+                // Set the redirect destination to Magento admin after SSO completes
+                $app->getSession()->set('magento_redirect', $magentoAdminUrl);
+                SsoModel::getInstance()->doSSOLogin($user);
+                // doSSOLogin will redirect, so we should not reach here
+            }
+
+            // Fallback: just redirect to Magento admin URL
+            if ($magentoAdminUrl !== null) {
+                $this->setRedirect($magentoAdminUrl);
+            }
 
             return $this;
         }
