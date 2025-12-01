@@ -30,7 +30,7 @@ class Httpauth extends AbstractField
             ['value' => CURLAUTH_BASIC, 'text' => 'CURLAUTH_BASIC'],
             ['value' => CURLAUTH_DIGEST, 'text' => 'CURLAUTH_DIGEST'],
             ['value' => CURLAUTH_GSSNEGOTIATE, 'text' => 'CURLAUTH_GSSNEGOTIATE'],
-            ['value' => CURLAUTH_NTLM, 'text' => 'CURLAUTH_HTLM'],
+            ['value' => CURLAUTH_NTLM, 'text' => 'CURLAUTH_NTLM'],
         ];
 
         return HTMLHelper::_('select.genericlist', $options, 'http_authtype', null, 'value', 'text', $this->getConfig('http_authtype'));
