@@ -18,13 +18,6 @@ dc_exec() {
 # shellcheck disable=1091
 [[ -f "${SCRIPT_DIR}/.env" ]] && source "${SCRIPT_DIR}/.env"
 
-# Install CA certificate for SSL connections
-if dc_exec joomla test -f /run/secrets/ca.pem; then
-  echo "Installing CA certificate for MageBridge SSL connections ..."
-  dc_exec joomla cp /run/secrets/ca.pem /usr/local/share/ca-certificates/magebridge-ca.crt
-  dc_exec joomla update-ca-certificates
-fi
-
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-ChangeTheP@ssw0rd}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
@@ -44,6 +37,26 @@ joomla_mysql() {
   # shellcheck disable=SC2086
   docker compose exec -T -e MYSQL_PWD="${JOOMLA_DB_PASSWORD}" mysql mysql -u"${JOOMLA_DB_USER}" "${JOOMLA_DB_NAME}" "$@"
 }
+
+echo "Waiting for Joomla container to initialize ..."
+for i in $(seq 1 60); do
+  if dc_exec joomla test -f index.php && dc_exec joomla test -f libraries/src/Version.php; then
+    echo "Joomla files are ready (attempt ${i})"
+    break
+  fi
+  if [[ "${i}" -eq 60 ]]; then
+    echo "ERROR: Joomla container initialization timed out after 60 seconds"
+    exit 1
+  fi
+  sleep 1
+done
+
+# Install CA certificate for SSL connections (for Joomla to trust Keycloak)
+if dc_exec joomla test -f /run/secrets/ca.pem; then
+  echo "Installing CA certificate for SSL connections ..."
+  dc_exec joomla cp /run/secrets/ca.pem /usr/local/share/ca-certificates/dev-ca.crt
+  dc_exec joomla update-ca-certificates
+fi
 
 echo "Checking database ..."
 for _ in $(seq 1 20); do
