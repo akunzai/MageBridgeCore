@@ -3,7 +3,9 @@
 # dev containers
 /.devcontainer/**/.env
 /.devcontainer/**/*.pem
-/.devcontainer/**/log/
+/.devcontainer/**/logs/
+/.devcontainer/openmage/.cache/
+/.devcontainer/.secrets/
 
 # Composer dependencies
 /vendor/
