@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -25,6 +25,7 @@ class Yireo_MageBridge_Model_Widget
      */
     public function getOutput($widget_id, $arguments = [])
     {
+        /** @var Mage_Widget_Model_Widget_Instance $widget */
         $widget = Mage::getModel('widget/widget_instance')->load($widget_id);
 
         $parameters = $widget->getWidgetParameters();
@@ -44,14 +45,11 @@ class Yireo_MageBridge_Model_Widget
         }
 
         $html = '{{widget type="'.$widget->getType().'" '.implode(' ', $htmlParameters).'}}';
-        $debug = false;
-        if ($debug == true) {
-            $response = $html;
-        } else {
-            $response = null;
-            if ($processor = Mage::getModel('widget/template_filter')) {
-                $response = $processor->filter($html);
-            }
+        $response = null;
+        /** @var Mage_Widget_Model_Template_Filter $processor */
+        $processor = Mage::getModel('widget/template_filter');
+        if ($processor) {
+            $response = $processor->filter($html);
         }
 
         // Check for non-string output
@@ -60,7 +58,9 @@ class Yireo_MageBridge_Model_Widget
         }
 
         // Prepare the response for the bridge
-        $response = Mage::helper('magebridge/encryption')->base64_encode($response);
+        /** @var Yireo_MageBridge_Helper_Encryption $encryptionHelper */
+        $encryptionHelper = Mage::helper('magebridge/encryption');
+        $response = $encryptionHelper->base64_encode($response);
         return $response;
     }
 }

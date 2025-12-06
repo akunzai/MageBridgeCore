@@ -1,52 +1,52 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge model serving as main bridge-resources which primarily handles the Magento configuration
+ * MageBridge model serving as main bridge-resources which primarily handles the Magento configuration.
  */
 class Yireo_MageBridge_Model_Core
 {
     /**
-     * Bridge-request
+     * Bridge-request.
      */
     protected $_request = [];
 
     /**
-     * Bridge-request
+     * Bridge-request.
      */
     protected $_response = [];
 
     /**
-     * Meta-data
+     * Meta-data.
      */
     protected $_meta = [];
 
     /**
-     * Magento configuration
+     * Magento configuration.
      */
     protected $_mage_config = [];
 
     /**
-     * System events
+     * System events.
      */
     protected $_events = [];
 
     /**
-     * Flag to enable event forwarding
+     * Flag to enable event forwarding.
      */
     protected $_enable_events = true;
 
     /**
-     * Flag for forcing preoutput
+     * Flag for forcing preoutput.
      */
     protected $_force_preoutput = false;
 
@@ -56,7 +56,7 @@ class Yireo_MageBridge_Model_Core
     private $_current_version = null;
 
     /**
-     * Initialize the bridge-core
+     * Initialize the bridge-core.
      *
      * @param array $meta
      * @param array $request
@@ -119,11 +119,16 @@ class Yireo_MageBridge_Model_Core
     protected function reinitializeSession()
     {
         try {
+            /** @var Mage_Core_Model_Session $session */
             $session = Mage::getSingleton('core/session', ['name' => 'frontend']);
             $session->start();
-            Mage::getSingleton('magebridge/debug')->notice('Core session started: ' . $session->getSessionId());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->notice('Core session started: ' . $session->getSessionId());
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Unable to instantiate core/session: ' . $e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Unable to instantiate core/session: ' . $e->getMessage());
             $_COOKIE = [];
             $_SESSION = [];
             return false;
@@ -133,7 +138,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Disable the form key if configured
+     * Disable the form key if configured.
      *
      * @return bool
      */
@@ -145,18 +150,22 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
-        $formKey = Mage::getSingleton('core/session')->getFormKey();
+        /** @var Mage_Core_Model_Session $session */
+        $session = Mage::getSingleton('core/session');
+        $formKey = $session->getFormKey();
         $request = Mage::app()->getRequest();
         $request->setPathInfo(preg_replace('/\/form_key\/([^\/]+)/', '', $request->getPathInfo()));
         $request->setRequestUri(preg_replace('/\/form_key\/([^\/]+)/', '', $request->getRequestUri()));
         $request->setParam('form_key', $formKey);
 
-        Mage::getSingleton('magebridge/debug')->notice('Spoofing form key: ' . $formKey);
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        $debug->notice('Spoofing form key: ' . $formKey);
         return true;
     }
 
     /**
-     * Post-login a Joomla! user
+     * Post-login a Joomla! user.
      *
      * @return bool
      */
@@ -167,7 +176,9 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
-        if (Mage::getModel('customer/session')->isLoggedIn()) {
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getModel('customer/session');
+        if ($customerSession->isLoggedIn()) {
             return false;
         }
 
@@ -177,18 +188,22 @@ class Yireo_MageBridge_Model_Core
             'disable_events' => true,
         ];
 
-        Mage::getModel('magebridge/user_api')->login($data);
+        /** @var Yireo_MageBridge_Model_User_Api $userApi */
+        $userApi = Mage::getModel('magebridge/user_api');
+        $userApi->login($data);
         return true;
     }
 
     /**
-     * Workaround for persistent logins
+     * Workaround for persistent logins.
      *
      * @return bool
      */
     protected function handlePersistentLogins()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        if ($customerSession->isLoggedIn()) {
             return false;
         }
 
@@ -197,23 +212,25 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
+        /** @var Mage_Persistent_Helper_Session $persistentHelper */
         $persistentHelper = Mage::helper('persistent/session');
         $persistentCustomerId = (int)$persistentHelper->getSession()->getCustomerId();
         if (empty($persistentCustomerId)) {
             return false;
         }
 
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($persistentCustomerId);
         if (!$customer->getId() > 0) {
             return false;
         }
 
-        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer)->renewSession();
+        $customerSession->setCustomerAsLoggedIn($customer)->renewSession();
         return true;
     }
 
     /**
-     * Rewrite non SEF URLs
+     * Rewrite non SEF URLs.
      */
     protected function rewriteNonSefUrls()
     {
@@ -236,6 +253,7 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
+        /** @var Mage_Catalog_Model_Category $category */
         $category = Mage::getModel('catalog/category')->load($categoryId);
         $sefUrl = $category->getRequestPath();
         if (empty($sefUrl)) {
@@ -261,6 +279,7 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
         $sefUrl = $product->getRequestPath();
         if (empty($sefUrl)) {
@@ -272,7 +291,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Set the current store of this request
+     * Set the current store of this request.
      *
      * @exception Exception
      */
@@ -281,13 +300,15 @@ class Yireo_MageBridge_Model_Core
         try {
             Mage::app()->setCurrentStore($this->getStoreObject());
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to intialize store "' . $this->getStore() . '":' . $e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to intialize store "' . $this->getStore() . '":' . $e->getMessage());
             // Do not return, but just keep on going with the default configuration
         }
     }
 
     /**
-     * Manual hack to set the right continue-shopping URL to the HTTP_REFERER, even if it isn't "internal"
+     * Manual hack to set the right continue-shopping URL to the HTTP_REFERER, even if it isn't "internal".
      *
      * @return bool
      */
@@ -301,21 +322,24 @@ class Yireo_MageBridge_Model_Core
             return false;
         }
 
+        /** @var Mage_Checkout_Model_Session $customerSession */
         $customerSession = Mage::getSingleton('checkout/session');
         if (strstr($this->getRequestUrl(), 'checkout/cart')) {
             $customerSession->setContinueShoppingUrl($_SERVER['HTTP_REFERER']);
         } elseif (strstr($this->getRequestUrl(), 'firecheckout')) {
             $customerSession->setContinueShoppingUrl($_SERVER['HTTP_REFERER']);
         } elseif (strstr($this->getRequestUrl(), 'checkout/onepage/success')) {
+            /** @phpstan-ignore-next-line */
             $customerSession->setNextUrl($_SERVER['HTTP_REFERER']);
         }
         return true;
     }
 
     /**
-     * Manual hack to set the right customer-redirect URL
+     * Manual hack to set the right customer-redirect URL.
      *
      * @throws Mage_Core_Exception
+     *
      * @return bool
      */
     protected function setCustomerRedirectUrl()
@@ -330,7 +354,7 @@ class Yireo_MageBridge_Model_Core
 
         $location = $this->getStoreObject()->getBaseUrl();
         if (preg_match('/(uenc|referer)\/([^\/]+)/', $this->getRequestUrl(), $match)) {
-            /** @var Yireo_MageBridge_Helper_Encryption */
+            /** @var Yireo_MageBridge_Helper_Encryption $helper */
             $helper = Mage::helper('magebridge/encryption');
             $location = $helper->base64_decode($match[2]);
         }
@@ -347,7 +371,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Manual hack to set the right customer-redirect URL
+     * Manual hack to set the right customer-redirect URL.
      */
     protected function redirectContinueShoppingToPreviousUrl()
     {
@@ -357,7 +381,7 @@ class Yireo_MageBridge_Model_Core
         if ($redirectToCart == false && $continueShoppingToPrevious && strstr($this->getRequestUrl(), 'checkout/cart/add')) {
             $location = null;
             if (preg_match('/(uenc|referer)\/([^\/]+)/', $this->getRequestUrl(), $match)) {
-                /** @var Yireo_MageBridge_Helper_Encryption */
+                /** @var Yireo_MageBridge_Helper_Encryption $helper */
                 $helper = Mage::helper('magebridge/encryption');
                 $location = $helper->base64_decode($match[2]);
             }
@@ -369,9 +393,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to change the regular Magento configuration as needed
-     *
-     * @return void
+     * Method to change the regular Magento configuration as needed.
      */
     public function setConfig()
     {
@@ -394,14 +416,13 @@ class Yireo_MageBridge_Model_Core
             try {
                 $this->setConfigPerStore($store);
             } catch (Exception $e) {
-                Mage::getSingleton('magebridge/debug')->error('Unable to modify configuration: ' . $e->getMessage());
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->error('Unable to modify configuration: ' . $e->getMessage());
             }
         }
     }
 
-    /**
-     * @param Mage_Core_Model_Store $store
-     */
     protected function setConfigPerStore(Mage_Core_Model_Store $store)
     {
         //Mage::getSingleton('magebridge/debug')->notice('Override store configuration "'.$store->getCode().'"');
@@ -437,7 +458,7 @@ class Yireo_MageBridge_Model_Core
              * $base_media_url = str_replace($base_url, $proxy, $base_media_url);
              * $base_skin_url = str_replace($base_url, $proxy, $base_skin_url);
              * $base_js_url = str_replace($base_url, $proxy, $base_js_url);
-             * }
+             * }.
              */
 
             // Set the main URL to Joomla! instead of Magento
@@ -447,7 +468,9 @@ class Yireo_MageBridge_Model_Core
             $urls['web/secure/base_link_url'] = $this->getMageBridgeSefUrl();
 
             // Correct HTTP and HTTPS URLs in all URLs
-            $has_ssl = Mage::getSingleton('magebridge/core')->getMetaData('has_ssl');
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            $has_ssl = $core->getMetaData('has_ssl');
             foreach ($urls as $index => $url) {
                 if ($has_ssl == true) {
                     $urls[$index] = preg_replace('/^http:/', 'https:', $url);
@@ -512,8 +535,11 @@ class Yireo_MageBridge_Model_Core
         }
 
         // Make sure we do not use SID= in the URL
-        Mage::getModel('core/url')->setUseSession(false);
-        Mage::getModel('core/url')->setUseSessionVar(true);
+        /** @var Mage_Core_Model_Url $urlModel */
+        $urlModel = Mage::getModel('core/url');
+        $urlModel->setUseSession(false);
+        /** @phpstan-ignore-next-line */
+        $urlModel->setUseSessionVar(true);
         //Mage::getSingleton('magebridge/debug')->notice('URL test 1: '.Mage::app()->getRequest()->getHttpHost());
         //Mage::getSingleton('magebridge/debug')->notice('URL test 2: '.Mage::helper('core/url')->getCurrentUrl());
         //Mage::getSingleton('magebridge/debug')->notice('URL test 3: '.Mage::helper('catalog/product')->getProductUrl(17));
@@ -521,13 +547,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to set the current URL to the MageBridge SEF URL
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Method to set the current URL to the MageBridge SEF URL.
      */
     public function setSefUrl()
     {
@@ -549,13 +569,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to save metadata in the Magento Configuration
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Method to save metadata in the Magento Configuration.
      */
     public function saveMetaData()
     {
@@ -581,10 +595,12 @@ class Yireo_MageBridge_Model_Core
         }
 
         // Refresh the cache
-        /** @var Yireo_MageBridge_Helper_Data */
+        /** @var Yireo_MageBridge_Helper_Data $helper */
         $helper = Mage::helper('magebridge');
         if ($refreshCache == true && Mage::app()->useCache('config') && $helper->useApiDetect() == true) {
-            Mage::getSingleton('magebridge/debug')->notice('Refresh configuration cache');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->notice('Refresh configuration cache');
             Mage::getConfig()->removeCache();
         }
 
@@ -593,7 +609,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Automatically save allowed IPs settings
+     * Automatically save allowed IPs settings.
      *
      * @return bool
      */
@@ -621,9 +637,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to cache API-details in the Magento configuration
-     *
-     * @access public
+     * Method to cache API-details in the Magento configuration.
      *
      * @param string $key
      * @param string $value
@@ -654,10 +668,10 @@ class Yireo_MageBridge_Model_Core
             $current_value = (string)Mage::getConfig()->getNode('magebridge/joomla/' . $key, $scope, $scopeId);
         }
 
-        /** @var Yireo_MageBridge_Model_Debug */
+        /** @var Yireo_MageBridge_Model_Debug $magebridgeDebug */
         $magebridgeDebug = Mage::getSingleton('magebridge/debug');
 
-        /** @var Yireo_MageBridge_Helper_Data */
+        /** @var Yireo_MageBridge_Helper_Data $helper */
         $helper = Mage::helper('magebridge');
 
         // Determine whether to save the current value
@@ -685,11 +699,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to get the currently defined API-user
-     *
-     * @access public
-     *
-     * @param null
+     * Method to get the currently defined API-user.
      *
      * @return Mage_Api_Model_User
      */
@@ -705,18 +715,13 @@ class Yireo_MageBridge_Model_Core
             }
         }
 
+        /** @var Mage_Api_Model_User $api_user */
         $api_user = Mage::getModel('api/user')->load($api_user_id);
         return $api_user;
     }
 
     /**
-     * Method to authenticate usage of the MageBridge API
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return null
+     * Method to authenticate usage of the MageBridge API.
      */
     public function authenticate($api_user, $api_key)
     {
@@ -736,35 +741,36 @@ class Yireo_MageBridge_Model_Core
 
         // If we still need authentication, authenticate against the Magento API-class
         try {
+            /** @var Mage_Api_Model_User $api */
             $api = Mage::getModel('api/user');
             if ($api->authenticate($api_user, $api_key) == true) {
                 $this->setMetaData('api_session', md5(session_id() . $api_user . $api_key));
                 return true;
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Exception while authorizing: ' . $e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Exception while authorizing: ' . $e->getMessage());
         }
         return false;
     }
 
     /**
-     * Method to catch premature output in case of AJAX-stuff
-     *
-     * @access public
-     *
-     * @param null
+     * Method to catch premature output in case of AJAX-stuff.
      *
      * @return bool
      */
     public function preoutput()
     {
         // Match configured direct output
-        $direct_output = Mage::helper('magebridge')->getDirectOutputUrls();
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        $direct_output = $magebridgeHelper->getDirectOutputUrls();
         if (!empty($direct_output)) {
             foreach ($direct_output as $url) {
                 $url = trim($url);
                 if (strstr($this->getRequestUrl(), $url)) {
-                    Mage::getSingleton('magebridge/core')->getController(false);
+                    Yireo_MageBridge_Model_Core::getController(false);
                     return true;
                 }
             }
@@ -775,7 +781,7 @@ class Yireo_MageBridge_Model_Core
         if ((!empty($request->getControllerName()) && stristr($request->getControllerName(), 'ajax'))
         || (!empty($request->getActionName()) && stristr($request->getActionName(), 'ajax'))
         || (!empty($this->getRequestUrl()) && stristr($this->getRequestUrl(), 'ajax'))) {
-            Mage::getSingleton('magebridge/core')->getController(false);
+            Yireo_MageBridge_Model_Core::getController(false);
             return true;
         }
 
@@ -801,7 +807,7 @@ class Yireo_MageBridge_Model_Core
 
         // Check if preoutput is forced manually
         if ($this->getForcePreoutput() == true) {
-            Mage::getSingleton('magebridge/core')->getController(false);
+            Yireo_MageBridge_Model_Core::getController(false);
             return true;
         }
 
@@ -818,12 +824,12 @@ class Yireo_MageBridge_Model_Core
                 return false;
             }
 
-            Mage::getSingleton('magebridge/core')->getController(false);
+            Yireo_MageBridge_Model_Core::getController(false);
             return true;
         }
 
         // Initialize the frontcontroller
-        $controller = Mage::getSingleton('magebridge/core')->getController(true);
+        $controller = Yireo_MageBridge_Model_Core::getController(true);
 
         // Start the buffer and fetch the output from Magento
         $body = Mage::app()->getResponse()->getBody();
@@ -870,17 +876,20 @@ class Yireo_MageBridge_Model_Core
         }
 
         // Correct the session
-        $session = Mage::getSingleton('customer/session');
-        $sessionId = $session->getSessionId();
-        if (empty($sessionId) && $session->getCustomerId() > 0) {
-            $customer = Mage::getModel('customer/customer')->load($session->getCustomerId());
-            $session->setCustomer($customer);
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $sessionId = $customerSession->getSessionId();
+        if (empty($sessionId) && $customerSession->getCustomerId() > 0) {
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = Mage::getModel('customer/customer')->load($customerSession->getCustomerId());
+            $customerSession->setCustomer($customer);
         }
 
         // Reset session if session_regenerate is used
-        $session = Mage::getModel('core/session');
-        if (!empty($_GET['SID']) && $session->getSessionId() != $_GET['SID']) {
-            $session->setSessionId($_GET['SID']);
+        /** @var Mage_Core_Model_Session $coreSession */
+        $coreSession = Mage::getModel('core/session');
+        if (!empty($_GET['SID']) && $coreSession->getSessionId() != $_GET['SID']) {
+            $coreSession->setSessionId($_GET['SID']);
             session_id($_GET['SID']);
         }
 
@@ -889,9 +898,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to output the regular bridge-data through JSON
-     *
-     * @access public
+     * Method to output the regular bridge-data through JSON.
      *
      * @param bool $complete
      *
@@ -912,7 +919,9 @@ class Yireo_MageBridge_Model_Core
         }
 
         if ($this->getMetaData('debug')) {
-            $debug = Mage::getSingleton('magebridge/debug')->getData();
+            /** @var Yireo_MageBridge_Model_Debug $debugModel */
+            $debugModel = Mage::getSingleton('magebridge/debug');
+            $debug = $debugModel->getData();
             if (!empty($debug)) {
                 $this->addResponseData('debug', [
                     'type' => 'debug',
@@ -927,13 +936,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Method to close the bridge and add the final data
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Method to close the bridge and add the final data.
      */
     public function closeBridge()
     {
@@ -942,7 +945,10 @@ class Yireo_MageBridge_Model_Core
         $this->setMetaData('magento_version', Mage::getVersion());
 
         // Append customer-data
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerId = $customerSession->getCustomerId();
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($customerId);
         $this->setMetaData('magento_customer', [
             'fullname' => $customer->getName(),
@@ -976,8 +982,6 @@ class Yireo_MageBridge_Model_Core
     /**
      * Helper-function to parse Magento output for usage in Joomla!
      *
-     * @access public
-     *
      * @param string $string
      *
      * @return string
@@ -989,19 +993,15 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return information on the current Magento configuration
-     *
-     * @access public
-     *
-     * @param null
+     * Return information on the current Magento configuration.
      *
      * @return string
      */
     public function getMageConfig()
     {
-        /** @var Yireo_MageBridge_Helper_Core */
+        /** @var Yireo_MageBridge_Helper_Core $coreHelper */
         $coreHelper = Mage::helper('magebridge/core');
-        /** @var Yireo_MageBridge_Helper_User */
+        /** @var Yireo_MageBridge_Helper_User $userHelper */
         $userHelper = Mage::helper('magebridge/user');
         // Fetch current information
         $currentCategoryId = $coreHelper->getCurrentCategoryId();
@@ -1011,22 +1011,26 @@ class Yireo_MageBridge_Model_Core
 
         // Construct extra data
         $store = $this->getStoreObject();
+        /** @var Mage_Core_Model_Session $coreSession */
+        $coreSession = Mage::getModel('core/session');
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getModel('customer/session');
         $data = [
-            'session_id' => Mage::getModel('core/session')->getSessionId(),
+            'session_id' => $coreSession->getSessionId(),
             'catalog/seo/product_url_suffix' => $store->getConfig('catalog/seo/product_url_suffix'),
             'catalog/seo/category_url_suffix' => $store->getConfig('catalog/seo/category_url_suffix'),
             'admin/security/session_cookie_lifetime' => $store->getConfig('admin/security/session_cookie_lifetime'),
             'web/cookie/cookie_lifetime' => $store->getConfig('web/cookie/cookie_lifetime'),
-            'customer/email' => Mage::getModel('customer/session')->getCustomer()->getEmail(),
+            'customer/email' => $customerSession->getCustomer()->getEmail(),
             'customer/joomla_id' => $userHelper->getCurrentJoomlaId(),
-            'customer/magento_id' => Mage::getModel('customer/session')->getCustomerId(),
-            'customer/magento_group_id' => Mage::getModel('customer/session')->getCustomer()->getGroupId(),
+            'customer/magento_id' => $customerSession->getCustomerId(),
+            'customer/magento_group_id' => $customerSession->getCustomer()->getGroupId(),
             'backend/path' => $this->getAdminPath(),
             'store_name' => $store->getName(),
             'store_code' => $store->getCode(),
             'base_js_url' => Mage::getBaseUrl('js'),
             'base_media_url' => Mage::getBaseUrl('media'),
-            'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+            'form_key' => $coreSession->getFormKey(),
             'root_template' => $this->getRootTemplate(),
             'root_category' => $store->getRootCategoryId(),
             'current_category_id' => $currentCategoryId,
@@ -1048,18 +1052,23 @@ class Yireo_MageBridge_Model_Core
 
             // Product URL
             if ($currentProductId > 0) {
-                $url = Mage::getModel('catalog/product')->setStoreId($store->getId())->load($currentProductId)->getUrlPath();
-                $data['store_urls'][$code] = $url;
+                /** @var Mage_Catalog_Model_Product $product */
+                $product = Mage::getModel('catalog/product');
+                $product->setStoreId($store->getId())->load($currentProductId);
+                $url = $product->getUrlPath();
 
                 // Category URL
             } elseif ($currentCategoryId > 0) {
-                $url = Mage::getModel('catalog/category')->setStoreId($store->getId())->load($currentCategoryId)->getUrlPath();
+                /** @var Mage_Catalog_Model_Category $category */
+                $category = Mage::getModel('catalog/category');
+                $category->setStoreId($store->getId())->load($currentCategoryId);
+                $url = $category->getUrlPath();
                 $data['store_urls'][$code] = $url;
             }
         }
 
         // Add available handles
-        $controller = Mage::getSingleton('magebridge/core')->getController();
+        $controller = Yireo_MageBridge_Model_Core::getController();
         $handles = $controller->getAction()->getLayout()->getUpdate()->getHandles();
         if (!empty($handles)) {
             foreach ($handles as $handle) {
@@ -1076,14 +1085,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Set Magento config-data to return through the bridge
-     *
-     * @access public
+     * Set Magento config-data to return through the bridge.
      *
      * @param string $name
      * @param string $value
-     *
-     * @return void
      */
     public function setMageConfig($name, $value)
     {
@@ -1091,25 +1096,19 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the current URL
-     *
-     * @access public
-     *
-     * @param null
+     * Return the current URL.
      *
      * @return string
      */
     public function getRequestUrl()
     {
-        return preg_replace('/^\//', '', Mage::getModel('core/url')->getRequest()->getRequestUri());
+        /** @var Mage_Core_Model_Url $url */
+        $url = Mage::getModel('core/url');
+        return preg_replace('/^\//', '', $url->getRequest()->getRequestUri());
     }
 
     /**
-     * Return the path to the Magento Admin Panel
-     *
-     * @access public
-     *
-     * @param null
+     * Return the path to the Magento Admin Panel.
      *
      * @return string
      */
@@ -1122,17 +1121,15 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Return the current page layout for the Magento theme
-     *
-     * @access public
-     *
-     * @param null
+     * Return the current page layout for the Magento theme.
      *
      * @return string
      */
     public function getRootTemplate()
     {
-        $block = Mage::getModel('magebridge/block')->getBlock('root');
+        /** @var Yireo_MageBridge_Model_Block $blockModel */
+        $blockModel = Mage::getModel('magebridge/block');
+        $block = $blockModel->getBlock('root');
         $root_block = 'none';
         if (!empty($block)) {
             $root_block = $block->getTemplate();
@@ -1141,9 +1138,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the Front-controller
-     *
-     * @access public
+     * Helper-method to get the Front-controller.
      *
      * @param bool $norender
      *
@@ -1153,7 +1148,6 @@ class Yireo_MageBridge_Model_Core
     {
         // Default variables
         $fullDispatch = (bool)Mage::getStoreConfig('magebridge/settings/full_dispatch');
-        $httpResponseSendBefore = false;
 
         // Workaround for AJAX Cart Pro
         $awacp = (isset($_REQUEST['awacp']) && $_REQUEST['awacp'] == 1) ? true : false;
@@ -1167,6 +1161,7 @@ class Yireo_MageBridge_Model_Core
             // Initialize the front-controller
             yireo_benchmark('MB_Core::getFrontController() - start');
             $controller = Mage::app()->getFrontController();
+            /** @phpstan-ignore-next-line */
             $controller->setNoRender($norender);
 
 
@@ -1181,8 +1176,12 @@ class Yireo_MageBridge_Model_Core
                 $request = $controller->getRequest();
                 $request->setPathInfo()->setDispatched(false);
                 if (!$request->isStraight()) {
-                    Mage::getModel('core/url_rewrite')->rewrite();
+                    /** @var Mage_Core_Model_Url_Rewrite $urlRewrite */
+                    $urlRewrite = Mage::getModel('core/url_rewrite');
+                    /** @phpstan-ignore-next-line */
+                    $urlRewrite->rewrite();
                 }
+                /** @phpstan-ignore-next-line */
                 $controller->rewrite();
 
                 $i = 0;
@@ -1195,13 +1194,15 @@ class Yireo_MageBridge_Model_Core
                     }
                 }
                 Varien_Profiler::stop('mage::dispatch::routers_match');
-                if ($i > 100) {
-                    Mage::throwException('Front controller reached 100 router match iterations');
+                if ($i >= 50) {
+                    Mage::throwException('Front controller reached 50 router match iterations');
                 }
 
                 // Call upon events that need to do something before the layout renders
                 if (Mage::registry('mb_controller_action_layout_render_before') == false) {
-                    Mage::getSingleton('magebridge/debug')->notice('MB throws event "controller_action_layout_render_before"');
+                    /** @var Yireo_MageBridge_Model_Debug $debug */
+                    $debug = Mage::getSingleton('magebridge/debug');
+                    $debug->notice('MB throws event "controller_action_layout_render_before"');
                     Mage::dispatchEvent('controller_action_layout_render_before');
                     Mage::register('mb_controller_action_layout_render_before', true);
                 }
@@ -1209,16 +1210,17 @@ class Yireo_MageBridge_Model_Core
                 // Simulate sending a response (but without outputBody())
                 Mage::dispatchEvent('controller_front_send_response_before', ['front' => $controller]);
                 $response = $controller->getResponse();
-                if ($httpResponseSendBefore) {
-                    Mage::dispatchEvent('http_response_send_before', ['response' => $response]);
-                }
                 $response->sendHeaders();
                 Mage::dispatchEvent('controller_front_send_response_after', ['front' => $controller]);
             }
 
             // Preset some HTTP-headers
-            header('X-MageBridge-Customer: ' . Mage::getModel('customer/session')->getCustomer()->getEmail());
-            header('X-MageBridge-Form-Key: ' . Mage::getSingleton('core/session')->getFormKey());
+            /** @var Mage_Customer_Model_Session $customerSession */
+            $customerSession = Mage::getModel('customer/session');
+            /** @var Mage_Core_Model_Session $coreSession */
+            $coreSession = Mage::getSingleton('core/session');
+            header('X-MageBridge-Customer: ' . $customerSession->getCustomer()->getEmail());
+            header('X-MageBridge-Form-Key: ' . $coreSession->getFormKey());
             // Note: Do not use the Magento API for this, because it is not used by magebridge.class.php > output
 
             yireo_benchmark('MB_Core::getFrontController() - end');
@@ -1228,11 +1230,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the bridge-request
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the bridge-request.
      *
      * @return array
      */
@@ -1242,11 +1240,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the bridge-response
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the bridge-response.
      *
      * @return array
      */
@@ -1256,13 +1250,9 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the bridge-response
-     *
-     * @access public
+     * Helper-method to set the bridge-response.
      *
      * @param array $data
-     *
-     * @return null
      */
     public function setResponseData($data)
     {
@@ -1270,14 +1260,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to add some data to the bridge-response
-     *
-     * @access public
+     * Helper-method to add some data to the bridge-response.
      *
      * @param string $name
      * @param array $data
-     *
-     * @return null
      */
     public function addResponseData($name, $data)
     {
@@ -1286,9 +1272,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the meta-data
-     *
-     * @access public
+     * Helper-method to get the meta-data.
      *
      * @param string $name
      *
@@ -1306,14 +1290,10 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the meta-data
-     *
-     * @access public
+     * Helper-method to set the meta-data.
      *
      * @param string $name
      * @param mixed $value
-     *
-     * @return null
      */
     public function setMetaData($name = null, $value = null)
     {
@@ -1322,11 +1302,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the flag for preoutput-forcing
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the flag for preoutput-forcing.
      *
      * @return array
      */
@@ -1336,13 +1312,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to set the flag for preoutput-forcing
-     *
-     * @access public
-     *
-     * @param null
-     *
-     * @return void
+     * Helper-method to set the flag for preoutput-forcing.
      */
     public function setForcePreoutput($force_preoutput)
     {
@@ -1350,29 +1320,23 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the system events from the session and clean up afterwards
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the system events from the session and clean up afterwards.
      *
      * @return array
      */
     public function getEvents()
     {
-        $events = Mage::getSingleton('magebridge/session')->getEvents();
-        Mage::getSingleton('magebridge/session')->cleanEvents();
+        /** @var Yireo_MageBridge_Model_Session $session */
+        $session = Mage::getSingleton('magebridge/session');
+        $events = $session->getEvents();
+        $session->cleanEvents();
         return $events;
     }
 
     /**
-     * Helper-method to set the system events
+     * Helper-method to set the system events.
      *
-     * @access public
-     *
-     * @param array
-     *
-     * @return void
+     * @param array $events
      */
     public function setEvents($events)
     {
@@ -1381,11 +1345,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the Joomla! SEF URL from the meta-data
-     *
-     * @access public
-     *
-     * @param null
+     * Helper-method to get the Joomla! SEF URL from the meta-data.
      *
      * @return string
      */
@@ -1399,7 +1359,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the requested store-name from the meta-data
+     * Helper-method to get the requested store-name from the meta-data.
      *
      * @return string
      */
@@ -1409,17 +1369,19 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Helper-method to get the requested store-name from the meta-data
+     * Helper-method to get the requested store-name from the meta-data.
      *
      * @return Mage_Core_Model_Store
      */
     public function getStoreObject()
     {
-        return Mage::app()->getStore($this->getStore());
+        /** @var Mage_Core_Model_Store $store */
+        $store = Mage::app()->getStore($this->getStore());
+        return $store;
     }
 
     /**
-     * Return the current session ID
+     * Return the current session ID.
      *
      * @return string
      */
@@ -1429,7 +1391,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Encrypt data for security
+     * Encrypt data for security.
      *
      * @param mixed $data
      *
@@ -1437,13 +1399,13 @@ class Yireo_MageBridge_Model_Core
      */
     public function encrypt($data)
     {
-        /** @var Yireo_MageBridge_Helper_Encryption */
+        /** @var Yireo_MageBridge_Helper_Encryption $helper */
         $helper = Mage::helper('magebridge/encryption');
         return $helper->encrypt($data);
     }
 
     /**
-     * Decrypt data after encryption
+     * Decrypt data after encryption.
      *
      * @param mixed $data
      *
@@ -1451,13 +1413,13 @@ class Yireo_MageBridge_Model_Core
      */
     public function decrypt($data)
     {
-        /** @var Yireo_MageBridge_Helper_Encryption */
+        /** @var Yireo_MageBridge_Helper_Encryption $helper */
         $helper = Mage::helper('magebridge/encryption');
         return $helper->decrypt($data);
     }
 
     /**
-     * Determine whether event forwarding is enabled
+     * Determine whether event forwarding is enabled.
      *
      * @return bool
      */
@@ -1467,7 +1429,7 @@ class Yireo_MageBridge_Model_Core
     }
 
     /**
-     * Disable event forwarding
+     * Disable event forwarding.
      *
      * @return bool
      */
@@ -1480,9 +1442,7 @@ class Yireo_MageBridge_Model_Core
     /*
      * Method to get the current MageBridge-version
      *
-     * @access public
-     * @param null
-     * @return string
+     * @access public @return string
      */
     public function getCurrentVersion()
     {

@@ -1,17 +1,17 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge rewrite of the default breadcrumbs-block
+ * MageBridge rewrite of the default breadcrumbs-block.
  */
 class Yireo_MageBridge_Block_Breadcrumbs extends Mage_Page_Block_Html_Breadcrumbs
 {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -26,7 +26,10 @@ class Yireo_MageBridge_Block_Rewrite_Checkout_Onepage_Success extends Mage_Check
     public function getUrl($route = '', $params = [])
     {
         if (empty($route) && empty($params)) {
-            $next_url = Mage::getSingleton('customer/session')->getNextUrl();
+            /** @var Mage_Customer_Model_Session $session */
+            $session = Mage::getSingleton('customer/session');
+            /** @phpstan-ignore-next-line */
+            $next_url = $session->getNextUrl();
             if (!empty($next_url)) {
                 return $next_url;
             }

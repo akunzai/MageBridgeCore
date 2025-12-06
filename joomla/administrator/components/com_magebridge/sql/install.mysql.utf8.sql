@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_config` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL DEFAULT '',
     `value` TEXT NOT NULL,
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `name` (`name`)
 ) DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `#__magebridge_connectors`;
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_log` (
     `remote_addr` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'IP-address as logged by Apache',
     `http_agent` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'HTTP_AGENT as logged by Apache',
     `session` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'API session',
-    `timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_products` (
     `ordering` int(11) NOT NULL default '0',
     `published` tinyint(1) NOT NULL,
     `checked_out` int(11) NOT NULL default '0',
-    `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+    `checked_out_time` datetime NOT NULL default CURRENT_TIMESTAMP,
     `params` text NOT NULL,
     PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_stores` (
     `ordering` int(11) NOT NULL default '0',
     `published` tinyint(1) NOT NULL,
     `checked_out` int(11) NOT NULL default '0',
-    `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+    `checked_out_time` datetime NOT NULL default CURRENT_TIMESTAMP,
     `params` text NOT NULL,
     PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_urls` (
     `ordering` int(11) NOT NULL DEFAULT '0',
     `published` tinyint(1) NOT NULL,
     `checked_out` int(11) NOT NULL DEFAULT '0',
-    `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `checked_out_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `params` text NOT NULL,
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
@@ -89,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `#__magebridge_usergroups` (
     `ordering` int(11) NOT NULL default '0',
     `published` tinyint(3) NOT NULL default '0',
     `checked_out` int(11) NOT NULL default '0',
-    `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+    `checked_out_time` datetime NOT NULL default CURRENT_TIMESTAMP,
     `params` text NOT NULL,
     PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;

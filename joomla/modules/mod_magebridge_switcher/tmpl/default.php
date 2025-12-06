@@ -1,11 +1,11 @@
 <?php
 /**
- * Joomla! module MageBridge: Shopping Cart
+ * Joomla! module MageBridge: Shopping Cart.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -14,6 +14,13 @@ use Joomla\CMS\Router\Route;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/**
+ * @var string $redirect_url
+ * @var string|null $select
+ */
+$redirect_url ??= '';
+
 ?>
 <div id="magebridge-switcher" class="magebridge-module">
 	<?php if (!empty($select)) : ?>

@@ -1,26 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge block controller
+ * MageBridge block controller.
  */
 class Yireo_MageBridge_BlockController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * View a specific block
-     *
-     * @access public
-     * @param null
-     * @return null
+     * View a specific block.
      */
     public function viewAction()
     {

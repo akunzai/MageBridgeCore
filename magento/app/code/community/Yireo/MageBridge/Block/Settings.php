@@ -1,22 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge class for the settings-block
+ * MageBridge class for the settings-block.
  */
 class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
 {
     /**
-     * Constructor method
+     * Constructor method.
      */
     public function _construct()
     {
@@ -26,7 +26,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the header of this page
+     * Helper to return the header of this page.
      *
      * @param string $title
      *
@@ -38,7 +38,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the menu
+     * Helper to return the menu.
      *
      * @return string
      */
@@ -48,47 +48,55 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Helper to return the save URL
+     * Helper to return the save URL.
      *
      * @return string
      */
     public function getSaveUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/save');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/save');
     }
 
     /**
-     * Helper to reset MageBridge values for event forwarding
+     * Helper to reset MageBridge values for event forwarding.
      *
      * @return string
      */
     public function getResetEventsUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetevents');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetevents');
     }
 
     /**
-     * Helper to reset Joomla! to Magento usermapping by ID
+     * Helper to reset Joomla! to Magento usermapping by ID.
      *
      * @return string
      */
     public function getResetUsermapUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetusermap');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetusermap');
     }
 
     /**
-     * Helper to reset some MageBridge values to null
+     * Helper to reset some MageBridge values to null.
      *
      * @return string
      */
     public function getResetApiUrl()
     {
-        return Mage::getModel('adminhtml/url')->getUrl('adminhtml/magebridge/resetapi');
+        /** @var Mage_Adminhtml_Model_Url $urlModel */
+        $urlModel = Mage::getModel('adminhtml/url');
+        return $urlModel->getUrl('adminhtml/magebridge/resetapi');
     }
 
     /**
-     * Render block HTML
+     * Render block HTML.
      *
      * @return mixed
      */
@@ -101,10 +109,11 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Add the accordion block as child
+     * Add the accordion block as child.
      */
     protected function addAccordion()
     {
+        /** @var Mage_Adminhtml_Block_Widget_Accordion $accordion */
         $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')->setId('magebridge');
 
         $accordion->addItem('joomla', [
@@ -129,7 +138,7 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
     }
 
     /**
-     * Add toolbar buttons
+     * Add toolbar buttons.
      */
     protected function addToolbarButtons()
     {
@@ -143,7 +152,9 @@ class Yireo_MageBridge_Block_Settings extends Mage_Core_Block_Template
                 ])
         );
 
-        if (Mage::helper('magebridge')->useJoomlaMap()) {
+        /** @var Yireo_MageBridge_Helper_Data $helper */
+        $helper = Mage::helper('magebridge');
+        if ($helper->useJoomlaMap()) {
             $this->setChild(
                 'resetusermap_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')

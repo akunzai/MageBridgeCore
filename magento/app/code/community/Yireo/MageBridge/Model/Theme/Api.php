@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,12 +18,11 @@ class Yireo_MageBridge_Model_Theme_Api extends Mage_Api_Model_Resource_Abstract
     /*
      * Method to get a list of themes
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function items()
     {
+        $options = [];
         $root = BP.DS.'app'.DS.'design'.DS.'frontend';
         $folders = scandir($root);
         foreach ($folders as $folder) {

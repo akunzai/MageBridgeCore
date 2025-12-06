@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,14 +16,15 @@
 class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
 {
     /**
-     * Retrieve list of orders with basic info
+     * Retrieve list of orders with basic info.
      *
-     * @access public
      * @param array $filters
+     *
      * @return array
      */
     public function items($filters = null, $store = null)
     {
+        /** @phpstan-ignore-next-line */
         $collection = Mage::getModel('sales/order')->getCollection()
             ->addAttributeToSelect('*')
             ->setOrder('created_at', 'desc')
@@ -56,16 +57,17 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
-     * Retrieve list of order items
+     * Retrieve list of order items.
      *
-     * @access public
      * @param array $filters
+     *
      * @return array
      */
     public function getOrderItems($filters = null, $store = null)
     {
         // Parse the customer-filter if needed
         if (isset($filters['customer_email']) && isset($filters['website_id'])) {
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
             $customer->setWebsiteId($filters['website_id']);
             $customer->loadByEmail($filters['customer_email']);
@@ -117,10 +119,10 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
-     * Helper method to retrieve a list of orders
+     * Helper method to retrieve a list of orders.
      *
-     * @access protected
      * @param $filters array
+     *
      * @return array
      */
     protected function fetchOrders($filters = null)
@@ -144,9 +146,8 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
-     * Helper method to retrieve a list of customers
+     * Helper method to retrieve a list of customers.
      *
-     * @access protected
      * @return array
      */
     protected function fetchCustomers()

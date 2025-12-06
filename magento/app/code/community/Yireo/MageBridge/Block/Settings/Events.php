@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,9 +18,7 @@ class Yireo_MageBridge_Block_Settings_Events extends Mage_Core_Block_Template
     /*
      * Constructor method
      *
-     * @access public
-     * @param null
-     * @return null
+     * @access public @return null
      */
     public function _construct()
     {
@@ -32,13 +30,14 @@ class Yireo_MageBridge_Block_Settings_Events extends Mage_Core_Block_Template
     /*
      * Helper method to get list of all the forwarded events and their current status
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getEvents()
     {
-        $events = Mage::getModel('magebridge/observer')->getEvents();
+
+        /** @var Yireo_MageBridge_Model_Observer $observer */
+        $observer = Mage::getModel('magebridge/observer');
+        $events = $observer->getEvents();
         $event_list = [];
 
         foreach ($events as $event) {

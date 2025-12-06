@@ -1,42 +1,44 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Event\AbstractEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Event\DispatcherInterface;
+use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Store-connector class
- *
- * @package MageBridge
+ * MageBridge Store-connector class.
  */
 class MageBridgeConnectorStore extends MageBridgeConnector
 {
     /**
-     * Singleton variable
+     * Singleton variable.
      */
     private static $_instance = null;
 
     /**
-     * Associated array of options
+     * Associated array of options.
      */
     private $options = [];
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeConnectorStore
      */
@@ -50,9 +52,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to return options
-     *
-     * @param null
+     * Method to return options.
      *
      * @return mixed
      */
@@ -62,16 +62,14 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current store definition
+     * Method to get the current store definition.
      *
-     * @param null
-     *
-     * @return array
+     * @return array|null
      */
     public function getStore()
     {
         // If the database configuration specified no stores, skip this step
-        if (MageBridgeModelConfig::load('load_stores') == 0) {
+        if (ConfigModel::load('load_stores') == 0) {
             return null;
         }
 
@@ -89,13 +87,17 @@ class MageBridgeConnectorStore extends MageBridgeConnector
         // Try to match a condition with one of the connectors
         foreach ($conditions as $condition) {
             // Extract the parameters and make sure there's something to do
-            $actions = YireoHelper::toRegistry($condition->actions)
+            $actions = Helper::toRegistry($condition->actions)
                 ->toArray();
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                $this->app
-                    ->triggerEvent('onMageBridgeStoreConvertField', [$condition, &$actions]);
+                $event = AbstractEvent::create(
+                    'onMageBridgeStoreConvertField',
+                    ['subject' => $this, 'condition' => $condition, 'actions' => &$actions]
+                );
+                $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+                $dispatcher->dispatch('onMageBridgeStoreConvertField', $event);
             }
 
             // With empty actions, there is nothing to do
@@ -131,8 +133,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $plugin
-     *
      * @return MageBridgePluginStore|false
      */
     protected function getObjectFromPluginDefinition($plugin)
@@ -154,7 +154,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     protected function getStoreRelations()
     {
         // Get the conditions
-        $db    = Factory::getDbo();
+        $db    = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__magebridge_stores'));
@@ -166,11 +166,9 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Attach an observer object
+     * Attach an observer object.
      *
-     * @param   object $observer An observer object to attach
-     *
-     * @return  void
+     * @param object $observer An observer object to attach
      */
     public function attach($observer)
     {
@@ -178,7 +176,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Method to check whether the given condition is true
+     * Method to check whether the given condition is true.
      *
      * @param mixed $condition
      *
@@ -190,7 +188,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * Overload methods to add an argument to it
+     * Overload methods to add an argument to it.
      */
     public function getConnectors($type = null)
     {
@@ -198,8 +196,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnector($name)
@@ -208,8 +204,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnectorObject($name)
@@ -218,8 +212,6 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     }
 
     /**
-     * @param $file
-     *
      * @return string
      */
     public function getPath($file)
@@ -230,7 +222,7 @@ class MageBridgeConnectorStore extends MageBridgeConnector
     /**
      * @param null $type
      *
-     * @return \Joomla\Registry\Registry
+     * @return Registry
      */
     public function getParams($type = null)
     {

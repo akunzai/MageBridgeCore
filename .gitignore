@@ -7,6 +7,7 @@
 
 # Composer dependencies
 /vendor/
+joomla/components/com_magebridge/vendor/**
 
 # IDE - VSCode
 .vscode/*
@@ -24,6 +25,11 @@ Thumbs.db
 # PHPStan
 tmp/
 
+# PHPUnit
+.phpunit.cache
+
 # misc
 /dist/
 /magento/var
+.claude/
+.agent/

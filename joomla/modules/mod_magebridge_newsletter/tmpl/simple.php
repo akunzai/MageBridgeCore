@@ -1,11 +1,11 @@
 <?php
 /**
- * Joomla! module MageBridge: Newsletter
+ * Joomla! module MageBridge: Newsletter.
  *
  * @author	Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link	  https://www.yireo.com
  */
 
@@ -13,6 +13,10 @@ use Joomla\CMS\Language\Text;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
+/** @var string $form_url */
+/** @var Joomla\CMS\User\User $user */
+/** @var string $redirect_url */
 ?>
 <div id="magebridge.newsletter" class="magebridge-module">
 	<form action="<?php echo $form_url; ?>" method="post" id="newsletter-validate-detail">

@@ -21,8 +21,12 @@ td.status {
 }
 
 h4.fieldgroup {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
     margin-top: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 input {

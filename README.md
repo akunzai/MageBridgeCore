@@ -9,10 +9,10 @@ This is the repository for the MageBridge Open Core. It includes the main Joomla
 
 ## Requirements
 
-- PHP >= 8.1
+- PHP >= 8.3
 - [Composer](https://getcomposer.org/)
-- [Joomla!](https://www.joomla.org/) 3.10.x or 4.x or 5.x
-- [OpenMage](https://github.com/OpenMage/magento-lts) 19.x or 20.x
+- [Joomla!](https://www.joomla.org/) 5.x
+- [OpenMage](https://github.com/OpenMage/magento-lts) 20.x
 
 ## Getting Started
 
@@ -26,8 +26,8 @@ composer run lint
 # static code analysis
 composer run phpstan
 
-# build the Joomla! extension. The `pkg_magebridge.zip` can be found in the `dist/` directory
-./build.sh
+# bundle the Joomla! extension. The `pkg_magebridge.zip` can be found in the `dist/` directory
+./bundle.sh
 ```
 
 ## Installation

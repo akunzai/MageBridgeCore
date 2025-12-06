@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -21,7 +21,7 @@ class Yireo_MageBridge_Model_Mysql4_Customer_Joomla extends Mage_Core_Model_Mysq
     protected $_isPkAutoIncrement = false;
 
     /**
-     * Constructor
+     * Constructor.
      */
     protected function _construct()
     {

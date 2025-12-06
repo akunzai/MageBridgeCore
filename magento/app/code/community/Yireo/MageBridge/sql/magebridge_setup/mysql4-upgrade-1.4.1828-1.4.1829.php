@@ -1,15 +1,15 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 $installer->run("

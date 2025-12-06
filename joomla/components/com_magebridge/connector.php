@@ -1,54 +1,56 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Registry\Registry;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Connector class
- *
- * @package MageBridge
+ * MageBridge Connector class.
  */
 class MageBridgeConnector
 {
     /**
-     * List of product-connectors
+     * List of product-connectors.
      */
     protected $connectors = [];
 
     /**
-     * Name of connector
+     * Name of connector.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * @var \Joomla\CMS\Application\CMSApplication
+     * @var CMSApplicationInterface
      */
     protected $app;
 
     /**
-     * @var \Joomla\Database\DatabaseDriver
+     * @var DatabaseInterface
      */
     protected $db;
 
     /**
-     * @var \Joomla\Registry\Registry
+     * @var Registry|null
      */
-    private $params;
+    private $params = null;
 
     /**
      * MageBridgeConnector constructor.
@@ -56,13 +58,11 @@ class MageBridgeConnector
     public function __construct()
     {
         $this->app = Factory::getApplication();
-        $this->db  = Factory::getDbo();
+        $this->db  = Factory::getContainer()->get(DatabaseInterface::class);
     }
 
     /**
-     * Method to check whether this connector is enabled or not
-     *
-     * @param null
+     * Method to check whether this connector is enabled or not.
      *
      * @return bool
      */
@@ -72,7 +72,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Get a list of all connectors
+     * Get a list of all connectors.
      *
      * @param string $type
      *
@@ -84,7 +84,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Get a specific connector
+     * Get a specific connector.
      *
      * @param string $type
      * @param string $name
@@ -97,7 +97,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to get a specific connector-object
+     * Method to get a specific connector-object.
      *
      * @param string $type
      * @param object $connector
@@ -125,10 +125,6 @@ class MageBridgeConnector
 
         $object = new $class();
 
-        if (empty($object)) {
-            return false;
-        }
-
         $vars = get_object_vars($connector);
 
         if (!empty($vars)) {
@@ -141,11 +137,11 @@ class MageBridgeConnector
     }
 
     /**
-     * Get the connector-parameters
+     * Get the connector-parameters.
      *
      * @param string $type
      *
-     * @return \Joomla\Registry\Registry
+     * @return Registry
      */
     protected function _getParams($type)
     {
@@ -157,30 +153,30 @@ class MageBridgeConnector
 
         $file = self::_getPath($type, $this->name . '.xml');
 
-        if (isset($this->params) && !empty($this->params)) {
-            $params = YireoHelper::toRegistry($this->params, $file);
+        if (isset($this->params)) {
+            $params = Helper::toRegistry($this->params, $file);
 
             return $params;
         }
 
         if ($file == true) {
-            $params = YireoHelper::toRegistry(null, $file);
+            $params = Helper::toRegistry(null, $file);
 
             return $params;
         }
 
-        $params = YireoHelper::toRegistry();
+        $params = Helper::toRegistry();
 
         return $params;
     }
 
     /**
-     * Get the right path to a file
+     * Get the right path to a file.
      *
      * @param string $type
      * @param string $filename
      *
-     * @return string
+     * @return string|bool
      */
     protected function _getPath($type, $filename)
     {
@@ -194,7 +190,7 @@ class MageBridgeConnector
     }
 
     /**
-     * Method to check whether a specific component is there
+     * Method to check whether a specific component is there.
      *
      * @param string $component
      *

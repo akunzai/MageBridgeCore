@@ -1,63 +1,61 @@
 # Joomla! Setup
 
-## Extension Installation
+The `install.sh` script automatically configures the following:
 
-> System->Install->Extensions
+- Joomla! installation with admin user
+- MageBridge extension installation
+- Enable MageBridge plugins (Authentication, Content, Core, Magento, System, User)
+- MageBridge configuration:
+  - Hostname: `store.dev.local`
+  - API User: `magebridge_api`
+  - API Key: `ChangeTheAp1K3y`
+  - Protocol: `HTTPS`
+  - Enforce SSL: `Entire site`
+  - User synchronization settings
+- Store menu item (MageBridge Root)
 
-Upload Package File: `pkg_magebridge.zip`
+## Environment Variables
 
-## Enable Extensions
+You can customize the configuration by setting these environment variables in `.env`:
 
-> System->Manage->Extensions
+| Variable                | Default            | Description         |
+| ----------------------- | ------------------ | ------------------- |
+| `MAGEBRIDGE_HOST`       | `store.dev.local`  | OpenMage hostname   |
+| `MAGEBRIDGE_API_USER`   | `magebridge_api`   | API username        |
+| `MAGEBRIDGE_API_KEY`    | `ChangeTheAp1K3y`  | API key             |
 
-- Plugin: `Authentication - MageBridge`
-- Plugin: `Content - MageBridge`
-- Plugin: `MageBridge - Core`
-- Plugin: `Magento - MageBridge`
-- Plugin: `System - MageBridge`
-- Plugin: `User - MageBridge`
+## Test Data Seeding
 
-## Configuration
+The `seed-test-data.sh` script populates test data for E2E testing and pagination verification.
 
-> Components->`MageBridge`->Configuration
+### Usage
 
-### API
+```bash
+docker compose exec joomla \
+  /workspace/.devcontainer/joomla/seed-test-data.sh
+```
 
-- Hostname: `store.dev.local`
-- API User: `magebridge_api`
-- API Key: `ChangeTheAp1K3y`
+### What It Seeds
 
-### Bridge
+|Table|Records|Purpose|
+|---|---|---|
+|Logs|55|Pagination testing (3 pages with default 20/page)|
+|Products|35|Pagination testing (2 pages)|
+|Stores|30|Pagination testing (2 pages)|
+|URLs|25|Pagination testing (2 pages)|
+|Usergroups|22|Pagination testing (2 pages)|
 
-- Protocol: `HTTPS`
-- Enforce SSL: `Entire site`
+### Features
 
-### Users
+- **Idempotent**: Only inserts data into empty tables
+- **CI-Ready**: Automatically used in GitHub Actions workflows
+- **Environment Variables**: Supports custom DB credentials
 
-User synchronization
-
-- Magento Customer Group: `General`
-- Joomla! Usergroup: `Registered`
-- Username from Email: `Yes`
-
-User importing and exporting
-
-- Website: `Main Website (1)`
-- Customer Group: `General`
-
-## Add Root item
-
-> Menus->`Main Menu`->`Add New Menu Item`
-
-### Details
-
-- Title: `Store`
-- Alias: `store`
-- Menu Item Type: `MageBridge`->`Root`
-
-### Magento Scope
-
-- Store/Store View: `English(default)`
+```bash
+# Custom database configuration
+DB_HOST=mysql DB_USER=root DB_PASS=secret TABLE_PREFIX=jos_ \
+  ./seed-test-data.sh
+```
 
 ## System Check
 

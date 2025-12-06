@@ -1,27 +1,27 @@
 <?php
 
 /**
- * Magento Bridge
+ * Magento Bridge.
  *
  * @author Yireo
- * @package Magento Bridge
  * @copyright Copyright 2017
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge-class that acts like proxy between bridge-classes and the API
+ * MageBridge-class that acts like proxy between bridge-classes and the API.
  */
 class MageBridge
 {
     /**
-     * The current request
+     * The current request.
      */
     private $request = [];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -43,15 +43,16 @@ class MageBridge
     }
 
     /**
-     * Decode a JSON-message
+     * Decode a JSON-message.
      *
      * @param string $string
+     *
      * @return array
      */
     public function getJson($string)
     {
         if (empty($string)) {
-            return $string;
+            return [];
         }
 
         $data = json_decode($string, true);
@@ -59,14 +60,12 @@ class MageBridge
             $data = json_decode(stripslashes($string), true);
         }
 
-        return $data;
+        return is_array($data) ? $data : [];
     }
 
     /**
-     * Get the request-data
+     * Get the request-data.
      *
-     * @access public
-     * @param null
      * @return array
      */
     public function getRequest()
@@ -75,9 +74,10 @@ class MageBridge
     }
 
     /**
-     * Get a segment from the request-data
+     * Get a segment from the request-data.
      *
      * @param string $name
+     *
      * @return array
      */
     public function getSegment($name = '')
@@ -98,9 +98,10 @@ class MageBridge
     }
 
     /**
-     * Helper-function to get the meta-data from the request
+     * Helper-function to get the meta-data from the request.
      *
      * @param string $name
+     *
      * @return array
      */
     public function getMeta($name = null)
@@ -117,7 +118,7 @@ class MageBridge
     }
 
     /**
-     * Mask this request by using the data sent along with this request
+     * Mask this request by using the data sent along with this request.
      *
      * @return bool
      */
@@ -161,7 +162,7 @@ class MageBridge
             if (stripos($request_uri, 'vendorms')) {
                 $vms = $request_uri;
                 $is_name_append = str_replace('/', '', substr($vms, stripos($vms, 'vendorms') + 8, strlen($vms)));
-                if (isset($is_name_append) && strlen($is_name_append) > 0) {
+                if (strlen($is_name_append) > 0) {
                     $fp = substr($vms, 0, strrpos($vms, '/') + 1);
                     $lp = substr($vms, strrpos($vms, '/') + 1, strlen($vms));
                     $request_uri = $fp . 'all/index/name/' . $lp;
@@ -302,10 +303,11 @@ class MageBridge
     }
 
     /**
-     * Run the bridge-core
+     * Run the bridge-core.
      *
      * @param string $sessionId
      * @param string $sessionName
+     *
      * @return bool
      */
     public function isValidSessionId($sessionId, $sessionName = null)
@@ -331,21 +333,26 @@ class MageBridge
     }
 
     /**
-     * Run the bridge-core
+     * Run the bridge-core.
      */
     public function run()
     {
-        Mage::getSingleton('magebridge/debug')->notice('Session: ' . session_id());
-        Mage::getSingleton('magebridge/debug')->notice('Request: ' . $_SERVER['REQUEST_URI']);
-        Mage::getSingleton('magebridge/debug')->trace('FILES', $_FILES);
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
+        $debug->notice('Session: ' . session_id());
+        $debug->notice('Request: ' . $_SERVER['REQUEST_URI']);
+        $debug->trace('FILES', $_FILES);
 
         // Handle SSO
-        if (Mage::getSingleton('magebridge/user')->doSSO() == true) {
-            Mage::getSingleton('magebridge/debug')->notice('Handling SSO');
+        /** @var Yireo_MageBridge_Model_User $user */
+        $user = Mage::getSingleton('magebridge/user');
+        if ($user->doSSO() == true) {
+            $debug->notice('Handling SSO');
             exit;
         }
 
         // Now Magento is initialized, we can load the MageBridge core-class
+        /** @var Yireo_MageBridge_Model_Core $bridge */
         $bridge = Mage::getSingleton('magebridge/core');
 
         // Initialize the bridge
@@ -403,27 +410,28 @@ class MageBridge
         $data = $bridge->getRequestData();
         if (is_array($data) && !empty($data)) {
             // Dispatch the request to the appropriate classes
-            Mage::getSingleton('magebridge/debug')->notice('Dispatching the request');
+            $debug->notice('Dispatching the request');
             $data = $this->dispatch($data);
 
             // Set the completed request as response
             $bridge->setResponseData($data);
         } else {
-            Mage::getSingleton('magebridge/debug')->notice('Empty request');
+            $debug->notice('Empty request');
         }
 
-        Mage::getSingleton('magebridge/debug')->notice('Done with session: ' . session_id());
-        //Mage::getSingleton('magebridge/debug')->trace('Response data', $data);
-        //Mage::getSingleton('magebridge/debug')->trace('Session dump', $_SESSION);
-        //Mage::getSingleton('magebridge/debug')->trace('Cookie dump', $_COOKIE);
-        Mage::getSingleton('magebridge/debug')->trace('GET dump', $_GET);
-        //Mage::getSingleton('magebridge/debug')->trace('POST dump', $_POST);
-        Mage::getSingleton('magebridge/debug')->trace('PHP memory', round(memory_get_usage() / 1024));
+        $debug->notice('Done with session: ' . session_id());
+        //$debug->trace('Response data', $data);
+        //$debug->trace('Session dump', $_SESSION);
+        //$debug->trace('Cookie dump', $_COOKIE);
+        $debug->trace('GET dump', $_GET);
+        //$debug->trace('POST dump', $_POST);
+        $debug->trace('PHP memory', round(memory_get_usage() / 1024));
         yireo_benchmark('MB_Core::output()');
 
         $bridge->setMetaData('state', null);
 
         $output = $bridge->output();
+        assert(is_string($output));
 
         header('Content-Length: ' . strlen($output));
         header('Content-Type: application/magebridge');
@@ -434,34 +442,37 @@ class MageBridge
     }
 
     /**
-     * Authorize access to the bridge
+     * Authorize access to the bridge.
      *
      * @return bool
      */
     public function authenticate()
     {
+        /** @var Yireo_MageBridge_Model_Core $bridge */
         $bridge = Mage::getSingleton('magebridge/core');
+        /** @var Yireo_MageBridge_Model_Debug $debug */
+        $debug = Mage::getSingleton('magebridge/debug');
 
         if ($this->isAllowed() === false) {
-            $ip = gethostbyname($_SERVER['HTTP_VIA']);
-            Mage::getSingleton('magebridge/debug')->error(sprintf("IP: %s not allowed to connect", $ip));
+            $ip = $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_VIA'] ?? 'unknown';
+            $debug->error(sprintf("IP: %s not allowed to connect", $ip));
             return false;
         }
 
         // Authorize against the bridge-core
         if ($bridge->authenticate($bridge->getMetaData('api_user'), $bridge->getMetaData('api_key')) == false) {
             session_regenerate_id();
-            Mage::getSingleton('magebridge/debug')->error('API authorization failed for user ' . $bridge->getMetaData('api_user') . ' / ' . $bridge->getMetaData('api_key'));
+            $debug->error('API authorization failed for user ' . $bridge->getMetaData('api_user') . ' / ' . $bridge->getMetaData('api_key'));
             return false;
         } else {
-            Mage::getSingleton('magebridge/debug')->notice('API authorization succeeded');
+            $debug->notice('API authorization succeeded');
         }
 
         return true;
     }
 
     /**
-     * Determine whether this remote host is allowed to connect
+     * Determine whether this remote host is allowed to connect.
      *
      * @return bool
      */
@@ -473,43 +484,73 @@ class MageBridge
             return true;
         }
 
-        if (isset($_SERVER['HTTP_VIA']) && $allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
-            return true;
+        // Check HTTP_VIA header (for proxy connections)
+        if (isset($_SERVER['HTTP_VIA']) && is_string($_SERVER['HTTP_VIA']) && $_SERVER['HTTP_VIA'] !== '') {
+            if ($allowedIps->isHostAllowed($_SERVER['HTTP_VIA']) === true) {
+                return true;
+            }
+        }
+
+        // Check REMOTE_ADDR (direct connections)
+        if (isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] !== '') {
+            if ($allowedIps->isHostAllowed($_SERVER['REMOTE_ADDR']) === true) {
+                return true;
+            }
         }
 
         return false;
     }
 
     /**
-     * Dispatch the bridge-request to the appropriate classes
+     * Dispatch the bridge-request to the appropriate classes.
      *
      * @param array $data
+     *
      * @return array $data
      */
     public function dispatch($data)
     {
         // Loop through the posted data, complete it and send it back
+        /** @var Yireo_MageBridge_Model_Core $core */
+        $core = Mage::getSingleton('magebridge/core');
+        /** @var Yireo_MageBridge_Model_User $user */
+        $user = Mage::getSingleton('magebridge/user');
+        /** @var Yireo_MageBridge_Model_Url $url */
+        $url = Mage::getSingleton('magebridge/url');
+        /** @var Yireo_MageBridge_Model_Block $block */
+        $block = Mage::getSingleton('magebridge/block');
+        /** @var Yireo_MageBridge_Model_Widget $widget */
+        $widget = Mage::getSingleton('magebridge/widget');
+        /** @var Yireo_MageBridge_Model_Breadcrumbs $breadcrumbs */
+        $breadcrumbs = Mage::getSingleton('magebridge/breadcrumbs');
+        /** @var Yireo_MageBridge_Model_Api $api */
+        $api = Mage::getSingleton('magebridge/api');
+        /** @var Yireo_MageBridge_Model_Dispatcher $dispatcher */
+        $dispatcher = Mage::getSingleton('magebridge/dispatcher');
+        /** @var Yireo_MageBridge_Model_Headers $headers */
+        $headers = Mage::getSingleton('magebridge/headers');
+
         $profiler = false;
         foreach ($data as $index => $segment) {
             switch ($segment['type']) {
                 case 'version':
-                    $segment['data'] = Mage::getSingleton('magebridge/core')->getCurrentVersion();
+                    $segment['data'] = $core->getCurrentVersion();
                     break;
 
                 case 'authenticate':
-                    $segment['data'] = Mage::getSingleton('magebridge/user')->authenticate($segment['arguments']);
+                    $segment['data'] = $user->authenticate($segment['arguments']);
                     break;
 
                 case 'login':
-                    $segment['data'] = Mage::getSingleton('magebridge/user')->login($segment['arguments']);
+                    $segment['data'] = $user->login($segment['arguments']);
                     break;
 
                 case 'logout':
-                    $segment['data'] = Mage::getSingleton('magebridge/user')->logout($segment['arguments']);
+                    $segment['data'] = $user->logout($segment['arguments']);
                     break;
 
                 case 'urls':
-                    $segment['data'] = Mage::getSingleton('magebridge/url')->getData($segment['name']);
+                    $segment['data'] = $url->getData($segment['name']);
                     break;
 
                 case 'block':
@@ -521,33 +562,33 @@ class MageBridge
                         break;
                     }
 
-                    $segment['data'] = Mage::getSingleton('magebridge/block')->getOutput($segment['name'], $segment['arguments']);
-                    $segment['meta'] = Mage::getSingleton('magebridge/block')->getMeta($segment['name']);
+                    $segment['data'] = $block->getOutput($segment['name'], $segment['arguments']);
+                    $segment['meta'] = $block->getMeta($segment['name']);
                     break;
 
                 case 'widget':
-                    $segment['data'] = Mage::getSingleton('magebridge/widget')->getOutput($segment['name'], $segment['arguments']);
-                    $segment['meta'] = Mage::getSingleton('magebridge/block')->getMeta($segment['name']);
+                    $segment['data'] = $widget->getOutput($segment['name'], $segment['arguments']);
+                    $segment['meta'] = $block->getMeta($segment['name']);
                     break;
 
                 case 'filter':
-                    $segment['data'] = Mage::getSingleton('magebridge/block')->filter($segment['arguments']);
+                    $segment['data'] = $block->filter($segment['arguments']);
                     break;
 
                 case 'breadcrumbs':
-                    $segment['data'] = Mage::getSingleton('magebridge/breadcrumbs')->getBreadcrumbs();
+                    $segment['data'] = $breadcrumbs->getBreadcrumbs();
                     break;
 
                 case 'api':
-                    $segment['data'] = Mage::getSingleton('magebridge/api')->getResult($segment['name'], $segment['arguments']);
+                    $segment['data'] = $api->getResult($segment['name'], $segment['arguments']);
                     break;
 
                 case 'event':
-                    $segment['data'] = Mage::getSingleton('magebridge/dispatcher')->getResult($segment['name'], $segment['arguments']);
+                    $segment['data'] = $dispatcher->getResult($segment['name'], $segment['arguments']);
                     break;
 
                 case 'headers':
-                    $segment['data'] = Mage::getSingleton('magebridge/headers')->getHeaders();
+                    $segment['data'] = $headers->getHeaders();
                     break;
             }
 
@@ -556,8 +597,8 @@ class MageBridge
 
         // Parse the profiler
         if (is_array($profiler)) {
-            $profiler['data'] = Mage::getSingleton('magebridge/block')->getOutput($profiler['name'], $profiler['arguments']);
-            $profiler['meta'] = Mage::getSingleton('magebridge/block')->getMeta($profiler['name']);
+            $profiler['data'] = $block->getOutput($profiler['name'], $profiler['arguments']);
+            $profiler['meta'] = $block->getMeta($profiler['name']);
             //echo Mage::helper('magebridge/encryption')->base64_decode($profiler['data']);exit;
             if (isset($profilerId)) {
                 $data[$profilerId] = $profiler;

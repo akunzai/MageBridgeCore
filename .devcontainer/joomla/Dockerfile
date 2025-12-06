@@ -1,7 +1,7 @@
-ARG PHP_VERSION=8.3.24
+ARG PHP_VERSION=8.4
 ARG PHP_EXTRA_BUILD_DEPS=""
 # https://hub.docker.com/_/joomla
-ARG JOOMLA_VERSION=5.3.3
+ARG JOOMLA_VERSION=5.4.1
 
 FROM joomla:${JOOMLA_VERSION}-apache AS joomla
 
@@ -16,14 +16,14 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     set -eux; \
     apt-get update; \
     # install the system tools we need
-    apt-get install -y --no-install-recommends mariadb-client; \
+    apt-get install -y --no-install-recommends git mariadb-client unzip rsync; \
     # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends \
     libfreetype6-dev libicu-dev libssl-dev \
     libjpeg62-turbo-dev libpng-dev \
     libxml2-dev libxslt1-dev \
-    libzip-dev libwebp-dev unzip \
+    libzip-dev libwebp-dev \
     ${PHP_EXTRA_BUILD_DEPS:-}; \
     # https://www.php.net/manual/en/image.installation.php
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \

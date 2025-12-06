@@ -1,0 +1,135 @@
+name: magebridgecore_devcontainer
+services:
+  joomla:
+    build:
+      context: ./joomla
+    image: joomla:magebridge
+    volumes:
+      - type: volume
+        source: joomla_data
+        target: /var/www/html
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.devcontainer/joomla/logs
+        target: /var/www/html/administrator/logs
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}
+        target: /workspace
+        consistency: cached
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.devcontainer/php.ini
+        target: /usr/local/etc/php/php.ini
+        read_only: true
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.vscode
+        target: /var/www/html/.vscode
+        consistency: cached
+    secrets:
+      - ca.pem
+    environment:
+      JOOMLA_DB_HOST: ${JOOMLA_DB_HOST:-mysql}
+      JOOMLA_DB_PASSWORD: ${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}}
+    depends_on:
+      - mysql
+      - traefik
+    external_links:
+      - traefik:store.dev.local
+      - traefik:www.dev.local
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.joomla.entrypoints=websecure
+      - traefik.http.routers.joomla.rule=Host(`www.dev.local`)
+
+  openmage:
+    build:
+      context: ./openmage
+    image: openmage:magebridge
+    volumes:
+      - type: volume
+        source: openmage_data
+        target: /var/www/html
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.devcontainer/openmage/logs
+        target: /var/www/html/var/log
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}
+        target: /var/www/html/.modman/MageBridge
+        consistency: cached
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.devcontainer/php.ini
+        target: /usr/local/etc/php/php.ini
+        read_only: true
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-..}/.vscode
+        target: /var/www/html/.vscode
+        consistency: cached
+    secrets:
+      - ca.pem
+      - cert.pem
+      - key.pem
+    depends_on:
+      - mysql
+      - traefik
+    external_links:
+      - traefik:www.dev.local
+      - traefik:store.dev.local
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.openmage.entrypoints=websecure
+      - traefik.http.routers.openmage.rule=Host(`store.dev.local`)
+      - traefik.http.services.openmage.loadbalancer.server.port=8080
+
+  mysql:
+    # https://hub.docker.com/_/mysql
+    image: mysql
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-openmage}
+    ports:
+      - 127.0.0.1:3306:3306
+
+  traefik:
+    # https://hub.docker.com/_/traefik
+    image: traefik
+    networks:
+      default:
+        aliases:
+          - store.dev.local
+          - www.dev.local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/etc:/etc/traefik
+    command:
+      - --api.insecure=true
+      - --api.dashboard=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --providers.file.directory=/etc/traefik/dynamic/
+    ports:
+      - 127.0.0.1:80:80
+      - 127.0.0.1:443:443
+      - 127.0.0.1:9090:8080
+    secrets:
+      - cert.pem
+      - key.pem
+
+secrets:
+  ca.pem:
+    file: .secrets/ca.pem
+  cert.pem:
+    file: .secrets/cert.pem
+  key.pem:
+    file: .secrets/key.pem
+
+volumes:
+  joomla_data: null
+  mysql_data: null
+  openmage_data: null

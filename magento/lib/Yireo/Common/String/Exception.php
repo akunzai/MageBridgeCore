@@ -5,9 +5,7 @@ namespace Yireo\Common\String;
 use Exception as TargetException;
 
 /**
- * Class Exception
- *
- * @package Yireo\Common\String
+ * Class Exception.
  */
 class Exception
 {
@@ -18,8 +16,6 @@ class Exception
 
     /**
      * Exception constructor.
-     *
-     * @param TargetException $exception
      */
     public function __construct(TargetException $exception)
     {
@@ -27,7 +23,7 @@ class Exception
     }
 
     /**
-     * Convert an exception into a string
+     * Convert an exception into a string.
      */
     public function printException()
     {

@@ -1,26 +1,22 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
 /**
- * MageBridge output tests
+ * MageBridge output tests.
  */
 class Yireo_MageBridge_RedirectController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Redirect to another page
-     *
-     * @access public
-     * @param null
-     * @return null
+     * Redirect to another page.
      */
     public function indexAction()
     {
@@ -34,6 +30,7 @@ class Yireo_MageBridge_RedirectController extends Mage_Core_Controller_Front_Act
         }
 
         // Set the redirect URL
+        /** @var Yireo_MageBridge_Model_Core $bridge */
         $bridge = Mage::getSingleton('magebridge/core');
         $bridge->setMageConfig('redirect_url', $redirectUrl);
 

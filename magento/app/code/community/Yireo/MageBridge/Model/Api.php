@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -26,7 +26,9 @@ class Yireo_MageBridge_Model_Api
     public function getResult($resourcePath, $arguments = null)
     {
         if (empty($resourcePath)) {
-            Mage::getSingleton('magebridge/debug')->warning('Empty API resource-path');
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->warning('Empty API resource-path');
             return null;
         }
 
@@ -36,7 +38,9 @@ class Yireo_MageBridge_Model_Api
             $apiClass = $resourceArray[0];
             $apiMethod = $resourceArray[1];
 
-            $resources = Mage::getSingleton('api/config')->getResources();
+            /** @var Mage_Api_Model_Config $apiConfig */
+            $apiConfig = Mage::getSingleton('api/config');
+            $resources = $apiConfig->getResources();
             if (isset($resources->$apiClass)) {
                 $resource = $resources->$apiClass;
                 $apiClass = (string)$resource->model;
@@ -51,29 +55,39 @@ class Yireo_MageBridge_Model_Api
                 $apiClass = str_replace('_', '/', $resourceArray[0]).'_api';
             }
 
-            Mage::getSingleton('magebridge/debug')->notice('Calling API '.$apiClass.'::'.$apiMethod);
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->notice('Calling API '.$apiClass.'::'.$apiMethod);
             //Mage::getSingleton('magebridge/debug')->trace('API arguments', $arguments);
 
             try {
                 $apiModel = Mage::getModel($apiClass);
             } catch (Exception $e) {
-                Mage::getSingleton('magebridge/debug')->error('Failed to instantiate API-class '.$apiClass.': '.$e->getMessage());
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->error('Failed to instantiate API-class '.$apiClass.': '.$e->getMessage());
                 return false;
             }
 
             if (empty($apiModel)) {
-                Mage::getSingleton('magebridge/debug')->notice('API class returns empty object: '.$apiClass);
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->notice('API class returns empty object: '.$apiClass);
                 return false;
             } elseif (method_exists($apiModel, $apiMethod)) {
                 return call_user_func([$apiModel, $apiMethod], $arguments);
             } elseif ($apiMethod == 'list' && method_exists($apiModel, 'items')) {
                 return $apiModel->items($arguments);
             } else {
-                Mage::getSingleton('magebridge/debug')->notice('API class "'.$apiClass.'" has no method '.$apiMethod);
+                /** @var Yireo_MageBridge_Model_Debug $debug */
+                $debug = Mage::getSingleton('magebridge/debug');
+                $debug->notice('API class "'.$apiClass.'" has no method '.$apiMethod);
                 return false;
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to call API: '.$resourcePath.': '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to call API: '.$resourcePath.': '.$e->getMessage());
             return false;
         }
     }

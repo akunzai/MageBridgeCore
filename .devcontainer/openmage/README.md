@@ -1,37 +1,21 @@
 # OpenMage Setup
 
-## Create API Role
+The `install.sh` script automatically configures the following:
 
-> System->`Web Services`->`SOAP/XML-RPC Roles`->`Add New Role`
+- OpenMage installation with admin user
+- Sample data (optional)
+- MageBridge module deployment
+- API Role (`MageBridge`) with full access
+- API User (`magebridge_api` / `ChangeTheAp1K3y`)
+- MageBridge configuration (auto-detect enabled, auto-configure IPs disabled)
 
-- Role Name: `MageBridge`
-- Resource Access: `All`
-
-## Create API User
-
-> System->`Web Services`->`SOAP/XML-RPC Users`->`Add New User`
-
-- User Name: `magebridge_api`
-- First Name: `Mage`
-- Last Name: `Bridge`
-- Email: `magebridge@example.com`
-- API Key: `ChangeTheAp1K3y`
-- User Role: `MageBridge`
-
-## Configuration
-
-> System->Configuration->Services->`MageBridge`
-
-### MageBridge Core - API
-
-> Once Joomla! accesses MageBridge, the API configuration is automatically configured
-
-- Joomla! API auto-detect: `Yes`
-- Auto-configure allowed IPs: `No`
+## Manual Configuration (Optional)
 
 ### MageBridge Core - Debugging
 
-> once you needs debug problems
+> System->Configuration->Services->`MageBridge`
+
+Enable these settings when debugging problems:
 
 - Debug Log: `Yes`
 - Print errors: `Yes`

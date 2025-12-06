@@ -1,30 +1,24 @@
 <?php
 
-/**
- * Joomla! module MageBridge: CMS Block
- *
- * @author	Yireo (info@yireo.com)
- * @package   MageBridge
- * @copyright Copyright 2016
- * @license   GNU Public License
- * @link	  https://www.yireo.com/
- */
+declare(strict_types=1);
 
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// Import the MageBridge autoloader
-require_once JPATH_SITE . '/components/com_magebridge/helpers/loader.php';
+use MageBridge\Module\MageBridgeCms\Site\Helper\CmsHelper;
 
-// Call the helper
-require_once(dirname(__FILE__) . '/helper.php');
+/** @var Joomla\Registry\Registry $params */
+
+// Get the helper from the service container
+/** @var \MageBridge\Module\MageBridgeCms\Site\Helper\CmsHelper $helper */
+$helper = Joomla\CMS\Factory::getContainer()->get(CmsHelper::class);
+
 $blockName = $params->get('block');
-$block = ModMageBridgeCMSHelper::build($params);
+$block = $helper::build($params);
 
-// Return false if empty
+// Return if empty
 if (empty($block)) {
-    return false;
+    return;
 }
 
 // Include the layout-file
-require(JModuleHelper::getLayoutPath('mod_magebridge_cms'));
+require Joomla\CMS\Helper\ModuleHelper::getLayoutPath('mod_magebridge_cms');

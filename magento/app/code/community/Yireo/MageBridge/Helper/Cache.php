@@ -1,26 +1,24 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
-
 class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
 {
     /**
-     * Helper-method to check whether caching is enabled
+     * Helper-method to check whether caching is enabled.
      *
-     * @access public
-     * @param null
      * @return bool
      */
     public function enabled()
     {
+        /** @phpstan-ignore-next-line */
         if (Mage::helper('magebridge')->isBridge() == false) {
             return false;
         }
@@ -28,18 +26,18 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Helper-method to return an unique identifier for the current page
+     * Helper-method to return an unique identifier for the current page.
      *
-     * @access public
-     * @param null
      * @return string
      */
     public function getPageId()
     {
         static $id;
         if (empty($id)) {
+            /** @phpstan-ignore-next-line */
             $id = Mage::getSingleton('magebridge/core')->getMetaData('request_id');
             if (empty($id)) {
+                /** @phpstan-ignore-next-line */
                 $currentUrl = Mage::helper('core/url')->getCurrentUrl();
                 $get = serialize($_GET);
                 $id = md5($currentUrl.$get);
@@ -49,11 +47,12 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Listen to the event core_block_abstract_to_html_before
+     * Listen to the event core_block_abstract_to_html_before.
      *
-     * @access public
-     * @parameter Varien_Event_Observer $observer
-     * @return $this
+     * @param string $block
+     * @param string $page
+     *
+     * @return bool
      */
     public function allowCaching($block, $page)
     {
@@ -73,6 +72,7 @@ class Yireo_MageBridge_Helper_Cache extends Mage_Core_Helper_Abstract
         ];
 
         // Fetch some extra conditions
+        /** @phpstan-ignore-next-line */
         $customerLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 
         // All catalog-pages for guest-users

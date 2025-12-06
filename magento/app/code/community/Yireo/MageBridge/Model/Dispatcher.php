@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -26,7 +26,7 @@ class Yireo_MageBridge_Model_Dispatcher
     public function getResult($name, $arguments = null)
     {
         // Construct the event
-        $event = 'joomla'.ucfirst($name);
+        $event = 'joomla'.ucfirst((string) $name);
         // Only continue if this event is listed here
         if (in_array($event, $this->getEvents())) {
             // Throw the event and return the result
@@ -38,9 +38,7 @@ class Yireo_MageBridge_Model_Dispatcher
     /*
      * Method to return all the allowed Joomla! events
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public function getEvents()
     {

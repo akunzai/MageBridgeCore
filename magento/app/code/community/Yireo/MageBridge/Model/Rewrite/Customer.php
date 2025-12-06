@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -16,11 +16,12 @@
 class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Customer
 {
     /**
-     * Customer authentication
+     * Customer authentication.
      *
-     * @param   string $username
-     * @param   string $password
-     * @return  bool
+     * @param string $username
+     * @param string $password
+     *
+     * @return bool
      */
     public function authenticate($username, $password)
     {
@@ -33,13 +34,20 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
         }
 
         // Continue when Joomla! Authentication is enabled
-        if ($rt == false && Mage::helper('magebridge')->allowJoomlaAuth() == true) {
-            Mage::getSingleton('magebridge/debug')->notice('Calling Joomla! authentication through API for customer '.$username);
+        /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
+        $magebridgeHelper = Mage::helper('magebridge');
+        if ($rt == false && $magebridgeHelper->allowJoomlaAuth() == true) {
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->notice('Calling Joomla! authentication through API for customer '.$username);
 
             // Perform the actual call through RPC to Joomla!
-            $api_result = Mage::getSingleton('magebridge/client')->call('magebridge.login', [$username, $password]);
+            /** @var Yireo_MageBridge_Model_Client $client */
+            $client = Mage::getSingleton('magebridge/client');
+            $api_result = $client->call('magebridge.login', [$username, $password]);
             if (is_array($api_result) && !empty($api_result)) {
                 // Load the customer
+                /** @var Mage_Customer_Model_Customer $customer */
                 $customer = Mage::getModel('customer/customer');
                 $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
@@ -60,6 +68,7 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
 
                     // Load the full record
                     $customer->setEmail($username);
+                    /** @var Mage_Customer_Model_Customer $customer */
                     $customer = Mage::getModel('customer/customer')->load($customer->getId());
                     $customer->setConfirmation(null);
                     $customer->save();

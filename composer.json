@@ -22,52 +22,59 @@
             "phpstan/extension-installer": true
         },
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.0",
+            "ext-intl": "8.1.0"
+        }
     },
     "repositories": [
         {
             "type": "package",
             "package": {
                 "name": "joomla/joomla-cms",
-                "version": "5.3.3",
+                "version": "5.4.1",
                 "dist": {
-                    "url": "https://github.com/joomla/joomla-cms/releases/download/5.3.3/Joomla_5.3.3-Stable-Full_Package.zip",
+                    "url": "https://github.com/joomla/joomla-cms/releases/download/5.4.1/Joomla_5.4.1-Stable-Full_Package.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/joomla/joomla-cms.git",
                     "type": "git",
-                    "reference": "tags/5.3.3"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "akunzai/joomla-stubs",
-                "version": "master",
-                "source": {
-                    "url": "https://github.com/akunzai/joomla-stubs.git",
-                    "type": "git",
-                    "reference": "master"
+                    "reference": "tags/5.4.1"
                 }
             }
         }
     ],
     "require": {
-        "php": ">=8.1",
-        "aydin-hassan/magento-core-composer-installer": "~2.1.0"
+        "php": ">=8.3",
+        "aydin-hassan/magento-core-composer-installer": "~2.1.0",
+        "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
-        "akunzai/joomla-stubs": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.89",
-        "joomla/joomla-cms": "5.3.3",
+        "friendsofphp/php-cs-fixer": "^3.91",
+        "joomla/joomla-cms": "5.4.1",
         "openmage/magento-lts": "^20.16",
-        "phpstan/phpstan": "^1.12"
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpunit/phpunit": "^12.5"
     },
     "extra": {
         "magento-root-dir": "vendor/openmage/magento-lts",
         "magento-core-package-type": "magento-source"
+    },
+    "autoload": {
+        "psr-4": {
+            "MageBridge\\Component\\MageBridge\\Site\\": "joomla/components/com_magebridge/src/",
+            "MageBridge\\Component\\MageBridge\\Administrator\\": "joomla/administrator/components/com_magebridge/src/",
+            "Yireo\\": "joomla/libraries/yireo/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MageBridge\\Tests\\": "tests/"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -76,7 +83,7 @@
             "php-cs-fixer fix --diff --dry-run"
         ],
         "fix": [
-            "php-cs-fixer -- fix"
+            "php-cs-fixer fix"
         ],
         "phpstan": [
             "phpstan analyse"
@@ -84,8 +91,14 @@
         "phpstan-baseline": [
             "phpstan analyse --generate-baseline"
         ],
-        "build": [
-            "./build.sh"
+        "test": [
+            "phpunit"
+        ],
+        "test-coverage": [
+            "phpunit --coverage-html coverage"
+        ],
+        "bundle": [
+            "./bundle.sh"
         ]
     }
 }

@@ -1,36 +1,37 @@
 <?php
 
 /**
- * Joomla! component MageBridge
+ * Joomla! component MageBridge.
  *
  * @author    Yireo (info@yireo.com)
- * @package   MageBridge
  * @copyright Copyright 2016
  * @license   GNU Public License
+ *
  * @link      https://www.yireo.com
  */
 
+use Joomla\CMS\Event\AbstractEvent;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherInterface;
+use Yireo\Helper\Helper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * MageBridge Product-connector class
- *
- * @package MageBridge
+ * MageBridge Product-connector class.
  */
 class MageBridgeConnectorProduct extends MageBridgeConnector
 {
     /**
-     * Singleton variable
+     * Singleton variable.
      */
     private static $_instance = null;
 
     /**
-     * Singleton method
-     *
-     * @param null
+     * Singleton method.
      *
      * @return MageBridgeConnectorProduct
      */
@@ -44,10 +45,10 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to do something on purchase
+     * Method to do something on purchase.
      *
      * @param string $sku
-     * @param \Joomla\CMS\User\User  $user
+     * @param Joomla\CMS\User\User $user
      * @param string $status
      *
      * @return mixed
@@ -67,12 +68,17 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         // Foreach of these conditions, run the product-plugins
         foreach ($conditions as $condition) {
             // Extract the parameters and make sure there's something to do
-            $actionsRegistry = YireoHelper::toRegistry($condition->actions);
+            $actionsRegistry = Helper::toRegistry($condition->actions);
             $actions         = $actionsRegistry->toArray();
 
             // Detect the deprecated connector-architecture
             if (!empty($condition->connector) && !empty($condition->connector_value)) {
-                $this->app->triggerEvent('onMageBridgeProductConvertField', [$condition, &$actions]);
+                $event = AbstractEvent::create(
+                    'onMageBridgeProductConvertField',
+                    ['subject' => $this, 'condition' => $condition, 'actions' => &$actions]
+                );
+                $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+                $dispatcher->dispatch('onMageBridgeProductConvertField', $event);
             }
 
             // With empty actions, there is nothing to do
@@ -82,7 +88,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
 
             // Check for the parameters
             if (!empty($condition->params)) {
-                $params           = YireoHelper::toRegistry($condition->params);
+                $params           = Helper::toRegistry($condition->params);
                 $allowed_statuses = $params->get('allowed_status', ['any']);
                 $expire_amount    = $params->get('expire_amount', 0);
                 $expire_unit      = $params->get('expire_unit', 'day');
@@ -98,7 +104,12 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
             }
 
             // Run the product plugins
-            $this->app->triggerEvent('onMageBridgeProductPurchase', [$actions, $user, $status, $sku]);
+            $event = AbstractEvent::create(
+                'onMageBridgeProductPurchase',
+                ['subject' => $this, 'actions' => $actions, 'user' => $user, 'status' => $status, 'sku' => $sku]
+            );
+            $dispatcher = Factory::getContainer()->get(DispatcherInterface::class);
+            $dispatcher->dispatch('onMageBridgeProductPurchase', $event);
 
             // Log this event
             $this->saveLog($user->id, $sku, $expire_unit, $expire_amount);
@@ -106,12 +117,12 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to save the actions of this connector
+     * Method to save the actions of this connector.
      *
-     * @param int    $user_id
+     * @param int $user_id
      * @param string $sku
      * @param string $expire_unit
-     * @param int    $expire_amount
+     * @param int $expire_amount
      *
      * @return mixed
      */
@@ -139,12 +150,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
         return true;
     }
 
-    /**
-     * @param $userId
-     * @param $sku
-     * @param $createDate
-     * @param $expireDate
-     */
     protected function insertLogRecord($userId, $sku, $createDate, $expireDate)
     {
         $log              = (object) null;
@@ -158,7 +163,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Overload methods to add an argument to it
+     * Overload methods to add an argument to it.
      */
     public function getConnectors($type = null)
     {
@@ -166,8 +171,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnector($name)
@@ -176,8 +179,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $name
-     *
      * @return object
      */
     public function getConnectorObject($name)
@@ -186,8 +187,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @param $file
-     *
      * @return string
      */
     public function getPath($file)
@@ -196,7 +195,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * @return \Joomla\Registry\Registry
+     * @return Joomla\Registry\Registry
      */
     public function getParams()
     {
@@ -204,7 +203,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current conditions
+     * Method to get the current conditions.
      *
      * @param string $sku
      *
@@ -250,7 +249,7 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
     }
 
     /**
-     * Method to get the current conditions
+     * Method to get the current conditions.
      *
      * @param string $sku
      * @param string $rule

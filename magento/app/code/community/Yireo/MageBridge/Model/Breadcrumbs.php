@@ -1,12 +1,12 @@
 <?php
 
 /**
- * MageBridge
+ * MageBridge.
  *
  * @author Yireo
- * @package MageBridge
  * @copyright Copyright 2016
  * @license Open Source License
+ *
  * @link https://www.yireo.com
  */
 
@@ -18,15 +18,16 @@ class Yireo_MageBridge_Model_Breadcrumbs
     /*
      * Method to get the result of a specific API-call
      *
-     * @access public
-     * @param null
-     * @return array
+     * @access public @return array
      */
     public static function getBreadcrumbs()
     {
         // Initializing caching
-        if (Mage::app()->useCache('block_html') && Mage::helper('magebridge/cache')->enabled()) {
-            $uniquePageId = Mage::helper('magebridge/cache')->getPageId();
+        $cacheId = null;
+        /** @var Yireo_MageBridge_Helper_Cache $cacheHelper */
+        $cacheHelper = Mage::helper('magebridge/cache');
+        if (Mage::app()->useCache('block_html') && $cacheHelper->enabled()) {
+            $uniquePageId = $cacheHelper->getPageId();
             $cacheId = 'magebridge_breadcrumbs_'.$uniquePageId;
             if ($cache = Mage::app()->loadCache($cacheId)) {
                 $results = unserialize($cache);
@@ -37,17 +38,23 @@ class Yireo_MageBridge_Model_Breadcrumbs
         }
 
         try {
-            $controller = Mage::getSingleton('magebridge/core')->getController();
+            /** @var Yireo_MageBridge_Model_Core $core */
+            $core = Mage::getSingleton('magebridge/core');
+            $controller = $core->getController();
             $controller->getResponse()->clearBody();
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to load controller: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to load controller: '.$e->getMessage());
             return false;
         }
 
         try {
             $block = $controller->getAction()->getLayout()->getBlock('breadcrumbs');
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to get breadcrumbs: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to get breadcrumbs: '.$e->getMessage());
             return false;
         }
 
@@ -57,14 +64,18 @@ class Yireo_MageBridge_Model_Breadcrumbs
                 $crumbs = $block->getCrumbs();
 
                 // Save to cache
-                if (Mage::app()->useCache('block_html') && Mage::helper('magebridge/cache')->enabled()) {
+                /** @var Yireo_MageBridge_Helper_Cache $cacheHelper */
+                $cacheHelper = Mage::helper('magebridge/cache');
+                if (Mage::app()->useCache('block_html') && $cacheHelper->enabled() && !empty($cacheId)) {
                     Mage::app()->saveCache(serialize($crumbs), $cacheId, ['block_html'], 86400);
                 }
 
                 return $crumbs;
             }
         } catch (Exception $e) {
-            Mage::getSingleton('magebridge/debug')->error('Failed to set block: '.$e->getMessage());
+            /** @var Yireo_MageBridge_Model_Debug $debug */
+            $debug = Mage::getSingleton('magebridge/debug');
+            $debug->error('Failed to set block: '.$e->getMessage());
             return false;
         }
     }

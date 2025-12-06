@@ -1,0 +1,15 @@
+<?php
+/**
+ * Joomla! component MageBridge.
+ *
+ * @author Yireo (info@yireo.com)
+ * @copyright Copyright 2016
+ * @license GNU Public License
+ *
+ * @link https://www.yireo.com
+ */
+defined('_JEXEC') or die('Restricted access');
+
+/** @var \MageBridge\Component\MageBridge\Administrator\View\Products\HtmlView $this */
+?>
+<?php echo $this->lists['state']; ?>
