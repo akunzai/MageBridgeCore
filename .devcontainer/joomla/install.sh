@@ -18,7 +18,7 @@ dc_exec() {
 # shellcheck disable=1091
 [[ -f "${SCRIPT_DIR}/.env" ]] && source "${SCRIPT_DIR}/.env"
 
-# Install CA certificate for SSL connections to OpenMage
+# Install CA certificate for SSL connections
 if dc_exec joomla test -f /run/secrets/ca.pem; then
   echo "Installing CA certificate for MageBridge SSL connections ..."
   dc_exec joomla cp /run/secrets/ca.pem /usr/local/share/ca-certificates/magebridge-ca.crt
