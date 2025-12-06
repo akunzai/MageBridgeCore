@@ -42,7 +42,7 @@ docker compose exec joomla \
 |Logs|55|Pagination testing (3 pages with default 20/page)|
 |Products|35|Pagination testing (2 pages)|
 |Stores|30|Pagination testing (2 pages)|
-|URLs|25|Pagination testing (2 pages)|
+|URLs|40|Pagination testing (2 pages)|
 |Usergroups|22|Pagination testing (2 pages)|
 
 ### Features
