@@ -14,7 +14,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Bundle package
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ctype, curl, dom, gd, hash, iconv, intl, json, libxml, mbstring, pdo, simplexml, soap, zip
+          coverage: none
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+      - name: Set up Composer
+        run: composer config -g repositories.firegento composer https://packages.firegento.com
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Bundle extensions
         run: ./bundle.sh
       - name: Pre-release
         uses: softprops/action-gh-release@v2
