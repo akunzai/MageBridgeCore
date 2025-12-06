@@ -28,9 +28,6 @@
   // https://containers.dev/features
   "features": {
     "ghcr.io/danzilberdan/devcontainers/opencode:0": {},
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "system"
-    },
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
       "moby": false
     }
