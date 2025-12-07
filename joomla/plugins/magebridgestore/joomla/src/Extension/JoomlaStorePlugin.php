@@ -12,6 +12,7 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Event\SubscriberInterface;
+use Yireo\Helper\PathHelper;
 
 /**
  * MageBridge Store Plugin - Joomla Language.
@@ -112,7 +113,7 @@ class JoomlaStorePlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Add the plugin-form to main form
-        $formFile = JPATH_SITE . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
+        $formFile = PathHelper::getSitePath() . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
         if (file_exists($formFile)) {
             $form->loadFile($formFile, false);
         }

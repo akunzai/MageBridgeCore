@@ -7,7 +7,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\Form\Field\RadioField;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 // FIXME: JLoader::import() fails here
 // include_once JPATH_LIBRARIES . '/joomla/form/fields/radio.php';

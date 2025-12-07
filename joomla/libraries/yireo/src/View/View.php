@@ -15,6 +15,7 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Yireo\Exception\View\ModelNotFound;
 use Yireo\Helper\Helper;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo View.
@@ -214,7 +215,7 @@ class View extends CommonView
 
         if (!empty($this->item->params)) {
             $option = $this->getConfig('option');
-            $componentPath = JPATH_ADMINISTRATOR . '/components/' . $option;
+            $componentPath = PathHelper::getAdministratorPath() . '/components/' . $option;
             if (file_exists($componentPath . '/models/' . $this->_name . '.xml')) {
                 $file   = $componentPath . '/models/' . $this->_name . '.xml';
                 $params = Helper::toRegistry($this->item->params, $file);
@@ -521,7 +522,7 @@ class View extends CommonView
 
         if (empty($model)) {
             /** @phpstan-ignore-next-line */
-            BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/' . $this->getConfig('option') . '/models');
+            BaseDatabaseModel::addIncludePath(PathHelper::getAdministratorPath() . '/components/' . $this->getConfig('option') . '/models');
 
             $classPrefix = ucfirst(preg_replace('/^com_/', '', $this->getConfig('option'))) . 'Model';
             $classPrefix = preg_replace('/[^A-Z0-9_]/i', '', $classPrefix);
@@ -616,7 +617,7 @@ class View extends CommonView
         ];
 
         foreach ($paths as $path) {
-            if (file_exists(JPATH_SITE . $path)) {
+            if (file_exists(PathHelper::getSitePath() . $path)) {
                 return '<img src="' . $path . '" alt="' . $name . '" />';
             }
         }

@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use Yireo\Helper\Helper;
 
 // No direct access
@@ -180,7 +181,7 @@ class MageBridgeConnector
      */
     protected function _getPath($type, $filename)
     {
-        $path = JPATH_SITE . '/components/com_magebridge/connectors/' . $type . '/' . $filename;
+        $path = PathHelper::getSitePath() . '/components/com_magebridge/connectors/' . $type . '/' . $filename;
 
         if (file_exists($path) && is_file($path)) {
             return $path;
@@ -198,7 +199,7 @@ class MageBridgeConnector
      */
     protected function checkComponent($component)
     {
-        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
+        if (is_dir(PathHelper::getAdministratorPath() . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
             return true;
         }
 

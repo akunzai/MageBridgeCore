@@ -8,7 +8,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 // MageBridge classes are loaded via PSR-4 autoloading
 

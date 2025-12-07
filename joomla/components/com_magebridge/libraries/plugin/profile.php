@@ -10,6 +10,7 @@
  * @link https://www.yireo.com
  */
 
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Library\Plugin;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 
@@ -140,7 +141,7 @@ class MageBridgePluginProfile extends Plugin
      */
     protected function getPath($filename)
     {
-        $path = JPATH_SITE . '/plugins/magebridgeprofile/' . $this->pluginName . '/' . $filename;
+        $path = PathHelper::getSitePath() . '/plugins/magebridgeprofile/' . $this->pluginName . '/' . $filename;
         if (file_exists($path) && is_file($path)) {
             return $path;
         } else {

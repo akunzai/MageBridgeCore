@@ -12,6 +12,7 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormFactoryInterface;
 use Joomla\CMS\Form\FormHelper;
 use Yireo\Helper\Helper;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo Model Trait: Formable - allows models to have a form.
@@ -117,10 +118,10 @@ trait Formable
         $formName = $this->getFormName();
 
         $paths = [
-            JPATH_ADMINISTRATOR . '/components/' . $option . '/forms/' . $formName . '.xml',
-            JPATH_ADMINISTRATOR . '/components/' . $option . '/models/' . $formName . '.xml',
-            JPATH_SITE . '/components/' . $option . '/forms/' . $formName . '.xml',
-            JPATH_SITE . '/components/' . $option . '/models/' . $formName . '.xml',
+            PathHelper::getAdministratorPath() . '/components/' . $option . '/forms/' . $formName . '.xml',
+            PathHelper::getAdministratorPath() . '/components/' . $option . '/models/' . $formName . '.xml',
+            PathHelper::getSitePath() . '/components/' . $option . '/forms/' . $formName . '.xml',
+            PathHelper::getSitePath() . '/components/' . $option . '/models/' . $formName . '.xml',
         ];
 
         foreach ($paths as $path) {

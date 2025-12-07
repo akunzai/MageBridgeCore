@@ -9,6 +9,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Yireo\Controller\Controller;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo Dispatcher.
@@ -29,7 +30,7 @@ class Dispatcher
 
         // Check for a corresponding view-controller
         if (!empty($view)) {
-            $controllerFile = JPATH_ADMINISTRATOR . '/components/' . $option . '/controllers/' . $view . '.php';
+            $controllerFile = PathHelper::getAdministratorPath() . '/components/' . $option . '/controllers/' . $view . '.php';
 
             if (file_exists($controllerFile)) {
                 require_once $controllerFile;
@@ -43,7 +44,7 @@ class Dispatcher
 
         // Return to the default component-controller
         if (empty($controller)) {
-            $controllerFile = JPATH_ADMINISTRATOR . '/components/' . $option . '/controller.php';
+            $controllerFile = PathHelper::getAdministratorPath() . '/components/' . $option . '/controller.php';
             if (file_exists($controllerFile)) {
                 require_once $controllerFile;
                 $controllerClass = $prefix . 'Controller';

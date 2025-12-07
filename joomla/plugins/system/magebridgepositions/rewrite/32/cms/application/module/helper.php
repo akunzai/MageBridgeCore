@@ -18,10 +18,23 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
 use MageBridge\Component\MageBridge\Site\Helper\TemplateHelper;
 
-defined('JPATH_PLATFORM') or die;
+// Joomla v6 compatibility check
+if (!defined('JPATH_PLATFORM')) {
+    // In Joomla v6, JPATH_PLATFORM has been removed, but this file can still be used
+    if (defined('JPATH_SITE')) {
+        define('JPATH_PLATFORM', JPATH_SITE);
+    } else {
+        // Fallback
+        define('JPATH_PLATFORM', realpath(__DIR__ . '/../../../../../../'));
+    }
+}
 
 if (!defined('JPATH_BASE')) {
-    define('JPATH_BASE', JPATH_SITE);
+    if (defined('JPATH_SITE')) {
+        define('JPATH_BASE', JPATH_SITE);
+    } else {
+        define('JPATH_BASE', realpath(__DIR__ . '/../../../../../../'));
+    }
 }
 
 define('MAGEBRIDGE_MODULEHELPER_OVERRIDE', true);

@@ -174,7 +174,7 @@ class RegisterHelper extends ModuleHelper
         }
 
         // Try to load from the module's src directory if autoloader hasn't loaded it yet
-        $helperPath = JPATH_SITE . '/modules/' . $moduleName . '/src/Helper/' . $helperClass . '.php';
+        $helperPath = PathHelper::getModulesPath() . '/' . $moduleName . '/src/Helper/' . $helperClass . '.php';
 
         if (!is_file($helperPath)) {
             return null;

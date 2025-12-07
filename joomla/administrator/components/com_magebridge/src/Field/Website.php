@@ -11,7 +11,7 @@ use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Administrator\Helper\Widget;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 /**
  * Form Field-class for selecting Magento websites.

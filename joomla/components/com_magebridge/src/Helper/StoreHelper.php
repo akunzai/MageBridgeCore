@@ -13,8 +13,8 @@ use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Helper\MageBridgeHelper;
 
 // Load legacy connector classes
-require_once JPATH_SITE . '/components/com_magebridge/connector.php';
-require_once JPATH_SITE . '/components/com_magebridge/connectors/store.php';
+require_once PathHelper::getSitePath() . '/components/com_magebridge/connector.php';
+require_once PathHelper::getSitePath() . '/components/com_magebridge/connectors/store.php';
 
 final class StoreHelper
 {

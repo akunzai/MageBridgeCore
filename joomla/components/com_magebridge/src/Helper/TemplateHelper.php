@@ -606,14 +606,15 @@ final class TemplateHelper
             'templates/' . $template . '/html/com_magebridge/' . $type . '/' . $file,
         ];
 
-        if ($file === 'default.css' && file_exists(JPATH_SITE . '/media/com_magebridge/' . $type . '/default.' . $template . '.css')) {
+        $sitePath = PathHelper::getSitePath();
+        if ($file === 'default.css' && file_exists($sitePath . '/media/com_magebridge/' . $type . '/default.' . $template . '.css')) {
             $paths[] = 'media/com_magebridge/' . $type . '/default.' . $template . '.css';
         }
 
         $paths[] = 'media/com_magebridge/' . $type . '/' . $file;
 
         foreach ($paths as $relativePath) {
-            $full = JPATH_SITE . '/' . $relativePath;
+            $full = $sitePath . '/' . $relativePath;
 
             if (file_exists($full)) {
                 return $root . $relativePath;

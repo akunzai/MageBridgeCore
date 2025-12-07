@@ -11,7 +11,7 @@ use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 use MageBridge\Component\MageBridge\Site\Model\Register;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 // MageBridge classes are loaded via PSR-4 autoloading
 

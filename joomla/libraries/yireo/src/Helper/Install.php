@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo Install Helper.
@@ -104,7 +105,7 @@ class Install
         $app->enqueueMessage(sprintf(Text::_('LIB_YIREO_HELPER_INSTALL_EXTENSION_SUCCESS', $label)), 'notice');
 
         // Clean the Joomla! plugins cache
-        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
+        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => PathHelper::getAdministratorPath() . '/cache'];
         $cacheControllerFactory = Factory::getContainer()->get(CacheControllerFactoryInterface::class);
         $cache = $cacheControllerFactory->createCacheController('callback', $options);
         $cache->clean();
@@ -173,7 +174,7 @@ class Install
 
     public static function hasLibraryInstalled($library)
     {
-        if (is_dir(JPATH_SITE . '/libraries/' . $library)) {
+        if (is_dir(PathHelper::getSitePath() . '/libraries/' . $library)) {
             $query = 'SELECT `name` FROM `#__extensions` WHERE `type`="library" AND `element`="' . $library . '"';
             $db = Factory::getContainer()->get(DatabaseInterface::class);
             $db->setQuery($query);
@@ -186,7 +187,7 @@ class Install
 
     public static function hasPluginInstalled($plugin, $group)
     {
-        if (file_exists(JPATH_SITE . '/plugins/' . $group . '/' . $plugin . '/' . $plugin . '.xml')) {
+        if (file_exists(PathHelper::getSitePath() . '/plugins/' . $group . '/' . $plugin . '/' . $plugin . '.xml')) {
             $query = 'SELECT `name` FROM `#__extensions` WHERE `type`="plugin" AND `element`="' . $plugin . '" AND `folder`="' . $group . '"';
             $db = Factory::getContainer()->get(DatabaseInterface::class);
             $db->setQuery($query);
@@ -227,7 +228,7 @@ class Install
         }
 
         // Clean the Joomla! plugins cache
-        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => JPATH_ADMINISTRATOR . '/cache'];
+        $options = ['defaultgroup' => 'com_plugins', 'cachebase' => PathHelper::getAdministratorPath() . '/cache'];
         $cacheControllerFactory = Factory::getContainer()->get(CacheControllerFactoryInterface::class);
         $cache = $cacheControllerFactory->createCacheController('callback', $options);
         $cache->clean();

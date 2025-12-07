@@ -5,7 +5,7 @@ namespace MageBridge\Component\MageBridge\Administrator\Field;
 use Joomla\CMS\HTML\HTMLHelper;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 /**
  * Form Field-class.

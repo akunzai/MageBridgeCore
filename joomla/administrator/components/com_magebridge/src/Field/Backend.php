@@ -3,7 +3,7 @@
 namespace MageBridge\Component\MageBridge\Administrator\Field;
 
 // Check to ensure this file is included in Joomla!
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 // MageBridge classes are loaded via PSR-4 autoloading
 

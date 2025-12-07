@@ -17,6 +17,7 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\Path;
 use Joomla\Input\Input;
 use Yireo\Helper\Helper;
+use Yireo\Helper\PathHelper;
 use Yireo\Model\Trait\Configurable;
 
 /**
@@ -175,7 +176,7 @@ class CommonView extends AbstractView
             $title   = $pretext . ' ' . $title;
         }
 
-        $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
+        $icon = file_exists(PathHelper::getSitePath() . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
         ToolbarHelper::title($component_title . ': ' . $title, $icon);
 
         return;
@@ -202,7 +203,7 @@ class CommonView extends AbstractView
             $option     = $this->getConfig('option');
             $titleLabel = strtoupper($option) . '_VIEW_' . strtoupper($title);
 
-            $adminComponentPath = JPATH_ADMINISTRATOR . '/components/' . $option;
+            $adminComponentPath = PathHelper::getAdministratorPath() . '/components/' . $option;
             $hasView            = is_dir($adminComponentPath . '/tmpl/' . $view)
                 || is_dir($adminComponentPath . '/views/' . $view);
 
@@ -233,36 +234,37 @@ class CommonView extends AbstractView
         $wa       = $this->doc->getWebAssetManager();
         $prefix   = ($this->app->isClient('site')) ? 'site-' : 'backend-';
         $template = $this->app->getTemplate();
+        $sitePath = PathHelper::getSitePath();
 
-        if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet)) {
+        if (file_exists($sitePath . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet)) {
             $url = Uri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $prefix . $stylesheet;
             $wa->registerAndUseStyle('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet)) {
+        if (file_exists($sitePath . '/media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet)) {
             $url = Uri::root() . 'media/' . $this->getConfig('option') . '/css/' . $prefix . $stylesheet;
             $wa->registerAndUseStyle('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet)) {
+        if (file_exists($sitePath . '/templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet)) {
             $url = Uri::root() . 'templates/' . $template . '/css/' . $this->getConfig('option') . '/' . $stylesheet;
             $wa->registerAndUseStyle('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/css/' . $stylesheet)) {
+        if (file_exists($sitePath . '/media/' . $this->getConfig('option') . '/css/' . $stylesheet)) {
             $url = Uri::root() . 'media/' . $this->getConfig('option') . '/css/' . $stylesheet;
             $wa->registerAndUseStyle('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/lib_yireo/css/' . $stylesheet)) {
+        if (file_exists($sitePath . '/media/lib_yireo/css/' . $stylesheet)) {
             $url = Uri::root() . 'media/lib_yireo/css/' . $stylesheet;
             $wa->registerAndUseStyle('yireo-' . md5($url), $url);
 
@@ -280,36 +282,37 @@ class CommonView extends AbstractView
         $wa       = $this->doc->getWebAssetManager();
         $prefix   = ($this->app->isClient('site')) ? 'site-' : 'backend-';
         $template = $this->app->getTemplate();
+        $sitePath = PathHelper::getSitePath();
 
-        if (file_exists(JPATH_SITE . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script)) {
+        if (file_exists($sitePath . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script)) {
             $url = Uri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $prefix . $script;
             $wa->registerAndUseScript('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/js/' . $prefix . $script)) {
+        if (file_exists($sitePath . '/media/' . $this->getConfig('option') . '/js/' . $prefix . $script)) {
             $url = Uri::root() . 'media/' . $this->getConfig('option') . '/js/' . $prefix . $script;
             $wa->registerAndUseScript('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script)) {
+        if (file_exists($sitePath . '/templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script)) {
             $url = Uri::root() . 'templates/' . $template . '/js/' . $this->getConfig('option') . '/' . $script;
             $wa->registerAndUseScript('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/js/' . $script)) {
+        if (file_exists($sitePath . '/media/' . $this->getConfig('option') . '/js/' . $script)) {
             $url = Uri::root() . 'media/' . $this->getConfig('option') . '/js/' . $script;
             $wa->registerAndUseScript('yireo-' . md5($url), $url);
 
             return;
         }
 
-        if (file_exists(JPATH_SITE . '/media/lib_yireo/js/' . $script)) {
+        if (file_exists($sitePath . '/media/lib_yireo/js/' . $script)) {
             $url = Uri::root() . 'media/lib_yireo/js/' . $script;
             $wa->registerAndUseScript('yireo-' . md5($url), $url);
 
@@ -364,36 +367,41 @@ class CommonView extends AbstractView
         $view   = $this->getConfig('view');
 
         // Construct the paths where to locate a specific template
+        $adminPath = PathHelper::getAdministratorPath();
+        $libPath = PathHelper::getLibrariesPath();
+        $sitePath = PathHelper::getSitePath();
+        $themesPath = PathHelper::getThemesPath();
+
         if ($this->app->isClient('site') == false) {
             // Reset the template-paths
             $this->templatePaths = [];
 
             // Local layout
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/tmpl/' . $view, true);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/views/' . $view . '/tmpl', true);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/tmpl/' . $view, true);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/views/' . $view . '/tmpl', true);
 
             // Library defaults
-            $this->addNewTemplatePath(JPATH_LIBRARIES . '/yireo/view/' . $view, false);
-            $this->addNewTemplatePath(JPATH_LIBRARIES . '/yireo/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($libPath . '/yireo/view/' . $view, false);
+            $this->addNewTemplatePath($libPath . '/yireo/view/' . $this->_viewParent, false);
 
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/lib/view/' . $this->_viewParent, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/libraries/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/lib/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/libraries/view/' . $this->_viewParent, false);
         } else {
             $template = $this->app->getTemplate();
 
             // Local layout
-            $this->addNewTemplatePath(JPATH_SITE . '/components/' . $option . '/tmpl/' . $view, true);
-            $this->addNewTemplatePath(JPATH_SITE . '/components/' . $option . '/views/' . $view . '/tmpl', true);
+            $this->addNewTemplatePath($sitePath . '/components/' . $option . '/tmpl/' . $view, true);
+            $this->addNewTemplatePath($sitePath . '/components/' . $option . '/views/' . $view . '/tmpl', true);
 
             // Template override
-            $this->addNewTemplatePath(JPATH_THEMES . '/' . $template . '/html/lib_yireo/' . $view, true);
-            $this->addNewTemplatePath(JPATH_THEMES . '/' . $template . '/html/' . $option . '/' . $view, true);
+            $this->addNewTemplatePath($themesPath . '/' . $template . '/html/lib_yireo/' . $view, true);
+            $this->addNewTemplatePath($themesPath . '/' . $template . '/html/' . $option . '/' . $view, true);
 
             // Library defaults
-            $this->addNewTemplatePath(JPATH_THEMES . '/' . $template . '/html/lib_yireo/' . $this->_viewParent, true);
-            $this->addNewTemplatePath(JPATH_LIBRARIES . '/yireo/view/' . $this->_viewParent, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/lib/view/' . $this->_viewParent, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR . '/components/' . $option . '/libraries/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($themesPath . '/' . $template . '/html/lib_yireo/' . $this->_viewParent, true);
+            $this->addNewTemplatePath($libPath . '/yireo/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/lib/view/' . $this->_viewParent, false);
+            $this->addNewTemplatePath($adminPath . '/components/' . $option . '/libraries/view/' . $this->_viewParent, false);
         }
 
         // Default file

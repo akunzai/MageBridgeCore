@@ -16,6 +16,7 @@ use Laminas\Json\Server\Request as JsonServerRequest;
 use Laminas\Json\Server\Response as JsonServerResponse;
 use Laminas\Json\Server\Server as JsonServer;
 use MageBridge\Component\MageBridge\Site\Helper\EncryptionHelper;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Library\Api as MageBridgeApi;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
@@ -94,7 +95,7 @@ class JsonrpcController extends BaseController
             return;
         }
 
-        $autoloadPath = JPATH_SITE . '/components/com_magebridge/vendor/autoload.php';
+        $autoloadPath = PathHelper::getSitePath() . '/components/com_magebridge/vendor/autoload.php';
 
         if (!class_exists(JsonServer::class, false)) {
             if (!is_file($autoloadPath)) {

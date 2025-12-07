@@ -37,6 +37,7 @@ use MageBridge\Component\MageBridge\Site\Model\Bridge\Headers;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 use MageBridge\Component\MageBridge\Site\Model\Proxy\Proxy;
 use MageBridge\Component\MageBridge\Site\Model\User\SsoModel;
+use Yireo\Helper\PathHelper;
 
 defined('_JEXEC') or die('Restricted access');
 
@@ -298,7 +299,7 @@ class MageBridge extends CMSPlugin
         if ($this->app->isClient('site')) {
             return;
         }
-        Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_magebridge/fields');
+        Form::addFieldPath(PathHelper::getAdministratorPath() . '/components/com_magebridge/fields');
     }
 
     /**
@@ -1065,7 +1066,7 @@ class MageBridge extends CMSPlugin
 
         $overrides = [
             'JHtmlBehavior' => [
-                'original' => JPATH_LIBRARIES . '/cms/html/behavior.php',
+                'original' => PathHelper::getLibrariesPath() . '/cms/html/behavior.php',
                 'override' => dirname(__DIR__, 2) . '/overrides/html/behavior.php',
             ],
         ];
