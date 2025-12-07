@@ -10,6 +10,7 @@ use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Dispatcher\ComponentDispatcher;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 
 /**
  * Dispatcher for the MageBridge site component.
@@ -31,8 +32,9 @@ class Dispatcher extends ComponentDispatcher
     protected function loadLanguage(): void
     {
         $language = $this->app->getLanguage();
-        $language->load('com_magebridge', JPATH_SITE)
-            || $language->load('com_magebridge', JPATH_SITE . '/components/com_magebridge');
+        $sitePath = PathHelper::getSitePath();
+        $language->load('com_magebridge', $sitePath)
+            || $language->load('com_magebridge', $sitePath . '/components/com_magebridge');
     }
 
     public function dispatch(): void

@@ -15,6 +15,7 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\Input\Input;
 use MageBridge\Component\MageBridge\Site\Library\MageBridge;
 use MageBridge\Component\MageBridge\Site\Helper\DebugHelper;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Model\Register;
@@ -36,9 +37,7 @@ class BaseHtmlView extends AbstractView
         parent::__construct($config);
 
         $viewName      = strtolower($this->getName());
-        $componentPath = \defined('JPATH_COMPONENT')
-            ? (string) constant('JPATH_COMPONENT')
-            : JPATH_SITE . '/components/com_magebridge';
+        $componentPath = PathHelper::getComponentPath();
         $templatePath  = $componentPath . '/tmpl/' . $viewName;
 
         if (is_dir($templatePath)) {
@@ -139,13 +138,17 @@ class BaseHtmlView extends AbstractView
     {
         /** @var CMSApplication */
         $application = Factory::getApplication();
-        $file        = JPATH_BASE . '/templates/' . $application->getTemplate() . '/html/com_magebridge/fixes.php';
+        $basePath = PathHelper::getBasePath();
+        $sitePath = PathHelper::getSitePath();
+        $file        = $basePath . '/templates/' . $application->getTemplate() . '/html/com_magebridge/fixes.php';
 
         if (!file_exists($file)) {
-            $file = JPATH_SITE . '/components/com_magebridge/tmpl/fixes.php';
+            $file = $sitePath . '/components/com_magebridge/tmpl/fixes.php';
         }
 
-        require_once $file;
+        if (file_exists($file)) {
+            require_once $file;
+        }
 
         return $html;
     }

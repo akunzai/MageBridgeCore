@@ -9,6 +9,7 @@ use Joomla\CMS\Dispatcher\ComponentDispatcher;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
+use MageBridge\Component\MageBridge\Administrator\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 
 /**
@@ -29,8 +30,9 @@ class Dispatcher extends ComponentDispatcher
     protected function loadLanguage(): void
     {
         $language = $this->app->getLanguage();
-        $language->load('com_magebridge', JPATH_ADMINISTRATOR)
-            || $language->load('com_magebridge', JPATH_ADMINISTRATOR . '/components/' . $this->option);
+        $adminPath = PathHelper::getAdministratorPath();
+        $language->load('com_magebridge', $adminPath)
+            || $language->load('com_magebridge', $adminPath . '/components/' . $this->option);
     }
 
     /**

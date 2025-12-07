@@ -10,6 +10,7 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseInterface;
 use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 
 \defined('MAGEBRIDGE_DEBUG_TRACE') || \define('MAGEBRIDGE_DEBUG_TRACE', 1);
@@ -300,7 +301,7 @@ final class DebugModel
         $logPath = $config->get('log_path');
 
         if (empty($logPath)) {
-            $logPath = JPATH_SITE . '/logs';
+            $logPath = PathHelper::getLogPath();
         }
 
         $file = $logPath . '/magebridge.txt';

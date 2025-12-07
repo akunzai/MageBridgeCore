@@ -38,7 +38,7 @@ class AjaxHelper
         $app = Factory::getApplication();
         $template = $app->getTemplate();
 
-        if (file_exists(JPATH_SITE . '/templates/' . $template . '/images/com_magebridge/loader.gif')) {
+        if (file_exists(PathHelper::getSitePath() . '/templates/' . $template . '/images/com_magebridge/loader.gif')) {
             return 'templates/' . $template . '/images/com_magebridge/loader.gif';
         }
 

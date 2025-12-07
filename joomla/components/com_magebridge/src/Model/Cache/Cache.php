@@ -8,6 +8,7 @@ defined('_JEXEC') or die;
 
 use Joomla\Filesystem\Folder;
 use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use RuntimeException;
 
@@ -44,7 +45,7 @@ class Cache
             : (string) UrlHelper::getRequest();
 
         $this->cacheName    = $name . '_' . md5($this->request);
-        $this->cacheFolder  = JPATH_SITE . '/cache/com_magebridge';
+        $this->cacheFolder  = PathHelper::getCachePath() . '/com_magebridge';
         $this->cacheFile    = $this->cacheFolder . '/' . $this->cacheName . '.php';
 
         $configuredCacheTime = ConfigModel::load('cache_time');
@@ -149,4 +150,5 @@ class Cache
     {
         return (bool) ConfigModel::load('enable_cache');
     }
+
 }
