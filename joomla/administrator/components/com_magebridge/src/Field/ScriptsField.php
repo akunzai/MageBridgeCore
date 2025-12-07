@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MageBridge\Component\MageBridge\Administrator\Field;
 
-defined('JPATH_BASE') or die();
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Cache\CacheControllerFactoryInterface;
 use Joomla\CMS\Factory;
