@@ -4,7 +4,7 @@
     <name>MageBridge</name>
     <author>Charley Wu</author>
     <creationDate>October 2022</creationDate>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <packagename>magebridge</packagename>
 
     <files folder="packages">

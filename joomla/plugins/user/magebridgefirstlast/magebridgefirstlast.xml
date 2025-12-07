@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 3 or later</license>
 	<authorEmail>jisse@yireo.com</authorEmail>
 	<authorUrl>www.yireo.com</authorUrl>
-	<version>3.0.0</version>
+	<version>3.1.0</version>
 	<description>PLG_SYSTEM_MAGEBRIDGEFIRSTLAST_XML_DESCRIPTION</description>
 
 	<namespace path="src">MageBridge\Plugin\User\MageBridgeFirstLast</namespace>
