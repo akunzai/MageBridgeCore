@@ -11,6 +11,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Version;
+use MageBridge\Component\MageBridge\Administrator\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Administrator\Helper\Update;
 use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Administrator\Model\StoresModel;
@@ -94,7 +95,7 @@ class CheckModel extends CommonModel
         $this->addResult($group, 'Log path writable', $status, Text::_('COM_MAGEBRIDGE_CHECK_LOG'));
 
         // Check Cache writable
-        $cachePath = JPATH_SITE . '/cache';
+        $cachePath = PathHelper::getSitePath() . '/cache';
         $status = is_writable($cachePath) ? self::CHECK_OK : self::CHECK_WARNING;
         $this->addResult($group, 'Cache writable', $status, Text::_('COM_MAGEBRIDGE_CHECK_CACHE'));
     }
@@ -192,33 +193,33 @@ class CheckModel extends CommonModel
         }
 
         if (function_exists('apache_get_modules') === false && function_exists('is_writeable')) {
-            $this->addResult('compatibility', 'File permissions', is_writable(JPATH_SITE) ? self::CHECK_OK : self::CHECK_WARNING, Text::_('COM_MAGEBRIDGE_CHECK_FILE_PERMISSIONS'));
+            $this->addResult('compatibility', 'File permissions', is_writable(PathHelper::getSitePath()) ? self::CHECK_OK : self::CHECK_WARNING, Text::_('COM_MAGEBRIDGE_CHECK_FILE_PERMISSIONS'));
         }
     }
 
     public function doExtensionChecks(): void
     {
-        if (file_exists(JPATH_SITE . '/plugins/system/rokmoduleorder.php')) {
+        if (file_exists(PathHelper::getSitePath() . '/plugins/system/rokmoduleorder.php')) {
             $this->addResult('extension', 'RokModuleOrder', self::CHECK_ERROR, Text::_('COM_MAGEBRIDGE_CHECK_ROKMODULEORDER'));
         }
 
-        if (file_exists(JPATH_SITE . '/plugins/system/rsform.php')) {
+        if (file_exists(PathHelper::getSitePath() . '/plugins/system/rsform.php')) {
             $this->addResult('extension', 'RSForm', self::CHECK_ERROR, Text::_('COM_MAGEBRIDGE_CHECK_RSFORM'));
         }
 
-        if (file_exists(JPATH_SITE . '/components/com_acesef/acesef.php')) {
+        if (file_exists(PathHelper::getSitePath() . '/components/com_acesef/acesef.php')) {
             $this->addResult('extension', 'AceSEF', self::CHECK_ERROR, Text::_('COM_MAGEBRIDGE_CHECK_ACESEF'));
         }
 
-        if (file_exists(JPATH_SITE . '/components/com_sh404sef/sh404sef.php')) {
+        if (file_exists(PathHelper::getSitePath() . '/components/com_sh404sef/sh404sef.php')) {
             $this->addResult('extension', 'sh404SEF', self::CHECK_ERROR, Text::_('COM_MAGEBRIDGE_CHECK_SH404SEF'));
         }
 
-        if (file_exists(JPATH_ADMINISTRATOR . '/components/com_sef/controller.php')) {
+        if (file_exists(PathHelper::getAdministratorPath() . '/components/com_sef/controller.php')) {
             $this->addResult('extension', 'JoomSEF', self::CHECK_WARNING, Text::_('COM_MAGEBRIDGE_CHECK_JOOMSEF'));
         }
 
-        if (file_exists(JPATH_SITE . '/components/com_rsfirewall/rsfirewall.php')) {
+        if (file_exists(PathHelper::getSitePath() . '/components/com_rsfirewall/rsfirewall.php')) {
             $this->addResult('extension', 'RSFirewall', self::CHECK_WARNING, Text::_('COM_MAGEBRIDGE_CHECK_RSFIREWALL'));
         }
     }

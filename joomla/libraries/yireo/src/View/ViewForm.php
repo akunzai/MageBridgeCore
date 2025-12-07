@@ -9,6 +9,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\HTML\HTMLHelper;
+use Yireo\Helper\PathHelper;
 
 /**
  * Form View class.
@@ -58,13 +59,13 @@ class ViewForm extends View
     public function __construct($config = [])
     {
         // Add the Yireo form fields
-        Form::addFieldPath(JPATH_LIBRARIES . '/yireo/form/fields');
+        Form::addFieldPath(PathHelper::getLibrariesPath() . '/yireo/form/fields');
 
         // Add component-specific form fields
         $option = $config['option'] ?? Factory::getApplication()->getInput()->getCmd('option');
         if ($option) {
-            Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/' . $option . '/lib/form/fields');
-            Form::addFieldPath(JPATH_ADMINISTRATOR . '/components/' . $option . '/fields');
+            Form::addFieldPath(PathHelper::getAdministratorPath() . '/components/' . $option . '/lib/form/fields');
+            Form::addFieldPath(PathHelper::getAdministratorPath() . '/components/' . $option . '/fields');
         }
 
         // Call the parent constructor

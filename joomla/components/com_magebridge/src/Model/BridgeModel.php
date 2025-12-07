@@ -14,6 +14,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Event\DispatcherInterface;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
 use MageBridge\Component\MageBridge\Site\Model\Proxy\Proxy;
 use MageBridge\Component\MageBridge\Site\Model\Register;
@@ -857,7 +858,7 @@ class BridgeModel
      */
     public static function sh404sef(): bool
     {
-        $classPath = JPATH_ADMINISTRATOR . '/components/com_sh404sef/sh404sef.class.php';
+        $classPath = PathHelper::getAdministratorPath() . '/components/com_sh404sef/sh404sef.class.php';
 
         if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
@@ -888,7 +889,7 @@ class BridgeModel
      */
     public static function mijosef(): bool
     {
-        $classPath = JPATH_ADMINISTRATOR . '/components/com_mijosef/library/mijosef.php';
+        $classPath = PathHelper::getAdministratorPath() . '/components/com_mijosef/library/mijosef.php';
         if (!is_file($classPath) || !is_readable($classPath)) {
             return false;
         }

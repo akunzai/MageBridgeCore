@@ -12,6 +12,7 @@
 
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseInterface;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Library\Plugin;
 
 // No direct access
@@ -71,7 +72,7 @@ class MageBridgePluginStore extends Plugin
         }
 
         // Add the plugin-form to main form
-        $formFile = JPATH_SITE . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
+        $formFile = PathHelper::getSitePath() . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
         if (file_exists($formFile)) {
             $form->loadFile($formFile, false);
         }

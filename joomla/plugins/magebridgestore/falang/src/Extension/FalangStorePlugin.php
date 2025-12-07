@@ -13,6 +13,7 @@ use Joomla\CMS\Language\Language;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Event\SubscriberInterface;
+use Yireo\Helper\PathHelper;
 
 /**
  * MageBridge Store Plugin - Falang.
@@ -153,7 +154,7 @@ class FalangStorePlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Add the plugin-form to main form
-        $formFile = JPATH_SITE . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
+        $formFile = PathHelper::getSitePath() . '/plugins/magebridgestore/' . $this->_name . '/form/form.xml';
         if (file_exists($formFile)) {
             $form->loadFile($formFile, false);
         }
@@ -204,6 +205,6 @@ class FalangStorePlugin extends CMSPlugin implements SubscriberInterface
      */
     protected function isEnabled(): bool
     {
-        return is_dir(JPATH_SITE . '/components/com_falang');
+        return is_dir(PathHelper::getSitePath() . '/components/com_falang');
     }
 }

@@ -15,6 +15,7 @@ namespace MageBridge\Component\MageBridge\Site\Library\Plugin;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\Database\DatabaseInterface;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Library\Plugin;
 
 // No direct access
@@ -128,7 +129,7 @@ class Product extends Plugin
      */
     protected function loadFormFile(&$form)
     {
-        $formFile = JPATH_SITE . '/plugins/magebridgeproduct/' . $this->_name . '/form/form.xml';
+        $formFile = PathHelper::getSitePath() . '/plugins/magebridgeproduct/' . $this->_name . '/form/form.xml';
 
         if (file_exists($formFile)) {
             $form->loadFile($formFile, false);

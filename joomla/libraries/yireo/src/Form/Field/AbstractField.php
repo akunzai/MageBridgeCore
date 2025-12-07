@@ -10,6 +10,7 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
+use Yireo\Helper\PathHelper;
 
 /**
  * Abstract form field class.
@@ -51,7 +52,7 @@ class AbstractField extends FormField
         $layoutFile = dirname(__DIR__, 2) . '/form/fields/tmpl/' . $layoutName;
         /** @var CMSApplication $app */
         $app = Factory::getApplication();
-        $templateDir = JPATH_THEMES . '/' . $app->getTemplate();
+        $templateDir = PathHelper::getThemesPath() . '/' . $app->getTemplate();
         $templateOverride = $templateDir . '/html/form/fields/' . $layoutName;
 
         if (is_file($templateOverride) && is_readable($templateOverride)) {

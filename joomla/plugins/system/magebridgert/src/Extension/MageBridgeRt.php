@@ -13,6 +13,7 @@ use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
 use MageBridge\Component\MageBridge\Site\Helper\TemplateHelper;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
+use Yireo\Helper\PathHelper;
 
 /**
  * MageBridge RocketTheme System Plugin.
@@ -67,9 +68,9 @@ class MageBridgeRt extends CMSPlugin implements SubscriberInterface
         $app->getConfig()->set('magebridge.script.whitelist', $whitelist);
 
         // Read the template-related files
-        $ini = JPATH_THEMES . '/' . $app->getTemplate() . '/params.ini';
+        $ini = PathHelper::getThemesPath() . '/' . $app->getTemplate() . '/params.ini';
         $ini_content = @file_get_contents($ini);
-        $xml = JPATH_THEMES . '/' . $app->getTemplate() . '/templateDetails.xml';
+        $xml = PathHelper::getThemesPath() . '/' . $app->getTemplate() . '/templateDetails.xml';
 
         // WARP-usage of "config" file
         if (!empty($ini_content)) {

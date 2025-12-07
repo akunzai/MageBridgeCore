@@ -11,6 +11,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Installer\Installer;
 use Joomla\Registry\Registry;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo Helper.
@@ -31,7 +32,7 @@ class Helper
             $option = Factory::getApplication()->getInput()->getCmd('option');
         }
 
-        $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/helpers/abstract.php';
+        $file = PathHelper::getAdministratorPath() . '/components/' . $option . '/helpers/abstract.php';
 
         if (is_file($file)) {
             require_once $file;
@@ -72,7 +73,7 @@ class Helper
     public static function getCurrentVersion()
     {
         $option = Factory::getApplication()->getInput()->getCmd('option');
-        $file = JPATH_ADMINISTRATOR . '/components/' . $option . '/' . $option . '.xml';
+        $file = PathHelper::getAdministratorPath() . '/components/' . $option . '/' . $option . '.xml';
         $data = Installer::parseXMLInstallFile($file);
         return $data['version'];
     }
@@ -175,7 +176,7 @@ class Helper
         // Load jQuery
         $option = $app->getInput()->getCmd('option');
 
-        if (file_exists(JPATH_SITE . '/media/' . $option . '/js/jquery.js')) {
+        if (file_exists(PathHelper::getSitePath() . '/media/' . $option . '/js/jquery.js')) {
             $wa = $document->getWebAssetManager();
             $wa->registerAndUseScript(
                 'yireo.jquery',
@@ -203,7 +204,7 @@ class Helper
         $language = $app->getLanguage();
         $extension = 'lib_yireo';
 
-        $folder = ($app->isClient('site')) ? JPATH_SITE : JPATH_ADMINISTRATOR;
+        $folder = ($app->isClient('site')) ? PathHelper::getSitePath() : PathHelper::getAdministratorPath();
         $tag = $language->getTag();
         $reload = true;
         $language->load($extension, $folder, $tag, $reload);

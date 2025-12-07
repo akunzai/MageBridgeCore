@@ -3,6 +3,7 @@
 namespace MageBridge\Component\MageBridge\Administrator\Helper;
 
 use Joomla\CMS\Installer\Installer;
+use MageBridge\Component\MageBridge\Administrator\Helper\PathHelper;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -38,28 +39,28 @@ class Update
         $file = null;
         switch ($package['type']) {
             case 'component':
-                $file = JPATH_ADMINISTRATOR.'/components/'.$package['name'].'/com_magebridge.xml';
+                $file = PathHelper::getAdministratorPath().'/components/'.$package['name'].'/com_magebridge.xml';
                 break;
 
             case 'module':
                 if ($package['app'] == 'admin') {
-                    $file = JPATH_ADMINISTRATOR.'/modules/'.$package['name'].'/'.$package['name'].'.xml';
+                    $file = PathHelper::getAdministratorPath().'/modules/'.$package['name'].'/'.$package['name'].'.xml';
                 } else {
-                    $file = JPATH_SITE.'/modules/'.$package['name'].'/'.$package['name'].'.xml';
+                    $file = PathHelper::getSitePath().'/modules/'.$package['name'].'/'.$package['name'].'.xml';
                 }
                 break;
 
             case 'plugin':
-                $file = JPATH_SITE.'/plugins/'.$package['group'].'/'.$package['file'].'/'.$package['file'].'.xml';
+                $file = PathHelper::getSitePath().'/plugins/'.$package['group'].'/'.$package['file'].'/'.$package['file'].'.xml';
                 break;
 
             case 'template':
-                $file = JPATH_SITE.'/templates/'.$package['file'].'/templateDetails.xml';
+                $file = PathHelper::getSitePath().'/templates/'.$package['file'].'/templateDetails.xml';
                 break;
 
             case 'library':
                 $libraryName = preg_replace('/^lib_/', '', $package['name']);
-                $file = JPATH_SITE.'/libraries/'.$libraryName.'/'.$libraryName.'.xml';
+                $file = PathHelper::getSitePath().'/libraries/'.$libraryName.'/'.$libraryName.'.xml';
                 break;
         }
 

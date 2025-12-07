@@ -11,6 +11,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\Input\Input;
 use Yireo\Exception\Controller\NotFound;
 use Yireo\Helper\Helper;
+use Yireo\Helper\PathHelper;
 
 /**
  * Yireo Common Controller.
@@ -81,7 +82,7 @@ class CommonController extends AbstractController
     public static function getControllerInstance($option, $name)
     {
         // Check for a child controller
-        $componentPath = JPATH_ADMINISTRATOR . '/components/' . $option;
+        $componentPath = PathHelper::getAdministratorPath() . '/components/' . $option;
         if (is_file($componentPath . '/controllers/' . $name . '.php')) {
             require_once $componentPath . '/controllers/' . $name . '.php';
 
@@ -105,7 +106,7 @@ class CommonController extends AbstractController
     public static function getDefaultControllerInstance($option, $name)
     {
         // Require the base controller
-        $componentPath = JPATH_ADMINISTRATOR . '/components/' . $option;
+        $componentPath = PathHelper::getAdministratorPath() . '/components/' . $option;
         if (is_file($componentPath . '/controller.php')) {
             require_once $componentPath . '/controller.php';
         }

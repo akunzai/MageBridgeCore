@@ -13,6 +13,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Version;
+use MageBridge\Component\MageBridge\Administrator\Helper\PathHelper;
 use Joomla\Database\DatabaseInterface;
 use Joomla\DI\Container;
 
@@ -81,8 +82,8 @@ if (class_exists('com_magebridgeInstallerScript') == false) {
         {
             // Try to include the file
             $file = 'administrator/components/com_magebridge/helpers/install.php';
-            if (is_file(JPATH_ROOT . '/' . $file)) {
-                require_once JPATH_ROOT . '/' . $file;
+            if (is_file(PathHelper::getSitePath() . '/' . $file)) {
+                require_once PathHelper::getSitePath() . '/' . $file;
             } elseif (is_file(dirname(__FILE__) . '/' . $file)) {
                 require_once dirname(__FILE__) . '/' . $file;
             } else {

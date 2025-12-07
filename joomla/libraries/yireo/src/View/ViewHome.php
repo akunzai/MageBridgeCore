@@ -12,6 +12,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Yireo\Helper\Helper;
+use Yireo\Helper\PathHelper;
 
 /**
  * Home View class.
@@ -50,7 +51,7 @@ class ViewHome extends View
 
         // Initialize the toolbar
         $option = $this->getConfig('option');
-        if (file_exists(JPATH_ADMINISTRATOR . '/components/' . $option . '/config.xml')) {
+        if (file_exists(PathHelper::getAdministratorPath() . '/components/' . $option . '/config.xml')) {
             if ($this->user->authorise('core.admin')) {
                 ToolbarHelper::preferences($option, 600, 800);
             }
@@ -102,7 +103,7 @@ class ViewHome extends View
             $folder = '../media/' . $this->getConfig('option') . '/images/';
         }
 
-        if (!file_exists(JPATH_ADMINISTRATOR . '/' . $folder . '/' . $image)) {
+        if (!file_exists(PathHelper::getAdministratorPath() . '/' . $folder . '/' . $image)) {
             $folder = '/templates/' . $this->app->getTemplate() . '/images/header/';
         }
 
@@ -125,7 +126,7 @@ class ViewHome extends View
     {
         $component_title = Helper::getData('title') ?? 'MageBridge';
         $title           = Text::_('LIB_YIREO_VIEW_HOME');
-        $icon = file_exists(JPATH_SITE . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
+        $icon = file_exists(PathHelper::getSitePath() . '/media/' . $this->getConfig('option') . '/images/' . $class . '.png') ? $class : 'generic.png';
         ToolbarHelper::title($component_title . ': ' . $title, $icon);
     }
 

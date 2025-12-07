@@ -14,6 +14,7 @@ namespace MageBridge\Component\MageBridge\Site\Library;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Plugin\CMSPlugin;
+use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 
@@ -71,7 +72,7 @@ class Plugin extends CMSPlugin
      */
     protected function checkComponent($component)
     {
-        if (is_dir(JPATH_ADMINISTRATOR . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
+        if (is_dir(PathHelper::getAdministratorPath() . '/components/' . $component) && ComponentHelper::isEnabled($component) == true) {
             return true;
         }
 
