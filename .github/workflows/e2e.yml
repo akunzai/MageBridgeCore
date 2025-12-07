@@ -28,8 +28,22 @@ permissions:
 
 jobs:
   e2e:
-    name: E2E Tests
+    name: E2E Tests (Joomla ${{ matrix.joomla.version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        joomla:
+          - version: '6'
+            compose-override: ''
+            cache-scope: 'joomla6'
+            joomla-version: ''
+            php-version: ''
+          - version: '5'
+            compose-override: 'compose.joomla5.yml'
+            cache-scope: 'joomla5'
+            joomla-version: '5.4.1'
+            php-version: '8.3'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -60,8 +74,11 @@ jobs:
         with:
           context: .devcontainer/joomla
           tags: joomla:magebridge
-          cache-from: type=gha,scope=joomla
-          cache-to: type=gha,scope=joomla,mode=max
+          build-args: |
+            ${{ matrix.joomla.joomla-version != '' && format('JOOMLA_VERSION={0}', matrix.joomla.joomla-version) || '' }}
+            ${{ matrix.joomla.php-version != '' && format('PHP_VERSION={0}', matrix.joomla.php-version) || '' }}
+          cache-from: type=gha,scope=${{ matrix.joomla.cache-scope }}
+          cache-to: type=gha,scope=${{ matrix.joomla.cache-scope }},mode=max
           load: true
       - name: Build OpenMage image
         uses: docker/build-push-action@v6
@@ -75,7 +92,21 @@ jobs:
       # Start services and install applications
       - name: Start Docker Compose services
         working-directory: .devcontainer
-        run: docker compose up -d --no-build
+        run: |
+          if [ -n "${{ matrix.joomla.compose-override }}" ]; then
+            docker compose -f compose.yml -f ${{ matrix.joomla.compose-override }} up -d --no-build
+          else
+            docker compose up -d --no-build
+          fi
+
+      - name: Set COMPOSE_FILE environment variable
+        run: |
+          if [ -n "${{ matrix.joomla.compose-override }}" ]; then
+            echo "COMPOSE_FILE=compose.yml:${{ matrix.joomla.compose-override }}" >> $GITHUB_ENV
+          else
+            echo "COMPOSE_FILE=compose.yml" >> $GITHUB_ENV
+          fi
+        working-directory: .devcontainer
 
       - name: Install Joomla
         working-directory: .devcontainer
@@ -113,14 +144,14 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-      
+
       - name: Enable Corepack
         run: corepack enable pnpm
-      
+
       - name: Get pnpm store directory
         shell: bash
         run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      
+
       - name: Cache pnpm store
         uses: actions/cache@v4
         with:
@@ -128,22 +159,22 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('e2e/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-      
+
       - name: Install E2E dependencies
         working-directory: e2e
         run: pnpm install
-      
+
       - name: Get Playwright version
         working-directory: e2e
         run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | cut -d' ' -f2)" >> $GITHUB_ENV
-      
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-      
+
       - name: Install Playwright browsers and dependencies
         working-directory: e2e
         run: |
@@ -163,14 +194,14 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-joomla-${{ matrix.joomla.version }}
           path: e2e/playwright-report/
           retention-days: 7
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: test-results
+          name: test-results-joomla-${{ matrix.joomla.version }}
           path: e2e/test-results/
           retention-days: 7
       - name: Collect diagnostic information on failure
@@ -178,7 +209,7 @@ jobs:
         working-directory: .devcontainer
         run: |
           echo "=================================================="
-          echo "Diagnostic Information Collection"
+          echo "Diagnostic Information Collection (Joomla ${{ matrix.joomla.version }})"
           echo "=================================================="
 
           echo ""
@@ -239,7 +270,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: diagnostic-logs
+          name: diagnostic-logs-joomla-${{ matrix.joomla.version }}
           path: |
             .devcontainer/joomla/logs/
             .devcontainer/openmage/logs/
