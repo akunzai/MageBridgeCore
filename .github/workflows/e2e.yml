@@ -191,14 +191,14 @@ jobs:
         working-directory: e2e
         run: pnpm exec playwright test --reporter=html,github
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report-joomla-${{ matrix.joomla.version }}
           path: e2e/playwright-report/
           retention-days: 7
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: test-results-joomla-${{ matrix.joomla.version }}
@@ -268,7 +268,7 @@ jobs:
 
       - name: Upload diagnostic logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: diagnostic-logs-joomla-${{ matrix.joomla.version }}
           path: |
