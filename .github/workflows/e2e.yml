@@ -15,6 +15,10 @@ on:
       - 'docs/**'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   ADMIN_USERNAME: admin
   ADMIN_PASSWORD: ChangeTheP@ssw0rd
