@@ -1,18 +1,13 @@
 name: 'Linting PHP'
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**.php'
-      - '**.phtml'
   pull_request:
     branches:
       - main
     paths:
       - '**.php'
       - '**.phtml'
+      - '.github/workflows/lint-php.yml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 

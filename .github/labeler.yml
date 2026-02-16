@@ -1,0 +1,41 @@
+feature:
+  - head-branch:
+    - '^feature/.+'
+    - '^feat/.+'
+
+bug:
+  - head-branch:
+    - '^bugfix/.+'
+    - '^bug/.+'
+    - '^fix/.+'
+    - '^hotfix/.+'
+
+refactor:
+  - head-branch:
+    - '^refactor/.+'
+
+dependencies:
+  - head-branch:
+    - '^dependabot/.+'
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'composer.json'
+      - 'composer.lock'
+      - 'e2e/package.json'
+      - 'e2e/pnpm-lock.yaml'
+
+github_actions:
+  - head-branch:
+    - '^ci/.+'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/workflows/**/*'
+      - '.github/*.yml'
+
+documentation:
+  - head-branch:
+    - '^docs?/.+'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.md'
+      - 'LICENSE'
