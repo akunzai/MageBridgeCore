@@ -1,18 +1,20 @@
 name: E2E Tests
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '*.md'
-      - 'docs/**'
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - '*.md'
-      - 'docs/**'
+    paths:
+      - 'joomla/**'
+      - 'magento/**'
+      - 'e2e/**'
+      - '.devcontainer/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'bundle.sh'
+      - 'bundle.php'
+      - 'manifest.xml'
+      - '.github/workflows/e2e.yml'
   workflow_dispatch:
 
 concurrency:

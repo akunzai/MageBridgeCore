@@ -1,16 +1,22 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.devcontainer/**'
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - '.devcontainer/**'
+    paths:
+      - 'joomla/**'
+      - 'magento/**'
+      - 'tests/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'phpstan.neon'
+      - 'phpunit.xml.dist'
+      - '.php-cs-fixer.dist.php'
+      - 'bundle.sh'
+      - 'bundle.php'
+      - 'manifest.xml'
+      - '.github/workflows/build.yml'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
