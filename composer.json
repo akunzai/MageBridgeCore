@@ -23,6 +23,9 @@
         },
         "preferred-install": "dist",
         "sort-packages": true,
+        "audit": {
+            "ignore": ["PKSA-nz6n-ckcm-yb2x"]
+        },
         "platform": {
             "php": "8.3.0",
             "ext-intl": "8.1.0"
@@ -33,15 +36,15 @@
             "type": "package",
             "package": {
                 "name": "joomla/joomla-cms",
-                "version": "6.0.2",
+                "version": "6.0.3",
                 "dist": {
-                    "url": "https://github.com/joomla/joomla-cms/releases/download/6.0.2/Joomla_6.0.2-Stable-Full_Package.zip",
+                    "url": "https://github.com/joomla/joomla-cms/releases/download/6.0.3/Joomla_6.0.3-Stable-Full_Package.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/joomla/joomla-cms.git",
                     "type": "git",
-                    "reference": "tags/6.0.2"
+                    "reference": "tags/6.0.3"
                 }
             }
         }
@@ -52,8 +55,8 @@
         "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.92",
-        "joomla/joomla-cms": "6.0.2",
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "joomla/joomla-cms": "6.0.3",
         "openmage/magento-lts": "^20.16",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
