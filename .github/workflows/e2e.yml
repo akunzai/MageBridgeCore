@@ -41,14 +41,12 @@ jobs:
       matrix:
         joomla:
           - version: '6'
-            compose-override: ''
             cache-scope: 'joomla6'
             joomla-version: ''
             php-version: ''
           - version: '5'
-            compose-override: 'compose.joomla5.yml'
             cache-scope: 'joomla5'
-            joomla-version: '5.4.1'
+            joomla-version: '5.4.3'
             php-version: '8.3'
     steps:
       - name: Checkout
@@ -98,21 +96,7 @@ jobs:
       # Start services and install applications
       - name: Start Docker Compose services
         working-directory: .devcontainer
-        run: |
-          if [ -n "${{ matrix.joomla.compose-override }}" ]; then
-            docker compose -f compose.yml -f ${{ matrix.joomla.compose-override }} up -d --no-build
-          else
-            docker compose up -d --no-build
-          fi
-
-      - name: Set COMPOSE_FILE environment variable
-        run: |
-          if [ -n "${{ matrix.joomla.compose-override }}" ]; then
-            echo "COMPOSE_FILE=compose.yml:${{ matrix.joomla.compose-override }}" >> $GITHUB_ENV
-          else
-            echo "COMPOSE_FILE=compose.yml" >> $GITHUB_ENV
-          fi
-        working-directory: .devcontainer
+        run: docker compose up -d --no-build
 
       - name: Install Joomla
         working-directory: .devcontainer
