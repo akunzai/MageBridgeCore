@@ -4,7 +4,7 @@
 
 Plugin namespaces must match the file path structure. The Extension class should be in a subdirectory:
 
-```
+```text
 plugins/{type}/{name}/
 ├── services/
 │   └── provider.php
@@ -100,7 +100,7 @@ The `namespace` attribute must match the PHP namespace (excluding the final clas
 ## Modernized Store Plugins
 
 | Plugin | Status | Notes |
-|--------|--------|-------|
+| ------ | ------ | ----- |
 | magebridgestore/joomla | Done | Joomla 5 service provider |
 | magebridgestore/falang | Done | Joomla 5 service provider |
 | search/magebridge | Done | Joomla 5 service provider |

@@ -8,13 +8,14 @@ In Joomla v6, the following constants have been removed:
 - `JPATH_PLUGINS`, `JPATH_MODULES`, `JPATH_TEMPLATES`, `JPATH_LIBRARIES`
 - `JPATH_PLATFORM`, `JPATH_THEMES`, `JPATH_MEDIA`
 
-Reference: https://manual.joomla.org/migrations/54-60/removed-backward-incompatibility/
+Reference: <https://manual.joomla.org/migrations/54-60/removed-backward-incompatibility/>
 
 ## PathHelper Compatibility Layer
 
 Use `PathHelper` classes to support both Joomla v5 and v6:
 
 **Available PathHelper locations:**
+
 - Frontend: `MageBridge\Component\MageBridge\Site\Helper\PathHelper`
 - Backend: `MageBridge\Component\MageBridge\Administrator\Helper\PathHelper`
 - Yireo Library: `Yireo\Helper\PathHelper`

@@ -52,7 +52,7 @@ class HtmlView extends BaseHtmlView { } // Cannot properly load list data
 
 ### List Page Template Structure
 
-```
+```text
 tmpl/{viewname}/
 ├── default.php      # Main template (required)
 ├── thead.php        # Table header
@@ -161,7 +161,7 @@ $message = sprintf(Text::_('LIB_YIREO_CONTROLLER_ITEM_SAVED'), $itemName);
 ### Table Aliases for List Models
 
 | Model | Table Alias |
-|-------|-------------|
+| ----- | ----------- |
 | ProductsModel | `product` |
 | StoresModel | `store` |
 | UrlsModel | `url` |
@@ -332,7 +332,7 @@ Helper::getData();
 ### empty() vs isset() for Object Properties
 
 | Situation | Use | Reason |
-|-----------|-----|--------|
+| --------- | --- | ------ |
 | Object property | `isset()` | Objects are not falsy, only need to check existence |
 | Array property | `empty()` | Need to check both existence and non-empty |
 | String property | `empty()` | Need to check for empty string |
