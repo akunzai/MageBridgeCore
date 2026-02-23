@@ -4,6 +4,8 @@
     "line-length": false
   },
   "ignores": [
-    "AGENTS.md"
+    "AGENTS.md",
+    "CLAUDE.md",
+    "**/AGENTS.md"
   ]
 }
