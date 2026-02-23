@@ -2,7 +2,7 @@ name: Label Check
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, edited, labeled, unlabeled]
+    types: [opened, reopened, synchronize, labeled]
 
 permissions:
   contents: read
@@ -12,13 +12,12 @@ jobs:
   validate:
     name: Auto Label and Validate
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Apply labels
-        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/labeler@v5
 
       - name: Check labels
-        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: mheap/github-action-required-labels@v5
         with:
           mode: minimum
