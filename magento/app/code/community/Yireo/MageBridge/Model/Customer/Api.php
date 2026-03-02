@@ -25,10 +25,12 @@ class Yireo_MageBridge_Model_Customer_Api extends Mage_Api_Model_Resource_Abstra
     public function items($arguments = null)
     {
         // Initialize the collection
-        /** @phpstan-ignore-next-line */
-        $collection = Mage::getModel('customer/customer')->getCollection()
-            ->addAttributeToSelect('*')
-        ;
+        $collection = Mage::getResourceModel('customer/customer_collection');
+        if (!$collection instanceof Mage_Customer_Model_Resource_Customer_Collection) {
+            return [];
+        }
+
+        $collection->addAttributeToSelect('*');
 
         // Handle a simple email-filter
         if (isset($arguments['emails']) && is_array($arguments['emails']) && !empty($arguments['emails'])) {
