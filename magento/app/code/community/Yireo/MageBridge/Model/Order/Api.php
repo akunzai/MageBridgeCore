@@ -24,13 +24,15 @@ class Yireo_MageBridge_Model_Order_Api extends Mage_Api_Model_Resource_Abstract
      */
     public function items($filters = null, $store = null)
     {
-        /** @phpstan-ignore-next-line */
-        $collection = Mage::getModel('sales/order')->getCollection()
-            ->addAttributeToSelect('*')
+        $collection = Mage::getResourceModel('sales/order_collection');
+        if (!$collection instanceof Mage_Sales_Model_Resource_Order_Collection) {
+            return [];
+        }
+
+        $collection->addAttributeToSelect('*')
             ->setOrder('created_at', 'desc')
             ->setPageSize(20)
-            ->load()
-        ;
+            ->load();
 
         // @todo: This does not work, but is still needed: $filter = array( array('title' => array('nlike' => array('%a', '%b'))));
         if (is_array($filters)) {
