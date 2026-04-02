@@ -74,7 +74,7 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Build Joomla image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .devcontainer/joomla
           tags: joomla:magebridge
@@ -85,7 +85,7 @@ jobs:
           cache-to: type=gha,scope=${{ matrix.joomla.cache-scope }},mode=max
           load: true
       - name: Build OpenMage image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .devcontainer/openmage
           tags: openmage:magebridge
