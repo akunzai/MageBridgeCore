@@ -36,15 +36,15 @@
             "type": "package",
             "package": {
                 "name": "joomla/joomla-cms",
-                "version": "6.0.3",
+                "version": "6.1.0",
                 "dist": {
-                    "url": "https://github.com/joomla/joomla-cms/releases/download/6.0.3/Joomla_6.0.3-Stable-Full_Package.zip",
+                    "url": "https://github.com/joomla/joomla-cms/releases/download/6.1.0/Joomla_6.1.0-Stable-Full_Package.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/joomla/joomla-cms.git",
                     "type": "git",
-                    "reference": "tags/6.0.3"
+                    "reference": "tags/6.1.0"
                 }
             }
         }
@@ -55,9 +55,9 @@
         "laminas/laminas-json-server": "^3.9"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.94",
-        "joomla/joomla-cms": "6.0.3",
-        "openmage/magento-lts": "^20.16",
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "joomla/joomla-cms": "6.1.0",
+        "openmage/magento-lts": "^20.17",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",

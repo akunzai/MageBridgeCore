@@ -164,7 +164,6 @@ class Yireo_MageBridge_Model_Attribute_Api extends Mage_Api_Model_Resource_Abstr
                 return $item;
             }
         }
-        // @phpstan-ignore-next-line
         return Mage::getModel('eav/entity_attribute_set');
     }
 }

@@ -22,7 +22,7 @@ echo "127.0.0.1 www.dev.local store.dev.local" | sudo tee -a /etc/hosts
 docker compose up -d
 
 # starting container (Joomla 5)
-docker compose build --build-arg JOOMLA_VERSION=5.4.3 --build-arg PHP_VERSION=8.3 joomla
+docker compose build --build-arg JOOMLA_VERSION=5.4.5 --build-arg PHP_VERSION=8.3 joomla
 docker compose up -d
 
 # starting container for debug

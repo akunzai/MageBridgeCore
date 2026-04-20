@@ -23,6 +23,19 @@ parameters:
     - message: '#Call to deprecated method _\(\) of class Joomla\\CMS\\Language\\Language#'
       identifier: method.deprecated
       reportUnmatched: false
+    # Magento legacy code: Mage::getModel() returns object|false, runtime checks are caller's responsibility
+    - identifier: method.nonObject
+      path: magento
+    # Magento legacy code: dynamic magic methods/properties not declared in stubs
+    - identifier: method.notFound
+      path: magento
+    - identifier: property.notFound
+      path: magento
+    # Magento legacy code: dynamic method signatures differ from stubs
+    - identifier: argument.type
+      path: magento
+    - identifier: arguments.count
+      path: magento
 
   scanDirectories:
     - vendor/joomla/joomla-cms/administrator
