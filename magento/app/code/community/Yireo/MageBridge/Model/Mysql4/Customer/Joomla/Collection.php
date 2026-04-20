@@ -13,7 +13,7 @@
 /*
  * MageBridge model for relating a Magento customer ID to a Joomla! ID
  */
-class Yireo_MageBridge_Model_Mysql4_Customer_Joomla_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Yireo_MageBridge_Model_Mysql4_Customer_Joomla_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Constructor.

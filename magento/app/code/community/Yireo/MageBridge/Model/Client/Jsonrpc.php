@@ -27,7 +27,6 @@ class Yireo_MageBridge_Model_Client_Jsonrpc
      */
     public function __construct()
     {
-        /** @phpstan-ignore-next-line */
         $this->debug = Mage::getSingleton('magebridge/debug');
     }
 

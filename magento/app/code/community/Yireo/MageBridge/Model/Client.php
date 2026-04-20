@@ -49,11 +49,8 @@ class Yireo_MageBridge_Model_Client
         $this->helper = Mage::helper('magebridge');
         // @phpstan-ignore-next-line
         $this->encryptionHelper = Mage::helper('magebridge/encryption');
-        // @phpstan-ignore-next-line
         $this->client = Mage::getModel('magebridge/client_jsonrpc');
-        // @phpstan-ignore-next-line
         $this->coreModel = Mage::getSingleton('magebridge/core');
-        // @phpstan-ignore-next-line
         $this->debug = Mage::getSingleton('magebridge/debug');
     }
 

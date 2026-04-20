@@ -13,7 +13,7 @@
 /*
  * MageBridge model for relating a Magento customer ID to a Joomla! ID
  */
-class Yireo_MageBridge_Model_Mysql4_Customer_Joomla extends Mage_Core_Model_Mysql4_Abstract
+class Yireo_MageBridge_Model_Mysql4_Customer_Joomla extends Mage_Core_Model_Resource_Db_Abstract
 {
     /*
      * Disable the auto_increment behaviour
