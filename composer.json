@@ -57,7 +57,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
         "joomla/joomla-cms": "6.1.0",
-        "openmage/magento-lts": "^20.16",
+        "openmage/magento-lts": "^20.17",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
