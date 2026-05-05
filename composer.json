@@ -24,7 +24,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "audit": {
-            "ignore": ["PKSA-nz6n-ckcm-yb2x"]
+            "ignore": [
+                "PKSA-nz6n-ckcm-yb2x"
+            ]
         },
         "platform": {
             "php": "8.3.0",
@@ -57,7 +59,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
         "joomla/joomla-cms": "6.1.0",
-        "openmage/magento-lts": "^20.17",
+        "openmage/magento-lts": "^20.18",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
