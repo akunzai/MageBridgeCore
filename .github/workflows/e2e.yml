@@ -46,7 +46,7 @@ jobs:
             php-version: ''
           - version: '5'
             cache-scope: 'joomla5'
-            joomla-version: '5.4.5'
+            joomla-version: '5.4.6'
             php-version: '8.3'
     steps:
       - name: Checkout
@@ -249,7 +249,7 @@ jobs:
 
           echo ""
           echo "Testing OpenMage -> MySQL connectivity..."
-          docker compose exec openmage sh -c 'php -r "require_once \"app/Mage.php\"; Mage::app(); echo \"✓ OpenMage can connect to database\n\";" 2>&1 || echo "✗ OpenMage database connection failed"'
+          docker compose exec openmage sh -c 'php -r "require_once \"app/Mage.php\"; Mage::app(); echo \"✓ OpenMage can connect to database\\n\";" 2>&1 || echo "✗ OpenMage database connection failed"'
 
           echo ""
           echo "=================================================="
