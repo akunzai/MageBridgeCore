@@ -29,11 +29,13 @@
 
 ## Build & Verify
 
-- `./bundle.sh` - Bundle the extension
+- `composer bundle` or `./bundle.sh` - Bundle the extension
 - `composer lint` - PHP CS Fixer dry-run check
 - `composer fix` - Auto-format code
-- `composer run phpstan` - Static analysis (may require `--memory-limit=512M`)
+- `composer phpstan` - Static analysis (may require `--memory-limit=512M`)
 - `composer test` - Unit tests (PHPUnit)
+- `composer test -- tests/Unit/Helper/UrlHelperTest.php` - Single test file
+- `composer test-coverage` - Unit tests with coverage
 - Run integration tests via Docker environment (see [.devcontainer/AGENTS.md](.devcontainer/AGENTS.md))
 - E2E tests with Playwright (see [e2e/AGENTS.md](e2e/AGENTS.md))
 
@@ -55,14 +57,21 @@
 ## Key Files Reference
 
 ### Component Service Providers
-- `/joomla/components/com_magebridge/services/provider.php`
-- `/joomla/administrator/components/com_magebridge/services/provider.php`
+- `joomla/components/com_magebridge/services/provider.php`
+- `joomla/administrator/components/com_magebridge/services/provider.php`
 
 ### Module Service Providers
-- `/joomla/modules/mod_magebridge_*/services/provider.php`
+- `joomla/modules/mod_magebridge_*/services/provider.php`
 
 ### Plugin Service Providers
-- `/joomla/plugins/*/*/services/provider.php`
+- `joomla/plugins/*/*/services/provider.php`
 
 ### Library Service Provider
-- `/joomla/libraries/yireo/services/provider.php`
+- `joomla/libraries/yireo/services/provider.php`
+
+## Claude Code Compatibility
+
+> [!NOTE]
+> This repository maintains compatibility with Claude Code. The file `CLAUDE.md` is a symbolic link pointing to `AGENTS.md`. 
+> All commands, style guides, and workflows defined in `AGENTS.md` apply to both Antigravity (and other agentic assistants) and Claude Code.
+> **DO NOT** delete the `CLAUDE.md` symbolic link or edit it independently; all guidelines must be updated directly in `AGENTS.md`.
