@@ -4,6 +4,7 @@
 
 ```bash
 composer test
+composer test -- tests/Unit/Helper/UrlHelperTest.php  # run single test file
 composer test-coverage
 ```
 
