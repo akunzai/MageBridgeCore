@@ -27,6 +27,13 @@
 
 ---
 
+## Environment & Tooling
+
+This repository uses [mise](https://mise.jdx.dev/) to manage development runtimes and CLI versions (PHP, Composer, Node.js, and Aube).
+
+- To install the project's development tools, run: `mise install`
+- Runtimes are configured in [mise.toml](file:///Users/akunzai/code/MageBridgeCore/mise.toml) (using `adwinying/php` for precompiled static PHP binaries).
+
 ## Build & Verify
 
 - `composer bundle` or `./bundle.sh` - Bundle the extension
