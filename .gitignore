@@ -35,3 +35,7 @@ tmp/
 /magento/var
 .claude/
 .agent/
+
+# mise
+.mise.local.toml
+.mise/
