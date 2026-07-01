@@ -118,6 +118,13 @@ if dc_exec joomla test -f /var/www/html/cli/joomla.php; then
     fi
   fi
 
+  echo "Disabling Joomla Guided Tours and Statistics opt-in (modal overlays interfere with E2E tests) ..."
+
+  joomla_mysql -e "
+    UPDATE ${JOOMLA_DB_PREFIX}extensions SET enabled = 0
+    WHERE type = 'plugin' AND folder = 'system' AND element IN ('guidedtours', 'stats');
+  " 2>/dev/null
+
   echo "Enabling MageBridge plugins ..."
 
   joomla_mysql -e "
