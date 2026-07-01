@@ -12,7 +12,7 @@
     "codegen": "playwright codegen https://www.dev.local"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.60.0",
     "@types/node": "^26.0.1"
   }
 }
