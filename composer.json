@@ -23,11 +23,6 @@
         },
         "preferred-install": "dist",
         "sort-packages": true,
-        "audit": {
-            "ignore": [
-                "PKSA-nz6n-ckcm-yb2x"
-            ]
-        },
         "platform": {
             "php": "8.3.0",
             "ext-intl": "8.1.0"
