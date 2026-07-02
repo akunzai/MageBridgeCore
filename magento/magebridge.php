@@ -46,7 +46,6 @@ $magebridge->premask();
 // Support for Magento Compiler
 $compilerConfig = 'includes/config.php';
 if (file_exists($compilerConfig)) {
-    /** @phpstan-ignore include.fileNotFound */
     include $compilerConfig;
 }
 
