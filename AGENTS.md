@@ -46,6 +46,27 @@ This repository uses [mise](https://mise.jdx.dev/) to manage development runtime
 - Run integration tests via Docker environment (see [.devcontainer/AGENTS.md](.devcontainer/AGENTS.md))
 - E2E tests with Playwright (see [e2e/AGENTS.md](e2e/AGENTS.md))
 
+## Dependency Management
+
+### Known abandoned-package warnings (safe to ignore)
+
+These are flagged as "abandoned" by Composer but are indirect/transitive dependencies
+that cannot be removed unilaterally, have no known replacement, and carry no
+associated Dependabot security alert:
+
+- `laminas/laminas-loader` — required by `laminas/laminas-http` (^2.23), which is
+  pulled in by our own `laminas/laminas-json-server` dependency. Part of the
+  production dependency tree; only removable if upstream `laminas-http` drops it.
+- `eloquent/enumeration` — required via `openmage/magento-lts` (require-dev) →
+  `magento-hackathon/magento-composer-installer` → `flyingmana/composer-config-reader`.
+  Dev-only, never installed in production.
+- `laminas/laminas-text` — required via `openmage/magento-lts` (require-dev) →
+  `laminas/laminas-captcha`. Dev-only, never installed in production.
+
+Before investigating a new "abandoned" warning, check
+`gh api repos/akunzai/MageBridgeCore/dependabot/alerts` first — "abandoned" is a
+Composer maintenance-status notice, not necessarily a security vulnerability.
+
 ## Code Style & Types
 
 - PSR-12 coding standard
