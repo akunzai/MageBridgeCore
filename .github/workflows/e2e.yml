@@ -46,7 +46,7 @@ jobs:
             php-version: ''
           - version: '5'
             cache-scope: 'joomla5'
-            joomla-version: '5.4.6'
+            joomla-version: '5.4.7'
             php-version: '8.3'
     steps:
       - name: Checkout
