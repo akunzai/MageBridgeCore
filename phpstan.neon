@@ -1,8 +1,5 @@
 parameters:
   level: 5
-  parallel:
-    # workaround for Too many open files in phar
-    maximumNumberOfProcesses: 2
   paths:
     - joomla
     - magento
