@@ -1,105 +1,59 @@
-# Agent Guidelines for MageBridge Core
+# MageBridge Core — Agent Guidelines
 
-> MageBridge is a Joomla 5 extension for integrating Joomla CMS with Magento/OpenMage e-commerce platform.
+> Joomla 5/6 extension bridging Joomla CMS ↔ Magento/OpenMage.
 
----
+## Quick Commands
 
-## Documentation Principles
+| Task | Command |
+|------|---------|
+| Toolchain | `mise install` (@mise.toml) |
+| Bundle | `composer bundle` |
+| Lint / format | `composer lint` \| `composer fix` |
+| Static analysis | `composer phpstan` (may need `--memory-limit=512M`) |
+| Unit tests | `composer test` |
+| Single test | `composer test -- tests/Unit/Helper/UrlHelperTest.php` |
+| Coverage | `composer test-coverage` |
+| Integration / Docker | @.devcontainer/AGENTS.md |
+| E2E (Playwright) | @e2e/AGENTS.md |
 
-1. **Keep root AGENTS.md concise** - Only essential, cross-cutting knowledge belongs here. Domain-specific knowledge should be placed in `AGENTS.md` files within relevant subdirectories or in dedicated markdown files under `docs/`
-2. **Record valuable knowledge when solving problems** - When discovering useful patterns or solutions, document them in the most relevant file
-3. **Never modify CLAUDE.md directly** - It is a symlink to AGENTS.md
-4. **All files and code must be written in English** - Including PHPDoc, inline comments, commit messages, and markdown files
+## Architecture (DI / Service Providers)
 
-## Documentation Map
+| Extension type | Provider path |
+|----------------|---------------|
+| Site component | @joomla/components/com_magebridge/services/provider.php |
+| Admin component | @joomla/administrator/components/com_magebridge/services/provider.php |
+| Modules | `joomla/modules/mod_magebridge_*/services/provider.php` |
+| Plugins | `joomla/plugins/*/*/services/provider.php` |
+| Yireo library | @joomla/libraries/yireo/services/provider.php |
 
-### Subdirectory AGENTS.md
+PSR-4: `MageBridge\Component\...`, `Yireo\` — see `composer.json` autoload.
 
-- [.devcontainer/AGENTS.md](.devcontainer/AGENTS.md) - Docker environment, debugging, and troubleshooting
-- [tests/AGENTS.md](tests/AGENTS.md) - Unit testing strategy
-- [e2e/AGENTS.md](e2e/AGENTS.md) - E2E testing with Playwright
+## Progressive Disclosure (Context Offloading)
 
-### Development Knowledge (docs/)
+| Scope | Path |
+|-------|------|
+| Docker, live-sync, debug | @.devcontainer/AGENTS.md |
+| Unit tests (Testable Implementation Pattern) | @tests/AGENTS.md |
+| Playwright E2E | @e2e/AGENTS.md |
+| Code patterns (ViewList/ViewForm, modern APIs) | @docs/development-patterns.md |
+| Plugin service providers | @docs/plugin-providers.md |
+| PathHelper (J5/J6 path SSOT) | @docs/joomla-v6-compat.md |
 
-- [Development Patterns](docs/development-patterns.md) - Code patterns, namespace conventions, and technical reference
-- [Plugin Service Providers](docs/plugin-providers.md) - Joomla 5 plugin service provider pattern
-- [Joomla v6 Compatibility](docs/joomla-v6-compat.md) - PathHelper pattern for forward compatibility
+## Project Constraints (non-derivable)
 
----
+- **Language**: English only — code, PHPDoc, commits, markdown
+- **PHP**: 8.3+, prefer `declare(strict_types=1)`; namespaces over legacy globals (`JFactory`, etc.)
+- **Style**: PSR-12 via php-cs-fixer (`composer fix`); PHPDoc for public APIs and array shapes
+- **Security**: Joomla input filters; exceptions over `die()`; never log secrets
+- **Knowledge writeback**: propose durable gotchas to the nearest `AGENTS.md` or `docs/` (SSOT — never edit `CLAUDE.md` directly)
 
-## Environment & Tooling
+## Lessons Learned (actively pruned, max 5)
 
-This repository uses [mise](https://mise.jdx.dev/) to manage development runtimes and CLI versions (PHP, Composer, Node.js, and Aube).
-
-- To install the project's development tools, run: `mise install`
-- Runtimes are configured in [mise.toml](file:///Users/akunzai/code/MageBridgeCore/mise.toml) (using `adwinying/php` for precompiled static PHP binaries).
-
-## Build & Verify
-
-- `composer bundle` or `./bundle.sh` - Bundle the extension
-- `composer lint` - PHP CS Fixer dry-run check
-- `composer fix` - Auto-format code
-- `composer phpstan` - Static analysis (may require `--memory-limit=512M`)
-- `composer test` - Unit tests (PHPUnit)
-- `composer test -- tests/Unit/Helper/UrlHelperTest.php` - Single test file
-- `composer test-coverage` - Unit tests with coverage
-- Run integration tests via Docker environment (see [.devcontainer/AGENTS.md](.devcontainer/AGENTS.md))
-- E2E tests with Playwright (see [e2e/AGENTS.md](e2e/AGENTS.md))
-
-## Dependency Management
-
-### Known abandoned-package warnings (safe to ignore)
-
-These are flagged as "abandoned" by Composer but are indirect/transitive dependencies
-that cannot be removed unilaterally, have no known replacement, and carry no
-associated Dependabot security alert:
-
-- `laminas/laminas-loader` — required by `laminas/laminas-http` (^2.23), which is
-  pulled in by our own `laminas/laminas-json-server` dependency. Part of the
-  production dependency tree; only removable if upstream `laminas-http` drops it.
-- `eloquent/enumeration` — required via `openmage/magento-lts` (require-dev) →
-  `magento-hackathon/magento-composer-installer` → `flyingmana/composer-config-reader`.
-  Dev-only, never installed in production.
-- `laminas/laminas-text` — required via `openmage/magento-lts` (require-dev) →
-  `laminas/laminas-captcha`. Dev-only, never installed in production.
-
-Before investigating a new "abandoned" warning, check
-`gh api repos/akunzai/MageBridgeCore/dependabot/alerts` first — "abandoned" is a
-Composer maintenance-status notice, not necessarily a security vulnerability.
-
-## Code Style & Types
-
-- PSR-12 coding standard
-- PHP 8.3+, use strict types whenever possible
-- Always declare namespaces and imports, avoid legacy global classes
-- Use PHPDoc to annotate public APIs and provide meaningful comments for array shapes
-- Use `use` statements for imports, avoid FQCN in PHPDoc
-
-## Error & Security
-
-- Validate input via Joomla filters
-- Prefer exception handling over die()
-- Never log sensitive information
-- Use Joomla logging helpers
-
-## Key Files Reference
-
-### Component Service Providers
-- `joomla/components/com_magebridge/services/provider.php`
-- `joomla/administrator/components/com_magebridge/services/provider.php`
-
-### Module Service Providers
-- `joomla/modules/mod_magebridge_*/services/provider.php`
-
-### Plugin Service Providers
-- `joomla/plugins/*/*/services/provider.php`
-
-### Library Service Provider
-- `joomla/libraries/yireo/services/provider.php`
+- **[Composer]** Transitive "abandoned" notices for `laminas/laminas-loader`, `eloquent/enumeration`, `laminas/laminas-text` are safe to ignore unless Dependabot flags them — check with `gh api repos/akunzai/MageBridgeCore/dependabot/alerts` first ("abandoned" ≠ CVE)
 
 ## Claude Code Compatibility
 
 > [!NOTE]
-> This repository maintains compatibility with Claude Code. The file `CLAUDE.md` is a symbolic link pointing to `AGENTS.md`. 
+> This repository maintains compatibility with Claude Code. The file `CLAUDE.md` is a symbolic link pointing to `AGENTS.md`.
 > All commands, style guides, and workflows defined in `AGENTS.md` apply to both Antigravity (and other agentic assistants) and Claude Code.
 > **DO NOT** delete the `CLAUDE.md` symbolic link or edit it independently; all guidelines must be updated directly in `AGENTS.md`.

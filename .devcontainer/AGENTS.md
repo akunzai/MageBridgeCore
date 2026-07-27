@@ -1,9 +1,9 @@
-# Devcontainer Agent Instructions
+# Devcontainer — Agent Guidelines
 
-All commands are executed on the **Host machine**, not inside the container.
-See also [README.md](README.md) for initial setup (TLS certs, hosts file, etc.).
+Run all commands on the **host**, not inside the container.
+Initial setup (TLS, hosts): @.devcontainer/README.md
 
-## Starting and Stopping the Environment
+## Lifecycle
 
 ```bash
 docker compose -f .devcontainer/compose.yml up -d
@@ -11,46 +11,36 @@ docker compose -f .devcontainer/compose.yml down
 docker compose -f .devcontainer/compose.yml exec -w /workspace joomla <command>
 ```
 
-## Complete Reinstall of Joomla
+### Full Joomla reinstall (install → vendor → bundle → configure)
 
 ```bash
 .devcontainer/joomla/install.sh
 ```
 
-This script will:
-1. Install Joomla via CLI (if not already installed)
-2. Check and install composer dependencies (if vendor directory doesn't exist)
-3. Bundle the MageBridge extension (selectively copies production packages only)
-4. Install the extension into Joomla
-5. Configure MageBridge settings and enable plugins
+Bundling copies production packages only (`brick`, `laminas`, `nikic`, `psr`); dev tooling (PHPStan, PHPUnit) stays on the host vendor tree.
 
-**Note**: The bundling process only copies required production packages (brick, laminas, nikic, psr) from vendor, so development dependencies (PHPStan, PHPUnit, etc.) are not affected and remain available.
+## Live-sync (volume ≠ runtime)
 
-## Live Update Files to Container
-
-Since Joomla's `/var/www/html` uses a Docker volume (not directly mounting the local directory), code changes need to be manually copied to the container to take effect.
+`/workspace` is the bind mount; Joomla serves `/var/www/html` (volume). After local edits, `cp` into the container:
 
 ```bash
-# Copy a single file
+# single file
 docker compose -f .devcontainer/compose.yml cp \
   joomla/administrator/components/com_magebridge/src/View/Logs/HtmlView.php \
   joomla:/var/www/html/administrator/components/com_magebridge/src/View/Logs/HtmlView.php
 
-# Copy multiple files (chain with &&)
+# multi-file: chain with &&
 docker compose -f .devcontainer/compose.yml cp \
   joomla/path/to/file1.php joomla:/var/www/html/path/to/file1.php && \
 docker compose -f .devcontainer/compose.yml cp \
   joomla/path/to/file2.php joomla:/var/www/html/path/to/file2.php
 ```
 
-**Notes**:
-- Local code is mounted to `/workspace`, but Joomla actually runs from `/var/www/html`
-- For quick testing of individual files, copy them to the container
-- For complete fresh installation, use the `.devcontainer/joomla/install.sh` script
+Full reinstall when live-sync is insufficient: `.devcontainer/joomla/install.sh`.
 
-## Debugging & Troubleshooting
+## Debug SOP
 
-### View Joomla Error Logs
+### Joomla logs
 
 ```bash
 docker compose -f .devcontainer/compose.yml exec joomla \
@@ -63,11 +53,9 @@ docker compose -f .devcontainer/compose.yml exec joomla \
   tail -f /var/www/html/administrator/logs/everything.php
 ```
 
-### View MageBridge Debug Logs
+### MageBridge debug log
 
-MageBridge has its own debug logging system. To enable it, set these values in Configuration > Debugging:
-- **Debug**: Yes
-- **Debug log**: Both database and file
+Enable in Configuration → Debugging: **Debug** = Yes, **Debug log** = Both database and file.
 
 ```bash
 docker compose -f .devcontainer/compose.yml exec joomla \
@@ -76,15 +64,15 @@ docker compose -f .devcontainer/compose.yml exec joomla \
 docker compose -f .devcontainer/compose.yml exec joomla \
   tail -f /var/www/html/administrator/logs/magebridge.txt
 
-# Query debug logs from database (table prefix: jos_)
+# DB log (prefix jos_)
 docker compose -f .devcontainer/compose.yml exec mysql \
   mysql -u root -psecret joomla -e \
   "SELECT timestamp, type, origin, message FROM jos_magebridge_log ORDER BY id DESC LIMIT 20;"
 ```
 
-You can also view logs in Joomla Admin: **Components > MageBridge > Logs**
+Admin UI: **Components → MageBridge → Logs**
 
-### Query Database Configuration
+### Config / schema probes
 
 ```bash
 docker compose -f .devcontainer/compose.yml exec mysql \
@@ -95,16 +83,12 @@ docker compose -f .devcontainer/compose.yml exec mysql \
   mysql -u root -psecret joomla -e "SHOW TABLES LIKE '%magebridge%';"
 ```
 
-### Clear Caches
+### Cache bust / container logs
 
 ```bash
 docker compose -f .devcontainer/compose.yml exec joomla \
   sh -c 'rm -rf /var/www/html/cache/* /var/www/html/administrator/cache/*'
-```
 
-### Container Logs
-
-```bash
 docker compose -f .devcontainer/compose.yml logs joomla --tail=50
 docker compose -f .devcontainer/compose.yml logs -f joomla
 ```

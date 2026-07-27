@@ -1,44 +1,40 @@
-# E2E Testing Agent Instructions
+# E2E Testing — Agent Guidelines
 
-E2E tests use Playwright to test MageBridge in a real browser environment.
+Playwright against real Joomla + OpenMage in the Docker stack (@.devcontainer/AGENTS.md).
 
-## Commands
+## Quick Commands
 
 ```bash
 cd e2e && aube install
-aubr test                                        # Run all tests (or: aube run test)
-aubr test:ui                                     # Interactive UI mode
-aubr test:headed                                 # Show browser execution
-aubr test --project=joomla-admin                 # Run only Joomla admin tests
-aubr test --project=joomla-site                  # Run only Joomla site tests
-aubr test --project=openmage-admin               # Run only OpenMage admin tests
-aubr test -- tests/joomla/admin/config.spec.ts   # Run specific test
+aubr test                                        # all projects
+aubr test:ui                                     # interactive UI
+aubr test:headed                                 # headed browser
+aubr test --project=joomla-admin
+aubr test --project=joomla-site
+aubr test --project=openmage-admin
+aubr test -- tests/joomla/admin/config.spec.ts   # single file
 ```
 
-## Joomla 5 Playwright Selectors
+## Joomla 5 Selectors (a11y-first)
 
-| UI Element | Recommended Selector |
-|------------|---------------------|
+| UI element | Selector |
+|------------|----------|
 | Tab | `getByRole('tab', { name: 'API' })` |
 | Toolbar button | `getByRole('button', { name: 'Save', exact: true })` |
 | Table header link | `getByRole('link', { name: 'Label', exact: true })` |
 | Admin form | `page.locator('#adminForm')` |
-| Error message | `getByRole('alert')` |
+| Alert | `getByRole('alert')` |
 
-## Test File Structure
+## Layout
 
-```
+```text
 e2e/
 ├── playwright.config.ts
-├── fixtures/
-│   ├── auth.setup.ts               # Joomla admin authentication
-│   └── openmage.setup.ts           # OpenMage admin authentication
+├── fixtures/{auth,openmage}.setup.ts
 └── tests/
-    ├── helpers/                    # Shared test utilities
-    │   └── index.ts
-    ├── joomla/
-    │   ├── admin/                  # Joomla admin tests
-    │   └── site/                   # Joomla frontend tests
-    └── openmage/
-        └── admin/                  # OpenMage admin tests
+    ├── helpers/
+    ├── joomla/{admin,site}/
+    └── openmage/admin/
 ```
+
+Gold-standard specs: @e2e/tests/joomla/admin/config.spec.ts, @e2e/tests/joomla/admin/home.spec.ts
