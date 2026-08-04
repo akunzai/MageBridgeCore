@@ -38,6 +38,7 @@ PSR-4: `MageBridge\Component\...`, `Yireo\` — see `composer.json` autoload.
 | Code patterns (ViewList/ViewForm, modern APIs) | @docs/development-patterns.md |
 | Plugin service providers | @docs/plugin-providers.md |
 | PathHelper (J5/J6 path SSOT) | @docs/joomla-v6-compat.md |
+| Lessons learned & gotchas | @docs/lessons-learned.md |
 
 ## Project Constraints (non-derivable)
 
@@ -45,13 +46,10 @@ PSR-4: `MageBridge\Component\...`, `Yireo\` — see `composer.json` autoload.
 - **PHP**: 8.3+, prefer `declare(strict_types=1)`; namespaces over legacy globals (`JFactory`, etc.)
 - **Style**: PSR-12 via php-cs-fixer (`composer fix`); PHPDoc for public APIs and array shapes
 - **Security**: Joomla input filters; exceptions over `die()`; never log secrets
-- **Knowledge writeback**: propose durable gotchas to the nearest `AGENTS.md` or `docs/` (SSOT — never edit `CLAUDE.md` directly)
-
-## Lessons Learned (actively pruned, max 5)
-
-- **[Composer]** Transitive "abandoned" notices for `laminas/laminas-loader`, `eloquent/enumeration`, `laminas/laminas-text` are safe to ignore unless Dependabot flags them — check with `gh api repos/akunzai/MageBridgeCore/dependabot/alerts` first ("abandoned" ≠ CVE)
+- **Self-Reflection**: When non-obvious knowledge/gotchas are revealed, distill into a concise rule (≤ 2 bullets), promote to a target topic doc under `docs/` (or `docs/lessons-learned.md`), reference via Progressive Disclosure, and prune when stale.
 
 ## Claude Code Compatibility
 
 > [!NOTE]
 > `CLAUDE.md` is a symlink to `AGENTS.md`. All guidelines and updates must be made directly in `AGENTS.md`.
+
