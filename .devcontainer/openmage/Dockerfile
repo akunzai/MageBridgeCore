@@ -4,8 +4,9 @@ ARG PHP_VERSION=8.4
 ARG PHP_EXTRA_BUILD_DEPS=""
 ARG OPENMAGE_VERSION=20.18.0
 
+# Pin major tag for composer builder
 # https://github.com/OpenMage/magento-lts/blob/main/.github/workflows/release.yml
-FROM composer AS builder
+FROM composer:2 AS builder
 ARG OPENMAGE_VERSION
 # hadolint ignore=DL3003
 RUN set -eux; \
@@ -17,8 +18,14 @@ RUN set -eux; \
     composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev; \
     composer dump-autoload --optimize;
 
+# -----------------------------------------------------------------------------
+# php-ext: expensive compile layer (docker-php-ext-install + PECL).
+# Cache key depends on PHP_VERSION / PHP_EXTRA_BUILD_DEPS / this stage only.
+# -----------------------------------------------------------------------------
 # https://hub.docker.com/_/php
-FROM php:${PHP_VERSION}-apache
+FROM php:${PHP_VERSION}-apache AS php-ext
+
+ARG PHP_EXTRA_BUILD_DEPS
 
 ENV LANG=en_US.UTF-8
 
@@ -27,9 +34,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     --mount=type=cache,target=/var/cache/apt,sharing=locked \
     set -eux; \
     apt-get update; \
-    # install the system tools we need
-    apt-get install -y --no-install-recommends mariadb-client unzip; \
-    # install the PHP extensions we need
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends \
     libonig-dev libssl-dev \
@@ -42,7 +46,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp; \
     docker-php-ext-install -j$(nproc) ftp \
     gd intl mysqli opcache pcntl pdo_mysql soap xsl zip; \
-    curl -Lo /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar && \
+    # Pin pickle release so this layer is reproducible (not floating "latest").
+    curl -fsSL -o /usr/local/bin/pickle \
+      https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.11/pickle.phar; \
     chmod +x /usr/local/bin/pickle; \
     pickle install --no-interaction apcu-stable; \
     pickle install --no-interaction redis-stable; \
@@ -62,6 +68,19 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /tmp/*;
 
+# -----------------------------------------------------------------------------
+# Runtime image: cheap layers on top of php-ext
+# -----------------------------------------------------------------------------
+FROM php-ext
+
+# hadolint ignore=DL3008
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends mariadb-client unzip ca-certificates; \
+    rm -rf /tmp/*;
+
 # set up Apache2
 RUN set -eux; \
     # change listening port to 8080
@@ -78,8 +97,9 @@ RUN set -eux; \
     } >> /etc/apache2/apache2.conf;
 
 # install composer
+# Pin major tag (not :latest) so COPY --from digest churn is limited.
 # https://hub.docker.com/_/composer
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # install modman
 # https://github.com/colinmollenhour/modman
@@ -88,11 +108,6 @@ ADD --chmod=755 https://raw.githubusercontent.com/colinmollenhour/modman/master/
 # install n98-magerun
 # https://github.com/netz98/n98-magerun
 ADD --chmod=755 https://files.magerun.net/n98-magerun.phar /usr/local/bin/n98-magerun
-
-# Install ca-certificates for SSL trust
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
-    --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 # set up OpenMage
 COPY --chmod=755 ./docker-entrypoint.sh /
