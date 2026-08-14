@@ -1,55 +1,29 @@
 # MageBridge Core — Agent Guidelines
 
-> Joomla 5/6 extension bridging Joomla CMS ↔ Magento/OpenMage.
+MageBridge Core is a Joomla 5/6 extension that bridges Joomla CMS with Magento/OpenMage.
 
-## Quick Commands
+Use `mise install` for the toolchain. Composer scripts define the build and quality checks; `composer bundle` builds the distributable package.
 
-| Task | Command |
-|------|---------|
-| Toolchain | `mise install` (@mise.toml) |
-| Bundle | `composer bundle` |
-| Lint / format | `composer lint` \| `composer fix` |
-| Static analysis | `composer phpstan` (may need `--memory-limit=512M`) |
-| Unit tests | `composer test` |
-| Single test | `composer test -- tests/Unit/Helper/UrlHelperTest.php` |
-| Coverage | `composer test-coverage` |
-| Integration / Docker | @.devcontainer/AGENTS.md |
-| E2E (Playwright) | @e2e/AGENTS.md |
+## Pointers
 
-## Architecture (DI / Service Providers)
+- Docker, live sync, and integration debugging: @.devcontainer/AGENTS.md
+- Unit-test conventions and gold-standard tests: @tests/AGENTS.md
+- Playwright E2E conventions and gold-standard tests: @e2e/AGENTS.md
+- Joomla implementation patterns: @docs/development-patterns.md
+- Plugin service providers: @docs/plugin-providers.md
+- Joomla 5/6 path compatibility: @docs/joomla-v6-compat.md
+- Repository gotchas: @docs/lessons-learned.md
 
-| Extension type | Provider path |
-|----------------|---------------|
-| Site component | @joomla/components/com_magebridge/services/provider.php |
-| Admin component | @joomla/administrator/components/com_magebridge/services/provider.php |
-| Modules | `joomla/modules/mod_magebridge_*/services/provider.php` |
-| Plugins | `joomla/plugins/*/*/services/provider.php` |
-| Yireo library | @joomla/libraries/yireo/services/provider.php |
+## Project Constraint
 
-PSR-4: `MageBridge\Component\...`, `Yireo\` — see `composer.json` autoload.
+Write code, PHPDoc, commits, and Markdown in English.
 
-## Progressive Disclosure (Context Offloading)
+## Self-Reflection
 
-| Scope | Path |
-|-------|------|
-| Docker, live-sync, debug | @.devcontainer/AGENTS.md |
-| Unit tests (Testable Implementation Pattern) | @tests/AGENTS.md |
-| Playwright E2E | @e2e/AGENTS.md |
-| Code patterns (ViewList/ViewForm, modern APIs) | @docs/development-patterns.md |
-| Plugin service providers | @docs/plugin-providers.md |
-| PathHelper (J5/J6 path SSOT) | @docs/joomla-v6-compat.md |
-| Lessons learned & gotchas | @docs/lessons-learned.md |
-
-## Project Constraints (non-derivable)
-
-- **Language**: English only — code, PHPDoc, commits, markdown
-- **PHP**: 8.3+, prefer `declare(strict_types=1)`; namespaces over legacy globals (`JFactory`, etc.)
-- **Style**: PSR-12 via php-cs-fixer (`composer fix`); PHPDoc for public APIs and array shapes
-- **Security**: Joomla input filters; exceptions over `die()`; never log secrets
-- **Self-Reflection**: When non-obvious knowledge/gotchas are revealed, distill into a concise rule (≤ 2 bullets), promote to a target topic doc under `docs/` (or `docs/lessons-learned.md`), reference via Progressive Disclosure, and prune when stale.
+- **Candidate**: Distill a non-obvious gotcha into no more than two context-tagged bullets and propose it before writing.
+- **Promote**: After confirmation, merge it into an existing topic document or create `docs/<topic>.md`; use `docs/lessons-learned.md` only as a fallback, and keep one pointer per document above.
+- **Prune**: Propose removing entries when they become obsolete, enforced, duplicated, or merely record a debugging transcript.
 
 ## Claude Code Compatibility
 
-> [!NOTE]
-> `CLAUDE.md` is a symlink to `AGENTS.md`. All guidelines and updates must be made directly in `AGENTS.md`.
-
+`CLAUDE.md` is a symbolic link to `AGENTS.md`. Edit `AGENTS.md` directly.
