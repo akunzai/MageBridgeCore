@@ -727,15 +727,11 @@ class Yireo_MageBridge_Model_Core
     {
         // Fetch the variables from the meta-data
         $api_session = $this->getMetaData('api_session');
-        if (empty($api_user)) {
-            $api_user = $this->getMetaData('api_user');
-        }
-        if (empty($api_key)) {
-            $api_key = $this->getMetaData('api_key');
-        }
+        $api_user = Yireo_MageBridge_Helper_ApiAuth::resolveCredential($api_user, $this->getMetaData('api_user'));
+        $api_key = Yireo_MageBridge_Helper_ApiAuth::resolveCredential($api_key, $this->getMetaData('api_key'));
 
         // If the API-session matches, we don't need authenticate any more
-        if ($api_session == md5(session_id() . $api_user . $api_key)) {
+        if (Yireo_MageBridge_Helper_ApiAuth::sessionMatches($api_session, session_id(), $api_user, $api_key)) {
             return true;
         }
 
@@ -744,7 +740,7 @@ class Yireo_MageBridge_Model_Core
             /** @var Mage_Api_Model_User $api */
             $api = Mage::getModel('api/user');
             if ($api->authenticate($api_user, $api_key) == true) {
-                $this->setMetaData('api_session', md5(session_id() . $api_user . $api_key));
+                $this->setMetaData('api_session', Yireo_MageBridge_Helper_ApiAuth::sessionToken(session_id(), $api_user, $api_key));
                 return true;
             }
         } catch (Exception $e) {

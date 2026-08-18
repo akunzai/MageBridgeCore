@@ -93,7 +93,7 @@ class Yireo_MageBridge_Model_Client
         $apiUser = $this->helper->getApiUser($store);
         $apiKey = $this->helper->getApiKey($store);
 
-        if (empty($apiUser) || empty($apiKey)) {
+        if (Yireo_MageBridge_Helper_ApiAuth::credentialsReady($apiUser, $apiKey) === false) {
             $this->debug->warning('Listener getApiAuthArray: api_user or api_key is missing');
             $this->debug->trace('Listener: Meta data', $this->coreModel->getMetaData());
             return false;
