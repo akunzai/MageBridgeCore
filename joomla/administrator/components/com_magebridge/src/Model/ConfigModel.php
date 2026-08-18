@@ -13,6 +13,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseInterface;
 use MageBridge\Component\MageBridge\Administrator\Table\Config;
 use MageBridge\Component\MageBridge\Site\Model\Config\Defaults as SiteConfigDefaults;
+use MageBridge\Component\MageBridge\Site\Model\Config\Rules;
 use MageBridge\Component\MageBridge\Site\Model\Config\Value as SiteConfigValue;
 use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
@@ -140,6 +141,8 @@ class ConfigModel extends CommonModel
                     }
                 }
             }
+
+            $configData = Rules::formValues($this->defaults ?? [], $configData);
 
             // Bind data in the format expected by the form (fields are under 'config' group)
             $form->bind(['config' => $configData]);

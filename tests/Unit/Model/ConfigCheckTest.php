@@ -133,4 +133,55 @@ final class ConfigCheckTest extends TestCase
             Rules::basedirCollidesWithRootAlias('shop', '', 'www.example.com', 'www.example.com')
         );
     }
+
+    public function testOmitBlankSecretsDropsEmptyPasswordFields(): void
+    {
+        $post = Rules::omitBlankSecrets([
+            'host' => 'store.example.com',
+            'api_key' => '',
+            'http_password' => '',
+            'encryption_key' => '',
+            'http_user' => 'bridge',
+        ]);
+
+        $this->assertSame('store.example.com', $post['host']);
+        $this->assertSame('bridge', $post['http_user']);
+        $this->assertArrayNotHasKey('api_key', $post);
+        $this->assertArrayNotHasKey('http_password', $post);
+        $this->assertArrayNotHasKey('encryption_key', $post);
+    }
+
+    public function testOmitBlankSecretsKeepsPostedSecrets(): void
+    {
+        $post = Rules::omitBlankSecrets([
+            'api_key' => 'new-secret',
+            'http_password' => '0',
+            'encryption_key' => 'abc',
+        ]);
+
+        $this->assertSame('new-secret', $post['api_key']);
+        $this->assertSame('0', $post['http_password']);
+        $this->assertSame('abc', $post['encryption_key']);
+    }
+
+    public function testFormValuesLetsStoredRowsOverrideDefaults(): void
+    {
+        $values = Rules::formValues(
+            [
+                'filter_content' => '1',
+                'offline_message' => 'The webshop is currently not available. Please come back again later.',
+                'http_user' => '',
+            ],
+            [
+                'http_user' => 'bridge',
+            ]
+        );
+
+        $this->assertSame('1', $values['filter_content']);
+        $this->assertSame(
+            'The webshop is currently not available. Please come back again later.',
+            $values['offline_message']
+        );
+        $this->assertSame('bridge', $values['http_user']);
+    }
 }

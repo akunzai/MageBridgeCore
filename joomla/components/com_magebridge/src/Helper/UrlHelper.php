@@ -438,15 +438,22 @@ final class UrlHelper
 
     public static function getItemId(): int
     {
-        $rootItem = self::getRootItem();
+        /** @var CMSApplication */
+        $app = Factory::getApplication();
 
-        if ($rootItem !== false && isset($rootItem->id) && (int) $rootItem->id > 0) {
+        return self::resolveItemId(self::getRootItem(), $app->input->getInt('Itemid'));
+    }
+
+    /**
+     * Joomla Input::getInt() may return null when Itemid is absent.
+     */
+    public static function resolveItemId(object|false|null $rootItem, mixed $requestItemId): int
+    {
+        if (is_object($rootItem) && isset($rootItem->id) && (int) $rootItem->id > 0) {
             return (int) $rootItem->id;
         }
 
-        /** @var CMSApplication */
-        $app = Factory::getApplication();
-        return $app->input->getInt('Itemid');
+        return (int) $requestItemId;
     }
 
     public static function route(?string $request = null, bool $xhtml = true, array $arguments = []): string
