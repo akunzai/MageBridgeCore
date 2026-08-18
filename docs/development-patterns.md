@@ -97,6 +97,22 @@ public function setHeaders(?string $type = null) {
 }
 ```
 
+### Config form Save
+
+XML `default="0"` / empty on `administrator/.../forms/config.xml` is **not** the runtime default. Keys not yet in `#__magebridge_config` must be bound from `Defaults.php` before the form is shown.
+
+```php
+// ✅ Bind PHP defaults, then stored rows; drop blank secrets before store()
+$configData = Rules::formValues($defaults, $stored);
+$form->bind(['config' => $configData]);
+$post = Rules::omitBlankSecrets($post);
+
+// ❌ Bind only DB rows — first Save writes XML zeros
+$form->bind(['config' => $stored]);
+```
+
+Otherwise Save posts `filter_content=0`, a blank `offline_message`, and empty `api_key` / `http_password` over the live values. `ConfigModel::store()` overwrites any `isset($post[$name])` field, including `''`.
+
 ### Table Default Values
 
 ```php

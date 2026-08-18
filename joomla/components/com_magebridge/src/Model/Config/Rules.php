@@ -56,6 +56,37 @@ final class Rules
         return preg_match('/([a-zA-Z0-9.\-_]+)/', (string) $value) === 0;
     }
 
+    /**
+     * Password inputs are blank on edit forms. Drop them so store() keeps the existing secret.
+     *
+     * @param array<string, mixed> $post
+     *
+     * @return array<string, mixed>
+     */
+    public static function omitBlankSecrets(array $post): array
+    {
+        foreach (['api_key', 'http_password', 'encryption_key'] as $secret) {
+            if (array_key_exists($secret, $post) && $post[$secret] === '') {
+                unset($post[$secret]);
+            }
+        }
+
+        return $post;
+    }
+
+    /**
+     * Bind PHP defaults for keys not yet stored. Otherwise Save writes XML defaults (often 0/empty).
+     *
+     * @param array<string, mixed> $defaults
+     * @param array<string, mixed> $stored
+     *
+     * @return array<string, mixed>
+     */
+    public static function formValues(array $defaults, array $stored): array
+    {
+        return array_merge($defaults, $stored);
+    }
+
     public static function basedirCollidesWithRootAlias(
         string $basedir,
         mixed $rootRoute,

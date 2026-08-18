@@ -56,7 +56,7 @@ export default defineConfig({
       testMatch: /joomla\/admin\/.*\.spec\.ts/,
     },
 
-    /* Joomla site tests */
+    /* Joomla site tests (admin session — existing specs) */
     {
       name: 'joomla-site',
       use: {
@@ -65,6 +65,16 @@ export default defineConfig({
       },
       dependencies: ['setup-joomla'],
       testMatch: /joomla\/site\/.*\.spec\.ts/,
+      testIgnore: /joomla\/site\/guest\/.*/,
+    },
+
+    /* Anonymous storefront — no Joomla admin cookie */
+    {
+      name: 'joomla-site-guest',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+      testMatch: /joomla\/site\/guest\/.*\.spec\.ts/,
     },
 
     /* OpenMage admin tests */

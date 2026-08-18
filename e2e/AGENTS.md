@@ -38,3 +38,9 @@ e2e/
 ```
 
 Gold-standard specs: @e2e/tests/joomla/admin/config.spec.ts, @e2e/tests/joomla/admin/home.spec.ts
+
+## Config Save and catalog fixtures
+
+Admin Configuration **Save writes the whole form to the shared Docker DB**. `fullyParallel` workers in other projects see that mutation. Assert rendered booleans against `Defaults.php` (and `install.sh` overrides such as `enable_sso`), not against XML `default="0"`.
+
+Chelsea Tee (`chelsea-tee-720.html`) is configurable with MAP — do not treat add-to-cart success as a golden path. Magento sends an empty checkout to the cart; stop guest shop-flow at store / product / cart.

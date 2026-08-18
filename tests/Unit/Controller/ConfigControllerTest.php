@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MageBridge\Tests\Unit\Controller;
 
+use MageBridge\Component\MageBridge\Site\Model\Config\Rules;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -193,6 +194,7 @@ final class ConfigControllerTest extends TestCase
      * This mimics the actual fixPost logic without requiring Joomla dependencies.
      *
      * @param array $post Posted configuration data
+     *
      * @return array Normalized post data
      */
     private function callFixPost(array $post): array
@@ -215,6 +217,6 @@ final class ConfigControllerTest extends TestCase
             unset($post['config']);
         }
 
-        return $post;
+        return Rules::omitBlankSecrets($post);
     }
 }

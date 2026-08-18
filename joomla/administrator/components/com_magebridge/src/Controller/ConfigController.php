@@ -15,6 +15,7 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use MageBridge\Component\MageBridge\Administrator\Model\ConfigModel;
+use MageBridge\Component\MageBridge\Site\Model\Config\Rules;
 use Yireo\Helper\Helper;
 
 class ConfigController extends BaseController
@@ -287,7 +288,7 @@ class ConfigController extends BaseController
             $post['api_user'] = $rawApiUser;
         }
 
-        return $post;
+        return Rules::omitBlankSecrets($post);
     }
 
     /**

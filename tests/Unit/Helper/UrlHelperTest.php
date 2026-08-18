@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MageBridge\Tests\Unit\Helper;
 
+use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -136,6 +137,21 @@ final class UrlHelperTest extends TestCase
         $result = $this->helper->stripUrl($url);
 
         $this->assertStringStartsWith('/catalog/product/view', $result);
+    }
+
+    public function testResolveItemIdPrefersRootMenuId(): void
+    {
+        $root = (object) ['id' => '42'];
+
+        $this->assertSame(42, UrlHelper::resolveItemId($root, null));
+        $this->assertSame(42, UrlHelper::resolveItemId($root, 7));
+    }
+
+    public function testResolveItemIdCastsMissingRequestItemIdToZero(): void
+    {
+        $this->assertSame(0, UrlHelper::resolveItemId(false, null));
+        $this->assertSame(0, UrlHelper::resolveItemId(null, ''));
+        $this->assertSame(15, UrlHelper::resolveItemId(false, '15'));
     }
 }
 
