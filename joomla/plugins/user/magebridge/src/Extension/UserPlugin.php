@@ -13,6 +13,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Event\SubscriberInterface;
 use MageBridge\Component\MageBridge\Site\Model\User\SsoModel;
+use MageBridge\Component\MageBridge\Site\Model\User\SyncRules;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 use MageBridge\Component\MageBridge\Site\Model\Register;
@@ -51,15 +52,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
      */
     public static function getSubscribedEvents(): array
     {
-        return [
-            'onUserAfterDelete' => 'onUserAfterDelete',
-            'onUserBeforeSave' => 'onUserBeforeSave',
-            'onUserAfterSave' => 'onUserAfterSave',
-            'onUserLogin' => 'onUserLogin',
-            'onUserAfterLogin' => 'onUserAfterLogin',
-            'onUserLogout' => 'onUserLogout',
-            'onUserAfterLogout' => 'onUserAfterLogout',
-        ];
+        return SyncRules::subscribedEvents();
     }
 
     /**
@@ -113,8 +106,8 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
      */
     public function onUserBeforeSave($oldUser, $isnew, $newUser)
     {
-        $id = $oldUser['id'] ?? 0;
-        $this->original_data[$id] = ['email' => $oldUser['email']];
+        [$id, $snapshot] = SyncRules::originalEmailSnapshot($oldUser);
+        $this->original_data[$id] = $snapshot;
 
         return true;
     }
@@ -131,11 +124,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
      */
     public function onUserAfterSave($user, $isnew, $success, $msg)
     {
-        $id = $user['id'] ?? 0;
-
-        if (isset($this->original_data[$id])) {
-            $user['original_data'] = $this->original_data[$id];
-        }
+        $user = SyncRules::mergeOriginalData($user, $this->original_data);
 
         // Check if we can run this event or not
         if (!$this->pluginHelper->isEventAllowed('onUserAfterSave')) {
@@ -143,7 +132,12 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Copy the username to the email address (if this is configured)
-        if ($this->app->isClient('site') && $this->params->get('username_from_email', 0) == 1 && $user['username'] != $user['email']) {
+        if (SyncRules::shouldCopyUsernameFromEmail(
+            $this->app->isClient('site'),
+            $this->params->get('username_from_email', 0),
+            (string) $user['username'],
+            (string) $user['email']
+        )) {
             DebugModel::getInstance()->notice("onUserAfterSave::bind on user " . $user['username']);
 
             // Load the right user object
@@ -167,7 +161,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Synchronize this user-record with Magento
-        if ($this->params->get('enable_usersync', 0) == 1) {
+        if (SyncRules::shouldSyncAfterSave($this->params->get('enable_usersync', 0))) {
             DebugModel::getInstance()->notice("onUserAfterSave::usersync on user " . $user['username']);
 
             // Sync this user-record with the bridge
@@ -193,7 +187,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Synchronize this user-record with Magento
-        if ($this->params->get('enable_usersync', 0) == 1 && $this->app->isClient('site')) {
+        if (SyncRules::shouldSyncOnLogin($this->params->get('enable_usersync', 0), $this->app->isClient('site'))) {
             $identity = Factory::getApplication()->getIdentity();
             $user['id'] = $identity->id;
             $user       = $this->userModel->synchronize($user);
@@ -220,17 +214,17 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Check whether SSO is enabled
-        if ($this->params->get('enable_sso', 0) != 1) {
+        if (SyncRules::shouldStartSsoAfterLogin($this->params->get('enable_sso', 0)) === false) {
             return true;
         }
 
         $user = $options['user'];
 
-        if ($this->app->isClient('site') && $this->params->get('enable_auth_frontend', 0) == 1) {
+        if (SyncRules::shouldSsoOnClient($this->app->isClient('site'), $this->params->get('enable_auth_frontend', 0))) {
             SsoModel::getInstance()->doSSOLogin($user);
         }
 
-        if ($this->app->isClient('administrator') && $this->params->get('enable_auth_backend', 0) == 1) {
+        if (SyncRules::shouldSsoOnClient($this->app->isClient('administrator'), $this->params->get('enable_auth_backend', 0))) {
             SsoModel::getInstance()->doSSOLogin($user);
         }
 
@@ -259,13 +253,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         $bridge   = BridgeModel::getInstance();
         $register = Register::getInstance();
 
-        $cookies = [
-            'om_frontend',
-            'frontend',
-            'user_allowed_save_cookie',
-            'persistent_shopping_cart',
-            'mb_postlogin',
-        ];
+        $cookies = SyncRules::logoutCookies();
 
         foreach ($cookies as $cookie) {
             if (isset($_COOKIE[$cookie])) {
@@ -285,7 +273,7 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         $session->set('magento_session', null);
 
         // Build the bridge and fetch the result
-        if ($this->params->get('link_to_magento', 1) == 0) {
+        if (SyncRules::shouldBridgeLogout($this->params->get('link_to_magento', 1))) {
             $arguments = ['disable_events' => 1];
             $id        = $register->add('logout', null, $arguments);
             $bridge->build();
@@ -309,15 +297,15 @@ class UserPlugin extends CMSPlugin implements SubscriberInterface
         }
 
         // Check whether SSO is enabled
-        if ($this->params->get('enable_sso', 0) !== 1 || !isset($options['username'])) {
+        if (SyncRules::shouldStartSsoAfterLogout($this->params->get('enable_sso', 0), $options) === false) {
             return true;
         }
 
-        if ($this->app->isClient('site') && $this->params->get('enable_auth_frontend', 0) == 1) {
+        if (SyncRules::shouldSsoOnClient($this->app->isClient('site'), $this->params->get('enable_auth_frontend', 0))) {
             SsoModel::getInstance()->doSSOLogout($options['username']);
         }
 
-        if ($this->app->isClient('administrator') && $this->params->get('enable_auth_backend', 0) == 1) {
+        if (SyncRules::shouldSsoOnClient($this->app->isClient('administrator'), $this->params->get('enable_auth_backend', 0))) {
             SsoModel::getInstance()->doSSOLogout($options['username']);
         }
 
