@@ -17,24 +17,48 @@ final class BridgeHelper
      */
     public static function getBridgableCookies(): array
     {
-        if ((int) ConfigModel::load('bridge_cookie_all') === 1 && !empty($_COOKIE)) {
+        /** @var CMSApplication $app */
+        $app = Factory::getApplication();
+
+        return self::resolveBridgableCookies(
+            (int) ConfigModel::load('bridge_cookie_all') === 1,
+            $_COOKIE,
+            $app->isClient('site'),
+            ConfigModel::load('bridge_cookie_custom')
+        );
+    }
+
+    /**
+     * Choose which cookie names cross the bridge.
+     *
+     * @param array<array-key, mixed> $requestCookies
+     *
+     * @return string[]
+     */
+    public static function resolveBridgableCookies(
+        bool $bridgeAll,
+        array $requestCookies,
+        bool $isSite,
+        mixed $customCookies
+    ): array {
+        if ($bridgeAll && $requestCookies !== []) {
             $cookies = [];
 
-            foreach (array_keys($_COOKIE) as $cookieName) {
-                if (!self::isCookieNameAllowed($cookieName)) {
+            foreach (array_keys($requestCookies) as $cookieName) {
+                if (!self::isCookieNameAllowed((string) $cookieName)) {
                     continue;
                 }
 
-                $cookies[] = $cookieName;
+                $cookies[] = (string) $cookieName;
             }
 
             return $cookies;
         }
 
-        $cookies       = self::getDefaultCookieNames();
-        $customCookies = self::getCustomCookies();
-
-        return array_merge($cookies, $customCookies);
+        return array_merge(
+            self::defaultCookieNamesForClient($isSite),
+            self::parseCustomCookieNames($customCookies)
+        );
     }
 
     public static function isCookieNameAllowed(string $cookieName): bool
@@ -55,8 +79,14 @@ final class BridgeHelper
      */
     public static function getCustomCookies(): array
     {
-        $customCookies = ConfigModel::load('bridge_cookie_custom');
+        return self::parseCustomCookieNames(ConfigModel::load('bridge_cookie_custom'));
+    }
 
+    /**
+     * @return string[]
+     */
+    public static function parseCustomCookieNames(mixed $customCookies): array
+    {
         if (empty($customCookies)) {
             return [];
         }
@@ -86,7 +116,15 @@ final class BridgeHelper
         /** @var CMSApplication */
         $app = Factory::getApplication();
 
-        if ($app->isClient('site')) {
+        return self::defaultCookieNamesForClient($app->isClient('site'));
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function defaultCookieNamesForClient(bool $isSite): array
+    {
+        if ($isSite) {
             return [
                 'om_frontend',
                 'om_frontend_cid',
