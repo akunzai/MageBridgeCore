@@ -18,6 +18,7 @@ use Laminas\Json\Server\Server as JsonServer;
 use MageBridge\Component\MageBridge\Site\Helper\EncryptionHelper;
 use MageBridge\Component\MageBridge\Site\Helper\PathHelper;
 use MageBridge\Component\MageBridge\Site\Library\Api as MageBridgeApi;
+use MageBridge\Component\MageBridge\Site\Model\Bridge\ApiAuth;
 use MageBridge\Component\MageBridge\Site\Model\ConfigModel;
 use MageBridge\Component\MageBridge\Site\Model\DebugModel;
 use RuntimeException;
@@ -134,7 +135,7 @@ class JsonrpcController extends BaseController
 
     private function authenticate($auth): bool
     {
-        if (empty($auth) || empty($auth['api_user']) || empty($auth['api_key'])) {
+        if (ApiAuth::postedAuthIsPresent($auth) === false) {
             return false;
         }
 
@@ -144,13 +145,9 @@ class JsonrpcController extends BaseController
         $configUser = ConfigModel::load('api_user');
         $configKey = ConfigModel::load('api_key');
 
-        if ($apiUser !== $configUser) {
-            $this->debug->error('JSON-RPC: API-authentication failed: Username "' . $apiUser . '" did not match');
-            return false;
-        }
-
-        if ($apiKey !== $configKey) {
-            $this->debug->error('JSON-RPC: API-authentication failed: Key "' . $apiKey . '" did not match');
+        if (ApiAuth::credentialsMatch($apiUser, $apiKey, $configUser, $configKey) === false) {
+            $field = $apiUser !== $configUser ? 'Username "' . $apiUser . '"' : 'Key "' . $apiKey . '"';
+            $this->debug->error('JSON-RPC: API-authentication failed: ' . $field . ' did not match');
             return false;
         }
 
