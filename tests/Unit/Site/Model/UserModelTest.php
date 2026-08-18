@@ -169,21 +169,6 @@ final class UserModelTest extends TestCase
     }
 
     /**
-     * Test password pattern matching for encryption.
-     */
-    public function testPasswordPatternMatching(): void
-    {
-        // Password that should NOT be encrypted (already hashed)
-        $this->assertTrue($this->model->isHashedPassword('$2y$10$abcdefghijklmnop'));
-        $this->assertTrue($this->model->isHashedPassword('{SHA256}abcdefg'));
-        $this->assertTrue($this->model->isHashedPassword('a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6:SALT123'));
-
-        // Password that should be encrypted (plain text)
-        $this->assertFalse($this->model->isHashedPassword('MyPassword123'));
-        $this->assertFalse($this->model->isHashedPassword('simple'));
-    }
-
-    /**
      * Test postlogin validates email format.
      */
     public function testPostloginValidatesEmailFormat(): void
@@ -271,8 +256,6 @@ class TestableUserModel
      * Create a user.
      *
      * @param array<string, mixed> $user
-     *
-     * @return bool
      */
     public function create(array $user): bool
     {
@@ -289,7 +272,7 @@ class TestableUserModel
      *
      * @param array<string, mixed> $user
      *
-     * @return array<string, mixed>|null|false
+     * @return array<string, mixed>|false|null
      */
     public function synchronize(array $user)
     {
@@ -307,29 +290,6 @@ class TestableUserModel
 
         // Simulate successful synchronization
         return $user;
-    }
-
-    /**
-     * Check if password is already hashed.
-     */
-    public function isHashedPassword(string $password): bool
-    {
-        // Bcrypt hash
-        if (preg_match('/^\$/', $password)) {
-            return true;
-        }
-
-        // SHA256 hash
-        if (preg_match('/^\{SHA256\}/', $password)) {
-            return true;
-        }
-
-        // MD5 with salt
-        if (preg_match('/([a-z0-9]{32}):([a-zA-Z0-9]+)/', $password)) {
-            return true;
-        }
-
-        return false;
     }
 
     /**

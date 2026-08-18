@@ -79,6 +79,16 @@ class UserHelper
     }
 
     /**
+     * Bcrypt, {SHA256}, or Magento md5:salt — do not treat as a clear password.
+     */
+    public static function isHashedPassword(string $password): bool
+    {
+        return preg_match('/^\$/', $password) === 1
+            || preg_match('/^\{SHA256\}/', $password) === 1
+            || preg_match('/([a-z0-9]{32}):([a-zA-Z0-9]+)/', $password) === 1;
+    }
+
+    /**
      * Decide whether a resolved user record is a backend administrator.
      *
      * Legacy usertype values containing "administrator" or "manager" are treated

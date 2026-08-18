@@ -36,7 +36,7 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
         // Continue when Joomla! Authentication is enabled
         /** @var Yireo_MageBridge_Helper_Data $magebridgeHelper */
         $magebridgeHelper = Mage::helper('magebridge');
-        if ($rt == false && $magebridgeHelper->allowJoomlaAuth() == true) {
+        if (Yireo_MageBridge_Helper_UserAuth::shouldTryJoomlaAuth($rt, $magebridgeHelper->allowJoomlaAuth())) {
             /** @var Yireo_MageBridge_Model_Debug $debug */
             $debug = Mage::getSingleton('magebridge/debug');
             $debug->notice('Calling Joomla! authentication through API for customer '.$username);
@@ -45,20 +45,18 @@ class Yireo_MageBridge_Model_Rewrite_Customer extends Mage_Customer_Model_Custom
             /** @var Yireo_MageBridge_Model_Client $client */
             $client = Mage::getSingleton('magebridge/client');
             $api_result = $client->call('magebridge.login', [$username, $password]);
-            if (is_array($api_result) && !empty($api_result)) {
+            if (Yireo_MageBridge_Helper_UserAuth::joomlaAuthSucceeded($api_result)) {
                 // Load the customer
                 /** @var Mage_Customer_Model_Customer $customer */
                 $customer = Mage::getModel('customer/customer');
                 $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
-                if (!empty($api_result['email'])) {
-                    $customer->loadByEmail($api_result['email']);
-                } else {
-                    $customer->loadByEmail($username);
-                }
+                $customer->loadByEmail(
+                    Yireo_MageBridge_Helper_UserAuth::customerEmailForResult($api_result, $username)
+                );
 
                 // Create this customer-record if it does not yet exist
-                if (!$customer->getId() > 0) {
+                if (Yireo_MageBridge_Helper_UserAuth::shouldCreateCustomer($customer->getId())) {
                     // Load a basic record
                     $customer->setEmail($username);
                     $customer->setPassword($password);
