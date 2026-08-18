@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MageBridge\Tests\Unit\Site\Helper;
 
+use MageBridge\Component\MageBridge\Site\Helper\TemplateHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,6 +14,7 @@ use PHPUnit\Framework\TestCase;
  * Since TemplateHelper has Joomla dependencies in most methods,
  * we test the pure logic methods using testable implementations.
  */
+#[CoversClass(TemplateHelper::class)]
 final class TemplateHelperTest extends TestCase
 {
     /**
@@ -299,6 +302,45 @@ final class TemplateHelperTest extends TestCase
     {
         $this->assertTrue(TestableTemplateHelper::isHomePage('?utm_source=test'));
     }
+
+    public function testIsCartPageMatchesCartPrefix(): void
+    {
+        $this->assertTrue(TemplateHelper::isCartPage('checkout/cart'));
+        $this->assertTrue(TemplateHelper::isCartPage('checkout/cart/add'));
+        $this->assertFalse(TemplateHelper::isCartPage('checkout/onepage'));
+    }
+
+    public function testIsCheckoutPageIncludesOnepageAndExcludesCartWhenAsked(): void
+    {
+        $this->assertTrue(TemplateHelper::isCheckoutPage(false, 'checkout/onepage'));
+        $this->assertTrue(TemplateHelper::isCheckoutPage(false, 'checkout/onepage/success'));
+        $this->assertTrue(TemplateHelper::isCheckoutPage(false, 'checkout/cart'));
+        $this->assertFalse(TemplateHelper::isCheckoutPage(true, 'checkout/cart'));
+        $this->assertTrue(TemplateHelper::isCheckoutPage(true, 'checkout/onepage'));
+        $this->assertTrue(TemplateHelper::isCheckoutPage(false, 'firecheckout'));
+        $this->assertFalse(TemplateHelper::isCheckoutPage(false, 'catalog/product/view'));
+    }
+
+    public function testIsProductAndCategoryAndCatalogPages(): void
+    {
+        $this->assertTrue(TemplateHelper::isProductPage('catalog/product/view/id/12'));
+        $this->assertTrue(TemplateHelper::isProductPage('checkout/cart/configure/id/12'));
+        $this->assertFalse(TemplateHelper::isProductPage('catalog/category/view/id/3'));
+        $this->assertTrue(TemplateHelper::isCategoryPage('catalog/category/view/id/3'));
+        $this->assertTrue(TemplateHelper::isCatalogPage('catalog/category/view/id/3'));
+        $this->assertFalse(TemplateHelper::isCatalogPage('customer/account'));
+    }
+
+    public function testIsCustomerSalesAndWishlistPages(): void
+    {
+        $this->assertTrue(TemplateHelper::isCustomerPage('customer/account', ''));
+        $this->assertTrue(TemplateHelper::isCustomerPage('sales/order/history', ''));
+        $this->assertTrue(TemplateHelper::isCustomerPage('wishlist/index', ''));
+        $this->assertFalse(TemplateHelper::isCustomerPage('catalog/product/view', ''));
+        $this->assertTrue(TemplateHelper::isCustomerPage('custom/loyalty', "custom/loyalty\n"));
+        $this->assertTrue(TemplateHelper::isSalesPage('sales/order/view'));
+        $this->assertTrue(TemplateHelper::isWishlistPage('wishlist/index'));
+    }
 }
 
 /**
@@ -309,7 +351,7 @@ class TestableTemplateHelper
     /**
      * Check if current page matches.
      *
-     * @param null|string|array<string> $pages
+     * @param string|array<string>|null $pages
      */
     public static function isPage(null|string|array $pages = null, ?string $request = null): bool
     {

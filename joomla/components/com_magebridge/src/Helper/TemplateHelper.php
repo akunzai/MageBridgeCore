@@ -210,13 +210,15 @@ final class TemplateHelper
 
     public static function isPage(null|string|array $pages = null, ?string $request = null): bool
     {
-        /** @var CMSApplication */
-        $app = Factory::getApplication();
-        if ($request === null && $app->input->getCmd('option') !== 'com_magebridge') {
-            return false;
-        }
+        if ($request === null) {
+            /** @var CMSApplication */
+            $app = Factory::getApplication();
+            if ($app->input->getCmd('option') !== 'com_magebridge') {
+                return false;
+            }
 
-        $request ??= self::getRequest();
+            $request = self::getRequest();
+        }
 
         if ($request === null || $request === '') {
             return false;
@@ -247,39 +249,41 @@ final class TemplateHelper
         return false;
     }
 
-    public static function isCatalogPage(): bool
+    public static function isCatalogPage(?string $request = null): bool
     {
-        return self::isPage('catalog/*');
+        return self::isPage('catalog/*', $request);
     }
 
-    public static function isProductPage(): bool
+    public static function isProductPage(?string $request = null): bool
     {
-        return self::isPage('catalog/product/*') || self::isPage('checkout/cart/configure/id/*');
+        return self::isPage('catalog/product/*', $request) || self::isPage('checkout/cart/configure/id/*', $request);
     }
 
-    public static function isCategoryPage(): bool
+    public static function isCategoryPage(?string $request = null): bool
     {
-        return self::isPage('catalog/category/*');
+        return self::isPage('catalog/category/*', $request);
     }
 
-    public static function isCustomerPage(): bool
+    public static function isCustomerPage(?string $request = null, ?string $extraPages = null): bool
     {
-        if (self::isPage('customer/*')
-            || self::isPage('sales/*')
-            || self::isPage('review/customer/*')
-            || self::isPage('tag/customer/*')
-            || self::isPage('wishlist/*')
-            || self::isPage('oauth/customer_token/*')
-            || self::isPage('newsletter/manage/*')
-            || self::isPage('downloadable/customer/*')) {
+        if (self::isPage('customer/*', $request)
+            || self::isPage('sales/*', $request)
+            || self::isPage('review/customer/*', $request)
+            || self::isPage('tag/customer/*', $request)
+            || self::isPage('wishlist/*', $request)
+            || self::isPage('oauth/customer_token/*', $request)
+            || self::isPage('newsletter/manage/*', $request)
+            || self::isPage('downloadable/customer/*', $request)) {
             return true;
         }
 
-        $customerPages = trim((string) AdminConfigModel::load('customer_pages'));
+        if ($extraPages === null) {
+            $extraPages = trim((string) AdminConfigModel::load('customer_pages'));
+        }
 
-        if ($customerPages !== '') {
-            foreach (explode("\n", $customerPages) as $customerPage) {
-                if (self::isPage($customerPage)) {
+        if ($extraPages !== '') {
+            foreach (explode("\n", $extraPages) as $customerPage) {
+                if (self::isPage($customerPage, $request)) {
                     return true;
                 }
             }
@@ -288,31 +292,31 @@ final class TemplateHelper
         return false;
     }
 
-    public static function isCartPage(): bool
+    public static function isCartPage(?string $request = null): bool
     {
-        return self::isPage('checkout/cart');
+        return self::isPage('checkout/cart', $request);
     }
 
-    public static function isCheckoutPage(bool $onlyCheckout = false): bool
+    public static function isCheckoutPage(bool $onlyCheckout = false, ?string $request = null): bool
     {
-        if (self::isCartPage() && $onlyCheckout) {
+        if (self::isCartPage($request) && $onlyCheckout) {
             return false;
         }
 
-        return self::isPage('checkout/*')
-            || self::isPage('onestepcheckout/*')
-            || self::isPage('firecheckout')
-            || self::isPage('onepage');
+        return self::isPage('checkout/*', $request)
+            || self::isPage('onestepcheckout/*', $request)
+            || self::isPage('firecheckout', $request)
+            || self::isPage('onepage', $request);
     }
 
-    public static function isSalesPage(): bool
+    public static function isSalesPage(?string $request = null): bool
     {
-        return self::isPage('sales/*');
+        return self::isPage('sales/*', $request);
     }
 
-    public static function isWishlistPage(): bool
+    public static function isWishlistPage(?string $request = null): bool
     {
-        return self::isPage('wishlist/*');
+        return self::isPage('wishlist/*', $request);
     }
 
     public static function getProductId(): int

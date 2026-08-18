@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MageBridge\Tests\Unit\Site\Helper;
 
+use MageBridge\Component\MageBridge\Site\Helper\MageBridgeHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -13,6 +15,7 @@ use PHPUnit\Framework\TestCase;
  * Since MageBridgeHelper has Joomla dependencies,
  * we test pure logic using testable implementations.
  */
+#[CoversClass(MageBridgeHelper::class)]
 final class MageBridgeHelperTest extends TestCase
 {
     /**
@@ -22,7 +25,7 @@ final class MageBridgeHelperTest extends TestCase
     public function testConvertRelativeUrls(string $input, string $expected): void
     {
         $helper = new TestableMageBridgeHelper();
-        $helper->setRouteCallback(fn(string $url) => '/store/' . $url);
+        $helper->setRouteCallback(fn (string $url) => '/store/' . $url);
 
         $result = $helper->convertRelativeUrls($input);
 
@@ -103,7 +106,7 @@ final class MageBridgeHelperTest extends TestCase
     public function testFixMalformedRootUrls(string $input, string $expected): void
     {
         $helper = new TestableMageBridgeHelper();
-        $helper->setRouteCallback(fn(string $url) => '/store/' . $url);
+        $helper->setRouteCallback(fn (string $url) => '/store/' . $url);
 
         $result = $helper->fixMalformedRootUrls($input);
 
@@ -159,7 +162,7 @@ final class MageBridgeHelperTest extends TestCase
     public function testFixMalformedRootUrlsEdgeCases(): void
     {
         $helper = new TestableMageBridgeHelper();
-        $helper->setRouteCallback(fn(string $url) => '/store/' . $url);
+        $helper->setRouteCallback(fn (string $url) => '/store/' . $url);
 
         // Empty content
         $this->assertSame('', $helper->fixMalformedRootUrls(''));
@@ -178,7 +181,7 @@ final class MageBridgeHelperTest extends TestCase
     public function testConvertRelativeUrlsEdgeCases(): void
     {
         $helper = new TestableMageBridgeHelper();
-        $helper->setRouteCallback(fn(string $url) => '/store/' . $url);
+        $helper->setRouteCallback(fn (string $url) => '/store/' . $url);
 
         // Empty content
         $this->assertSame('', $helper->convertRelativeUrls(''));
@@ -199,22 +202,22 @@ final class MageBridgeHelperTest extends TestCase
     public function testRealisticHtmlContent(): void
     {
         $helper = new TestableMageBridgeHelper();
-        $helper->setRouteCallback(fn(string $url) => '/index.php/store/' . $url);
+        $helper->setRouteCallback(fn (string $url) => '/index.php/store/' . $url);
 
         $input = <<<'HTML'
-<div class="slider">
-    <a href="https://www.example.com/index.php/store?view=rootaccessories/eyewear.html">
-        <img src="https://store.example.com/media/slide1.jpg" alt="Eyewear">
-    </a>
-    <a href="https://www.example.com/index.php/store?view=rootwomen.html">
-        <img src="https://store.example.com/media/slide2.jpg" alt="Women">
-    </a>
-    <a href="https://store.example.com/product.html">
-        Product Link
-    </a>
-    <a href="#reviews">Reviews</a>
-</div>
-HTML;
+            <div class="slider">
+                <a href="https://www.example.com/index.php/store?view=rootaccessories/eyewear.html">
+                    <img src="https://store.example.com/media/slide1.jpg" alt="Eyewear">
+                </a>
+                <a href="https://www.example.com/index.php/store?view=rootwomen.html">
+                    <img src="https://store.example.com/media/slide2.jpg" alt="Women">
+                </a>
+                <a href="https://store.example.com/product.html">
+                    Product Link
+                </a>
+                <a href="#reviews">Reviews</a>
+            </div>
+            HTML;
 
         $result = $helper->fixMalformedRootUrls($input);
 
@@ -228,6 +231,58 @@ HTML;
 
         // Images should be untouched
         $this->assertStringContainsString('src="https://store.example.com/media/slide1.jpg"', $result);
+    }
+
+    public function testIsPaypalRedirectRequest(): void
+    {
+        $this->assertTrue(MageBridgeHelper::isPaypalRedirectRequest('paypal/standard/redirect'));
+        $this->assertTrue(MageBridgeHelper::isPaypalRedirectRequest('/checkout/paypal/redirect/'));
+        $this->assertFalse(MageBridgeHelper::isPaypalRedirectRequest('paypal/ipn'));
+        $this->assertFalse(MageBridgeHelper::isPaypalRedirectRequest('checkout/cart'));
+        $this->assertFalse(MageBridgeHelper::isPaypalRedirectRequest(null));
+    }
+
+    public function testRepairPaypalAndUrlsRestoresQuerySeparators(): void
+    {
+        $input = 'href="index.php?option=com_magebridgeandview=rootandrequest=cart"';
+
+        $this->assertSame(
+            'href="index.php?option=com_magebridge&view=root&request=cart"',
+            MageBridgeHelper::repairPaypalAndUrls($input)
+        );
+        $this->assertSame('no paypal junk', MageBridgeHelper::repairPaypalAndUrls('no paypal junk'));
+    }
+
+    public function testExtractUencTokens(): void
+    {
+        $this->assertSame(
+            ['aHR0cHM6Ly9leGFtcGxlLmNvbS8,'],
+            MageBridgeHelper::extractUencTokens('/uenc/aHR0cHM6Ly9leGFtcGxlLmNvbS8,/')
+        );
+        $this->assertSame([], MageBridgeHelper::extractUencTokens('<a href="/checkout/cart">cart</a>'));
+    }
+
+    public function testShouldRewriteUencSkipsSameUrlAndTrailingSlashOnly(): void
+    {
+        $this->assertTrue(MageBridgeHelper::shouldRewriteUenc('http://a.example/x', 'https://a.example/x'));
+        $this->assertFalse(MageBridgeHelper::shouldRewriteUenc('http://a.example/x', 'http://a.example/x'));
+        $this->assertFalse(MageBridgeHelper::shouldRewriteUenc('http://a.example/x', 'http://a.example/x/'));
+    }
+
+    public function testStripSidAndStoreQueries(): void
+    {
+        $this->assertSame(
+            'https://store.example.com/a',
+            MageBridgeHelper::stripSidFromUrl('https://store.example.com/a?SID=abcdefghijkl')
+        );
+        $this->assertSame(
+            'https://store.example.com/a?foo=1',
+            MageBridgeHelper::stripSidLeftovers('https://store.example.com/a?___SID=U?foo=1')
+        );
+        $this->assertSame(
+            'https://store.example.com/a',
+            MageBridgeHelper::stripStoreQuery('https://store.example.com/a?___store=default')
+        );
     }
 }
 
