@@ -421,16 +421,11 @@ class Yireo_MageBridge_Model_User
         $data['password'] = $helper->decrypt($data['password']);
 
         // Determine whether to do a backend or a frontend login
-        switch ($data['application']) {
-            case 'admin':
-                return $this->loginAdmin($data);
-
-            default:
-                return $this->loginCustomer($data);
+        if (Yireo_MageBridge_Helper_UserAuth::isAdminApplication($data['application'] ?? null)) {
+            return $this->loginAdmin($data);
         }
 
-        /** @phpstan-ignore deadCode.unreachable */
-        return [];
+        return $this->loginCustomer($data);
     }
 
     /*

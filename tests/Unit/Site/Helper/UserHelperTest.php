@@ -271,6 +271,15 @@ final class UserHelperTest extends TestCase
         ];
     }
 
+    public function testIsHashedPasswordDetectsBcryptSha256AndMd5Salt(): void
+    {
+        $this->assertTrue(UserHelper::isHashedPassword('$2y$10$abcdefghijklmnop'));
+        $this->assertTrue(UserHelper::isHashedPassword('{SHA256}abcdefg'));
+        $this->assertTrue(UserHelper::isHashedPassword('a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6:SALT123'));
+        $this->assertFalse(UserHelper::isHashedPassword('MyPassword123'));
+        $this->assertFalse(UserHelper::isHashedPassword('simple'));
+    }
+
     public function testClassifyBackendUserUsesAclWhenUsertypeIsNotLegacyAdmin(): void
     {
         $admin = new BackendUserStub('Registered', true);
