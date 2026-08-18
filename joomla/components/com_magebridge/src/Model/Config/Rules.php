@@ -33,7 +33,7 @@ final class Rules
 
     public static function hostnameLooksLikeIp(mixed $value): bool
     {
-        return $value !== null && preg_match('/([0-9.]+)/', (string) $value) === 1;
+        return $value !== null && filter_var((string) $value, FILTER_VALIDATE_IP) !== false;
     }
 
     public static function apiWidgetsAreDisabled(mixed $value): bool

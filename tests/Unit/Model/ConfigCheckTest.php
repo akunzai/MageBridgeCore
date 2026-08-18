@@ -72,10 +72,11 @@ final class ConfigCheckTest extends TestCase
         ];
     }
 
-    public function testHostnameLooksLikeIpMatchesAnyDigitOrDot(): void
+    public function testHostnameLooksLikeIpAcceptsOnlyRealIpAddresses(): void
     {
         $this->assertTrue(Rules::hostnameLooksLikeIp('192.168.1.10'));
-        $this->assertTrue(Rules::hostnameLooksLikeIp('store.example.com'));
+        $this->assertTrue(Rules::hostnameLooksLikeIp('::1'));
+        $this->assertFalse(Rules::hostnameLooksLikeIp('store.example.com'));
         $this->assertFalse(Rules::hostnameLooksLikeIp('localhost'));
         $this->assertFalse(Rules::hostnameLooksLikeIp('store'));
         $this->assertFalse(Rules::hostnameLooksLikeIp(null));
