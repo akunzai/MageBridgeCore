@@ -5,30 +5,40 @@ exclude-labels:
 exclude-contributors:
   - dependabot
   - renovate
+# First matching category wins. A PR may keep several labels
+# (labeler adds them from branch and paths); exclusive keeps it
+# out of later sections. Do not require exactly one PR label.
 categories:
   - title: '⚡️ Breaking Changes'
+    exclusive: true
     labels:
       - breaking
   - title: '🚀 Features'
+    exclusive: true
     labels:
       - feature
       - enhancement
   - title: '🐛 Bug Fixes'
+    exclusive: true
     labels:
       - bug
       - fix
   - title: '🔨 Maintenance'
+    exclusive: true
     labels:
       - chore
       - maintenance
       - refactor
   - title: '📦 Dependencies'
+    exclusive: true
     labels:
       - dependencies
   - title: '⚙️ CI/CD'
+    exclusive: true
     labels:
       - github_actions
   - title: '📝 Documentation'
+    exclusive: true
     labels:
       - documentation
   - title: Misc
