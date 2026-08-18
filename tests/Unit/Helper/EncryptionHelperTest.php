@@ -102,4 +102,98 @@ final class EncryptionHelperTest extends TestCase
             $this->assertSame($input, $decoded, "Failed for input: {$input}");
         }
     }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        TestableEncryptionHelper::reset();
+    }
+
+    protected function tearDown(): void
+    {
+        TestableEncryptionHelper::reset();
+        parent::tearDown();
+    }
+
+    public function testGetSaltedKeyMatchesIndependentMd5Vector(): void
+    {
+        $this->assertSame(
+            EncryptionVectors::SALTED_FRONTEND,
+            TestableEncryptionHelper::getSaltedKey(EncryptionVectors::SALT_MATERIAL)
+        );
+    }
+
+    public function testEncryptReturnsEmptyStringForBlankInput(): void
+    {
+        $this->assertSame('', TestableEncryptionHelper::encrypt(''));
+        $this->assertSame('', TestableEncryptionHelper::encrypt('   '));
+    }
+
+    public function testEncryptReturnsPlaintextWhenEncryptionDisabled(): void
+    {
+        TestableEncryptionHelper::$settings['encryption'] = 0;
+
+        $this->assertSame(EncryptionVectors::PLAINTEXT, TestableEncryptionHelper::encrypt(EncryptionVectors::PLAINTEXT));
+    }
+
+    public function testEncryptReturnsPlaintextWhenProtocolIsHttps(): void
+    {
+        TestableEncryptionHelper::$settings['protocol'] = 'https';
+
+        $this->assertSame(EncryptionVectors::PLAINTEXT, TestableEncryptionHelper::encrypt(EncryptionVectors::PLAINTEXT));
+    }
+
+    public function testEncryptReturnsPlaintextWhenKeyIsEmpty(): void
+    {
+        TestableEncryptionHelper::$settings['encryption_key'] = '';
+
+        $this->assertSame(EncryptionVectors::PLAINTEXT, TestableEncryptionHelper::encrypt(EncryptionVectors::PLAINTEXT));
+    }
+
+    public function testEncryptProducesPayloadWithSeparatorAndUrlSafeBase64(): void
+    {
+        $payload = TestableEncryptionHelper::encrypt(EncryptionVectors::PLAINTEXT);
+        $parts = explode('|=|', $payload);
+
+        $this->assertCount(2, $parts);
+        $this->assertStringNotContainsString('+', $parts[0] . $parts[1]);
+        $this->assertStringNotContainsString('/', $parts[0] . $parts[1]);
+        $this->assertStringNotContainsString('=', $parts[0] . $parts[1]);
+    }
+
+    public function testDecryptReturnsNullForBlankInput(): void
+    {
+        $this->assertNull(TestableEncryptionHelper::decrypt(''));
+        $this->assertNull(TestableEncryptionHelper::decrypt('   '));
+    }
+
+    public function testDecryptReturnsPlaintextWhenPayloadHasNoSeparator(): void
+    {
+        $this->assertSame('not-encrypted', TestableEncryptionHelper::decrypt('not-encrypted'));
+    }
+
+    public function testDecryptRestoresIndependentCiphertextVector(): void
+    {
+        $this->assertSame(
+            EncryptionVectors::PLAINTEXT,
+            TestableEncryptionHelper::decrypt(EncryptionVectors::CIPHERTEXT)
+        );
+    }
+
+    public function testEncryptDecryptRoundTrip(): void
+    {
+        $cipher = TestableEncryptionHelper::encrypt(EncryptionVectors::PLAINTEXT);
+
+        $this->assertSame(EncryptionVectors::PLAINTEXT, TestableEncryptionHelper::decrypt($cipher));
+    }
+
+    public function testDecryptReturnsOriginalPayloadWhenKeyDoesNotMatch(): void
+    {
+        TestableEncryptionHelper::$settings['encryption_key'] = 'wrong-key-wrong-key-wrong-key!!!!';
+
+        $this->assertSame(
+            EncryptionVectors::CIPHERTEXT,
+            TestableEncryptionHelper::decrypt(EncryptionVectors::CIPHERTEXT)
+        );
+    }
 }

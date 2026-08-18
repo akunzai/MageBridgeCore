@@ -63,8 +63,7 @@ class EncryptionHelper
      */
     public static function getEncryptionKey()
     {
-        $key = ConfigModel::load('encryption_key');
-        return $key;
+        return static::loadSetting('encryption_key');
     }
 
     /**
@@ -78,7 +77,7 @@ class EncryptionHelper
      */
     public static function getSaltedKey($string)
     {
-        $key = self::getEncryptionKey();
+        $key = static::getEncryptionKey();
         $salted = md5($key . $string);
 
         return $salted;
@@ -103,16 +102,16 @@ class EncryptionHelper
         }
 
         // Check if encryption was turned off
-        if (ConfigModel::load('encryption') == 0) {
+        if (static::loadSetting('encryption') == 0) {
             return $data;
         }
 
         // Check if SSL is already in use, so encryption is not needed
-        if (ConfigModel::load('protocol') == 'https') {
+        if (static::loadSetting('protocol') == 'https') {
             return $data;
         }
 
-        $key = self::getEncryptionKey();
+        $key = static::getEncryptionKey();
         if (empty($key)) {
             return $data;
         }
@@ -157,12 +156,26 @@ class EncryptionHelper
         $encrypted = self::base64_decode($array[0]);
         $iv = self::base64_decode($array[1]);
 
-        $result = openssl_decrypt($encrypted, 'aes-256-cbc', self::getEncryptionKey(), 0, $iv);
+        $result = openssl_decrypt($encrypted, 'aes-256-cbc', static::getEncryptionKey(), 0, $iv);
 
         if ($result) {
             return $result;
         }
 
         return $data;
+    }
+
+    /**
+     * Load a MageBridge config value.
+     *
+     * Overridable in tests so encrypt/decrypt/getSaltedKey run the real algorithm.
+     *
+     * @param string $element
+     *
+     * @return mixed
+     */
+    protected static function loadSetting($element)
+    {
+        return ConfigModel::load($element);
     }
 }
