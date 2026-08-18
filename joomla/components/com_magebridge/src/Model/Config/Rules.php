@@ -63,6 +63,34 @@ final class Rules
      *
      * @return array<string, mixed>
      */
+    /**
+     * Lift jform[config] and legacy config[] into top-level keys.
+     *
+     * @param array<string, mixed> $post
+     *
+     * @return array<string, mixed>
+     */
+    public static function flattenPostedConfig(array $post): array
+    {
+        if (isset($post['jform']['config']) && is_array($post['jform']['config'])) {
+            foreach ($post['jform']['config'] as $name => $value) {
+                $post[$name] = $value;
+            }
+
+            unset($post['jform']);
+        }
+
+        if (isset($post['config']) && is_array($post['config'])) {
+            foreach ($post['config'] as $name => $value) {
+                $post[$name] = $value;
+            }
+
+            unset($post['config']);
+        }
+
+        return $post;
+    }
+
     public static function omitBlankSecrets(array $post): array
     {
         foreach (['api_key', 'http_password', 'encryption_key'] as $secret) {

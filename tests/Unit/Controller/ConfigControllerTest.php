@@ -8,10 +8,7 @@ use MageBridge\Component\MageBridge\Site\Model\Config\Rules;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for ConfigController::fixPost() method.
- *
- * Since fixPost is a private method, we use reflection to test it.
- * This tests the core logic of normalizing POST data from different formats.
+ * Tests for ConfigController::fixPost() flatten + omitBlankSecrets.
  */
 final class ConfigControllerTest extends TestCase
 {
@@ -189,34 +186,12 @@ final class ConfigControllerTest extends TestCase
     }
 
     /**
-     * Call the fixPost method using a simplified implementation.
+     * @param array<string, mixed> $post
      *
-     * This mimics the actual fixPost logic without requiring Joomla dependencies.
-     *
-     * @param array $post Posted configuration data
-     *
-     * @return array Normalized post data
+     * @return array<string, mixed>
      */
     private function callFixPost(array $post): array
     {
-        // Extract config array from jform if present (Joomla form format: jform[config][field])
-        if (isset($post['jform']['config']) && is_array($post['jform']['config'])) {
-            foreach ($post['jform']['config'] as $name => $value) {
-                $post[$name] = $value;
-            }
-
-            unset($post['jform']);
-        }
-
-        // Also handle legacy format (config[field])
-        if (isset($post['config']) && is_array($post['config'])) {
-            foreach ($post['config'] as $name => $value) {
-                $post[$name] = $value;
-            }
-
-            unset($post['config']);
-        }
-
-        return Rules::omitBlankSecrets($post);
+        return Rules::omitBlankSecrets(Rules::flattenPostedConfig($post));
     }
 }
