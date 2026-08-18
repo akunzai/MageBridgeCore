@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MageBridge\Tests\Unit\Site\Helper;
 
+use MageBridge\Component\MageBridge\Site\Helper\UserHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,6 +15,7 @@ use PHPUnit\Framework\TestCase;
  * Since UserHelper has Joomla dependencies in some methods,
  * we test the pure logic methods using testable implementations.
  */
+#[CoversClass(UserHelper::class)]
 final class UserHelperTest extends TestCase
 {
     /**
@@ -237,6 +241,46 @@ final class UserHelperTest extends TestCase
         $this->assertContains(5, $result);
         $this->assertNotContains(2, $result);
     }
+
+    public function testIsBackendUserReturnsFalseForEmptyInput(): void
+    {
+        $this->assertFalse(UserHelper::isBackendUser(null));
+        $this->assertFalse(UserHelper::isBackendUser(''));
+        $this->assertFalse(UserHelper::classifyBackendUser(null));
+        $this->assertFalse(UserHelper::classifyBackendUser('admin'));
+    }
+
+    #[DataProvider('legacyUsertypeProvider')]
+    public function testClassifyBackendUserTreatsLegacyAdminUsertypesAsSyncable(string $usertype): void
+    {
+        $user = new BackendUserStub($usertype, true);
+
+        $this->assertFalse(UserHelper::classifyBackendUser($user));
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function legacyUsertypeProvider(): array
+    {
+        return [
+            'super administrator' => ['Super Administrator'],
+            'administrator' => ['Administrator'],
+            'manager' => ['Manager'],
+            'embedded administrator' => ['Shop Administrator'],
+        ];
+    }
+
+    public function testClassifyBackendUserUsesAclWhenUsertypeIsNotLegacyAdmin(): void
+    {
+        $admin = new BackendUserStub('Registered', true);
+        $shopper = new BackendUserStub('Registered', false);
+        $noAcl = (object) ['usertype' => 'Registered'];
+
+        $this->assertTrue(UserHelper::classifyBackendUser($admin));
+        $this->assertFalse(UserHelper::classifyBackendUser($shopper));
+        $this->assertFalse(UserHelper::classifyBackendUser($noAcl));
+    }
 }
 
 /**
@@ -355,5 +399,19 @@ class TestableUserHelper
         }
 
         return $current_groups;
+    }
+}
+
+final class BackendUserStub
+{
+    public function __construct(
+        public ?string $usertype = null,
+        public bool $isAdmin = false,
+    ) {
+    }
+
+    public function authorise(string $action): bool
+    {
+        return $this->isAdmin && $action === 'core.admin';
     }
 }

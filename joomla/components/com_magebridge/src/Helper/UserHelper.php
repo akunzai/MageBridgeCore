@@ -75,12 +75,25 @@ class UserHelper
             }
         }
 
-        // Check the legacy usertype parameter
-        if (!empty($user->usertype) && (stristr($user->usertype, 'administrator') || stristr($user->usertype, 'manager'))) {
+        return self::classifyBackendUser($user);
+    }
+
+    /**
+     * Decide whether a resolved user record is a backend administrator.
+     *
+     * Legacy usertype values containing "administrator" or "manager" are treated
+     * as non-backend so they stay eligible for Magento customer sync.
+     */
+    public static function classifyBackendUser(mixed $user): bool
+    {
+        if (!is_object($user)) {
             return false;
         }
 
-        // Check for ACL access
+        if (!empty($user->usertype) && (stristr((string) $user->usertype, 'administrator') || stristr((string) $user->usertype, 'manager'))) {
+            return false;
+        }
+
         if (method_exists($user, 'authorise') && $user->authorise('core.admin')) {
             return true;
         }

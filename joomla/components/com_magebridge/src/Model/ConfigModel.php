@@ -16,6 +16,7 @@ use MageBridge\Component\MageBridge\Administrator\Table\Config;
 use MageBridge\Component\MageBridge\Site\Helper\UrlHelper;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
 use MageBridge\Component\MageBridge\Site\Model\Config\Defaults;
+use MageBridge\Component\MageBridge\Site\Model\Config\Rules;
 use MageBridge\Component\MageBridge\Site\Model\Config\Value;
 use Yireo\Helper\Helper;
 use Yireo\Model\AbstractModel;
@@ -253,18 +254,16 @@ final class ConfigModel extends AbstractModel
             $value = self::load($element);
         }
 
-        $nonempty = ['host', 'website', 'api_user', 'api_key'];
-
-        if (self::allEmpty() === false && in_array($element, $nonempty, true) && empty($value)) {
+        if (Rules::requiredSettingIsEmpty($element, $value, self::allEmpty())) {
             return sprintf(Text::_('Setting "%s" is empty - Please configure it below'), Text::_($element));
         }
 
         if ($element === 'host') {
-            if ($value !== null && preg_match('/([^a-zA-Z0-9.\-_:]+)/', (string) $value) === 1) {
+            if (Rules::hostnameHasIllegalCharacters($value)) {
                 return Text::_('Hostname contains illegal characters. Note that a hostname is not an URL, but only a fully qualified domainname.');
             }
 
-            if ($value !== null && gethostbyname((string) $value) === $value && preg_match('/([0-9.]+)/', (string) $value) === 0) {
+            if ($value !== null && gethostbyname((string) $value) === $value && !Rules::hostnameLooksLikeIp($value)) {
                 return sprintf(Text::_('DNS lookup of hostname %s failed'), (string) $value);
             }
 
@@ -280,18 +279,16 @@ final class ConfigModel extends AbstractModel
             }
         }
 
-        if ($element === 'api_widgets' && (int) $value !== 1) {
+        if ($element === 'api_widgets' && Rules::apiWidgetsAreDisabled($value)) {
             return Text::_('API widgets are disabled');
         }
 
-        if ($element === 'offline' && (int) $value === 1) {
+        if ($element === 'offline' && Rules::bridgeIsOffline($value)) {
             return Text::_('Bridge is disabled through settings');
         }
 
-        if ($element === 'website' && $value !== null && $value !== '') {
-            if (!is_numeric($value)) {
-                return sprintf(Text::_('Website ID needs to be a numeric value. Current value is "%s"'), (string) $value);
-            }
+        if ($element === 'website' && Rules::websiteIdIsNonNumeric($value)) {
+            return sprintf(Text::_('Website ID needs to be a numeric value. Current value is "%s"'), (string) $value);
         }
 
         if ($element !== 'basedir') {
@@ -302,15 +299,16 @@ final class ConfigModel extends AbstractModel
             return null;
         }
 
-        if (preg_match('/([a-zA-Z0-9.\-_]+)/', (string) $value) === 0) {
+        if (Rules::basedirHasIllegalCharacters($value)) {
             return Text::_('Basedir contains illegal characters');
         }
 
         $root         = UrlHelper::getRootItem();
         $joomlaHost   = Uri::getInstance()->toString(['host']);
         $magentoHost  = (string) self::load('host');
+        $rootRoute    = is_object($root) && !empty($root->route) ? $root->route : null;
 
-        if (!empty($root) && !empty($root->route) && $root->route === $value && $joomlaHost === $magentoHost) {
+        if (Rules::basedirCollidesWithRootAlias((string) $value, $rootRoute, $joomlaHost, $magentoHost)) {
             return Text::_('Magento basedir is same as MageBridge alias, which is not possible');
         }
 
