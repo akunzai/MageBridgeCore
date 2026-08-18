@@ -13,6 +13,7 @@ use Joomla\Input\Input;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use MageBridge\Component\MageBridge\Site\Model\BridgeModel;
+use MageBridge\Component\MageBridge\Site\Model\User\SsoModel;
 
 class SsoController extends BaseController
 {
@@ -31,11 +32,10 @@ class SsoController extends BaseController
         $app = Factory::getApplication();
         $user = $app->getIdentity();
         $app->login($user->get('id'));
-        $redirectUrl = $this->decodeRedirect($app->getInput()->getString('redirect'));
-
-        if ($redirectUrl === '') {
-            $redirectUrl = BridgeModel::getInstance()->getMagentoUrl();
-        }
+        $redirectUrl = SsoModel::resolveRedirectUrl(
+            SsoModel::decodeRedirect($app->getInput()->getString('redirect')),
+            (string) BridgeModel::getInstance()->getMagentoUrl()
+        );
 
         $app->redirect($redirectUrl);
 
@@ -49,20 +49,12 @@ class SsoController extends BaseController
         $user = $app->getIdentity();
         $app->logout($user->get('id'));
 
-        $redirectUrl = $this->decodeRedirect($app->getInput()->getString('redirect'));
-
-        if ($redirectUrl === '') {
-            $redirectUrl = BridgeModel::getInstance()->getMagentoUrl();
-        }
+        $redirectUrl = SsoModel::resolveRedirectUrl(
+            SsoModel::decodeRedirect($app->getInput()->getString('redirect')),
+            (string) BridgeModel::getInstance()->getMagentoUrl()
+        );
 
         $app->redirect($redirectUrl);
         $app->close();
-    }
-
-    private function decodeRedirect(string $value): string
-    {
-        $decoded = base64_decode($value, true);
-
-        return is_string($decoded) ? $decoded : '';
     }
 }
