@@ -193,63 +193,47 @@ class MageBridgeHelper
         $content = self::fixMalformedRootUrls($content);
 
         // Implement a very dirty hack because PayPal converts URLs "&" to "and"
-        $current = UrlHelper::current();
-
-        if (strstr($current, 'paypal') && strstr($current, 'redirect')) {
-            // Try to find the distorted URLs
-            $matches = [];
-            if (preg_match_all('/([^\"\']+)com_magebridgeand([^\"\']+)/', $content, $matches)) {
-                foreach ($matches[0] as $match) {
-                    // Replace the wrong "and" words with "&" again
-                    $url = str_replace('com_magebridgeand', 'com_magebridge&', $match);
-                    $url = str_replace('rootand', 'root&', $url);
-
-                    // Replace the wrong URL with its correction
-                    $content = str_replace($match, $url, $content);
-                }
-            }
+        if (self::isPaypalRedirectRequest(UrlHelper::current())) {
+            $content = self::repairPaypalAndUrls($content);
         }
 
         // Replace all uenc-URLs from Magento with URLs parsed through JRoute
-        $matches = [];
         $replaced = [];
 
-        if (preg_match_all('/\/uenc\/([a-zA-Z0-9\-\_\,]+)/', $content, $matches)) {
-            foreach ($matches[1] as $match) {
-                // Decode the match
-                $original_url = EncryptionHelper::base64_decode($match);
-                $url = $original_url;
-                $url = UrlHelper::stripUrl($url);
+        foreach (self::extractUencTokens($content) as $match) {
+            // Decode the match
+            $original_url = EncryptionHelper::base64_decode($match);
+            $url = $original_url;
+            $url = UrlHelper::stripUrl($url);
 
-                // Convert the non-SEF URL to a SEF URL
-                if (preg_match('/^index.php\?option=com_magebridge/', $url)) {
-                    // Parse the URL but do NOT turn it into SEF because of Mage_Core_Controller_Varien_Action::_isUrlInternal()
-                    $url = self::filterUrl(str_replace('/', urldecode('/'), $url), false);
+            // Convert the non-SEF URL to a SEF URL
+            if (preg_match('/^index.php\?option=com_magebridge/', $url)) {
+                // Parse the URL but do NOT turn it into SEF because of Mage_Core_Controller_Varien_Action::_isUrlInternal()
+                $url = self::filterUrl(str_replace('/', urldecode('/'), $url), false);
+                $url = $bridge->getJoomlaBridgeSefUrl($url);
+            } else {
+                if (!preg_match('/^(http|https)/', $url)) {
                     $url = $bridge->getJoomlaBridgeSefUrl($url);
-                } else {
-                    if (!preg_match('/^(http|https)/', $url)) {
-                        $url = $bridge->getJoomlaBridgeSefUrl($url);
-                    }
-                    $url = preg_replace('/\?SID=([a-zA-Z0-9\-\_]{12,42})/', '', $url);
                 }
+                $url = self::stripSidFromUrl($url);
+            }
 
-                // Extra check on HTTPS
-                if (Uri::getInstance()
-                        ->isSSL() == true
-                ) {
-                    $url = str_replace('http://', 'https://', $url);
-                } else {
-                    $url = str_replace('https://', 'http://', $url);
-                }
+            // Extra check on HTTPS
+            if (Uri::getInstance()
+                    ->isSSL() == true
+            ) {
+                $url = str_replace('http://', 'https://', $url);
+            } else {
+                $url = str_replace('https://', 'http://', $url);
+            }
 
-                // Replace the URL in the content
-                if ($original_url != $url && $original_url . '/' != $url && !in_array($match, $replaced)) {
-                    DebugModel::getInstance()
-                        ->notice('Translating uenc-URL from ' . $original_url . ' to ' . $url);
-                    $base64_url = EncryptionHelper::base64_encode($url);
-                    $content = str_replace($match, $base64_url, $content);
-                    $replaced[] = $match;
-                }
+            // Replace the URL in the content
+            if (self::shouldRewriteUenc($original_url, $url) && !in_array($match, $replaced, true)) {
+                DebugModel::getInstance()
+                    ->notice('Translating uenc-URL from ' . $original_url . ' to ' . $url);
+                $base64_url = EncryptionHelper::base64_encode($url);
+                $content = str_replace($match, $base64_url, $content);
+                $replaced[] = $match;
             }
         }
 
@@ -269,14 +253,11 @@ class MageBridgeHelper
         }
 
         // Clean-up left-overs
-        $content = str_replace('?___SID=U', '', $content);
-        $content = str_replace('?___SID=S', '', $content);
-        $content = preg_replace('/\?SID=([a-zA-Z0-9\-\_]{12,42})/', '?', $content);
-        $content = str_replace('?&amp;', '?', $content);
+        $content = self::stripSidLeftovers($content);
 
         // Remove all __store information
         if (ConfigModel::load('filter_store_from_url') == 1) {
-            $content = preg_replace('/\?___store=([a-zA-Z0-9]+)/', '', $content);
+            $content = self::stripStoreQuery($content);
         }
 
         // Remove double-slashes
@@ -301,6 +282,64 @@ class MageBridgeHelper
         }
 
         return $content;
+    }
+
+    public static function isPaypalRedirectRequest(?string $current): bool
+    {
+        return is_string($current) && str_contains($current, 'paypal') && str_contains($current, 'redirect');
+    }
+
+    public static function repairPaypalAndUrls(string $content): string
+    {
+        $matches = [];
+
+        if (preg_match_all('/([^\"\']+)com_magebridgeand([^\"\']+)/', $content, $matches) < 1) {
+            return $content;
+        }
+
+        foreach ($matches[0] as $match) {
+            $url = str_replace('com_magebridgeand', 'com_magebridge&', $match);
+            $url = str_replace('rootand', 'root&', $url);
+            $content = str_replace($match, $url, $content);
+        }
+
+        return $content;
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function extractUencTokens(string $content): array
+    {
+        if (preg_match_all('/\/uenc\/([a-zA-Z0-9\-\_\,]+)/', $content, $matches) !== false && !empty($matches[1])) {
+            return $matches[1];
+        }
+
+        return [];
+    }
+
+    public static function shouldRewriteUenc(string $original, string $rewritten): bool
+    {
+        return $original !== $rewritten && $original . '/' !== $rewritten;
+    }
+
+    public static function stripSidFromUrl(string $url): string
+    {
+        return (string) preg_replace('/\?SID=([a-zA-Z0-9\-\_]{12,42})/', '', $url);
+    }
+
+    public static function stripSidLeftovers(string $content): string
+    {
+        $content = str_replace('?___SID=U', '', $content);
+        $content = str_replace('?___SID=S', '', $content);
+        $content = (string) preg_replace('/\?SID=([a-zA-Z0-9\-\_]{12,42})/', '?', $content);
+
+        return str_replace('?&amp;', '?', $content);
+    }
+
+    public static function stripStoreQuery(string $content): string
+    {
+        return (string) preg_replace('/\?___store=([a-zA-Z0-9]+)/', '', $content);
     }
 
     /**
