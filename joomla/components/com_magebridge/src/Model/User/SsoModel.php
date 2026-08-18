@@ -46,13 +46,95 @@ final class SsoModel
         $this->debug  = DebugModel::getInstance();
     }
 
+    public static function decodeRedirect(string $value): string
+    {
+        $decoded = base64_decode($value, true);
+
+        return is_string($decoded) ? $decoded : '';
+    }
+
+    public static function resolveRedirectUrl(string $decoded, string $fallback): string
+    {
+        return $decoded === '' ? $fallback : $decoded;
+    }
+
+    public static function appNameForClient(bool $isAdministrator): string
+    {
+        return $isAdministrator ? 'admin' : 'frontend';
+    }
+
+    /**
+     * @param array<string, mixed>|null $user
+     */
+    public static function canStartSsoLogin(?array $user): bool
+    {
+        return !empty($user) && (!empty($user['email']) || !empty($user['username']));
+    }
+
+    public static function canStartSsoLogout(mixed $username): bool
+    {
+        return !empty($username);
+    }
+
+    /**
+     * @param array<string, mixed> $user
+     */
+    public static function userIdentifierForApp(array $user, string $appName): string
+    {
+        if ($appName === 'admin') {
+            return (string) ($user['username'] ?? '');
+        }
+
+        if (!empty($user['email'])) {
+            return (string) $user['email'];
+        }
+
+        return (string) ($user['username'] ?? '');
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function loginQueryParts(string $appName, string $baseUrl, string $userHash, string $token): array
+    {
+        return [
+            'sso=login',
+            'app=' . $appName,
+            'base=' . base64_encode($baseUrl),
+            'userhash=' . $userHash,
+            'token=' . $token,
+        ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function logoutQueryParts(string $appName, string $redirectUrl, string $userHash, string $token): array
+    {
+        return [
+            'sso=logout',
+            'app=' . $appName,
+            'redirect=' . base64_encode($redirectUrl),
+            'userhash=' . $userHash,
+            'token=' . $token,
+        ];
+    }
+
+    /**
+     * @param list<string> $arguments
+     */
+    public static function buildSsoUrl(string $bridgeUrl, array $arguments): string
+    {
+        return $bridgeUrl . '?' . implode('&', $arguments);
+    }
+
     public function doSSOLogin($user = null)
     {
         if ($user instanceof User) {
             $user = ArrayHelper::fromObject($user);
         }
 
-        if (empty($user) || (empty($user['email']) && empty($user['username']))) {
+        if (!is_array($user) || !self::canStartSsoLogin($user)) {
             return false;
         }
 
@@ -63,7 +145,7 @@ final class SsoModel
         // Only set magento_redirect if not already set (allows caller to pre-set a custom redirect)
         if ($session->get('magento_redirect') === null) {
             if ($return = $this->app->getInput()->get('return', '', 'base64')) {
-                $return = base64_decode($return);
+                $return = self::decodeRedirect($return);
             } else {
                 $return = UrlHelper::current();
             }
@@ -71,29 +153,11 @@ final class SsoModel
             $session->set('magento_redirect', $return);
         }
 
-        $appName = $this->getCurrentApp();
-
-        if ($appName === 'admin') {
-            $username = $user['username'];
-        } else {
-            if (!empty($user['email'])) {
-                $username = $user['email'];
-            } else {
-                $username = $user['username'];
-            }
-        }
-
-        $token = Session::getFormToken();
-
-        $arguments = [
-            'sso=login',
-            'app=' . $appName,
-            'base=' . base64_encode(Uri::base()),
-            'userhash=' . EncryptionHelper::encrypt($username),
-            'token=' . $token,
-        ];
-
-        $url = $this->bridge->getMagentoBridgeUrl() . '?' . implode('&', $arguments);
+        $appName  = $this->getCurrentApp();
+        $username = self::userIdentifierForApp($user, $appName);
+        $token    = Session::getFormToken();
+        $arguments = self::loginQueryParts($appName, Uri::base(), EncryptionHelper::encrypt($username), $token);
+        $url = self::buildSsoUrl((string) $this->bridge->getMagentoBridgeUrl(), $arguments);
 
         $this->debug->trace('SSO: Sending arguments', $arguments);
         $this->app->redirect($url);
@@ -103,25 +167,15 @@ final class SsoModel
 
     public function doSSOLogout($username = null)
     {
-        if (empty($username)) {
+        if (!self::canStartSsoLogout($username)) {
             return false;
         }
 
-        $appName = $this->getCurrentApp();
-
-        $token = Session::getFormToken();
-
-        $redirect = $this->getCurrentUrl();
-
-        $arguments = [
-            'sso=logout',
-            'app=' . $appName,
-            'redirect=' . base64_encode($redirect),
-            'userhash=' . EncryptionHelper::encrypt($username),
-            'token=' . $token,
-        ];
-
-        $url = $this->bridge->getMagentoBridgeUrl() . '?' . implode('&', $arguments);
+        $appName   = $this->getCurrentApp();
+        $token     = Session::getFormToken();
+        $redirect  = $this->getCurrentUrl();
+        $arguments = self::logoutQueryParts($appName, $redirect, EncryptionHelper::encrypt((string) $username), $token);
+        $url       = self::buildSsoUrl((string) $this->bridge->getMagentoBridgeUrl(), $arguments);
 
         $this->debug->notice("SSO: Logout of '$username' from " . $appName);
         $this->app->redirect($url);
@@ -172,7 +226,7 @@ final class SsoModel
 
     public function getCurrentApp()
     {
-        return $this->app->isClient('administrator') ? 'admin' : 'frontend';
+        return self::appNameForClient($this->app->isClient('administrator'));
     }
 
     public function getCurrentUrl()
