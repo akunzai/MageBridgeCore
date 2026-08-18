@@ -44,6 +44,10 @@ export const JoomlaSiteUrls = {
     cms: '/index.php?option=com_magebridge&view=cms',
     catalog: '/index.php?option=com_magebridge&view=root&request=catalog',
     customer: '/index.php?option=com_magebridge&view=root&request=customer/account',
+    store: '/index.php/store',
+    cart: '/index.php/store?request=checkout/cart',
+    checkout: '/index.php/store?request=checkout/onepage',
+    simpleProduct: '/index.php/store?request=chelsea-tee-720.html',
   },
 } as const;
 

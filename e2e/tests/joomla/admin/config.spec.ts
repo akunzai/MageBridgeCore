@@ -78,6 +78,32 @@ test.describe('MageBridge Admin - Configuration Page', () => {
     });
   });
 
+  test.describe('Persist configuration', () => {
+    test('should keep Other settings after Save and reload', async ({
+      page,
+    }) => {
+      const marker = `e2e-persist-${Date.now()}`;
+      const httpUser = page.locator('input[name="jform[config][http_user]"]');
+
+      await expect(httpUser).toBeVisible();
+      const previous = await httpUser.inputValue();
+
+      try {
+        await httpUser.fill(marker);
+        await page.getByRole('button', { name: 'Save', exact: true }).click();
+        await expect(page.locator('#adminForm')).toBeVisible();
+
+        await page.goto(JoomlaAdminUrls.magebridge.config);
+        await expect(httpUser).toHaveValue(marker);
+      } finally {
+        await page.goto(JoomlaAdminUrls.magebridge.config);
+        await httpUser.fill(previous);
+        await page.getByRole('button', { name: 'Save', exact: true }).click();
+        await expect(page.locator('#adminForm')).toBeVisible();
+      }
+    });
+  });
+
   test.describe('Import/Export Functionality', () => {
     test('should display Export button in toolbar', async ({ page }) => {
       const exportButton = page.getByRole('button', { name: 'Export', exact: true });

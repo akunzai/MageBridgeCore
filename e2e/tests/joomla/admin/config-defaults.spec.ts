@@ -28,38 +28,32 @@ test.describe('MageBridge Admin - Configuration Defaults', () => {
       const offlineNo = page.locator('input[id$="offline0"]');
       await expect(offlineNo).toBeChecked();
       
-      // Users tab - enable_sso (Note: install.sh sets this to "Yes" for cart sync)
+      // Users tab - enable_sso (install.sh sets this to "Yes" for cart sync)
       await page.getByRole('tab', { name: 'Users' }).click();
       const enableSsoYes = page.locator('input[id$="enable_sso1"]');
       await expect(enableSsoYes).toBeChecked();
-      
-      // Users tab - enable_usersync (remains default "No")
-      const enableUsersyncNo = page.locator('input[id$="enable_usersync0"]');
-      await expect(enableUsersyncNo).toBeChecked();
-      
-      // CSS tab - disable_default_css
+
+      // Users tab - enable_usersync (Defaults.php is 1)
+      const enableUsersyncYes = page.locator('input[id$="enable_usersync1"]');
+      await expect(enableUsersyncYes).toBeChecked();
+
+      // CSS tab - disable_default_css (Defaults.php is 1)
       await page.getByRole('tab', { name: 'CSS' }).click();
-      const disableDefaultCssNo = page.locator('input[id$="disable_default_css0"]');
-      await expect(disableDefaultCssNo).toBeChecked();
+      const disableDefaultCssYes = page.locator('input[id$="disable_default_css1"]');
+      await expect(disableDefaultCssYes).toBeChecked();
     });
 
-    test('should verify all 51 boolean fields have default="0" attribute in form XML', async ({
+    test('should keep unset booleans at their PHP defaults', async ({
       page,
     }) => {
-      // This test verifies the fix was applied correctly by checking
-      // that boolean fields render with "No" selected by default
-      
       await page.goto(JoomlaAdminUrls.magebridge.config);
       await page.waitForSelector('#adminForm');
-      
-      // Count all radio buttons with value="0" that are checked
-      // Each boolean field should have its "No" option checked by default
+
+      // XML default="0" is not the runtime default. Unbound keys use Defaults.php.
       const checkedNoRadios = page.locator('input[type="radio"][value="0"]:checked');
-      const count = await checkedNoRadios.count();
-      
-      // We expect at least 40 boolean fields to have "No" selected
-      // (some fields might not be boolean or might have different defaults)
-      expect(count).toBeGreaterThanOrEqual(40);
+      const checkedYesRadios = page.locator('input[type="radio"][value="1"]:checked');
+      expect(await checkedNoRadios.count()).toBeGreaterThanOrEqual(15);
+      expect(await checkedYesRadios.count()).toBeGreaterThanOrEqual(15);
     });
   });
 });
