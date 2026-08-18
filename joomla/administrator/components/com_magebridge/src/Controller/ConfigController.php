@@ -249,23 +249,7 @@ class ConfigController extends BaseController
      */
     private function fixPost(array $post): array
     {
-        // Extract config array from jform if present (Joomla form format: jform[config][field])
-        if (isset($post['jform']['config']) && is_array($post['jform']['config'])) {
-            foreach ($post['jform']['config'] as $name => $value) {
-                $post[$name] = $value;
-            }
-
-            unset($post['jform']);
-        }
-
-        // Also handle legacy format (config[field])
-        if (isset($post['config']) && is_array($post['config'])) {
-            foreach ($post['config'] as $name => $value) {
-                $post[$name] = $value;
-            }
-
-            unset($post['config']);
-        }
+        $post = Rules::flattenPostedConfig($post);
 
         // Get raw values for sensitive fields (passwords may contain special chars)
         $rawApiKey = $this->input->post->get('api_key', '', 'raw');

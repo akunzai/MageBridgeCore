@@ -164,6 +164,24 @@ final class ConfigCheckTest extends TestCase
         $this->assertSame('abc', $post['encryption_key']);
     }
 
+    public function testFlattenPostedConfigLiftsJformThenLegacy(): void
+    {
+        $post = Rules::flattenPostedConfig([
+            'jform' => ['config' => ['host' => 'jform.host', 'api_key' => '']],
+            'config' => ['port' => '443'],
+            'option' => 'com_magebridge',
+        ]);
+
+        $this->assertSame('jform.host', $post['host']);
+        $this->assertSame('443', $post['port']);
+        $this->assertSame('', $post['api_key']);
+        $this->assertSame('com_magebridge', $post['option']);
+        $this->assertArrayNotHasKey('jform', $post);
+        $this->assertArrayNotHasKey('config', $post);
+
+        $this->assertArrayNotHasKey('api_key', Rules::omitBlankSecrets($post));
+    }
+
     public function testFormValuesLetsStoredRowsOverrideDefaults(): void
     {
         $values = Rules::formValues(
