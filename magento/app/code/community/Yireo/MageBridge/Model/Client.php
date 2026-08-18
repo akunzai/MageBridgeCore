@@ -71,9 +71,7 @@ class Yireo_MageBridge_Model_Client
         }
 
         // Make sure we are working with an array
-        if (!is_array($params)) {
-            $params = [];
-        }
+        $params = Yireo_MageBridge_Helper_JsonrpcPayload::normalizeParams($params);
 
         // Initialize the API-client
         $auth = $this->getApiAuthArray($store);

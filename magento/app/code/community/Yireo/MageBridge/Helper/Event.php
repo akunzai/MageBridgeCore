@@ -20,6 +20,16 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
      */
     public function convertEventName($event)
     {
+        return self::camelCaseEventName($event);
+    }
+
+    /**
+     * @param string $event
+     *
+     * @return string
+     */
+    public static function camelCaseEventName($event)
+    {
         $event_parts = explode('_', $event);
         $event = 'mage';
         foreach ($event_parts as $part) {
@@ -284,6 +294,16 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
      */
     public function cleanAssoc($assoc)
     {
+        return self::withoutEmptyAssoc($assoc);
+    }
+
+    /**
+     * @param mixed $assoc
+     *
+     * @return mixed
+     */
+    public static function withoutEmptyAssoc($assoc)
+    {
         if (!empty($assoc)) {
             foreach ($assoc as $name => $value) {
                 if (empty($value)) {
@@ -291,6 +311,7 @@ class Yireo_MageBridge_Helper_Event extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $assoc;
     }
 }

@@ -15,6 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherInterface;
+use MageBridge\Component\MageBridge\Site\Model\Product\SkuRules;
 use Yireo\Helper\Helper;
 
 // No direct access
@@ -258,51 +259,6 @@ class MageBridgeConnectorProduct extends MageBridgeConnector
      */
     protected function matchSku($sku, $rule)
     {
-        $sku  = trim($sku);
-        $rule = trim($rule);
-
-        // Match the filter ALL
-        if (strtoupper($rule) == 'ALL') {
-            return true;
-        }
-
-        // Simple equalling
-        if ($rule === $sku) {
-            return true;
-        }
-
-        // Comma-separated listing of rules
-        if (strstr($rule, ',')) {
-            $subrules = explode(',', $rule);
-
-            foreach ($subrules as $subrule) {
-                $match = $this->matchSku($sku, $subrule);
-
-                if (!empty($match) && $match === true) {
-                    return true;
-                }
-            }
-        }
-
-        // Simple simulation of LIKE-statement
-        if (strstr($rule, '%')) {
-            $s = str_replace('%', '', $rule);
-
-            // Start with %
-            if (preg_match('/^\%/', $rule)) {
-                if (substr($sku, strlen($sku) - strlen($s)) == $s) {
-                    return true;
-                }
-            }
-
-            // End with %
-            if (preg_match('/\%$/', $rule)) {
-                if (substr($sku, 0, strlen($s)) == $s) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return SkuRules::match((string) $sku, (string) $rule);
     }
 }
