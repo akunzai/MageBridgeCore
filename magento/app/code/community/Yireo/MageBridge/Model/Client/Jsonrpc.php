@@ -42,28 +42,21 @@ class Yireo_MageBridge_Model_Client_Jsonrpc
     public function makeCall($url, $method, $auth, $params = [], $store = null)
     {
         // Get the authentication data
-        $method = preg_replace('/^magebridge\./', '', $method);
+        $method = Yireo_MageBridge_Helper_JsonrpcPayload::stripMethodPrefix($method);
 
         // If these values are not set, we are unable to continue
-        if (empty($url) || $auth === false) {
+        if (Yireo_MageBridge_Helper_JsonrpcPayload::canMakeCall($url, $auth) === false) {
             return false;
         }
 
-        // Add the $auth-array to the parameters
-        $params['api_auth'] = $auth;
-
-        // Construct the POST-data
-        $post = [
-            'method' => $method,
-            'params' => $params,
-            'id' => md5($method),
-        ];
+        $params = Yireo_MageBridge_Helper_JsonrpcPayload::normalizeParams($params);
+        $post = Yireo_MageBridge_Helper_JsonrpcPayload::postBody($method, $params, $auth);
 
         $post = $this->mergeUrlParamsIntoPost($url, $post);
         $encodedPost = Zend_Json_Encoder::encode($post);
         $data = $this->getDataFromResource($url, $encodedPost);
 
-        if (empty($data) || !preg_match('/^\{/', $data)) {
+        if (Yireo_MageBridge_Helper_JsonrpcPayload::replyLooksLikeJson($data) === false) {
             $this->debug->trace('JSON-RPC: Wrong data in JSON-RPC reply', $data);
             $this->debug->trace('JSON-RPC: CURL error', $this->getError());
             return 'Wrong data in JSON-RPC reply';
