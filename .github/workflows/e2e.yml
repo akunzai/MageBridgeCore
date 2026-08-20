@@ -45,11 +45,11 @@ jobs:
           # Always set build-args so Joomla 6 is not a special empty case.
           - version: '6'
             cache-scope: 'joomla-6'
-            joomla-version: '6.1.2'
+            joomla-version: '6.1.3'
             php-version: '8.4'
           - version: '5'
             cache-scope: 'joomla-5'
-            joomla-version: '5.4.7'
+            joomla-version: '5.4.8'
             php-version: '8.3'
     steps:
       - name: Checkout
