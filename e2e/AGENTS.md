@@ -18,7 +18,7 @@ aubr test -- tests/joomla/admin/config.spec.ts   # single file
 ## Joomla 5 Selectors (a11y-first)
 
 | UI element | Selector |
-|------------|----------|
+| --- | --- |
 | Tab | `getByRole('tab', { name: 'API' })` |
 | Toolbar button | `getByRole('button', { name: 'Save', exact: true })` |
 | Table header link | `getByRole('link', { name: 'Label', exact: true })` |

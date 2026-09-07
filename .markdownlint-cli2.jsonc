@@ -7,6 +7,7 @@
     "AGENTS.md",
     "CLAUDE.md",
     "**/AGENTS.md",
+    "**/CLAUDE.md",
     "**/vendor/**",
     "**/node_modules/**",
     "e2e/playwright-report/**",
