@@ -14,6 +14,8 @@ Use `mise install` for the toolchain. Composer scripts define the build and qual
 - Joomla 5/6 path compatibility: @docs/agents/joomla-v6-compat.md
 - Repository gotchas: @docs/agents/lessons-learned.md
 - Issue tracker (GitHub Issues / `gh`): @docs/agents/issue-tracker.md
+- Pull requests: @docs/agents/pull-request.md
+- Verification: @docs/agents/verification.md
 - Triage labels: @docs/agents/triage-labels.md
 - Domain docs (single-context): @docs/agents/domain.md
 

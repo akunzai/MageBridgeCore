@@ -1,17 +1,109 @@
 # Issue tracker: GitHub
 
-Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all operations.
+**This file is English throughout**, sample blocks included, so it reads
+one way to every model.
+
+Issues live as GitHub issues. Use the `gh` CLI for all operations; it
+infers the repo when run inside a clone.
+
+Write issue titles and descriptions in **English**.
 
 ## Conventions
 
-- **Create an issue**: `gh issue create --title "..." --body "..."`. Use a heredoc for multi-line bodies.
-- **Read an issue**: `gh issue view <number> --comments`, filtering comments by `jq` and also fetching labels.
-- **List issues**: `gh issue list --state open --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'` with appropriate `--label` and `--state` filters.
-- **Comment on an issue**: `gh issue comment <number> --body "..."`
-- **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
+- **Create**: `gh issue create --title "..." --body "..."`. Use a heredoc for multi-line bodies.
+- **Read**: `gh issue view <number> --comments` (optionally filtering comments by `jq` and fetching labels).
+- **List**: `gh issue list --state open --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'` with appropriate `--label` and `--state` filters.
+- **Comment**: `gh issue comment <number> --body "..."`
+- **Label**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
 
-Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
+Use a concise descriptive title with no Conventional Commit prefix.
+
+## Description shape
+
+1. Open with what a product manager or a new engineer would observe: the
+   symptom or the request, in plain language. Skip file paths and
+   function names unless the reader cannot otherwise locate the issue.
+2. Add a visual the forge renders inline — a screenshot or recording for
+   a UI bug, a Mermaid diagram for a flow or state problem. Upload it with
+   the repeatable `--attach` flag (`gh issue create --attach './bug.png#The error state'`);
+   alt text follows the path after `#`. Only when capture is genuinely
+   impossible, leave `<!-- screenshot pending: <what it should show> -->`
+   rather than omitting it silently.
+3. Close with a collapsed technical section, so it does not push the
+   human summary below the fold:
+
+```markdown
+<details>
+<summary>Technical details</summary>
+
+suspected cause, related code paths, repro commands, log excerpts
+
+</details>
+```
+
+**No personally identifiable information in any attachment**; use test
+data, masking, or cropping.
+
+## Spec issues
+
+An issue an agent will implement from carries a different shape, because
+its reader is building rather than triaging. Acceptance criteria stay
+above the fold; only background goes into `<details>`.
+
+```markdown
+<one paragraph: the observable outcome, in English>
+
+## Acceptance criteria
+
+- [ ] <checkable statement about observable behaviour>
+- [ ] <one per criterion; a reviewer can tick these without reading code>
+
+## Scope
+
+- In: <paths or areas>
+- Out: <what this issue deliberately does not change>
+
+## Verification
+
+<how to prove it works, per docs/agents/verification.md; say here when
+this needs a deployed environment rather than a local run>
+
+<details>
+<summary>Technical details</summary>
+
+related code paths, prior art, log excerpts, open questions
+
+</details>
+```
+
+Use the vocabulary the project already defines for its domain, so the
+issue, the tests, and the code name the same things.
+
+An issue with unanswered open questions is not ready to implement. Say
+so in the issue rather than letting an agent guess.
+
+## Labels
+
+Triage roles and lifecycle labels are owned by @docs/agents/triage-labels.md.
+List only what it does not cover:
+
+- **Required on every issue**: none
+- **Applied when it applies**:
+  - `bug`: Something isn't working
+  - `feature` / `enhancement`: New feature or request
+  - `documentation`: Improvements or additions to documentation
+  - `breaking`: Breaking Changes
+  - `php`: Pull requests / issues updating PHP code
+  - `javascript`: Pull requests / issues updating JavaScript code
+  - `github_actions`: Pull requests / issues updating GitHub Actions code
+  - `dependencies`: Pull requests / issues updating dependencies
+  - `question`: Further information is requested
+  - `help wanted`: Extra attention is needed
+  - `good first issue`: Good for newcomers
+  - `duplicate`: This issue or pull request already exists
+  - `invalid`: This doesn't seem right
+  - `wontfix`: This will not be worked on
 
 ## Pull requests as a triage surface
 
