@@ -30,7 +30,7 @@ Composer scripts define the primary gate; see `composer.json` for task definitio
 | Code style automatic fix | `composer fix` |
 | Static analysis | `composer exec phpstan -- analyse --memory-limit=1G` |
 | Extension package build | `composer bundle` |
-| E2E test suite (Playwright) | `cd e2e && aube install && aubr test` |
+| E2E test suite (Playwright) | `cd e2e && aube install && aube test` |
 
 ## Human prerequisites
 
