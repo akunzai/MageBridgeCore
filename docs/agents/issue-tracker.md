@@ -85,7 +85,7 @@ so in the issue rather than letting an agent guess.
 
 ## Labels
 
-Triage roles and lifecycle labels are owned by @docs/agents/triage-labels.md.
+Triage roles and lifecycle labels are owned by `docs/agents/triage-labels.md`.
 List only what it does not cover:
 
 - **Required on every issue**: none

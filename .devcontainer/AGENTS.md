@@ -1,7 +1,7 @@
 # Devcontainer — Agent Guidelines
 
 Run all commands on the **host**, not inside the container.
-Initial setup (TLS, hosts): @.devcontainer/README.md
+Initial setup (TLS, hosts): `.devcontainer/README.md`
 
 ## Lifecycle
 

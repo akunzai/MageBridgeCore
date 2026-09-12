@@ -16,7 +16,7 @@ MageBridge is tightly coupled to the Joomla runtime. Unit tests isolate pure log
 2. Strip Joomla hard deps; inject state via properties/constructors
 3. Assert business rules without booting CMS
 
-Joomla-heavy seams (Cache, Route, Query, …) stay in E2E — @e2e/AGENTS.md.
+Joomla-heavy seams (Cache, Route, Query, …) stay in E2E — `e2e/AGENTS.md`.
 
 ## Layout
 
@@ -26,4 +26,4 @@ tests/
 └── Unit/{Controller,Helper,Model,Module,Plugin,Site,Library}/
 ```
 
-Gold-standard specs: @tests/Unit/Helper/UrlHelperTest.php, @tests/Unit/Helper/EncryptionHelperTest.php
+Gold-standard specs: `tests/Unit/Helper/UrlHelperTest.php`, `tests/Unit/Helper/EncryptionHelperTest.php`

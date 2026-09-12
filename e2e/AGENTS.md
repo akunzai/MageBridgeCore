@@ -1,6 +1,6 @@
 # E2E Testing — Agent Guidelines
 
-Playwright against real Joomla + OpenMage in the Docker stack (@.devcontainer/AGENTS.md).
+Playwright against real Joomla + OpenMage in the Docker stack (`.devcontainer/AGENTS.md`).
 
 ## Quick Commands
 
@@ -37,7 +37,7 @@ e2e/
     └── openmage/admin/
 ```
 
-Gold-standard specs: @e2e/tests/joomla/admin/config.spec.ts, @e2e/tests/joomla/admin/home.spec.ts
+Gold-standard specs: `e2e/tests/joomla/admin/config.spec.ts`, `e2e/tests/joomla/admin/home.spec.ts`
 
 ## Config Save and catalog fixtures
 
