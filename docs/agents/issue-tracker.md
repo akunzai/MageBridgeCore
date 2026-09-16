@@ -25,7 +25,9 @@ Use a concise descriptive title with no Conventional Commit prefix.
    symptom or the request, in plain language. Skip file paths and
    function names unless the reader cannot otherwise locate the issue.
 2. Add a visual the forge renders inline — a screenshot or recording for
-   a UI bug, a Mermaid diagram for a flow or state problem. Upload it with
+   a UI bug, a Mermaid diagram for a flow or state problem. In a Mermaid
+   label, write a path parameter as `:id`, not `{id}`, and break lines
+   with `<br/>`, not `\n`. Upload it with
    the repeatable `--attach` flag (`gh issue create --attach './bug.png#The error state'`);
    alt text follows the path after `#`. Only when capture is genuinely
    impossible, leave `<!-- screenshot pending: <what it should show> -->`
