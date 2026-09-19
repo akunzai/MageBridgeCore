@@ -63,6 +63,8 @@ Credentials come from GitHub repository secrets.
 
 - Recording: Playwright trace and video artifacts (`e2e/playwright-report`) — fallback: test terminal output and summary
 - Screenshots: Playwright failure screenshots (`e2e/test-results`)
+- UI locale: **`en`**. The extension UI is English. Browser automation
+  defaults to `en-US`, which matches. Captions follow English.
 
 **This document is where the capture rules live**, and the request
 document points here rather than restating them. A capture taken on the
