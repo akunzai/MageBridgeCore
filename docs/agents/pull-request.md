@@ -10,8 +10,7 @@ characters — they live in history and get searched by tooling.
 ## Preparing
 
 - Work on a feature branch. Never prepare a request from the default branch.
-- Prefix the title with a Conventional Commit type, matching this repo's merged
-  history.
+- Use a concise descriptive title with no Conventional Commit prefix, because one request may carry more than one kind of change.
 - Link a tracked issue with `Closes #<n>` only when merge should auto-close
   it. If there is no tracked issue, never leave an unlinked `Closes #` or an
   empty Related Issue heading in the description.
