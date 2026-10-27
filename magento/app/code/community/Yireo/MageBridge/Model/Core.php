@@ -938,7 +938,7 @@ class Yireo_MageBridge_Model_Core
     {
         // Add extra information
         $this->setMetaData('magento_session', session_id());
-        $this->setMetaData('magento_version', Mage::getVersion());
+        $this->setMetaData('magento_version', Mage::getOpenMageVersion());
 
         // Append customer-data
         /** @var Mage_Customer_Model_Session $customerSession */

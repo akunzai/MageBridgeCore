@@ -32,6 +32,9 @@ export default defineConfig({
     actionTimeout: 10000,
     navigationTimeout: 15000,
     video: 'off',
+    launchOptions: {
+      args: ['--host-resolver-rules=MAP *dev.local 127.0.0.1'],
+    },
   },
   projects: [
     {

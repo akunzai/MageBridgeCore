@@ -16,6 +16,7 @@
     "config": {
         "allow-plugins": {
             "aydin-hassan/magento-core-composer-installer": true,
+            "cweagans/composer-patches": false,
             "magento-hackathon/magento-composer-installer": false,
             "openmage/composer-plugin": true,
             "phpstan/extension-installer": true,
