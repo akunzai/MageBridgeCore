@@ -7,8 +7,8 @@ namespace MageBridge\Component\MageBridge\Site\Model\Proxy;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Crypt\Cipher\SodiumCipher;
-use Joomla\CMS\Crypt\Crypt;
+use Joomla\Crypt\Cipher\Sodium as SodiumCipher;
+use Joomla\Crypt\Crypt;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
