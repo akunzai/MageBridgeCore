@@ -59,16 +59,14 @@ class Query
             $component = ComponentHelper::getComponent($componentName);
             $cacheId = 'menuitems_' . $component->id;
             $items = $cache->get($cacheId);
-        }
 
-        if (empty($items)) {
-            /** @var CMSApplication $app */
-            $app = Factory::getApplication();
-            $menu = $app->getMenu();
-            /** @phpstan-ignore-next-line */
-            $items = $menu->getItems('component_id', $component->id);
-            /** @phpstan-ignore-next-line */
-            $cache->store($items, $cacheId);
+            if (empty($items)) {
+                /** @var CMSApplication $app */
+                $app = Factory::getApplication();
+                $menu = $app->getMenu();
+                $items = $menu->getItems('component_id', $component->id);
+                $cache->store($items, $cacheId);
+            }
         }
 
         return $items;
