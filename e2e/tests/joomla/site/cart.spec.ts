@@ -200,7 +200,7 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
         await addToCartButton.click();
 
         // Wait for cart update or product page reload
-        await openmagePage.waitForTimeout(2000);
+        await openmagePage.waitForLoadState('domcontentloaded');
 
         // Check if product was added successfully
         const pageContent = await openmagePage.content();
@@ -212,12 +212,10 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
           await page.goto('/index.php/store');
           await expect(page.locator('#magebridge-content')).toBeVisible({ timeout: 10000 });
 
-          // Wait for potential cart module update
-          await page.waitForTimeout(1000);
-
-          // Step 6: Verify cart module state
+          // Verify cart module state
           // With shared context (shared cookies), cart should sync
           const cartModuleAfter = page.locator('#magebridge-cart');
+          await expect(cartModuleAfter).toBeVisible({ timeout: 5000 });
           const cartContentAfter = await cartModuleAfter.textContent();
 
           expect(cartContentAfter).not.toContain('No items');
@@ -261,7 +259,7 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
         await addToCartButton.click();
 
         // Wait for cart update
-        await openmagePage.waitForTimeout(2000);
+        await openmagePage.waitForLoadState('domcontentloaded');
 
         // Check if product was added successfully
         const pageContent = await openmagePage.content();
@@ -273,12 +271,10 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
           await page.goto('/index.php/store');
           await expect(page.locator('#magebridge-content')).toBeVisible({ timeout: 10000 });
 
-          // Wait for potential cart module update
-          await page.waitForTimeout(1000);
-
-          // Step 6: Verify cart module state
+          // Verify cart module state
           // With separate contexts (isolated cookies), cart should NOT sync
           const cartModuleAfter = page.locator('#magebridge-cart');
+          await expect(cartModuleAfter).toBeVisible({ timeout: 5000 });
           const cartContentAfter = await cartModuleAfter.textContent();
 
           // This is the EXPECTED behavior for separate cookie domains
@@ -320,7 +316,7 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
           await addToCartBtn.click();
           
           // Wait for cart update
-          await page.waitForTimeout(2000);
+          await page.waitForLoadState('domcontentloaded');
           
           // Step 5: Check if cart module updated
           const cartModuleAfter = page.locator('#magebridge-cart');

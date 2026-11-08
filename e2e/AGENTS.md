@@ -5,14 +5,14 @@ Playwright against real Joomla + OpenMage in the Docker stack (`.devcontainer/AG
 ## Quick Commands
 
 ```bash
-cd e2e && aube install
-aube test                                        # all projects
-aube run test:ui                                 # interactive UI
-aube run test:headed                             # headed browser
-aube test -- --project=joomla-admin
-aube test -- --project=joomla-site
-aube test -- --project=openmage-admin
-aube test -- tests/joomla/admin/config.spec.ts   # single file
+cd e2e && bun install
+bun run --bun test                                 # all projects
+bun run test:ui                                    # interactive UI
+bun run test:headed                                # headed browser
+bun run --bun test -- --project=joomla-admin
+bun run --bun test -- --project=joomla-site
+bun run --bun test -- --project=openmage-admin
+bun run --bun test -- tests/joomla/admin/config.spec.ts   # single file
 ```
 
 ## Joomla 5 Selectors (a11y-first)

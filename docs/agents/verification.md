@@ -30,13 +30,13 @@ Composer scripts define the primary gate; see `composer.json` for task definitio
 | Code style automatic fix | `composer fix` |
 | Static analysis | `composer exec phpstan -- analyse --memory-limit=1G` |
 | Extension package build | `composer bundle` |
-| E2E test suite (Playwright) | `cd e2e && aube install && aube test` |
+| E2E test suite (Playwright) | `cd e2e && bun install && bun run --bun test` |
 
 ## Human prerequisites
 
 Run once, by a person. The start command fails until they are done.
 
-- [ ] Install toolchain: `mise install` (PHP 8.4, Composer, Node.js, Aube)
+- [ ] Install toolchain: `mise install` (PHP 8.4, Composer, Bun)
 - [ ] Trust local certificates for Docker stack: `.devcontainer/generate-certs.sh .secrets`
 - [ ] Add local hosts entry: `127.0.0.1 www.dev.local store.dev.local` to `/etc/hosts`
 
