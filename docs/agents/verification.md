@@ -42,7 +42,7 @@ Run once, by a person. The start command fails until they are done.
 
 ## Ports
 
-This stack is reached by hostname (`www.dev.local`, `store.dev.local`) and TLS, so ports cannot be offset. **Only one agent runs the environment at a time**; the lock is `.devcontainer/.lock`.
+Traefik binds host ports `8080` (HTTP) and `8443` (HTTPS) on loopback (`127.0.0.1`), avoiding collisions with host-level services and rootless container engines (such as Podman). This stack is reached by hostname with port 8443 (`www.dev.local:8443`, `store.dev.local:8443`). **Only one agent runs the environment at a time**; the lock is `.devcontainer/.lock`.
 
 ## Changes that need a deployed environment
 

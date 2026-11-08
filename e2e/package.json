@@ -9,7 +9,7 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:report": "playwright show-report",
-    "codegen": "playwright codegen https://www.dev.local"
+    "codegen": "playwright codegen https://www.dev.local:8443"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

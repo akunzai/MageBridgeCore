@@ -18,8 +18,8 @@ env:
   ADMIN_PASSWORD: ChangeTheP@ssw0rd
   OPENMAGE_ADMIN_USERNAME: admin
   OPENMAGE_ADMIN_PASSWORD: ChangeTheP@ssw0rd
-  BASE_URL: https://www.dev.local
-  OPENMAGE_URL: https://store.dev.local
+  BASE_URL: https://www.dev.local:8443
+  OPENMAGE_URL: https://store.dev.local:8443
 
 permissions:
   contents: read
@@ -130,10 +130,10 @@ jobs:
         working-directory: .devcontainer
         run: |
           echo "Testing SSL connection from Joomla to OpenMage..."
-          docker compose exec -T joomla sh -c 'curl -sf https://store.dev.local/api/soap?wsdl > /dev/null && echo "✓ SSL connection successful" || (echo "✗ SSL connection failed" && exit 1)'
+          docker compose exec -T joomla sh -c 'curl -sf https://store.dev.local:8443/api/soap?wsdl > /dev/null && echo "✓ SSL connection successful" || (echo "✗ SSL connection failed" && exit 1)'
 
           echo "Verifying OpenMage SOAP API endpoint..."
-          docker compose exec -T joomla sh -c 'curl -sf https://store.dev.local/api/soap?wsdl | grep -q "OpenMage" && echo "✓ OpenMage SOAP API WSDL available" || (echo "✗ OpenMage SOAP API WSDL NOT available" && exit 1)'
+          docker compose exec -T joomla sh -c 'curl -sf https://store.dev.local:8443/api/soap?wsdl | grep -q "OpenMage" && echo "✓ OpenMage SOAP API WSDL available" || (echo "✗ OpenMage SOAP API WSDL NOT available" && exit 1)'
 
       # Setup development tools using mise
       - name: Setup mise
@@ -245,7 +245,7 @@ jobs:
           echo ""
           echo "=== Network Connectivity Test ==="
           echo "Testing Joomla -> OpenMage connectivity..."
-          docker compose exec joomla sh -c 'curl -ksf https://store.dev.local/api/soap?wsdl > /dev/null 2>&1 && echo "✓ SOAP API WSDL accessible" || echo "✗ SOAP API WSDL NOT accessible"'
+          docker compose exec joomla sh -c 'curl -ksf https://store.dev.local:8443/api/soap?wsdl > /dev/null 2>&1 && echo "✓ SOAP API WSDL accessible" || echo "✗ SOAP API WSDL NOT accessible"'
 
           echo ""
           echo "Testing OpenMage -> MySQL connectivity..."
