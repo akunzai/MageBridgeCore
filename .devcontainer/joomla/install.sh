@@ -10,9 +10,10 @@ if [[ ! -t 0 ]] || [[ ! -t 1 ]]; then
 fi
 
 # Helper function for docker compose exec
+CONTAINER_COMPOSE="${CONTAINER_COMPOSE:-${DOCKER_COMPOSE:-docker compose}}"
 dc_exec() {
   # shellcheck disable=SC2086
-  docker compose exec ${TTY_FLAG} "$@"
+  ${CONTAINER_COMPOSE} exec ${TTY_FLAG} "$@"
 }
 
 # shellcheck disable=1091
@@ -28,6 +29,7 @@ JOOMLA_DB_PASSWORD="${JOOMLA_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:-secret}}"
 JOOMLA_DB_USER="${JOOMLA_DB_USER:-root}"
 JOOMLA_COOKIE_DOMAIN="${JOOMLA_COOKIE_DOMAIN:-}"
 MAGEBRIDGE_HOST="${MAGEBRIDGE_HOST:-store.dev.local}"
+MAGEBRIDGE_PORT="${MAGEBRIDGE_PORT:-8443}"
 MAGEBRIDGE_API_USER="${MAGEBRIDGE_API_USER:-magebridge_api}"
 MAGEBRIDGE_API_KEY="${MAGEBRIDGE_API_KEY:-ChangeTheAp1K3y}"
 
@@ -35,7 +37,7 @@ MAGEBRIDGE_API_KEY="${MAGEBRIDGE_API_KEY:-ChangeTheAp1K3y}"
 joomla_mysql() {
   # Always use -T for MySQL operations (no TTY needed)
   # shellcheck disable=SC2086
-  docker compose exec -T -e MYSQL_PWD="${JOOMLA_DB_PASSWORD}" mysql mysql -u"${JOOMLA_DB_USER}" "${JOOMLA_DB_NAME}" "$@"
+  ${CONTAINER_COMPOSE} exec -T -e MYSQL_PWD="${JOOMLA_DB_PASSWORD}" mysql mysql -u"${JOOMLA_DB_USER}" "${JOOMLA_DB_NAME}" "$@"
 }
 
 echo "Waiting for Joomla container to initialize ..."
@@ -62,7 +64,7 @@ echo "Checking database ..."
 for _ in $(seq 1 20); do
   # Always use -T for MySQL operations (no TTY needed)
   # shellcheck disable=SC2086,SC2312
-  docker compose exec -T -e MYSQL_PWD="${MYSQL_ROOT_PASSWORD:-secret}" mysql mysql -uroot -e 'show databases;' 2>/dev/null | grep -qF 'joomla' && break
+  ${CONTAINER_COMPOSE} exec -T -e MYSQL_PWD="${MYSQL_ROOT_PASSWORD:-secret}" mysql mysql -uroot -e 'show databases;' 2>/dev/null | grep -qF 'joomla' && break
   sleep 1
 done
 
@@ -158,6 +160,7 @@ if dc_exec joomla test -f /var/www/html/cli/joomla.php; then
   joomla_mysql -e "
     INSERT INTO ${JOOMLA_DB_PREFIX}magebridge_config (name, value) VALUES
       ('host', '${MAGEBRIDGE_HOST}'),
+      ('port', '${MAGEBRIDGE_PORT}'),
       ('api_user', '${MAGEBRIDGE_API_USER}'),
       ('api_key', '${MAGEBRIDGE_API_KEY}'),
       ('protocol', 'https'),

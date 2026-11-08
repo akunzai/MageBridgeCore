@@ -24,7 +24,7 @@ export default defineConfig({
     timeout: 5000,
   },
   use: {
-    baseURL: process.env.BASE_URL || 'https://www.dev.local',
+    baseURL: process.env.BASE_URL || 'https://www.dev.local:8443',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     ignoreHTTPSErrors: true,
@@ -86,7 +86,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/openmage-admin.json',
-        baseURL: process.env.OPENMAGE_URL || 'https://store.dev.local',
+        baseURL: process.env.OPENMAGE_URL || 'https://store.dev.local:8443',
       },
       dependencies: ['setup-openmage'],
       testMatch: /openmage\/admin\/.*\.spec\.ts/,

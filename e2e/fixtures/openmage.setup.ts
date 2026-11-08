@@ -8,7 +8,7 @@ const OPENMAGE_ADMIN_FILE = 'playwright/.auth/openmage-admin.json';
  */
 setup('authenticate as OpenMage admin', async ({ page }) => {
   // OpenMage admin URL
-  const baseURL = process.env.OPENMAGE_URL || 'https://store.dev.local';
+  const baseURL = process.env.OPENMAGE_URL || 'https://store.dev.local:8443';
 
   console.log(`Navigating to OpenMage admin: ${baseURL}/admin/`);
 

@@ -182,15 +182,16 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
       expect(cartContentBefore).toContain('No items');
 
       // Step 2: Open OpenMage frontend in a new page (same context = shared cookies)
+      const openmageUrl = process.env.OPENMAGE_URL || 'https://store.dev.local:8443';
       const openmagePage = await context.newPage();
-      await openmagePage.goto('https://store.dev.local/');
+      await openmagePage.goto(`${openmageUrl}/`);
 
       // Wait for OpenMage homepage to load
       await expect(openmagePage.locator('body')).toBeVisible({ timeout: 10000 });
 
       // Step 3: Navigate to a simple product page in OpenMage
       // Using Chelsea Tee (ID 720) - a simple product that doesn't require configuration
-      await openmagePage.goto('https://store.dev.local/chelsea-tee-720.html');
+      await openmagePage.goto(`${openmageUrl}/chelsea-tee-720.html`);
       await expect(openmagePage.locator('.product-view')).toBeVisible({ timeout: 10000 });
 
       // Step 4: Add product to cart in OpenMage
@@ -242,16 +243,16 @@ test.describe('MageBridge Site - Cart Synchronization', () => {
 
       // Step 2: Create a separate browser context for OpenMage (cookies isolated)
       const openmageContext = await browser.newContext({
-        baseURL: 'https://store.dev.local',
+        baseURL: process.env.OPENMAGE_URL || 'https://store.dev.local:8443',
         ignoreHTTPSErrors: true,
       });
       const openmagePage = await openmageContext.newPage();
 
-      await openmagePage.goto('https://store.dev.local/');
+      await openmagePage.goto('/');
       await expect(openmagePage.locator('body')).toBeVisible({ timeout: 10000 });
 
       // Step 3: Navigate to a simple product page in OpenMage
-      await openmagePage.goto('https://store.dev.local/chelsea-tee-720.html');
+      await openmagePage.goto('/chelsea-tee-720.html');
       await expect(openmagePage.locator('.product-view')).toBeVisible({ timeout: 10000 });
 
       // Step 4: Add product to cart in OpenMage

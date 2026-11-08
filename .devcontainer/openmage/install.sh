@@ -11,9 +11,10 @@ if [[ ! -t 0 ]] || [[ ! -t 1 ]]; then
 fi
 
 # Helper function for docker compose exec
+CONTAINER_COMPOSE="${CONTAINER_COMPOSE:-${DOCKER_COMPOSE:-docker compose}}"
 dc_exec() {
   # shellcheck disable=SC2086
-  docker compose exec ${TTY_FLAG} "$@"
+  ${CONTAINER_COMPOSE} exec ${TTY_FLAG} "$@"
 }
 
 # shellcheck disable=1091
@@ -30,8 +31,8 @@ OPENMAGE_COOKIE_DOMAIN="${OPENMAGE_COOKIE_DOMAIN:-}"
 LOCALE="${LOCALE:-en_US}"
 TIMEZONE="${TIMEZONE:-America/New_York}"
 CURRENCY="${CURRENCY:-USD}"
-HTTP_BASE_URL="${HTTP_BASE_URL:-https://store.dev.local}"
-HTTPS_BASE_URL="${HTTPS_BASE_URL:-https://store.dev.local}"
+HTTP_BASE_URL="${HTTP_BASE_URL:-https://store.dev.local:8443}"
+HTTPS_BASE_URL="${HTTPS_BASE_URL:-https://store.dev.local:8443}"
 ENCRYPTION_KEY="${ENCRYPTION_KEY:-}"
 INSTALL_SAMPLE_DATA="${INSTALL_SAMPLE_DATA:-true}"
 SAMPLE_DATA_DIR="${SAMPLE_DATA_DIR:-magento-sample-data-1.9.2.4}"
@@ -44,7 +45,7 @@ echo "Checking database ..."
 for _ in $(seq 1 20); do
   # Always use -T for MySQL operations (no TTY needed)
   # shellcheck disable=SC2086
-  docker compose exec -T -e MYSQL_PWD="${MYSQL_ROOT_PASSWORD:-secret}" mysql mysql -uroot -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
+  ${CONTAINER_COMPOSE} exec -T -e MYSQL_PWD="${MYSQL_ROOT_PASSWORD:-secret}" mysql mysql -uroot -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
   sleep 1
 done
 
@@ -77,7 +78,7 @@ if ! dc_exec openmage test -f app/etc/local.xml; then
     echo "Importing Sample Data into the database ..."
     # Always use -T for MySQL operations (no TTY needed)
     # shellcheck disable=SC2086
-    docker compose exec -T --user www-data openmage sh -c "MYSQL_PWD=${OPENMAGE_DB_PASSWORD} mysql --skip-ssl -h ${OPENMAGE_DB_HOST} -u${OPENMAGE_DB_USER} ${OPENMAGE_DB_NAME} < /var/www/html/${SAMPLE_DATA_SQL}"
+    ${CONTAINER_COMPOSE} exec -T --user www-data openmage sh -c "MYSQL_PWD=${OPENMAGE_DB_PASSWORD} mysql --skip-ssl -h ${OPENMAGE_DB_HOST} -u${OPENMAGE_DB_USER} ${OPENMAGE_DB_NAME} < /var/www/html/${SAMPLE_DATA_SQL}"
 
     echo "Cleaning up Sample Data files ..."
     dc_exec --user www-data openmage rm /tmp/sample_data.tgz

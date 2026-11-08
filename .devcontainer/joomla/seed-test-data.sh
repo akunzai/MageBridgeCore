@@ -12,9 +12,10 @@ if [[ ! -t 0 ]] || [[ ! -t 1 ]]; then
 fi
 
 # Helper function for docker compose exec
+CONTAINER_COMPOSE="${CONTAINER_COMPOSE:-${DOCKER_COMPOSE:-docker compose}}"
 dc_exec() {
   # shellcheck disable=SC2086,SC2248
-  docker compose exec ${TTY_FLAG} "$@"
+  ${CONTAINER_COMPOSE} exec ${TTY_FLAG} "$@"
 }
 
 echo "=================================================="
@@ -35,7 +36,7 @@ JOOMLA_DB_USER="${JOOMLA_DB_USER:-root}"
 mysql_exec() {
   # Always use -T for MySQL operations (no TTY needed)
   # shellcheck disable=SC2086,SC2248
-  docker compose exec -T -e MYSQL_PWD="${JOOMLA_DB_PASSWORD}" mysql mysql -u"${JOOMLA_DB_USER}" "${JOOMLA_DB_NAME}" "$@"
+  ${CONTAINER_COMPOSE} exec -T -e MYSQL_PWD="${JOOMLA_DB_PASSWORD}" mysql mysql -u"${JOOMLA_DB_USER}" "${JOOMLA_DB_NAME}" "$@"
 }
 
 # Function to check if table has data
