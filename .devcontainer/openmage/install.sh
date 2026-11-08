@@ -193,4 +193,4 @@ echo "Refreshing cache ..."
 dc_exec --user www-data openmage n98-magerun cache:flush
 
 echo "Fixing permissions ..."
-dc_exec openmage chown -R www-data:www-data /var/www/html > /dev/null 2>&1
+dc_exec openmage chown -R www-data:www-data /var/www/html > /dev/null 2>&1 || true

@@ -265,4 +265,4 @@ if dc_exec joomla test -f /var/www/html/cli/joomla.php; then
 fi
 
 echo "Fixing permissions ..."
-dc_exec joomla chown -R www-data:www-data /var/www/html
+dc_exec joomla chown -R www-data:www-data /var/www/html > /dev/null 2>&1 || true
