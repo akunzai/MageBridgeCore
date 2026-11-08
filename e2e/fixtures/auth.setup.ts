@@ -36,14 +36,15 @@ setup('authenticate as admin', async ({ page }) => {
     const welcomeDialog = page.getByRole('dialog', {
       name: /welcome to joomla/i,
     });
-    await welcomeDialog.waitFor({ state: 'visible', timeout: 3000 });
-    // Click "Hide Forever" to dismiss the welcome tour permanently
-    await welcomeDialog.getByRole('button', { name: /hide forever/i }).click();
-    // Wait for dialog to be dismissed and overlay to disappear
-    await page.waitForSelector('.shepherd-modal-is-visible', {
-      state: 'detached',
-      timeout: 5000,
-    });
+    if (await welcomeDialog.isVisible()) {
+      // Click "Hide Forever" to dismiss the welcome tour permanently
+      await welcomeDialog.getByRole('button', { name: /hide forever/i }).click();
+      // Wait for dialog to be dismissed and overlay to disappear
+      await page.waitForSelector('.shepherd-modal-is-visible', {
+        state: 'detached',
+        timeout: 5000,
+      });
+    }
   } catch (error) {
     // Dialog didn't appear, which is fine
   }
@@ -51,10 +52,10 @@ setup('authenticate as admin', async ({ page }) => {
   // Handle Joomla Statistics opt-in dialog if it appears
   try {
     const statsButton = page.getByRole('button', { name: 'No', exact: true });
-    await statsButton.waitFor({ state: 'visible', timeout: 3000 });
-    await statsButton.click();
-    // Wait a moment for the action to complete
-    await page.waitForTimeout(1000);
+    if (await statsButton.isVisible()) {
+      await statsButton.click();
+      await statsButton.waitFor({ state: 'hidden', timeout: 2000 });
+    }
   } catch (error) {
     // Dialog didn't appear, which is fine
   }

@@ -141,22 +141,22 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Cache Aube store
-      - name: Cache Aube store
+      # Cache Bun install
+      - name: Cache Bun install
         uses: actions/cache@v6
         with:
-          path: ~/.local/share/aube/store/v1
-          key: ${{ runner.os }}-aube-store-${{ hashFiles('e2e/pnpm-lock.yaml') }}
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-cache-${{ hashFiles('e2e/bun.lock') }}
           restore-keys: |
-            ${{ runner.os }}-aube-store-
+            ${{ runner.os }}-bun-cache-
 
       - name: Install E2E dependencies
         working-directory: e2e
-        run: aube install
+        run: bun install --frozen-lockfile
 
       - name: Get Playwright version
         working-directory: e2e
-        run: echo "PLAYWRIGHT_VERSION=$(aube exec -- playwright --version | cut -d' ' -f2)" >> "$GITHUB_ENV"
+        run: echo "PLAYWRIGHT_VERSION=$(bunx --bun playwright --version | cut -d' ' -f2)" >> "$GITHUB_ENV"
 
       - name: Cache Playwright browsers
         uses: actions/cache@v6
@@ -170,16 +170,16 @@ jobs:
         run: |
           if [ "${{ steps.playwright-cache.outputs.cache-hit }}" != 'true' ]; then
             echo "Cache miss - Installing browsers with system dependencies..."
-            aube exec -- playwright install --with-deps chromium
+            bunx --bun playwright install --with-deps chromium
           else
             echo "Cache hit - Installing system dependencies only..."
-            aube exec -- playwright install-deps chromium
+            bunx --bun playwright install-deps chromium
           fi
 
       # Run E2E tests
       - name: Run E2E tests
         working-directory: e2e
-        run: aube exec -- playwright test --reporter=html,github
+        run: bunx --bun playwright test --reporter=html,github
       - name: Upload Playwright report
         uses: actions/upload-artifact@v7
         if: always()

@@ -33,7 +33,12 @@ export default defineConfig({
     navigationTimeout: 15000,
     video: 'off',
     launchOptions: {
-      args: ['--host-resolver-rules=MAP *dev.local 127.0.0.1'],
+      args: [
+        '--host-resolver-rules=MAP *dev.local 127.0.0.1',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-background-networking',
+      ],
     },
   },
   projects: [
