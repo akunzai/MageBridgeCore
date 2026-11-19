@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../../fixtures/joomla';
 import { JoomlaAdminUrls } from '../../helpers';
 
 test.describe('MageBridge Admin - Configuration Defaults', () => {
