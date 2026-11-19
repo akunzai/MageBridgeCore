@@ -30,7 +30,7 @@ bun run --bun test -- tests/joomla/admin/config.spec.ts   # single file
 ```text
 e2e/
 ├── playwright.config.ts
-├── fixtures/{auth,openmage}.setup.ts
+├── fixtures/{joomla.ts,openmage.setup.ts}
 └── tests/
     ├── helpers/
     ├── joomla/{admin,site}/

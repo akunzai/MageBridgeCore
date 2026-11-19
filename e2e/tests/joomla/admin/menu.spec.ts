@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../../fixtures/joomla';
 
 /**
  * Tests for MageBridge Menu Items (Joomla Menus integration).

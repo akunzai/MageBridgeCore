@@ -43,11 +43,6 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'setup-joomla',
-      testDir: './fixtures',
-      testMatch: /auth\.setup\.ts/,
-    },
-    {
       name: 'setup-openmage',
       testDir: './fixtures',
       testMatch: /openmage\.setup\.ts/,
@@ -58,9 +53,7 @@ export default defineConfig({
       name: 'joomla-admin',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/admin.json',
       },
-      dependencies: ['setup-joomla'],
       testMatch: /joomla\/admin\/.*\.spec\.ts/,
     },
 
@@ -69,9 +62,7 @@ export default defineConfig({
       name: 'joomla-site',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/admin.json',
       },
-      dependencies: ['setup-joomla'],
       testMatch: /joomla\/site\/.*\.spec\.ts/,
       testIgnore: /joomla\/site\/guest\/.*/,
     },
